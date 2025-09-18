@@ -4,16 +4,16 @@ import Milestones from "../components/Home/Milestones";
 import Newsletter from "../components/Home/Newsletter";
 import CityDiscovery from "../components/Home/CityDiscovery";
 import ComminityPosts from "../components/Home/ComminityPosts";
-import PopularDestination from "../components/Home/PopularDestination/popularDestination";
-import NomadFavouriteDestination from "../components/Home/NomadFavouriteDestination/nomadFavouriteDestination";
-import Banner from "../Component/Banner/Banner";
+import Banner from "../Header/Banner";
+import PopularDestination from "../components/Home/PopularDestination";
+import NomadFavouriteDestination from "../components/Home/FavouriteDestination";
 
 const Home = () => {
   return (
     <div>
-      <Banner></Banner>
-      <PopularDestination></PopularDestination>
-      <NomadFavouriteDestination></NomadFavouriteDestination>
+      <Banner />
+      <PopularDestination />
+      <NomadFavouriteDestination />
       <CityDiscovery />
       <ComminityPosts />
       <Reviews />
