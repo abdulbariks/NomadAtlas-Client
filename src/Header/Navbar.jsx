@@ -14,7 +14,7 @@ const Navbar = () => {
       {/* Center - Links (Desktop) */}
 
       <div className="flex justify-between gap-5 items-center">
-      <div className="hidden md:flex gap-5 text-gray-700 font-medium">
+      <div className="hidden md:flex gap-6 text-gray-700 font-medium">
         <Link to="/destinations" className="hover:text-blue-600">
           Destinations
         </Link>
@@ -30,7 +30,7 @@ const Navbar = () => {
       </div>
 
       {/* Right - Buttons (Desktop) */}
-      <div className="hidden md:flex items-center gap-4">
+      <div className="hidden md:flex items-center gap-6">
         <Link
           to="/get-started"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
