@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-base-100 shadow-sm px-6 lg:px-12 py-2 flex items-center justify-between sticky top-0 left-0 z-50">
+    <nav className="w-full bg-white shadow-sm px-6 lg:px-12 py-2 flex items-center justify-between sticky top-0 left-0 z-50">
       {/* Left - Logo */}
       <NomadAtlasLogo />
 
