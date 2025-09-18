@@ -1,5 +1,6 @@
 import React from "react";
 import ComminityPosts from "./HomeComponents/ComminityPosts";
+import CityDiscovery from "./HomeComponents/cityDiscovery";
 
 const Home = () => {
   return (
@@ -8,6 +9,8 @@ const Home = () => {
 
       {/* Community posts */}
       <ComminityPosts></ComminityPosts>
+      {/* city discovery section */}
+      <CityDiscovery></CityDiscovery>
     </div>
   );
 };
