@@ -1,7 +1,9 @@
 import React from "react";
 import { AiOutlineLike } from "react-icons/ai";
+import { BsArrowRight } from "react-icons/bs";
 import { FaComment } from "react-icons/fa";
 import { GoCommentDiscussion } from "react-icons/go";
+import { Link } from "react-router";
 
 const ComminityPosts = () => {
   const data = [
@@ -119,6 +121,7 @@ const ComminityPosts = () => {
             )}
 
             <div className="p-4">
+              {/* post's owner with date */}
               <div className="flex items-center gap-3">
                 <img
                   src={post.avatar}
@@ -133,13 +136,26 @@ const ComminityPosts = () => {
                 </div>
               </div>
 
-              <h3 className="mt-3 text-lg font-semibold hover:underline">
+              {/* post's title */}
+              <h3 className="mt-3 text-lg font-semibold hover:underline cursor-pointer">
                 {post.title}
               </h3>
+
+              {/* post's content */}
               <p className="mt-2 text-sm text-gray-700 line-clamp-3">
-                {post.content}
+                {post.content.length > 100 ? (
+                  <>
+                    {post.content.slice(0, 100)}...{" "}
+                    <Link className="text-blue-600 underline ml-1">
+                      See more
+                    </Link>
+                  </>
+                ) : (
+                  post.content
+                )}
               </p>
 
+              {/* post's tags */}
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {post.tags.map((tag) => (
                   <span
@@ -151,6 +167,7 @@ const ComminityPosts = () => {
                 ))}
               </div>
 
+              {/* post's like & comment */}
               <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
                 <div className="flex items-center gap-4">
                   <button className="flex items-center gap-1 hover:text-red-500">
@@ -165,6 +182,7 @@ const ComminityPosts = () => {
                   </div>
                 </div>
 
+                {/* post's location */}
                 <div className="text-right">
                   <p className="text-xs">{post.location}</p>
                 </div>
@@ -172,6 +190,18 @@ const ComminityPosts = () => {
             </div>
           </article>
         ))}
+      </div>
+
+      {/* See more posts button */}
+      <div className="flex justify-center mt-4">
+        <Link
+          to="/posts"
+          className="group bg-blue-500 py-2 px-5 rounded text-white cursor-pointer 
+               hover:bg-blue-700 transition-all flex items-center justify-center gap-2 hover:scale-105"
+        >
+          <span>See more posts</span>
+          <BsArrowRight className="transform transition-transform duration-300 group-hover:translate-x-2" />
+        </Link>
       </div>
     </div>
   );
