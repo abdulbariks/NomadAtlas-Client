@@ -195,7 +195,7 @@ const ComminityPosts = () => {
       {/* See more posts button */}
       <div className="flex justify-center mt-4">
         <Link
-          to="/posts"
+          to="/community"
           className="group bg-blue-500 py-2 px-5 rounded text-white cursor-pointer 
                hover:bg-blue-700 transition-all flex items-center justify-center gap-2 hover:scale-105"
         >
