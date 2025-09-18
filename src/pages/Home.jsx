@@ -10,7 +10,6 @@ import ComminityPosts from "../components/Home/ComminityPosts";
 const Home = () => {
   return (
     <div>
-      <h2>NomadAtlas Home Page</h2>
       <FavouriteDestination />
       <PopularDestination />
       <CityDiscovery />
