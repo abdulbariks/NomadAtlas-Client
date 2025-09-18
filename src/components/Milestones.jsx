@@ -25,14 +25,14 @@ const Milestones = () => {
   return (
     <div className="text-center mt-10 flex flex-col items-center px-4">
       <div className="max-w-3xl">
-        <h1 className="text-[2.25rem] md:text-[2.75rem] font-extrabold">NomadAtlas — Quick Stats</h1>
+        <h1 className="text-3xl font-extrabold">NomadAtlas — Quick Stats</h1>
         <p className="font-medium opacity-80 mt-3">
           Real city data and a thriving community — everything a nomad needs to pick the best place to live and work.
         </p>
       </div>
 
       <div className="mb-10 md:flex md:flex-row md:gap-6 md:mt-10 flex flex-col gap-6 mt-10 w-full max-w-6xl">
-        {/* Cities Reviewed */}
+       
         <div className="flex-1 bg-white px-8 py-8 rounded-2xl flex flex-col gap-4 items-start shadow-sm">
           <div className="flex items-center gap-4">
             <div className="text-indigo-600">
@@ -50,7 +50,6 @@ const Milestones = () => {
           </p>
         </div>
 
-        {/* Nomad Community Members */}
         <div className="flex-1 bg-white px-8 py-8 rounded-2xl flex flex-col gap-4 items-start shadow-sm">
           <div className="flex items-center gap-4">
             <div className="text-indigo-600">

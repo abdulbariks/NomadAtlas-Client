@@ -13,7 +13,7 @@ const StarRating = ({ value = 4, size = 16 }) => {
                     fill={i < full ? "currentColor" : "none"}
                     stroke="currentColor"
                     strokeWidth="1"
-                    className={`mr-0.5 ${i < full ? "text-orange-400" : "text-gray-300"}`}
+                    className={`mr-0.5 ${i < full ? "text-blue-400" : "text-gray-300"}`}
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden
                 >
@@ -28,11 +28,11 @@ const Reviews = () => {
     return (
         <div>
             <div className="flex justify-center items-center mt-14">
-                <h2 className="text-3xl font-bold">What Nomads Say About NomadAtlas</h2>
+                <h2 className="text-3xl mb-4 font-bold">What Nomads Say About NomadAtlas</h2>
             </div>
 
             <section className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-5 mb-16 items-center lg:items-stretch justify-center px-4">
-                {/* Card 1 */}
+            
                 <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-gray-100 rounded-lg shadow-sm">
                     <div className="flex justify-between items-start pb-4 border-b border-gray-200">
                         <div className="flex items-center space-x-4">
@@ -59,7 +59,7 @@ const Reviews = () => {
                     </div>
                 </div>
 
-                {/* Card 2 */}
+              
                 <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-gray-100 rounded-lg shadow-sm">
                     <div className="flex justify-between items-start pb-4 border-b border-gray-200">
                         <div className="flex items-center space-x-4">
@@ -86,7 +86,6 @@ const Reviews = () => {
                     </div>
                 </div>
 
-                {/* Card 3 */}
                 <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-gray-100 rounded-lg shadow-sm">
                     <div className="flex justify-between items-start pb-4 border-b border-gray-200">
                         <div className="flex items-center space-x-4">
