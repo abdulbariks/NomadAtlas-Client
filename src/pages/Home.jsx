@@ -1,11 +1,14 @@
 import React from "react";
-import Reviews from "./components/Reviews";
+
+import Milestones from "../components/Milestones";
+import Reviews from "../components/Reviews";
 
 const Home = () => {
   return (
     <div>
       <h2>NomadAtlas Home Page</h2>
-      <Reviews />
+      <Reviews/>
+      <Milestones/>
     </div>
   );
 };
