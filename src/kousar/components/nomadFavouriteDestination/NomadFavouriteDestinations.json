@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "image": "https://images.unsplash.com/photo-1508057198894-247b23fe5ade",
+    "title": "Affordable Living",
+    "description": "Discover budget-friendly cities with a low cost of living and a welcoming atmosphere for remote workers."
+  },
+  {
+    "id": 2,
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "title": "Adventure Awaits",
+    "description": "Embark on thrilling adventures, explore breathtaking landscapes, and challenge yourself with new experiences."
+  },
+  {
+    "id": 3,
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "title": "Digital Nomad Hubs",
+    "description": "Connect with a thriving community of digital nomads, find coworking spaces, and network with like-minded individuals."
+  },
+  {
+    "id": 4,
+    "image": "https://images.unsplash.com/photo-1470770903676-69b98201ea1c",
+    "title": "Scenic Escapes",
+    "description": "Work while enjoying stunning natural surroundings, from mountain retreats to lakeside cottages."
+  }
+]

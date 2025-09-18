@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad",
+    "title": "Urban Hubs",
+    "description": "Experience the vibrant energy of bustling cities with coworking spaces, cultural events, and thriving communities."
+  },
+  {
+    "id": 2,
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "title": "Tropical Escapes",
+    "description": "Relax on pristine beaches, enjoy water sports, and embrace a laid-back lifestyle surrounded by palm trees and sunshine."
+  },
+  {
+    "id": 3,
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "title": "Cultural Gems",
+    "description": "Immerse yourself in rich history, explore ancient sites, and connect with local traditions and heritage."
+  },
+  {
+    "id": 4,
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "title": "Nature Retreats",
+    "description": "Escape to the mountains, forests, or lakes for fresh air, scenic views, and a peaceful environment for deep work."
+  }
+]
