@@ -1,4 +1,5 @@
 import React from "react";
+import Banner from "../Component/Banner/Banner";
 import FavouriteDestination from "../components/Home/FavouriteDestination";
 import PopularDestination from "../components/Home/PopularDestination";
 import Reviews from "../components/Home/Reviews";
@@ -10,6 +11,8 @@ import ComminityPosts from "../components/Home/ComminityPosts";
 const Home = () => {
   return (
     <div>
+     <Banner />
+
       <FavouriteDestination />
       <PopularDestination />
       <CityDiscovery />
