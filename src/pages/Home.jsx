@@ -1,6 +1,7 @@
 import React from "react";
 import PopularDestination from "../kousar/components/popularDestination/popularDestination";
 import NomadFavouriteDestination from "../kousar/components/nomadFavouriteDestination/nomadFavouriteDestination";
+import Banner from "../Component/Banner/Banner";
 import Reviews from "../components/Home/Reviews";
 import Milestones from "../components/Home/Milestones";
 import Newsletter from "../components/Home/Newsletter";
@@ -11,6 +12,7 @@ const Home = () => {
   return (
     <div>
       <h2>NomadAtlas Home Page</h2>
+     <Banner />
       <PopularDestination></PopularDestination>
       <NomadFavouriteDestination></NomadFavouriteDestination>
       <CityDiscovery />
