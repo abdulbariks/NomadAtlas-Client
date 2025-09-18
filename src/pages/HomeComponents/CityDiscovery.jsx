@@ -11,6 +11,10 @@ const cities = [
     image: "https://etimg.etb2bimg.com/photo/115997634.cms",
     description:
       "Bali is a tropical paradise famous for its beaches, rice terraces, and vibrant culture – perfect for digital nomads.",
+    livingCost: "$800/month",
+    wifiSpeed: "50 Mbps",
+    safety: "Medium",
+    bestTimeToVisit: "April - October",
   },
   {
     id: 2,
@@ -20,6 +24,10 @@ const cities = [
       "https://en.kampaoh.com/wp-content/uploads/2024/06/SPAIN-2024-06-20T134315.647.jpg",
     description:
       "Lisbon offers beautiful coastal views, rich history, and a thriving remote work community with cafes and coworking spaces.",
+    livingCost: "$1,200/month",
+    wifiSpeed: "80 Mbps",
+    safety: "High",
+    bestTimeToVisit: "May - September",
   },
   {
     id: 3,
@@ -29,6 +37,10 @@ const cities = [
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/30/03/1c/60/caption.jpg?w=600&h=-1&s=1",
     description:
       "Chiang Mai is a peaceful city surrounded by mountains, with affordable living and a popular hub for digital nomads.",
+    livingCost: "$600/month",
+    wifiSpeed: "40 Mbps",
+    safety: "Medium",
+    bestTimeToVisit: "November - February",
   },
   {
     id: 4,
@@ -38,6 +50,10 @@ const cities = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTtT5DSgEEG4zvsjaUcJhWomlM8W_IkxP7Ed08rXNw6B-JOb3XVBtP1oPKzbuUIvh61Ss&usqp=CAU",
     description:
       "Barcelona combines vibrant city life, stunning architecture, and Mediterranean beaches – a great spot for remote work and leisure.",
+    livingCost: "$1,500/month",
+    wifiSpeed: "100 Mbps",
+    safety: "High",
+    bestTimeToVisit: "May - September",
   },
   {
     id: 5,
@@ -47,6 +63,10 @@ const cities = [
       "https://rodinistanbul.com/wp-content/uploads/2023/04/day-trips-from-istanbul-copy-1024x576.jpg",
     description:
       "Tbilisi is known for its charming old town, affordable living, and growing coworking community for digital nomads.",
+    livingCost: "$700/month",
+    wifiSpeed: "60 Mbps",
+    safety: "Medium",
+    bestTimeToVisit: "April - October",
   },
 ];
 
@@ -284,8 +304,11 @@ const CityDiscovery = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <section className="p-6">
-        <h2 className="text-2xl font-bold mb-4 text-center">
+        <h2 className="text-2xl font-bold text-center">
           Discover Cities for Remote Work
+        </h2>
+        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
+          Filter Preview
         </h2>
 
         {/* Filter / City Buttons */}
@@ -320,16 +343,38 @@ const CityDiscovery = () => {
                     alt={findSelectedCity.name}
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
+                  <div className="p-4 space-y-2">
                     <h3 className="text-xl font-semibold text-gray-800">
                       {findSelectedCity.name}
                     </h3>
                     <p className="text-gray-500 text-sm">
                       {findSelectedCity.country}
                     </p>
-                    <p className="mt-3 text-gray-700 text-sm leading-relaxed">
+                    <p className="mt-2 text-gray-700 text-sm leading-relaxed">
                       {findSelectedCity.description}
                     </p>
+
+                    {/* Additional Info */}
+                    <div className="grid grid-cols-2 gap-2 mt-3 text-gray-700 text-sm">
+                      <div>
+                        <span className="font-semibold">Living Cost:</span>{" "}
+                        {findSelectedCity.livingCost}
+                      </div>
+                      <div>
+                        <span className="font-semibold">Wi-Fi Speed:</span>{" "}
+                        {findSelectedCity.wifiSpeed}
+                      </div>
+                      <div>
+                        <span className="font-semibold">Safety:</span>{" "}
+                        {findSelectedCity.safety}
+                      </div>
+                      <div>
+                        <span className="font-semibold">
+                          Best Time to Visit:
+                        </span>{" "}
+                        {findSelectedCity.bestTimeToVisit}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
