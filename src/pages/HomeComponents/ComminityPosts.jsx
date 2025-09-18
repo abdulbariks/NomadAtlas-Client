@@ -1,4 +1,7 @@
 import React from "react";
+import { AiOutlineLike } from "react-icons/ai";
+import { FaComment } from "react-icons/fa";
+import { GoCommentDiscussion } from "react-icons/go";
 
 const ComminityPosts = () => {
   const data = [
@@ -13,7 +16,7 @@ const ComminityPosts = () => {
       likes: 120,
       comments: 30,
       timestamp: "2025-09-01T10:00:00Z",
-      image: "https://source.unsplash.com/featured/?bali,beach",
+      image: "https://etimg.etb2bimg.com/photo/115997634.cms",
       location: "Bali, Indonesia",
     },
     {
@@ -27,7 +30,8 @@ const ComminityPosts = () => {
       likes: 98,
       comments: 22,
       timestamp: "2025-09-02T14:20:00Z",
-      image: "https://source.unsplash.com/featured/?lisbon,portugal",
+      image:
+        "https://en.kampaoh.com/wp-content/uploads/2024/06/SPAIN-2024-06-20T134315.647.jpg",
       location: "Lisbon, Portugal",
     },
     {
@@ -41,7 +45,8 @@ const ComminityPosts = () => {
       likes: 75,
       comments: 18,
       timestamp: "2025-09-03T09:00:00Z",
-      image: "https://source.unsplash.com/featured/?dhaka,city",
+      image:
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/e2/2f/fa/caption.jpg?w=600&h=400&s=1",
       location: "Dhaka, Bangladesh",
     },
     {
@@ -55,7 +60,8 @@ const ComminityPosts = () => {
       likes: 110,
       comments: 25,
       timestamp: "2025-09-04T16:40:00Z",
-      image: "https://source.unsplash.com/featured/?chiangmai,thailand",
+      image:
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/30/03/1c/60/caption.jpg?w=600&h=-1&s=1",
       location: "Chiang Mai, Thailand",
     },
     {
@@ -69,7 +75,8 @@ const ComminityPosts = () => {
       likes: 82,
       comments: 15,
       timestamp: "2025-09-05T11:15:00Z",
-      image: "https://source.unsplash.com/featured/?istanbul,turkey",
+      image:
+        "https://rodinistanbul.com/wp-content/uploads/2023/04/day-trips-from-istanbul-copy-1024x576.jpg",
       location: "Istanbul, Turkey",
     },
     {
@@ -83,13 +90,14 @@ const ComminityPosts = () => {
       likes: 65,
       comments: 10,
       timestamp: "2025-09-06T13:45:00Z",
-      image: "https://source.unsplash.com/featured/?berlin,germany",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTtT5DSgEEG4zvsjaUcJhWomlM8W_IkxP7Ed08rXNw6B-JOb3XVBtP1oPKzbuUIvh61Ss&usqp=CAU",
       location: "Berlin, Germany",
     },
   ];
 
   return (
-    <div>
+    <div className="my-10">
       <h1 className="text-2xl text-blue-900 font-bold text-center mb-6">
         Community posts_
       </h1>
@@ -101,7 +109,7 @@ const ComminityPosts = () => {
             className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow border broder-primary"
           >
             {post.image && (
-              <div className="h-40 w-full overflow-hidden">
+              <div className="h-52 w-full overflow-hidden">
                 <img
                   src={post.image}
                   alt={post.title}
@@ -146,38 +154,13 @@ const ComminityPosts = () => {
               <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
                 <div className="flex items-center gap-4">
                   <button className="flex items-center gap-1 hover:text-red-500">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 15l7-7 7 7"
-                      />
-                    </svg>
+                    <AiOutlineLike className="h-4 w-4 text-gray-600" />
                     <span>{post.likes}</span>
                   </button>
 
                   <div className="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8-1.05 0-2.05-.134-2.99-.38L3 20l1.38-3.01C3.64 15.05 3.5 14.05 3.5 13c0-4.97 3.582-9 8-9s8 4.03 8 9z"
-                      />
-                    </svg>
+                    <GoCommentDiscussion className="h-4 w-4 text-gray-600" />
+
                     <span>{post.comments}</span>
                   </div>
                 </div>
