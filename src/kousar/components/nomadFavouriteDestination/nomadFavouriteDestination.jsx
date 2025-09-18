@@ -26,7 +26,7 @@ const NomadFavouriteDestination = () => {
                             className="w-full h-40 object-cover rounded-lg mb-4"
                         />
                         <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                        <p className="text-gray-600 text-sm">{item.description}</p>
+                        <p className="text-blue-600 text-sm">{item.description}</p>
                     </div>
                 ))}
             </div>
