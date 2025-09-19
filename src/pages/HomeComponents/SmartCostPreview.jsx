@@ -6,23 +6,108 @@ const data = [
   {
     country: "Germany",
     cities: [
-      { name: "Berlin", livingCost: 1500 },
-      { name: "Munich", livingCost: 1800 },
-      { name: "Hamburg", livingCost: 1400 },
+      { name: "Berlin", livingCost: 1500, luxuryScore: 80 },
+      { name: "Munich", livingCost: 1800, luxuryScore: 90 },
+      { name: "Hamburg", livingCost: 1400, luxuryScore: 70 },
+      { name: "Frankfurt", livingCost: 1600, luxuryScore: 85 },
+      { name: "Cologne", livingCost: 1500, luxuryScore: 75 },
     ],
   },
   {
     country: "Spain",
     cities: [
-      { name: "Barcelona", livingCost: 1300 },
-      { name: "Madrid", livingCost: 1200 },
+      { name: "Barcelona", livingCost: 1300, luxuryScore: 80 },
+      { name: "Madrid", livingCost: 1200, luxuryScore: 70 },
+      { name: "Seville", livingCost: 1100, luxuryScore: 65 },
+      { name: "Valencia", livingCost: 1150, luxuryScore: 68 },
+      { name: "Granada", livingCost: 1000, luxuryScore: 60 },
     ],
   },
   {
     country: "Thailand",
     cities: [
-      { name: "Bangkok", livingCost: 800 },
-      { name: "Chiang Mai", livingCost: 600 },
+      { name: "Bangkok", livingCost: 800, luxuryScore: 60 },
+      { name: "Chiang Mai", livingCost: 600, luxuryScore: 50 },
+      { name: "Phuket", livingCost: 900, luxuryScore: 70 },
+      { name: "Pattaya", livingCost: 850, luxuryScore: 65 },
+    ],
+  },
+  {
+    country: "USA",
+    cities: [
+      { name: "New York", livingCost: 3000, luxuryScore: 95 },
+      { name: "Los Angeles", livingCost: 2800, luxuryScore: 90 },
+      { name: "Miami", livingCost: 2500, luxuryScore: 85 },
+      { name: "Chicago", livingCost: 2200, luxuryScore: 80 },
+      { name: "San Francisco", livingCost: 3200, luxuryScore: 92 },
+    ],
+  },
+  {
+    country: "Japan",
+    cities: [
+      { name: "Tokyo", livingCost: 2500, luxuryScore: 90 },
+      { name: "Osaka", livingCost: 2000, luxuryScore: 85 },
+      { name: "Kyoto", livingCost: 1800, luxuryScore: 80 },
+      { name: "Sapporo", livingCost: 1700, luxuryScore: 75 },
+    ],
+  },
+  {
+    country: "Australia",
+    cities: [
+      { name: "Sydney", livingCost: 2400, luxuryScore: 88 },
+      { name: "Melbourne", livingCost: 2200, luxuryScore: 85 },
+      { name: "Brisbane", livingCost: 1800, luxuryScore: 80 },
+      { name: "Perth", livingCost: 1900, luxuryScore: 82 },
+    ],
+  },
+  {
+    country: "Canada",
+    cities: [
+      { name: "Toronto", livingCost: 2000, luxuryScore: 85 },
+      { name: "Vancouver", livingCost: 2100, luxuryScore: 88 },
+      { name: "Montreal", livingCost: 1800, luxuryScore: 80 },
+      { name: "Calgary", livingCost: 1700, luxuryScore: 78 },
+    ],
+  },
+  {
+    country: "France",
+    cities: [
+      { name: "Paris", livingCost: 2500, luxuryScore: 95 },
+      { name: "Lyon", livingCost: 1800, luxuryScore: 80 },
+      { name: "Marseille", livingCost: 1700, luxuryScore: 78 },
+      { name: "Nice", livingCost: 1900, luxuryScore: 82 },
+    ],
+  },
+  {
+    country: "Italy",
+    cities: [
+      { name: "Rome", livingCost: 2200, luxuryScore: 90 },
+      { name: "Milan", livingCost: 2300, luxuryScore: 92 },
+      { name: "Venice", livingCost: 2000, luxuryScore: 88 },
+      { name: "Florence", livingCost: 1800, luxuryScore: 85 },
+    ],
+  },
+  {
+    country: "UK",
+    cities: [
+      { name: "London", livingCost: 2700, luxuryScore: 95 },
+      { name: "Manchester", livingCost: 1800, luxuryScore: 80 },
+      { name: "Edinburgh", livingCost: 1900, luxuryScore: 82 },
+    ],
+  },
+  {
+    country: "UAE",
+    cities: [
+      { name: "Dubai", livingCost: 2600, luxuryScore: 95 },
+      { name: "Abu Dhabi", livingCost: 2500, luxuryScore: 92 },
+      { name: "Sharjah", livingCost: 1800, luxuryScore: 80 },
+    ],
+  },
+  {
+    country: "Singapore",
+    cities: [
+      { name: "Singapore City", livingCost: 2800, luxuryScore: 95 },
+      { name: "Sentosa", livingCost: 2600, luxuryScore: 90 },
     ],
   },
 ];
@@ -60,50 +145,33 @@ const SmartCostPreview = () => {
     })
     .filter((city) => city.days > days);
 
-  // const otherCitiesDays = [];
-  // data.forEach((country) => {
-  //   country.cities.forEach((city) => {
-  //     const daysInCity = Math.floor(budget / (city.livingCost / 30));
-  //     otherCitiesDays.push({
-  //       city: city.name,
-  //       country: country.country,
-  //       days: daysInCity,
-  //     });
-  //   });
-  // });
-
-  // Budget increase scenarios
-  const budgetPlus10 = budget * 1.1;
-  const budgetPlus20 = budget * 1.2;
-
-  const luxuryOptions = [];
-  data.forEach((country) => {
-    country.cities.forEach((city) => {
-      const days10 = Math.floor(budgetPlus10 / (city.livingCost / 30));
-      const days20 = Math.floor(budgetPlus20 / (city.livingCost / 30));
-      if (days10 > 0 || days20 > 0) {
-        luxuryOptions.push({
-          city: city.name,
-          country: country.country,
-          luxuryPoint: city.luxuryPoint,
-          days10,
-          days20,
-        });
-      }
-    });
-  });
+  // with same budget if there any luxury city.
+  const betterLuxuryCities = data.flatMap((country) =>
+    country.cities
+      .map((city) => {
+        // how many days can stay with the same budget
+        const cityDays = Math.floor(budget / (city.livingCost / 30));
+        return { ...city, country: country.country, days: cityDays };
+      })
+      .filter(
+        (city) =>
+          city.luxuryScore > selectedCity?.luxuryScore && // Luxury score higher
+          city.days >= days // Same or more days than selected city
+      )
+  );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 ">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
         Smart Cost Calculator Preview
       </h1>
 
-      <p className="text-3xl font-bold text-blue-500 text-center">
-        Budget Based calculation
+      <p className="text-2xl font-semibold text-blue-600 text-center mb-6">
+        Budget-Based Calculation
       </p>
+
       {/* Budget Input */}
-      <div className="mb-6">
+      <div className="mb-8 max-w-md mx-auto">
         <label className="block font-semibold text-lg text-gray-700 mb-2">
           Enter your travel budget ($)
         </label>
@@ -116,10 +184,10 @@ const SmartCostPreview = () => {
         />
       </div>
 
-      {/* Country and City Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Country & City Selection */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Country Selection */}
-        <div className="bg-white border border-blue-300 rounded-2xl p-6 shadow-sm">
+        <div className="bg-white border border-blue-300 rounded-2xl p-6 shadow-md">
           <p className="text-xl font-semibold text-center mb-4 text-gray-800">
             Select a Country
           </p>
@@ -141,9 +209,9 @@ const SmartCostPreview = () => {
         </div>
 
         {/* City Selection */}
-        <div className="bg-white border border-blue-300 rounded-2xl p-6 shadow-sm">
+        <div className="bg-white border border-blue-300 rounded-2xl p-6 shadow-md">
           <p className="text-xl font-semibold text-center mb-4 text-gray-800">
-            Select a City of{" "}
+            Select a City in{" "}
             <span className="text-blue-600">{selectedCountry}</span>
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
@@ -166,19 +234,19 @@ const SmartCostPreview = () => {
 
       {/* Result & Suggestions */}
       {selectedCountry && selectedCity && budget ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Result Card */}
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-sm">
+          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-md">
             <h3 className="text-2xl font-bold mb-3 text-center">
               Result for{" "}
-              <span className="text-green-600">{selectedCity?.name}</span>,
-              <span className="text-blue-600"> {selectedCountry}</span>
+              <span className="text-green-600">{selectedCity?.name}</span>,{" "}
+              <span className="text-blue-600">{selectedCountry}</span>
             </h3>
             <p className="text-gray-700 text-center text-lg mb-4">
               With a budget of{" "}
               <span className="font-semibold text-green-600">${budget}</span>,
-              you can stay about
-              <span className="font-semibold text-blue-600"> {days} days </span>
+              you can stay about{" "}
+              <span className="font-semibold text-blue-600">{days} days</span>{" "}
               in {selectedCity?.name}.
             </p>
 
@@ -201,7 +269,7 @@ const SmartCostPreview = () => {
           </div>
 
           {/* Suggestions Card */}
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-sm">
+          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-md">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
               Suggestions for You
             </h2>
@@ -210,82 +278,66 @@ const SmartCostPreview = () => {
                 <h3 className="font-semibold text-lg mb-2 text-gray-700">
                   You can stay more than{" "}
                   <span className="text-green-600">{days}</span> days with your
-                  current budget ({" "}
-                  <span className="text-blue-500">{budget}</span> dollers) in
-                  these{" "}
+                  current budget (${budget}) in{" "}
                   <span className="text-green-600">{lowCostCity.length}</span>{" "}
                   cities:
                 </h3>
                 <ul className="list-disc pl-5 text-gray-600 space-y-1">
+                  {lowCostCity.map((city) => (
+                    <li key={city.name}>
+                      <span className="font-medium text-gray-800">
+                        {city.name}
+                      </span>{" "}
+                      ({city.country}) →{" "}
+                      <span className="text-blue-600 font-semibold">
+                        {city.days} days
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Better Luxury Options */}
+              {betterLuxuryCities.length > 0 && (
+                <div className="bg-gray-50 border border-blue-300 rounded-xl p-4 mt-4">
+                  <h3 className="text-lg font-semibold mb-2 text-gray-700">
+                    Affordable Luxury Upgrade ✨
+                  </h3>
+                  <p className="text-gray-600 mb-3">
+                    With your current budget of{" "}
+                    <span className="font-semibold text-green-600">
+                      ${budget}
+                    </span>
+                    , you can stay in these{" "}
+                    <span className="text-blue-600 font-medium">
+                      more luxurious cities
+                    </span>{" "}
+                    for the same or even more days than in{" "}
+                    <span className="text-green-600">{selectedCity?.name}</span>
+                    :
+                  </p>
+
                   <ul className="list-disc pl-5 text-gray-600 space-y-1">
-                    {lowCostCity.map((city) => (
+                    {betterLuxuryCities.map((city) => (
                       <li key={city.name}>
                         <span className="font-medium text-gray-800">
                           {city.name}
                         </span>{" "}
-                        ({city.country}) →
+                        ({city.country}) →{" "}
                         <span className="text-blue-600 font-semibold">
-                          {" "}
                           {city.days} days
                         </span>
                       </li>
                     ))}
                   </ul>
-                </ul>
-              </div>
-
-              {/* Budget Increase Options */}
-              <div className="bg-gray-50 border border-blue-300 rounded-xl p-4">
-                <h3 className="text-lg font-semibold mb-2 text-gray-700">
-                  If you increase your budget:
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-medium text-gray-600 mb-1">
-                      +10% Budget
-                    </p>
-                    <ul className="list-disc pl-5 text-gray-600 space-y-1">
-                      {luxuryOptions.map((c) => (
-                        <li key={c.city}>
-                          <span className="text-green-600 font-medium">
-                            {c.city}
-                          </span>{" "}
-                          ({c.country}) →
-                          <span className="text-blue-600 font-semibold">
-                            {" "}
-                            {c.days10} days
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-600 mb-1">
-                      +20% Budget
-                    </p>
-                    <ul className="list-disc pl-5 text-gray-600 space-y-1">
-                      {luxuryOptions.map((c) => (
-                        <li key={c.city}>
-                          <span className="text-green-600 font-medium">
-                            {c.city}
-                          </span>{" "}
-                          ({c.country}) →
-                          <span className="text-blue-600 font-semibold">
-                            {" "}
-                            {c.days20} days
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       ) : (
         <p className="text-2xl text-center font-bold text-red-500 mt-3">
-          Enter Budget, Select country and select city to see result
+          Enter a budget, select a country, and select a city to see results
         </p>
       )}
 
