@@ -49,15 +49,15 @@ const NomadFavouriteDestination = () => {
         {destinations.map((item) => (
           <div
             key={item.id}
-            className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col items-center text-center"
+            className="rounded-xl transition flex flex-col"
           >
             <img
               src={item.image}
               alt={item.title}
               className="w-full h-40 object-cover rounded-lg mb-4"
             />
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600 text-sm">{item.description}</p>
+            <h3 className="text-lg text-start font-semibold mb-2">{item.title}</h3>
+            <p className="text-blue-600 text-start text-sm">{item.description}</p>
           </div>
         ))}
       </div>
