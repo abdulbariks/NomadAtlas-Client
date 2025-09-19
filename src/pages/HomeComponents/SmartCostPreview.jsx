@@ -1,5 +1,30 @@
 import React from "react";
 
+const data = [
+  {
+    country: "Germany",
+    cities: [
+      { name: "Berlin", livingCost: 1500 },
+      { name: "Munich", livingCost: 1800 },
+      { name: "Hamburg", livingCost: 1400 },
+    ],
+  },
+  {
+    country: "Spain",
+    cities: [
+      { name: "Barcelona", livingCost: 1300 },
+      { name: "Madrid", livingCost: 1200 },
+    ],
+  },
+  {
+    country: "Thailand",
+    cities: [
+      { name: "Bangkok", livingCost: 800 },
+      { name: "Chiang Mai", livingCost: 600 },
+    ],
+  },
+];
+
 const SmartCostPreview = () => {
   return (
     <div>
