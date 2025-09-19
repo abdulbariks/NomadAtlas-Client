@@ -172,8 +172,8 @@ const SmartCostPreview = () => {
 
       {/* Budget Input */}
       <div className="mb-8 max-w-md mx-auto">
-        <label className="block font-semibold text-lg text-gray-700 mb-2">
-          Enter your travel budget ($)
+        <label className="block font-semibold text-xl text-gray-800 mb-2">
+          Enter your travel <span className="text-blue-500">budget ($)</span>
         </label>
         <input
           type="number"
@@ -300,10 +300,10 @@ const SmartCostPreview = () => {
               {/* Better Luxury Options */}
               {betterLuxuryCities.length > 0 && (
                 <div className="bg-gray-50 border border-blue-300 rounded-xl p-4 mt-4">
-                  <h3 className="text-lg font-semibold mb-2 text-gray-700">
+                  <h3 className="text-2xl font-bold mb-4 text-gray-800">
                     Affordable Luxury Upgrade ✨
                   </h3>
-                  <p className="text-gray-600 mb-3">
+                  <p className="font-semibold text-lg mb-2 text-gray-700">
                     With your current budget of{" "}
                     <span className="font-semibold text-green-600">
                       ${budget}
@@ -312,21 +312,33 @@ const SmartCostPreview = () => {
                     <span className="text-blue-600 font-medium">
                       more luxurious cities
                     </span>{" "}
-                    for the same or even more days than in{" "}
+                    for the same <span className="text-blue-500">{days}</span>{" "}
+                    days or even longer than{" "}
+                    <span className="text-blue-500">{days}</span> days you could
+                    stay in{" "}
                     <span className="text-green-600">{selectedCity?.name}</span>
-                    :
+                    .
                   </p>
 
-                  <ul className="list-disc pl-5 text-gray-600 space-y-1">
+                  <ul className="list-disc pl-5 text-gray-600 space-y-2">
                     {betterLuxuryCities.map((city) => (
                       <li key={city.name}>
-                        <span className="font-medium text-gray-800">
-                          {city.name}
-                        </span>{" "}
-                        ({city.country}) →{" "}
-                        <span className="text-blue-600 font-semibold">
-                          {city.days} days
-                        </span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-medium text-gray-800">
+                            {city.name} ({city.country})
+                          </span>
+                          <span className="text-gray-400">→</span>
+                          <span className="text-blue-600 font-semibold">
+                            {city.days} days
+                          </span>
+                        </div>
+                        <div className="mt-1 text-gray-700 ml-6">
+                          <span className="font-medium">Status:</span> more
+                          luxurious than{" "}
+                          <span className="text-green-600">
+                            {selectedCity?.name}
+                          </span>
+                        </div>
                       </li>
                     ))}
                   </ul>
