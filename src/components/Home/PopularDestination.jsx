@@ -39,7 +39,7 @@ const PopularDestination = () => {
     setDestinations(destinationsData);
   }, []);
   return (
-    <section className="px-5 md:px-10 lg:px-20 py-10">
+    <section className="px-5 md:px-10 lg:px-20 pt-10">
       <h2 className="text-2xl md:text-3xl font-bold mb-8">
         Popular Destinations
       </h2>
