@@ -2,7 +2,7 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="relative  h-[400px] flex items-center justify-center mt-5 overflow-hidden rounded-lg group">
+    <div className="relative mx-5 md:mx-10 lg:mx-20 h-[400px] flex items-center justify-center mt-5 overflow-hidden rounded-lg group">
       {/* Background Image */}
       <img
         src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1600&q=80"

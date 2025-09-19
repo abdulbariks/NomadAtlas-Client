@@ -1,49 +1,48 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import NomadAtlasLogo from "./NomadAtlasLogo";
 import { Menu, X } from "lucide-react"; // hamburger & close icons
+import NomadAtlasLogo from "./NomadAtlasLogo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-white shadow-sm px-6 lg:px-12 py-3 flex items-center justify-between sticky top-0 left-0 z-50 ">
+    <nav className="w-full bg-white shadow-sm px-5 lg:px-20 md:px-10 py-3 flex items-center justify-between sticky top-0 left-0 z-50 ">
       {/* Left - Logo */}
       <NomadAtlasLogo />
-
       {/* Center - Links (Desktop) */}
 
       <div className="flex justify-between gap-5 items-center">
-      <div className="hidden md:flex gap-6 text-gray-700 font-medium">
-        <Link to="/destinations" className="hover:text-blue-600">
-          Destinations
-        </Link>
-        <Link to="/cost-calculator" className="hover:text-blue-600">
-          Cost Calculator
-        </Link>
-        <Link to="/community" className="hover:text-blue-600">
-          Community
-        </Link>
-        <Link to="/resources" className="hover:text-blue-600">
-          Resources
-        </Link>
-      </div>
+        <div className="hidden md:flex gap-6 text-gray-700 font-medium">
+          <Link to="/destinations" className="hover:text-blue-600">
+            Destinations
+          </Link>
+          <Link to="/cost-calculator" className="hover:text-blue-600">
+            Cost Calculator
+          </Link>
+          <Link to="/community" className="hover:text-blue-600">
+            Community
+          </Link>
+          <Link to="/resources" className="hover:text-blue-600">
+            Resources
+          </Link>
+        </div>
 
-      {/* Right - Buttons (Desktop) */}
-      <div className="hidden md:flex items-center gap-6">
-        <Link
-          to="/get-started"
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
-        >
-          Get Started
-        </Link>
-        <Link
-          to="/login"
-          className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
-        >
-          Log In
-        </Link>
-      </div>
+        {/* Right - Buttons (Desktop) */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link
+            to="/get-started"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
+          >
+            Get Started
+          </Link>
+          <Link
+            to="/login"
+            className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
+            Log In
+          </Link>
+        </div>
       </div>
 
       {/* Mobile Hamburger */}
