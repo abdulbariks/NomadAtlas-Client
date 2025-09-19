@@ -43,17 +43,34 @@ const SmartCostPreview = () => {
     : 0;
 
   // Days in other cities
-  const otherCitiesDays = [];
-  data.forEach((country) => {
-    country.cities.forEach((city) => {
-      const daysInCity = Math.floor(budget / (city.livingCost / 30));
-      otherCitiesDays.push({
-        city: city.name,
+  let allCities = [];
+  for (const country of data) {
+    for (const city of country.cities) {
+      allCities.push({
+        ...city,
         country: country.country,
-        days: daysInCity,
       });
-    });
-  });
+    }
+  }
+
+  const lowCostCity = allCities
+    .map((city) => {
+      const daysInCity = Math.floor(budget / (city.livingCost / 30));
+      return { ...city, days: daysInCity };
+    })
+    .filter((city) => city.days > days);
+
+  // const otherCitiesDays = [];
+  // data.forEach((country) => {
+  //   country.cities.forEach((city) => {
+  //     const daysInCity = Math.floor(budget / (city.livingCost / 30));
+  //     otherCitiesDays.push({
+  //       city: city.name,
+  //       country: country.country,
+  //       days: daysInCity,
+  //     });
+  //   });
+  // });
 
   // Budget increase scenarios
   const budgetPlus10 = budget * 1.1;
@@ -191,20 +208,29 @@ const SmartCostPreview = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold text-lg mb-2 text-gray-700">
-                  Other cities you can check out:
+                  You can stay more than{" "}
+                  <span className="text-green-600">{days}</span> days with your
+                  current budget ({" "}
+                  <span className="text-blue-500">{budget}</span> dollers) in
+                  these{" "}
+                  <span className="text-green-600">{lowCostCity.length}</span>{" "}
+                  cities:
                 </h3>
                 <ul className="list-disc pl-5 text-gray-600 space-y-1">
-                  {otherCitiesDays.map((c) => (
-                    <li key={c.city}>
-                      <span className="font-medium text-gray-800">
-                        {c.city}
-                      </span>{" "}
-                      ({c.country}) →{" "}
-                      <span className="text-blue-600 font-semibold">
-                        {c.days} days
-                      </span>
-                    </li>
-                  ))}
+                  <ul className="list-disc pl-5 text-gray-600 space-y-1">
+                    {lowCostCity.map((city) => (
+                      <li key={city.name}>
+                        <span className="font-medium text-gray-800">
+                          {city.name}
+                        </span>{" "}
+                        ({city.country}) →
+                        <span className="text-blue-600 font-semibold">
+                          {" "}
+                          {city.days} days
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </ul>
               </div>
 
