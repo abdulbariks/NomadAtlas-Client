@@ -1,6 +1,7 @@
 import React from "react";
 import ComminityPosts from "./HomeComponents/ComminityPosts";
 import CityDiscovery from "./HomeComponents/cityDiscovery";
+import SmartCostPreview from "./HomeComponents/SmartCostPreview";
 
 const Home = () => {
   return (
@@ -11,6 +12,8 @@ const Home = () => {
       <ComminityPosts></ComminityPosts>
       {/* city discovery section */}
       <CityDiscovery></CityDiscovery>
+      {/* Smart Const Preview section */}
+      <SmartCostPreview></SmartCostPreview>
     </div>
   );
 };
