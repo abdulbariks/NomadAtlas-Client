@@ -31,7 +31,8 @@ const Navbar = () => {
         {/* Right - Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-6">
           <Link
-            to="/get-started"
+          
+            to="/register"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
           >
             Get Started
@@ -86,7 +87,7 @@ const Navbar = () => {
 
           {/* Buttons in Mobile */}
           <Link
-            to="/get-started"
+            to="/register"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
             onClick={() => setIsOpen(false)}
           >
