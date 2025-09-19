@@ -113,6 +113,7 @@ const Milestones = () => {
           </p>
         </div>
 
+        {/* Average Nomad Rating */}
         <div className="flex-1 bg-white px-8 py-8 rounded-2xl flex flex-col gap-4 items-start shadow-sm">
           <div className="flex items-center gap-4">
             <div className="text-indigo-600">

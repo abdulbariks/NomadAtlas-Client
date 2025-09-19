@@ -31,8 +31,8 @@ const Reviews = () => {
                 <h2 className="text-3xl mb-4 font-bold">What Nomads Say About NomadAtlas</h2>
             </div>
 
-            <section className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-5 mb-16 items-center lg:items-stretch justify-center px-4">
-            
+            <section className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-5 mb-16 items-center lg:items-stretch justify-center px-5 md:px-10 lg:px-20 py-10">
+
                 <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-gray-100 rounded-lg shadow-sm">
                     <div className="flex justify-between items-start pb-4 border-b border-gray-200">
                         <div className="flex items-center space-x-4">
@@ -59,7 +59,7 @@ const Reviews = () => {
                     </div>
                 </div>
 
-              
+
                 <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-gray-100 rounded-lg shadow-sm">
                     <div className="flex justify-between items-start pb-4 border-b border-gray-200">
                         <div className="flex items-center space-x-4">

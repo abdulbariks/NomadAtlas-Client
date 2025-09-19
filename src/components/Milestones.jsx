@@ -3,15 +3,15 @@ import CountUp from "react-countup";
 
 const IconGlobe = ({ className = "w-10 h-10" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M2 12h20M12 2c2.5 3 3 7 3 10s-.5 7-3 10M5 6c2 3 5 5 7 6 2-1 5-3 7-6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 12h20M12 2c2.5 3 3 7 3 10s-.5 7-3 10M5 6c2 3 5 5 7 6 2-1 5-3 7-6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 const IconUsers = ({ className = "w-10 h-10" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path d="M16 11c1.657 0 3-1.567 3-3.5S17.657 4 16 4s-3 1.567-3 3.5S14.343 11 16 11zM8 11c1.657 0 3-1.567 3-3.5S9.657 4 8 4 5 5.567 5 7.5 6.343 11 8 11z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M2 20c0-2.5 3-4.5 6-4.5s6 2 6 4.5M18 20c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M16 11c1.657 0 3-1.567 3-3.5S17.657 4 16 4s-3 1.567-3 3.5S14.343 11 16 11zM8 11c1.657 0 3-1.567 3-3.5S9.657 4 8 4 5 5.567 5 7.5 6.343 11 8 11z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 20c0-2.5 3-4.5 6-4.5s6 2 6 4.5M18 20c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -32,7 +32,7 @@ const Milestones = () => {
       </div>
 
       <div className="mb-10 md:flex md:flex-row md:gap-6 md:mt-10 flex flex-col gap-6 mt-10 w-full max-w-6xl">
-       
+
         <div className="flex-1 bg-white px-8 py-8 rounded-2xl flex flex-col gap-4 items-start shadow-sm">
           <div className="flex items-center gap-4">
             <div className="text-indigo-600">

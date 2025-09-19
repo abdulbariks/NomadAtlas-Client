@@ -1,17 +1,19 @@
 import React from "react";
-import FavouriteDestination from "../components/Home/FavouriteDestination";
-import PopularDestination from "../components/Home/PopularDestination";
 import Reviews from "../components/Home/Reviews";
 import Milestones from "../components/Home/Milestones";
 import Newsletter from "../components/Home/Newsletter";
 import CityDiscovery from "../components/Home/CityDiscovery";
 import ComminityPosts from "../components/Home/ComminityPosts";
+import Banner from "../Header/Banner";
+import PopularDestination from "../components/Home/PopularDestination";
+import NomadFavouriteDestination from "../components/Home/FavouriteDestination";
 
 const Home = () => {
   return (
     <div>
-      <FavouriteDestination />
+      <Banner />
       <PopularDestination />
+      <NomadFavouriteDestination />
       <CityDiscovery />
       <ComminityPosts />
       <Reviews />
