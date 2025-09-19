@@ -26,7 +26,7 @@ const data = [
 ];
 
 const SmartCostPreview = () => {
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState("Germany");
   const [selectedCity, setSelectedCity] = useState(null);
 
   const selectedCountryData = data.find(
@@ -56,47 +56,75 @@ const SmartCostPreview = () => {
 
       {/* Country Select */}
       <div className="mb-4">
-        <p className="block text-2xl font-bold text-center text-gray-700 mb-1">
-          Select a country
-        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Option to select a country */}
+          <div className="border rounded-2xl p-5">
+            <p className="block text-2xl font-bold text-center text-gray-700 mb-1">
+              Select a country
+            </p>
+            <div className="flex flex-wrap gap-3 mb-6 justify-center">
+              {data.map((country) => (
+                <button
+                  key={country.country}
+                  onClick={() => setSelectedCountry(country.country)}
+                  className={`px-4 py-2 rounded-full border transition-all cursor-pointer ${
+                    selectedCountry === country.country
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-800 hover:bg-blue-100"
+                  }`}
+                >
+                  {country.country}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        {/* Option to select a country */}
-        <div className="flex flex-wrap gap-3 mb-6 justify-center">
-          {data.map((country) => (
-            <button
-              key={country.country}
-              onClick={() => setSelectedCountry(country.country)}
-              className={`px-4 py-2 rounded-full border transition-all cursor-pointer ${
-                selectedCountry === country.country
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-800 hover:bg-blue-100"
-              }`}
-            >
-              {country.country}
-            </button>
-          ))}
+          {/* Option to select a City */}
+          <div className="border rounded-2xl p-5">
+            <p className="block text-2xl font-bold text-center text-gray-700 mb-1">
+              Select a City of{" "}
+              <span className="text-blue-500">{selectedCountry}</span>
+            </p>
+
+            <div className="flex flex-wrap gap-3 mb-6 justify-center">
+              {citiesOfCountry.map((city) => (
+                <button
+                  key={city.name}
+                  onClick={() => setSelectedCity(city.name)}
+                  className={`px-4 py-2 rounded-full border transition-all cursor-pointer ${
+                    selectedCity === city.name
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-800 hover:bg-blue-100"
+                  }`}
+                >
+                  {city.name}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Option to select a City */}
-        <p className="block text-2xl font-bold text-center text-gray-700 mb-1">
-          Select a City of{" "}
-          <span className="text-blue-500">{selectedCountry}</span>
-        </p>
+        {/* Result or feedbact to user */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border rounded-2xl p-5 mt-5">
+          {/* result */}
+          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg text-center">
+            <h3 className="text-2xl font-bold mb-2">
+              Result for <span className="text-green-600">{selectedCity}</span>{" "}
+              , <span className="text-blue-600">{selectedCountry}</span>
+            </h3>
+            <p className="text-gray-700">
+              With a budget of{" "}
+              <span className="font-bold text-green-600">$898</span>, you can
+              stay about{" "}
+              <span className="font-bold text-blue-600">10 days</span> in{" "}
+              {selectedCity}.
+            </p>
+          </div>
 
-        <div className="flex flex-wrap gap-3 mb-6 justify-center">
-          {citiesOfCountry.map((city) => (
-            <button
-              key={city.name}
-              onClick={() => setSelectedCity(city.name)}
-              className={`px-4 py-2 rounded-full border transition-all cursor-pointer ${
-                selectedCity === city.name
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-800 hover:bg-blue-100"
-              }`}
-            >
-              {city.name}
-            </button>
-          ))}
+          {/* Suggestions */}
+          <div>
+            <h1 className="text-2xl font-bold">Suggestion for you</h1>
+          </div>
         </div>
       </div>
     </div>
