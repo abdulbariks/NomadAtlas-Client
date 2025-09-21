@@ -162,7 +162,7 @@ const SmartCostPreview = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+      <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">
         Smart Cost Calculator Preview
       </h1>
 
@@ -278,7 +278,12 @@ const SmartCostPreview = () => {
                 <h3 className="font-semibold text-lg mb-2 text-gray-700">
                   You can stay more than{" "}
                   <span className="text-green-600">{days}</span> days with your
-                  current budget (${budget}) in{" "}
+                  current budget{" "}
+                  <span className="text-blue-500">
+                    ($
+                    {budget})
+                  </span>{" "}
+                  in{" "}
                   <span className="text-green-600">{lowCostCity.length}</span>{" "}
                   cities:
                 </h3>
