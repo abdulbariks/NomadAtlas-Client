@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import AboutUs from "../pages/AboutUs";
 import Register from "../pages/Register";
-import Regs from "../pages/Regs";
 
 export const router = createBrowserRouter([
   {
@@ -27,13 +26,9 @@ export const router = createBrowserRouter([
         path: "register",
         Component: Register,
       },
-      // {
-      //   path: "*",
-      //   Component: Login,
-      // },
       {
-        path: "ttts",
-        element: <Regs></Regs>
+        path: "*",
+        Component: Login,
       },
     ],
   },
