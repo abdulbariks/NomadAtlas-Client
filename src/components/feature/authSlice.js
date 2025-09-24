@@ -16,6 +16,7 @@ export const registerUser = createAsyncThunk(
 
       // save user in DB
       // const userInfo = {
+      //   name,
       //   email,
       //   photoURL,
       //   role: "user",
