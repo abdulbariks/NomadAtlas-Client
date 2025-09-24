@@ -4,7 +4,11 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/Router";
-import store from "./redux/store";
+import store from "./app/store";
+import { observeAuthState } from "./components/feature/authSlice";
+
+store.dispatch(observeAuthState());
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

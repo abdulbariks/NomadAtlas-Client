@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import auth from "../../firebase/firebase.init"
+import { auth } from '../../firebase/firebase.init'
 
 const provider = new GoogleAuthProvider();
 
@@ -24,7 +24,7 @@ export const registerUser = createAsyncThunk(
       // };
       // await axios.post("http://localhost:5000/users", userInfo);
 
-      return user;
+      return serializeUser(user);
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -36,9 +36,9 @@ export const logInUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const res = await signInWithEmailAndPassword(auth, email, password)
-      return res.user
+      return serializeUser(res.user)
     } catch (err) {
-      return rejectWithValue(err.user)
+      return rejectWithValue(err.message)
     }
   }
 )
@@ -48,9 +48,9 @@ export const googleLogIn = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const result = await signInWithPopup(auth, provider)
-      return result.user
+      return serializeUser(result.user)
     } catch (err) {
-      return rejectWithValue(err.user)
+      return rejectWithValue(err.message)
     }
   }
 )
@@ -64,13 +64,22 @@ export const logOutUser = createAsyncThunk("auth/logOutUser", async () => {
 export const observeAuthState = () => (dispatch) => {
   dispatch(setLoading(true));
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    dispatch(setUser(currentUser || null));
+    dispatch(setUser(serializeUser(currentUser)))
     dispatch(setLoading(false));
   })
   return unsubscribe
 }
 
 
+const serializeUser = (user) => {
+  if (!user) return null;
+  return {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+  };
+};
 
 const authSlice = createSlice({
   name: "auth",
@@ -84,27 +93,27 @@ const authSlice = createSlice({
       state.user = action.payload
     },
     setLoading: (state, action) => {
-      state.user = action.payload
+      state.loading = action.payload
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.user = action.payload
+        state.user = serializeUser(action.payload);
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addCase(logInUser.fulfilled, (state, action) => {
-        state.user = action.payload
+        state.user = action.payload;
         state.error = null;
       })
       .addCase(logInUser.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addCase(googleLogIn.fulfilled, (state, action) => {
-        state.user = action.payload
+        state.user = action.payload;
         state.error = null
       })
       .addCase(googleLogIn.rejected, (state, action) => {
