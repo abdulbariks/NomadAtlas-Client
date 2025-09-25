@@ -26,6 +26,9 @@ const Navbar = () => {
           <Link to="/resources" className="hover:text-blue-600">
             Resources
           </Link>
+          <Link to="/blogs" className="hover:text-blue-600">
+            Blogs
+          </Link>
         </div>
 
         {/* Right - Buttons (Desktop) */}
@@ -83,6 +86,13 @@ const Navbar = () => {
             onClick={() => setIsOpen(false)}
           >
             Resources
+          </Link>
+          <Link
+            to="/blogs"
+            className="hover:text-blue-600"
+            onClick={() => setIsOpen(false)}
+          >
+            Blogs
           </Link>
 
           {/* Buttons in Mobile */}
