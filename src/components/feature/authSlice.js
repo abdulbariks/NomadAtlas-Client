@@ -1,8 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { auth } from '../../firebase/firebase.init'
+// import axios from "axios";
+
+
 
 const provider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
+// const url = "http://localhost:5000/users"
+
+
+
+
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -49,12 +58,55 @@ export const googleLogIn = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const result = await signInWithPopup(auth, provider)
-      return serializeUser(result.user)
+      const user = result.user
+
+      // const userInfo = {
+      //   name: user.displayName,
+      //   email: user.email,
+      //   photoURL: user.photoURL,
+      //   role: "user",
+      //   created_at: new Date().toISOString(),
+      //   last_log_in: new Date().toISOString(),
+      // };
+      // await axios.post(url, userInfo);
+
+
+      return serializeUser(user)
     } catch (err) {
       return rejectWithValue(err.message)
     }
   }
-)
+);
+
+
+export const githubLogIn = createAsyncThunk(
+  "auth/githubLogin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+
+      // const userInfo = {
+      //   name: user.displayName,
+      //   email: user.email,
+      //   photoURL: user.photoURL,
+      //   role: "user",
+      //   created_at: new Date().toISOString(),
+      //   last_log_in: new Date().toISOString(),
+      // };
+      // await axios.post(url, userInfo);
+
+      return serializeUser(user);
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+
+
+
+
 
 export const logOutUser = createAsyncThunk("auth/logOutUser", async () => {
   await signOut(auth)
@@ -119,6 +171,13 @@ const authSlice = createSlice({
       })
       .addCase(googleLogIn.rejected, (state, action) => {
         state.error = action.payload
+      })
+      .addCase(githubLogIn.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(githubLogIn.rejected, (state, action) => {
+        state.error = action.payload;
       })
       .addCase(logOutUser.fulfilled, (state) => {
         state.user = null;
