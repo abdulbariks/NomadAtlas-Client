@@ -16,7 +16,7 @@ const CreateBlog = () => {
 
     const mutation = useMutation({
         mutationFn: async (newBlog) => {
-            const res = await axios.post("http://localhost:5000/blogs", newBlog);
+            const res = await axios.post("http://localhost:5000/api/blogs", newBlog);
             return res.data;
         },
         onSuccess: () => {
@@ -57,8 +57,8 @@ const CreateBlog = () => {
         const newBlog = {
             ...data,
             image: picture,
-            publisherName: userName,
-            publisherEmail: userEmail,
+            // authorName: userName,
+            // authorEmail: userEmail,
             createdAt: new Date().toISOString(),
             ...(isDraft ? { type: "Draft" } : {}),
         };
