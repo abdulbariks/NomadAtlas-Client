@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import AboutUs from "../pages/AboutUs";
 import Login from "../pages/Login";
+import AboutUs from "../pages/AboutUs";
 import Register from "../pages/Register";
+import Comparison from "../pages/Comparison";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "about-us",
         Component: AboutUs,
+      },
+      {
+        path: "comparison",
+        Component : Comparison,
       },
       {
         path: "login",

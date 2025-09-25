@@ -101,7 +101,7 @@ const ComminityPosts = () => {
   return (
     <div className="my-10">
       <h1 className="text-2xl text-blue-900 font-bold text-center mb-6">
-        Community posts_
+        Community Posts
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-[10%] mx-auto">

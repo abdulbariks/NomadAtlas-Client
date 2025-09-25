@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-base-100 shadow-sm px-6 lg:px-12 py-2 flex items-center justify-between sticky top-0 left-0 z-50">
+    <nav className="w-full bg-white shadow-sm px-5 lg:px-20 md:px-10 py-3 flex items-center justify-between sticky top-0 left-0 z-50 ">
       {/* Left - Logo */}
       <NomadAtlasLogo />
       {/* Center - Links (Desktop) */}
@@ -31,6 +31,7 @@ const Navbar = () => {
         {/* Right - Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-6">
           <Link
+          
             to="/register"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
           >
