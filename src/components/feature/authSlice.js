@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { auth } from '../../firebase/firebase.init'
 // import axios from "axios";
 
@@ -113,6 +113,16 @@ export const logOutUser = createAsyncThunk("auth/logOutUser", async () => {
   return null
 })
 
+export const resetPass = createAsyncThunk("auth/resetPass",
+  async (email, { rejectWithValue }) => {
+    try {
+      await sendPasswordResetEmail(auth, email)
+      return "Password reset email sent"
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  })
+
 
 export const observeAuthState = () => (dispatch) => {
   dispatch(setLoading(true));
@@ -140,6 +150,7 @@ const authSlice = createSlice({
     user: null,
     loading: true,
     error: null,
+    successMessage: null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -182,7 +193,14 @@ const authSlice = createSlice({
       .addCase(logOutUser.fulfilled, (state) => {
         state.user = null;
         state.error = null;
-      });
+      })
+      .addCase(resetPass.fulfilled, (state, action) => {
+        state.error = null;
+        state.successMessage = action.payload
+      })
+      .addCase(resetPass.rejected, (state, action) => {
+        state.error = action.payload;
+      })
   }
 })
 

@@ -4,31 +4,48 @@ import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { logInUser } from "../components/feature/authSlice";
+import { logInUser, resetPass } from "../components/feature/authSlice";
 import { useLocation } from "react-router";
 import SocialLogin from "./SocialLogin";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const location = useLocation()
-
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const email = getValues("email")
 
+  const handleResetPassword = () => {
+    if (!email) {
+      alert("Please enter your email first!");
+      return;
+    }
+    dispatch(resetPass(email))
+      .unwrap()
+      .then(() => {
+        alert("Check your email inbox for reset instructions!");
+      })
+      .catch((err) => {
+        toast.error("Failed to register");
+        console.log(err)
+      });
+  }
 
   const onSubmit = (data) => {
     dispatch(logInUser({ email: data.email, password: data.password }))
       .unwrap()
       .then(async () => {
-        // toast.success("Login successful!");
+        toast.success("Login successful!");
         navigate(location.state || "/");
       })
       .catch(() => {
-        // toast.error("Something went wrong");
+        toast.error("Something went wrong");
       });
   };
   return (
@@ -48,7 +65,7 @@ const Login = () => {
           </Link>
         </p>
         <div className="my-6 space-y-4">
-          <SocialLogin/>
+          <SocialLogin />
         </div>
         <div className="flex items-center w-full my-4">
           <hr className="w-full text-gray-600" />
@@ -76,6 +93,15 @@ const Login = () => {
             {errors.password?.type === "minLength" && (
               <p className="text-red-600">Password must be 6+ characters</p>
             )}
+            <p className="text-sm text-right mt-2">
+              <button
+                type="button"
+                onClick={handleResetPassword}
+                className="text-blue-600 hover:underline"
+              >
+                Forgot password? Reset
+              </button>
+            </p>
           </div>
           <button className="w-full px-8 py-3 font-semibold rounded-md bg-[#37b6f5] text-gray-50">Sign in</button>
         </form>
