@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/Router";
 import store from "./redux/store";
+import { listenToAuthChanges } from "./redux/authSlice";
+store.dispatch(listenToAuthChanges());
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -1,10 +1,29 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/authSlice";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleUserSignup = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const photoURL = e.target.photoURL.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    console.log(name, photoURL, email, password);
+
+    dispatch(registerUser({ email, password, name, photoURL }));
+    navigate(`${location.state ? location.state : "/"}`);
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -22,7 +41,7 @@ const Register = () => {
             LogIn Here
           </Link>
         </p>
-        <form className="space-y-8">
+        <form onSubmit={handleUserSignup} className="space-y-8">
           <div className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm">
@@ -88,10 +107,12 @@ const Register = () => {
           </div>
           <button
             type="submit"
+            disabled={status === "loading"}
             className="w-full px-8 py-3 font-semibold rounded-md bg-[#37b6f5] text-gray-50"
           >
-            Sign Up
+            {status === "loading" ? "Sign Up..." : "Sign Up"}
           </button>
+          {error && <p className="text-red-600 mt-2">{error}</p>}
         </form>
       </div>
       <div className="w-full h-full rounded-md  bg-white mb-1 text-gray-800">

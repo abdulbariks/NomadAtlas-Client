@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { Menu, X } from "lucide-react"; // hamburger & close icons
 import NomadAtlasLogo from "./NomadAtlasLogo";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../redux/authSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = () => dispatch(logoutUser());
 
   return (
     <nav className="w-full bg-white shadow-sm px-5 lg:px-20 md:px-10 py-3 flex items-center justify-between sticky top-0 left-0 z-50 ">
@@ -23,8 +30,11 @@ const Navbar = () => {
           <Link to="/community" className="hover:text-blue-600">
             Community
           </Link>
-          <Link to="/resources" className="hover:text-blue-600">
-            Resources
+          <Link to="/comparison" className="hover:text-blue-600">
+            Comparison
+          </Link>
+          <Link to="/blogs" className="hover:text-blue-600">
+            Blogs
           </Link>
         </div>
 
@@ -37,12 +47,21 @@ const Navbar = () => {
           >
             Get Started
           </Link>
-          <Link
-            to="/login"
-            className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
-          >
-            Log In
-          </Link>
+          {!user ? (
+            <Link
+              to="/login"
+              className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+            >
+              Log In
+            </Link>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
 
@@ -84,6 +103,13 @@ const Navbar = () => {
           >
             Resources
           </Link>
+          <Link
+            to="/blogs"
+            className="hover:text-blue-600"
+            onClick={() => setIsOpen(false)}
+          >
+            Blogs
+          </Link>
 
           {/* Buttons in Mobile */}
           <Link
@@ -93,13 +119,7 @@ const Navbar = () => {
           >
             Get Started
           </Link>
-          <Link
-            to="/login"
-            className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Log In
-          </Link>
+          {!user ? "user" : "is"}
         </div>
       )}
     </nav>

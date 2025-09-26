@@ -4,7 +4,11 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import AboutUs from "../pages/AboutUs";
 import Register from "../pages/Register";
+import ForgotPassword from "../pages/ForgotPassword";
+import ProtectedRoute from "./ProtectedRoute";
+import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
+import CostCalculator from "../pages/CostCalculator";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +34,26 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "forgot-password",
+        Component: ForgotPassword,
+      },
+      {
+        path: "blogs",
+        Component: Blogs,
+      },
+      {
+        path: "cost-calculator",
+        Component: CostCalculator,
+      },
+      {
+        path: "cost-calculator",
+        element: (
+          <ProtectedRoute>
+            <Home></Home>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",

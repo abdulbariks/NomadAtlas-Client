@@ -1,11 +1,32 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
+import { useDispatch, useSelector } from "react-redux";
+import { googleSignIn, loginUser } from "../redux/authSlice";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((s) => s.auth);
+  const { user } = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
 
+  console.log("Ussserrrrrrrrrrrrrrr", user);
+
+  const handleUserLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    // console.log(email, password);
+    dispatch(loginUser({ email, password }));
+    navigate(`${location.state ? location.state : "/"}`);
+  };
+
+  const handleGoogle = () => {
+    dispatch(googleSignIn());
+  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -27,6 +48,7 @@ const Login = () => {
         </p>
         <div className="my-6 space-y-4">
           <button
+            onClick={handleGoogle}
             aria-label="Login with Google"
             type="button"
             className="flex cursor-pointer items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 border-gray-600 focus:dark:ring-violet-600"
@@ -46,7 +68,7 @@ const Login = () => {
           <p className="px-3 text-gray-600">OR</p>
           <hr className="w-full text-gray-600" />
         </div>
-        <form className="space-y-8">
+        <form onSubmit={handleUserLogin} className="space-y-8">
           <div className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm">
@@ -86,9 +108,17 @@ const Login = () => {
           <button
             type="submit"
             className="w-full px-8 py-3 font-semibold rounded-md bg-[#37b6f5] text-gray-50"
+            disabled={status === "loading"}
           >
-            Login
+            {status === "loading" ? "Login..." : "Login"}
           </button>
+          <div className="text-sm">
+            <Link to="/forgot-password" className="text-blue-600">
+              Forgot password?
+            </Link>
+          </div>
+
+          {error && <p className="text-red-600 mt-2">{error}</p>}
         </form>
       </div>
     </div>
