@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
+import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
 
 export const router = createBrowserRouter([
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "about-us",
         Component: AboutUs,
+      },
+      {
+        path: "comparison",
+        Component : Comparison,
       },
       {
         path: "login",

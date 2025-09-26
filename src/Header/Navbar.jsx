@@ -30,8 +30,8 @@ const Navbar = () => {
           <Link to="/community" className="hover:text-blue-600">
             Community
           </Link>
-          <Link to="/resources" className="hover:text-blue-600">
-            Resources
+          <Link to="/comparison" className="hover:text-blue-600">
+            Comparison
           </Link>
           <Link to="/blogs" className="hover:text-blue-600">
             Blogs
@@ -41,6 +41,7 @@ const Navbar = () => {
         {/* Right - Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-6">
           <Link
+          
             to="/register"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
           >
