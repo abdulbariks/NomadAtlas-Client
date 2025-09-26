@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { registerUser } from "../components/feature/authSlice";
 import { useState } from "react";
 import axios from "axios";
 import SocialLogin from "./SocialLogin";
+import { toast } from "react-toastify";
 
 
 const Register = () => {
@@ -18,6 +19,7 @@ const Register = () => {
   const [profilePic, setProfilePic] = useState("");
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const location = useLocation();
 
 
   const onSubmit = (data) => {
@@ -31,11 +33,11 @@ const Register = () => {
     )
       .unwrap()
       .then(() => {
-        // toast.success("Successfully registered!");
-        navigate("/");
+        toast.success("Successfully registered!");
+        navigate(location?.state || "/");
       })
       .catch((err) => {
-        // toast.error("Failed to register");
+        toast.error("Failed to register");
         console.log(err)
       });
 
