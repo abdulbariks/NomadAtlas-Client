@@ -6,6 +6,7 @@ import AboutUs from "../pages/AboutUs";
 import Register from "../pages/Register";
 import CreateBlog from "../components/CreateBlog/CreateBlog";
 import AllBlogs from "../components/CreateBlog/AllBlogs";
+import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "blogs",
         Component: AllBlogs,
+      },
+      {
+        path:"/blogs/:id",
+        Component:BlogDetailsPage,
       },
       {
         path: "createBlog",
