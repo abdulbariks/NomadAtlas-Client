@@ -6,6 +6,10 @@ import AboutUs from "../pages/AboutUs";
 import Register from "../pages/Register";
 import CreateBlog from "../components/CreateBlog/CreateBlog";
 import AllBlogs from "../components/CreateBlog/AllBlogs";
+import ForgotPassword from "../pages/ForgotPassword";
+import ProtectedRoute from "./ProtectedRoute";
+import Blogs from "../pages/Blogs";
+import CostCalculator from "../pages/CostCalculator";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +39,26 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "forgot-password",
+        Component: ForgotPassword,
+      },
+      {
+        path: "blogs",
+        Component: Blogs,
+      },
+      {
+        path: "cost-calculator",
+        Component: CostCalculator,
+      },
+      {
+        path: "cost-calculator",
+        element: (
+          <ProtectedRoute>
+            <Home></Home>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",
