@@ -56,11 +56,12 @@ const CreateBlog = () => {
 
         const newBlog = {
             ...data,
+            tags: data.tags.split(",").map(tag => tag.trim()),  // convert to array
             image: picture,
-            // authorName: userName,
-            // authorEmail: userEmail,
+            authorName: userName,
+            authorEmail: userEmail,
             createdAt: new Date().toISOString(),
-            ...(isDraft ? { type: "Draft" } : {}),
+            ...(isDraft ? { type: "Draft" } : {type: "Publish"}),
         };
 
         setLoading(true);

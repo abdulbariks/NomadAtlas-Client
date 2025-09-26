@@ -4,15 +4,15 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/Router";
-import store from "./redux/store";
+import store from "./app/store";
+import { observeAuthState } from "./components/feature/authSlice";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+store.dispatch(observeAuthState());
 
 
 // Create a client
 const queryClient = new QueryClient()
-
-import { listenToAuthChanges } from "./redux/authSlice";
-store.dispatch(listenToAuthChanges());
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
