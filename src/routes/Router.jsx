@@ -11,6 +11,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
+import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "blogs",
         Component: AllBlogs,
+      },
+      {
+        path:"/blogs/:id",
+        Component:BlogDetailsPage,
       },
       {
         path: "createBlog",

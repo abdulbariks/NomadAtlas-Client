@@ -22,7 +22,7 @@ const AllBlogs = () => {
     const { data: blogs = [], isLoading } = useQuery({
         queryKey: ["blogs", selectedCategory, search, page],
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/api/blogs", {
+            const res = await axios.get("https://demo-nomad-server.vercel.app/api/blogs", {
                 params: {
                     category: selectedCategory !== "All" ? selectedCategory : undefined,
                     search,

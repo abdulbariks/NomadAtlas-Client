@@ -4,7 +4,7 @@ import { ScaleLoader } from 'react-spinners';
 const Spinner = () => {
     return (
         <div className='flex justify-center items-center py-32'>
-            <ScaleLoader color={'red'}></ScaleLoader>
+            <ScaleLoader color={'blue'}></ScaleLoader>
         </div>
     );
 };

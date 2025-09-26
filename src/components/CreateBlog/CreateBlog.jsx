@@ -4,19 +4,17 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import useImageUpload from "../../customHook/useImageUpload";
+import { useSelector } from "react-redux";
 
 const CreateBlog = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { picture, handleImageUpload} = useImageUpload();
     const [loading, setLoading] = useState(false);
-
-    // dummy user data (replace with auth later)
-    const userName = "John Doe";
-    const userEmail = "john@example.com";
+    const {user} = useSelector(state=>state.auth);
 
     const mutation = useMutation({
         mutationFn: async (newBlog) => {
-            const res = await axios.post("http://localhost:5000/api/blogs", newBlog);
+            const res = await axios.post("https://demo-nomad-server.vercel.app/api/blogs", newBlog);
             return res.data;
         },
         onSuccess: () => {
@@ -58,8 +56,8 @@ const CreateBlog = () => {
             ...data,
             tags: data.tags.split(",").map(tag => tag.trim()),  // convert to array
             image: picture,
-            authorName: userName,
-            authorEmail: userEmail,
+            authorName: user.displayName,
+            authorEmail: user.email,
             createdAt: new Date().toISOString(),
             ...(isDraft ? { type: "Draft" } : {type: "Publish"}),
         };
@@ -119,10 +117,10 @@ const CreateBlog = () => {
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">Select category</option>
-                        <option value="destinations">Destinations</option>
-                        <option value="guides">Guides</option>
-                        <option value="stories">Stories</option>
-                        <option value="tips">Tips</option>
+                        <option value="Destinations">Destinations</option>
+                        <option value="Guides">Guides</option>
+                        <option value="Stories">Stories</option>
+                        <option value="Tips & Tricks">Tips</option>
                     </select>
                     {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
                 </div>
