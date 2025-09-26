@@ -42,7 +42,7 @@ const Login = () => {
       .unwrap()
       .then(async () => {
         toast.success("Login successful!");
-        navigate(location.state || "/");
+        navigate(location?.state || "/");
       })
       .catch(() => {
         toast.error("Something went wrong");
