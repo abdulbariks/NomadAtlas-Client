@@ -9,6 +9,7 @@ import AllBlogs from "../components/CreateBlog/AllBlogs";
 import ForgotPassword from "../pages/ForgotPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
+import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
 
 export const router = createBrowserRouter([
@@ -30,7 +31,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "createBlog",
-        Component: CreateBlog,
+        Component: CreateBlog
+      },
+      {
+        path: "comparison",
+        Component: Comparison,
       },
       {
         path: "login",
