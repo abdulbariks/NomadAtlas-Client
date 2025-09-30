@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -6,9 +7,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-8 text-center">
         {/* Links */}
         <div className="flex flex-wrap justify-center gap-8 mb-6 text-slate-600 text-sm">
-          <a href="#" className="hover:text-slate-900">
+          <Link to="/about-us" className="hover:text-slate-900">
             About
-          </a>
+          </Link>
           <a href="#" className="hover:text-slate-900">
             Contact Info
           </a>

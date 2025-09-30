@@ -7,15 +7,17 @@ import ComminityPosts from "../components/Home/ComminityPosts";
 import Banner from "../Header/Banner";
 import PopularDestination from "../components/Home/PopularDestination";
 import NomadFavouriteDestination from "../components/Home/FavouriteDestination";
+import SmartCostPreview from "../components/Home/SmartCostPreview";
 
 const Home = () => {
   return (
     <div>
       <Banner />
-      <CityDiscovery />
-      <ComminityPosts />
       <PopularDestination />
       <NomadFavouriteDestination />
+      <CityDiscovery />
+      <ComminityPosts />
+      <SmartCostPreview />
       <Reviews />
       <Milestones />
       <Newsletter />
