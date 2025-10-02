@@ -4,7 +4,7 @@
 
 ## Overview
 
-The **Smart Cost Calculator** helps digital nomads estimate how long they can stay in a city with a given budget. Or which country will better for them with their expectation of money. Or how much does he needs to manage if they wnat to go any city atc.  
+The **Smart Cost Calculator** helps digital nomads estimate how long they can stay in a city with a given budget, which country would be better for them based on their expected expenses, or how much money or more things they need to manage if they want to visit any city.
 It also suggests **alternative cities** and **affordable luxury upgrades** to improve the user’s travel planning experience.
 
 ---
