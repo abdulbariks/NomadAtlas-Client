@@ -1,29 +1,19 @@
 import React from "react";
-import Lottie from "lottie-react";
 import { Link } from "react-router";
 import logo from "../assets/Logo/NomadLogo.png";
 
 const NomadAtlasLogo = () => {
   return (
-    <Link to="/">
-      <div className="flex gap-1 items-center">
-        {/* Lottie Animation */}
-
-        {/* <Lottie
-            animationData={logo}
-            loop={true}
-            className="size-10 md:size-14 "  
-            >     
-          
-            </Lottie> */}
-
+    <Link to="/" className="group">
+      <div className="flex gap-2 items-center">
         {/* Logo */}
-
-        <img src={logo} alt="logo" className="size-5" />
+        <div className=" bg-gradient-to-tr from-blue-400 to-yellow-400  rounded-xl shadow-md group-hover:scale-110 transition-transform duration-300">
+          <img src={logo} alt="NomadAtlas Logo" className="w-5 h-5 md:w-7 md:h-7 " />
+        </div>
 
         {/* Text */}
-        <h2 className=" text-md md:text-xl font-extrabold   text-gray-900">
-          NomadAtlas
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold bg-blue-400 bg-clip-text text-transparent  transition-colors duration-300">
+          Nomad<span className="bg-yellow-400 bg-clip-text text-transparent  transition-colors duration-300">Atlas</span>
         </h2>
       </div>
     </Link>

@@ -3,14 +3,17 @@ import { Outlet } from "react-router";
 import Navbar from "../Header/Navbar";
 import Footer from "../components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
+import Header from "../Header/Header";
 
 const MainLayout = () => {
   return (
-    <div>
-      <ToastContainer position='top-right' autoClose={2500}></ToastContainer>
-      <Navbar />
-      <Outlet />
-      <Footer />
+    <div className="bg-base-100">
+      <div className="relative ">
+        <ToastContainer position="top-right" autoClose={2500} />
+        <Header/>
+        <Outlet />
+        <Footer />
+      </div>
     </div>
   );
 };

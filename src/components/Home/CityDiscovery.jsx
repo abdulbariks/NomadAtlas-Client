@@ -302,7 +302,7 @@ const CityDiscovery = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-5 md:mx-10 lg:mx-14">
       <section className="p-6">
         <h2 className="text-2xl font-bold text-center">
           Discover Cities for Remote Work

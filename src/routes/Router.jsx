@@ -12,6 +12,8 @@ import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
+import Community from "../pages/Community/Community";
+import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +44,17 @@ export const router = createBrowserRouter([
         path: "comparison",
         Component: Comparison,
       },
+
+      // my
+      {
+        path:"/community",
+        Component:Community,
+      },
+      {
+        path:"/weather-alerts",
+        Component:WeatherAlertsPage
+      },
+// my
       {
         path: "login",
         Component: Login,

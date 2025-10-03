@@ -8,15 +8,37 @@ import Banner from "../Header/Banner";
 import PopularDestination from "../components/Home/PopularDestination";
 import NomadFavouriteDestination from "../components/Home/FavouriteDestination";
 import SmartCostPreview from "../components/Home/SmartCostPreview";
+import HousingList from "../Housing Component/HousingList/HousingList";
+import WeatherAndCostAlert from "../components/Home/WeatherAlert/WeatherAndCostAlert";
+import Banner1 from "../components/Home/Banner/Banner1";
+import DestinationFeatures from "../components/Home/DestinationFetures/DestinationFeatures";
+import NomadPerks from "../components/Home/NomadPerks/NomadPerks";
+import LocalServices from "../components/Home/LocalServices/LocalServices";
+import WeatherSeasonalInfo from "../components/Home/WeatherSeasonalInfo/WeatherSeasonalInfo";
 
 const Home = () => {
   return (
-    <div>
-      <Banner />
+    <div className="">
+      {/* <Banner /> */}
+
+      <Banner1/>
+      {/* <WeatherAndCostAlert/> */}
       <PopularDestination />
       <NomadFavouriteDestination />
       <CityDiscovery />
+
+      
+      {/* my */}
+      <DestinationFeatures/>
+
+      <NomadPerks/>
+      <HousingList/>
+      <LocalServices/>
+      <WeatherSeasonalInfo/>
+      {/* my */}
+      
       <ComminityPosts />
+
       <SmartCostPreview />
       <Reviews />
       <Milestones />

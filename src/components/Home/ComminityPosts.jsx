@@ -99,12 +99,12 @@ const ComminityPosts = () => {
   ];
 
   return (
-    <div className="my-10">
+    <div className="my-10 mx-5 md:mx-10 lg:mx-20  ">
       <h1 className="text-2xl text-blue-900 font-bold text-center mb-6">
         Community Posts
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-[10%] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  mx-auto">
         {data.map((post) => (
           <article
             key={post.id}
