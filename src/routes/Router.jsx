@@ -12,6 +12,7 @@ import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
+import AddNewDestination from "../pages/AddNewDestination";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path:"/blogs/:id",
         Component:BlogDetailsPage,
+      },
+      {
+        path: "newDestination",
+        Component: AddNewDestination
       },
       {
         path: "createBlog",

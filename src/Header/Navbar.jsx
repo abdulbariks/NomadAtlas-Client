@@ -27,6 +27,9 @@ const Nav = () => {
     <NavLink to="/comparison" className="hover:text-blue-600">
       Comparison
     </NavLink>
+    <NavLink to="/newDestination" className="hover:text-blue-600">
+      Create Destination
+    </NavLink>
     <NavLink to="/blogs" className="hover:text-blue-600">
       Blogs
     </NavLink>
