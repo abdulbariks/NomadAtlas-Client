@@ -161,7 +161,7 @@ const SmartCostPreview = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="mx-5 md:mx-10 lg:mx-20  px-4 py-10">
       <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">
         Smart Cost Calculator Preview
       </h1>

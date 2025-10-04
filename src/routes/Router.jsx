@@ -17,6 +17,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Admin from "../DashboardPage/Admin";
 import Provider from "../DashboardPage/Provider";
+import Community from "../pages/Community/Community";
+import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +49,17 @@ export const router = createBrowserRouter([
         path: "comparison",
         Component: Comparison,
       },
+
+      // my
+      {
+        path:"/community",
+        Component:Community,
+      },
+      {
+        path:"/weather-alerts",
+        Component:WeatherAlertsPage
+      },
+// my
       {
         path: "login",
         Component: Login,
