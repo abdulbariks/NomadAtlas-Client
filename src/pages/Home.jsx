@@ -22,27 +22,41 @@ const Home = () => {
       {/* <Banner /> */}
 
       <Banner1/>
-      {/* <WeatherAndCostAlert/> */}
-      <PopularDestination />
+
+    
+      <PopularDestination /> 
+       <HousingList/>
+
+
+      
+
+     {/* <DestinationFeatures/> */}
+
+    
+      
       <NomadFavouriteDestination />
       <CityDiscovery />
 
       
-      {/* my */}
-      <DestinationFeatures/>
+  
+    
 
       <NomadPerks/>
-      <HousingList/>
+      
       <LocalServices/>
       <WeatherSeasonalInfo/>
-      {/* my */}
+     
       
       <ComminityPosts />
 
       <SmartCostPreview />
       <Reviews />
       <Milestones />
-      <Newsletter />
+      <Newsletter /> 
+      
+      
+      
+       {/* <WeatherAndCostAlert/> */}
     </div>
   );
 };
