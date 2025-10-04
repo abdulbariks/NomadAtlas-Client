@@ -21,12 +21,12 @@ const DashboardLayout = () => {
                 <NomadAtlasLogo />
                 <ul className="mt-6 space-y-3">
                     <li>
-                        <NavLink to='/dashboard/home'>Home</NavLink>
+                        <NavLink className="hover:text-yellow-500 transition font-bold text-gray-800" to='/dashboard/home'>Home</NavLink>
                     </li>
-                    <select onChange={handleChange} className=" space-y-3">
-                        <option value="">Role</option>
-                        <option value="/dashboard/admin">Admin</option>
-                        <option value="/dashboard/provider">Provider</option>
+                    <select onChange={handleChange} className="hover:text-yellow-500 transition font-bold text-gray-800 space-y-3">
+                        <option className="hover:text-yellow-500 transition font-bold text-gray-800" value="">Role</option>
+                        <option className="hover:text-yellow-500 transition font-bold text-gray-800" value="/dashboard/admin">Admin</option>
+                        <option className="hover:text-yellow-500 transition font-bold text-gray-800" value="/dashboard/provider">Provider</option>
                     </select>
                 </ul>
             </div>
@@ -41,7 +41,7 @@ const DashboardLayout = () => {
             {/* Content area */}
             <div className="flex-1 flex flex-col lg:ml-64">
                 {/* Navbar */}
-                <div className="lg:hidden flex items-center justify-between bg-gray-300 p-3">
+                <div className="lg:hidden flex items-center justify-between bg-gray-700 p-3">
                     <button
                         className="p-2 rounded-md hover:bg-gray-400"
                         onClick={() => setIsOpen(true)}

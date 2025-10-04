@@ -23,9 +23,9 @@ const user = {
 
 // Dummy favorites
 const favorites = [
-    { id: 1, name: "Bali, Indonesia", img: "https://i.postimg.cc/TYhV1kVY/beach.jpg" },
-    { id: 2, name: "New York City, USA", img: "https://i.postimg.cc/xC5scV91/city.jpg" },
-    { id: 3, name: "Tokyo, Japan", img: "https://i.postimg.cc/j5TRwFq7/tokyo.jpg" },
+    { id: 1, name: "Bali, Indonesia", img: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c" },
+    { id: 2, name: "New York City, USA", img: "https://i.postimg.cc/jdv09Fd7/jose-mizrahi-o-O37-OTL7-H-4-unsplash.jpg" },
+    { id: 3, name: "", img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470" },
 ];
 
 // Chart data
@@ -91,21 +91,27 @@ const Dashboard = () => {
             </div>
 
             {/* Favorites Grid */}
-            <div className="bg-white p-5 rounded-xl shadow">
-                <h3 className="text-lg font-bold mb-4">Your Favorite Destinations</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                    {favorites.map((fav) => (
-                        <div key={fav.id} className="bg-gray-50 p-3 rounded-xl shadow">
-                            <img
-                                src={fav.img}
-                                alt={fav.name}
-                                className="w-full h-32 rounded-lg object-cover"
-                            />
-                            <p className="mt-2 font-medium text-center">{fav.name}</p>
-                        </div>
-                    ))}
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8">
+            <div className="max-w-7xl mx-auto">
+                <div className="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 className="text-2xl font-bold mb-12 text-gray-800">Your Favorite Destinations</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                        {favorites.map((fav) => (
+                            <div key={fav.id} className="relative pt-32">
+                                <img
+                                    src={fav.img}
+                                    alt={fav.name}
+                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-11/12 h-48 rounded-lg object-cover shadow-lg"
+                                />
+                                <div className="bg-gray-50 pt-28 pb-6 px-4 rounded-xl shadow-md">
+                                    <p className="font-semibold text-lg text-center text-gray-800">{fav.name}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
+        </div>
 
             {/* Charts */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
