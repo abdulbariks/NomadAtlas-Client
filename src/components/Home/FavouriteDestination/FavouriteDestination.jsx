@@ -24,7 +24,7 @@ const NomadFavouriteDestination = () => {
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-2xl md:text-3xl font-bold mb-8 text-center"
+        className="text-2xl md:text-4xl font-bold mb-8 text-center"
       >
         Nomads’ Favourite Destinations
       </motion.h2>
