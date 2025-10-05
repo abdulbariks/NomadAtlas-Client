@@ -99,16 +99,19 @@ const ComminityPosts = () => {
   ];
 
   return (
-    <div className="my-10 mx-5 md:mx-10 lg:mx-20  ">
-      <h1 className="text-2xl text-blue-900 font-bold text-center mb-6">
+    <div className="mt-15 mb-10 mx-5 md:mx-10 lg:mx-20  ">
+     <div className="text-center">
+       <h1 className="text-2xl md:text-3xl lg:text-4xl  font-bold text-center mb-6">
         Community Posts
       </h1>
+      <p className="text-sm my-4">Discover, connect, and grow with our global community of travelers.</p>
+     </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  mx-auto">
         {data.map((post) => (
           <article
             key={post.id}
-            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow border broder-primary"
+            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow  "
           >
             {post.image && (
               <div className="h-52 w-full overflow-hidden">
@@ -196,7 +199,7 @@ const ComminityPosts = () => {
       <div className="flex justify-center mt-4">
         <Link
           to="/community"
-          className="group bg-blue-500 py-2 px-5 rounded text-white cursor-pointer 
+          className="group bg-blue-500 py-2 px-5 mt-4 rounded text-white cursor-pointer 
                hover:bg-blue-700 transition-all flex items-center justify-center gap-2 hover:scale-105"
         >
           <span>See more posts</span>
