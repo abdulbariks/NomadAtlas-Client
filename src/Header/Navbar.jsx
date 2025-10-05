@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { Menu, X } from "lucide-react"; // hamburger & close icons
 import NomadAtlasLogo from "./NomadAtlasLogo";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,27 +21,29 @@ const Navbar = () => {
 
       <div className="flex justify-between gap-5 items-center">
         <div className="hidden md:flex gap-6 text-gray-700 font-medium">
-          <Link to="/destinations" className="hover:text-blue-600">
+          <NavLink to="/destinations" className="hover:text-blue-600">
             Destinations
-          </Link>
-          <Link to="/cost-calculator" className="hover:text-blue-600">
+          </NavLink>
+          <NavLink to="/cost-calculator" className="hover:text-blue-600">
             Cost Calculator
-          </Link>
-          <Link to="/community" className="hover:text-blue-600">
+          </NavLink>
+          <NavLink to="/community" className="hover:text-blue-600">
             Community
-          </Link>
-          <Link to="/comparison" className="hover:text-blue-600">
+          </NavLink>
+          <NavLink to="/comparison" className="hover:text-blue-600">
             Comparison
-          </Link>
-          <Link to="/blogs" className="hover:text-blue-600">
+          </NavLink>
+          <NavLink to="/blogs" className="hover:text-blue-600">
             Blogs
-          </Link>
+          </NavLink>
+          <NavLink className="hover:text-blue-600" to="/resources">
+            Resources
+          </NavLink>
         </div>
 
         {/* Right - Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-6">
           <Link
-          
             to="/register"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition"
           >

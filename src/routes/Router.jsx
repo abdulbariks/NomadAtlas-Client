@@ -9,6 +9,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
+import Resources from "../pages/Resources";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "comparison",
-        Component : Comparison,
+        Component: Comparison,
       },
       {
         path: "login",
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             <Home></Home>
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "resources",
+        Component: Resources,
       },
       {
         path: "*",
