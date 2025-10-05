@@ -1,4 +1,5 @@
 import CostTools from "../components/Resources/CostTools";
+import VisaInfo from "../components/Resources/VisaInfo";
 import WorkPlatforms from "../components/Resources/WorkPlatforms";
 
 export default function Resources() {
@@ -17,6 +18,7 @@ export default function Resources() {
       <main className="space-y-16 max-w-6xl mx-auto px-6 py-16">
         <CostTools></CostTools>
         <WorkPlatforms></WorkPlatforms>
+        <VisaInfo></VisaInfo>
       </main>
     </div>
   );
