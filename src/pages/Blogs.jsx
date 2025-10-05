@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { Link } from "react-router";
 import { FaPlus } from "react-icons/fa";
+import YoutubeVideos from "../components/YoutubeVideos";
 // import { useQuery } from "@tanstack/react-query";
 // import axios from "axios";
 
@@ -345,6 +346,7 @@ const Blogs = () => {
             </button>
           ))}
         </div>
+        <YoutubeVideos selectedCategory={selectedCategory} />
       </main>
     </div>
   );
