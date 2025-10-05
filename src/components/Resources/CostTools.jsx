@@ -1,4 +1,3 @@
-// src/components/resources/CostTools.jsx
 import { Globe } from "lucide-react";
 
 export default function CostTools() {

@@ -1,4 +1,5 @@
 import CostTools from "../components/Resources/CostTools";
+import WorkPlatforms from "../components/Resources/WorkPlatforms";
 
 export default function Resources() {
   return (
@@ -13,8 +14,9 @@ export default function Resources() {
         </p>
       </header>
 
-      <main className="space-y-24 max-w-6xl mx-auto px-6 py-16">
-        <CostTools />
+      <main className="space-y-16 max-w-6xl mx-auto px-6 py-16">
+        <CostTools></CostTools>
+        <WorkPlatforms></WorkPlatforms>
       </main>
     </div>
   );
