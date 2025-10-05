@@ -30,7 +30,7 @@ const Home = () => {
 
       
 
-     {/* <DestinationFeatures/> */}
+     <DestinationFeatures/>
 
     
       

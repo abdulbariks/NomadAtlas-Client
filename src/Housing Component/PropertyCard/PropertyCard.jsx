@@ -142,7 +142,7 @@ export default function PropertyCard({ item }) {
               </button>
 
               <Link to={`/destinations/${item.id}`}>
-                <button className="bg-blue-400 hover:bg-blue-500 text-white px-3 py-1 rounded-md">
+                <button className="bg-blue-400 hover:bg-blue-500 text-black font-semibold px-3 py-1 rounded-md">
                   Details
                 </button>
               </Link>
