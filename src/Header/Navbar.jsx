@@ -45,6 +45,13 @@ const Navbar = () => {
         {isDropdownOpen && (
           <div className="absolute left-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md flex flex-col py-2 z-50">
             <NavLink
+              to="/dashboard"
+              className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
               to="/destinations"
               className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
               onClick={() => setIsDropdownOpen(false)}

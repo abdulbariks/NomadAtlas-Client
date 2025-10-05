@@ -14,7 +14,7 @@ const useImageUpload = () => {
         const formData = new FormData();
         formData.append('image', photo)
 
-        const photoUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Image_Upload_Key}`
+        const photoUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key}`
 
 
         try {

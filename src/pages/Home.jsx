@@ -6,7 +6,7 @@ import CityDiscovery from "../components/Home/CityDiscovery";
 import ComminityPosts from "../components/Home/ComminityPosts";
 import Banner from "../Header/Banner";
 import PopularDestination from "../components/Home/PopularDestination";
-import NomadFavouriteDestination from "../components/Home/FavouriteDestination";
+import NomadFavouriteDestination from "../components/Home/FavouriteDestination/FavouriteDestination";
 import SmartCostPreview from "../components/Home/SmartCostPreview";
 import HousingList from "../Housing Component/HousingList/HousingList";
 import WeatherAndCostAlert from "../components/Home/WeatherAlert/WeatherAndCostAlert";
@@ -15,6 +15,7 @@ import DestinationFeatures from "../components/Home/DestinationFetures/Destinati
 import NomadPerks from "../components/Home/NomadPerks/NomadPerks";
 import LocalServices from "../components/Home/LocalServices/LocalServices";
 import WeatherSeasonalInfo from "../components/Home/WeatherSeasonalInfo/WeatherSeasonalInfo";
+import ScrollToTopButton from "../components/Home/ScrollToTopButton/ScrollToTopButton";
 
 const Home = () => {
   return (
@@ -36,15 +37,13 @@ const Home = () => {
       
       <NomadFavouriteDestination />
       <CityDiscovery />
-
-      
   
-    
-
       <NomadPerks/>
       
       <LocalServices/>
-      <WeatherSeasonalInfo/>
+
+
+      {/* <WeatherSeasonalInfo/> */}
      
       
       <ComminityPosts />
@@ -54,7 +53,7 @@ const Home = () => {
       <Milestones />
       <Newsletter /> 
       
-      
+      <ScrollToTopButton/>
       
        {/* <WeatherAndCostAlert/> */}
     </div>
