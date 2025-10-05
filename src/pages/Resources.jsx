@@ -1,4 +1,5 @@
 import Accommodation from "../components/Resources/Accommodation";
+import CommunityHelp from "../components/Resources/CommunityHelp";
 import CostTools from "../components/Resources/CostTools";
 import GuidesTips from "../components/Resources/GuidesTips";
 import ProductivityTools from "../components/Resources/ProductivityTools";
@@ -25,6 +26,7 @@ export default function Resources() {
         <Accommodation></Accommodation>
         <ProductivityTools></ProductivityTools>
         <GuidesTips></GuidesTips>
+        <CommunityHelp></CommunityHelp>
       </main>
     </div>
   );
