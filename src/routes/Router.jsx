@@ -15,6 +15,11 @@ import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 
+
+import AddNewDestination from "../pages/Destination/AddNewDestination";
+import DestinationsPage from "../pages/Destination/DestinationPage";
+import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +41,22 @@ export const router = createBrowserRouter([
         path:"/blogs/:id",
         Component:BlogDetailsPage,
       },
+      {
+        path: "newDestination",
+        Component:AddNewDestination
+      },
+
+      {
+        path:"/destinations",
+        Component:DestinationsPage
+       }
+
+      ,
+      {
+        path:"/destinations/:id",
+        Component:DestinationDetailsPage
+      }
+      ,
       {
         path: "createBlog",
         Component: CreateBlog

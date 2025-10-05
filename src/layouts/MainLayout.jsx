@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 
 const MainLayout = () => {
   return (
-    <div className="bg-base-100">
+    <div className="bg-base-200">
       <div className="relative ">
         <ToastContainer position="top-right" autoClose={2500} />
         <Header/>

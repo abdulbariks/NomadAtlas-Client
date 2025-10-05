@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "destinationId": 1,
+    "user": {
+      "name": "Alice Johnson",
+      "avatar": "https://i.pravatar.cc/50?img=1"
+    },
+    "date": "2025-10-01",
+    "text": "Amazing place! Loved working here as a digital nomad."
+  },
+  {
+    "id": 2,
+    "destinationId": 1,
+    "user": {
+      "name": "Bob Smith",
+      "avatar": "https://i.pravatar.cc/50?img=2"
+    },
+    "date": "2025-10-03",
+    "text": "Great workspace and environment. Highly recommend!"
+  },
+  {
+    "id": 3,
+    "destinationId": 2,
+    "user": {
+      "name": "Charlie Lee",
+      "avatar": "https://i.pravatar.cc/50?img=3"
+    },
+    "date": "2025-09-28",
+    "text": "Beautiful location, perfect for remote work."
+  }
+]
