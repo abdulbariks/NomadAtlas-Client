@@ -19,11 +19,7 @@ import Admin from "../DashboardPage/Admin";
 import Provider from "../DashboardPage/Provider";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
-
-
-import AddNewDestination from "../pages/Destination/AddNewDestination";
-import DestinationsPage from "../pages/Destination/DestinationPage";
-import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
+import AddNewDestination from "../pages/AddNewDestination";
 
 export const router = createBrowserRouter([
   {
