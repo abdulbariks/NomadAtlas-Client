@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { githubLogIn, googleLogIn } from '../components/feature/authSlice';
+import { githubLogIn, googleLogIn } from '../redux/authSlice';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { useNavigate } from 'react-router';

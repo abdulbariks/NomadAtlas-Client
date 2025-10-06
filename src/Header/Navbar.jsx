@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import NomadAtlasLogo from "./NomadAtlasLogo";
 import { useSelector, useDispatch } from "react-redux";
-import { logOutUser } from "../components/feature/authSlice";
+import { logOutUser } from "../redux/authSlice";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

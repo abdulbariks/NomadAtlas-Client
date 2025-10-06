@@ -1,10 +1,8 @@
-// import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
-import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { logInUser, resetPass } from "../components/feature/authSlice";
+import { logInUser, sendResetEmail } from "../redux/authSlice";
 import { useLocation } from "react-router";
 import SocialLogin from "./SocialLogin";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,13 +24,13 @@ const Login = () => {
       alert("Please enter your email first!");
       return;
     }
-    dispatch(resetPass(email))
+    dispatch(sendResetEmail(email))
       .unwrap()
       .then(() => {
         alert("Check your email inbox for reset instructions!");
       })
       .catch((err) => {
-        toast.error("Failed to register");
+        toast.error("Failed to reset");
         console.log(err)
       });
   }

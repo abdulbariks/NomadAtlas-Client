@@ -3,7 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../components/feature/authSlice";
+import { registerUser } from "../redux/authSlice";
 import { useState } from "react";
 import axios from "axios";
 import SocialLogin from "./SocialLogin";
