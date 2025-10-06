@@ -200,7 +200,7 @@ const Blogs = () => {
   console.log("blog data", blogs);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid  mgrid-cols-1 md:grid-cols-4 gap-8">
       {/* Sidebar */}
       <aside className="md:col-span-1">
         <h2 className="text-lg font-semibold mb-4">Categories</h2>

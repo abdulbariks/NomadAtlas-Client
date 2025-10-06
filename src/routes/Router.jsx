@@ -4,12 +4,26 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import AboutUs from "../pages/AboutUs";
 import Register from "../pages/Register";
+import CreateBlog from "../components/CreateBlog/CreateBlog";
+import AllBlogs from "../components/CreateBlog/AllBlogs";
 import ForgotPassword from "../pages/ForgotPassword";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
 import Resources from "../pages/Resources";
+import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
+import DashboardHome from "../DashboardPage/DashboardHome";
+import DashboardLayout from "../layouts/DashboardLayout";
+import ProtectedRoutes from "./ProtectedRoutes";
+import Admin from "../DashboardPage/Admin";
+import Provider from "../DashboardPage/Provider";
+import Community from "../pages/Community/Community";
+import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
+
+import AddNewDestination from "../pages/Destination/AddNewDestination";
+import DestinationsPage from "../pages/Destination/DestinationPage";
+import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -25,9 +39,46 @@ export const router = createBrowserRouter([
         Component: AboutUs,
       },
       {
+        path: "blogs",
+        Component: AllBlogs,
+      },
+      {
+        path: "/blogs/:id",
+        Component: BlogDetailsPage,
+      },
+      {
+        path: "newDestination",
+        Component: AddNewDestination,
+      },
+
+      {
+        path: "/destinations",
+        Component: DestinationsPage,
+      },
+
+      {
+        path: "/destinations/:id",
+        Component: DestinationDetailsPage,
+      },
+      {
+        path: "createBlog",
+        Component: CreateBlog,
+      },
+      {
         path: "comparison",
         Component: Comparison,
       },
+
+      // my
+      {
+        path: "/community",
+        Component: Community,
+      },
+      {
+        path: "/weather-alerts",
+        Component: WeatherAlertsPage,
+      },
+      // my
       {
         path: "login",
         Component: Login,
@@ -51,9 +102,9 @@ export const router = createBrowserRouter([
       {
         path: "cost-calculator",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <Home></Home>
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
       },
       {
@@ -63,6 +114,33 @@ export const router = createBrowserRouter([
       {
         path: "*",
         Component: Login,
+      },
+    ],
+  },
+
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoutes>
+        <DashboardLayout></DashboardLayout>
+      </ProtectedRoutes>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
+        path: "home",
+        Component: DashboardHome,
+      },
+      {
+        path: "admin",
+        Component: Admin,
+      },
+      {
+        path: "provider",
+        Component: Provider,
       },
     ],
   },
