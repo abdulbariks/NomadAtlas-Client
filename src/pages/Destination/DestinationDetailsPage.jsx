@@ -14,6 +14,7 @@ import {
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
+import DestinationMap from "./DestinationMap";
 
 const DestinationDetailsPage = () => {
   
@@ -36,7 +37,8 @@ const DestinationDetailsPage = () => {
 
     if (isLoading) return <div className="flex justify-center p-10"><Loader className="animate-spin" /></div>;
     if (isError) return <div className="text-red-500 text-center mt-10">Failed to load destination.</div>;
-    console.log("single destination data", singleDestination.data?.location?.latitude)
+    console.log("single destination latitude data", singleDestination.data?.location?.latitude)
+    console.log("single destination longitude data", singleDestination.data?.location?.longitude)
 
     const destination = singleDestination.data;
 
@@ -233,14 +235,8 @@ const DestinationDetailsPage = () => {
             )}
 
             {activeTab === "location" && (
-              <div className="mb-6">
-                <iframe
-                  title="destination-map"
-                  src={`https://maps.google.com/maps?q=${destination.data.location.latitude},${destination.data.location.longitude}&z=15&output=embed`}
-                  width="100%"
-                  height="400"
-                  className="border rounded"
-                ></iframe>
+              <div className="mb-6 overflow-hidden">
+                <DestinationMap latitude={destination.location.latitude} longitude={destination.location.longitude} name={destination.name}></DestinationMap>
               </div>
             )}
 
