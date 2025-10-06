@@ -19,6 +19,7 @@ import Admin from "../DashboardPage/Admin";
 import Provider from "../DashboardPage/Provider";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
+import AddNewDestination from "../pages/AddNewDestination";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogs/:id",
         Component: BlogDetailsPage,
+      },
+      {
+        path: "newDestination",
+        Component: AddNewDestination
       },
       {
         path: "createBlog",
