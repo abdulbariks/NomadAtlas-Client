@@ -69,7 +69,7 @@ const DestinationsPage = () => {
         {/* Price Filter */}
         <select
           value={priceRange}
-          onChange={(e) => { setPriceRange(e.target.value); setPage(1); }} // 🟨 RESET PAGE
+          onChange={(e) => { setPriceRange(e.target.value); setPage(1); }} //  RESET PAGE
           className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-yellow-300"
         >
           <option value="All">💰 All Prices</option>
