@@ -24,6 +24,7 @@ import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 import AddNewDestination from "../pages/Destination/AddNewDestination";
 import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
+import Resources from "../pages/Resources";
 
 export const router = createBrowserRouter([
   {
@@ -113,6 +114,14 @@ export const router = createBrowserRouter([
       //   path: "*",
       //   Component: Login,
       // },
+      {
+        path: "resources",
+        Component: Resources,
+      },
+      {
+        path: "*",
+        Component: Login,
+      },
     ],
   },
 

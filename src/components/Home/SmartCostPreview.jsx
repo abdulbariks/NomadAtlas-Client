@@ -236,7 +236,7 @@ const SmartCostPreview = () => {
       {selectedCountry && selectedCity && budget ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
           {/* Result Card */}
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-md bg-white">
+          <div className="border border-blue-200 p-6 rounded-2xl shadow-md bg-white">
             <h3 className="text-2xl font-bold mb-3 text-center">
               Result for{" "}
               <span className="text-green-600">{selectedCity?.name}</span>,{" "}
