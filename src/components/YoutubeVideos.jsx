@@ -1,26 +1,25 @@
-// src/components/YoutubeVideos.jsx
 import { useEffect, useState } from "react";
 
-// এই component টি category অনুযায়ী YouTube ভিডিও দেখাবে
+// this will show youtube videos category wise
 export default function YoutubeVideos({ selectedCategory }) {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔑 তোমার API key (secure রাখো, পরে .env ফাইলে রাখবে)
+  // connecting youtube api key from envfile
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
-  // category অনুযায়ী ভিডিও fetch করা হবে
+  // here fetching video categorywise
   useEffect(() => {
     async function fetchVideos() {
       setLoading(true);
       try {
-        // যদি "All" হয়, তাহলে সাধারণ topic দেখাবে
+        // jodi category "All" hoy tahole sadaron topic dekhabe like "lifestyle"
         const searchQuery =
           selectedCategory === "All"
             ? "digital nomad lifestyle"
             : `digital nomad ${selectedCategory}`;
 
-        // YouTube API এর search endpoint ব্যবহার করছি
+        // useing youtube search endpoind.
         const res = await fetch(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
             searchQuery
@@ -61,32 +60,8 @@ export default function YoutubeVideos({ selectedCategory }) {
         Related YouTube Videos for{" "}
         <span className="text-blue-400">{selectedCategory}</span>
       </h2>
-      {/* <div className="grid md:grid-cols-3 gap-6">
-        {videos.map((video) => (
-          <a
-            key={video.id.videoId}
-            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
-          >
-            <img
-              src={video.snippet.thumbnails.high.url}
-              alt={video.snippet.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold group-hover:text-blue-600 transition line-clamp-2">
-                {video.snippet.title}
-              </h3>
-              <p className="text-gray-600 text-sm mt-1 line-clamp-2">
-                {video.snippet.channelTitle}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div> */}
 
+      {/* Eikhane youtube video iframe use kore dekacci, jate website ei use kora jay. */}
       <div className="grid md:grid-cols-3 gap-6">
         {videos.map((video) => (
           <div
