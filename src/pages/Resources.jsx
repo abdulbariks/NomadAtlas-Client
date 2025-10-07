@@ -56,7 +56,9 @@ const Resource = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const res = await fetch("http://localhost:5000/resources");
+        const res = await fetch(
+          "https://nomad-atlas-server-pi.vercel.app/resources"
+        );
         const data = await res.json();
         setResources(data.resources);
       } catch (err) {
