@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 export default function SmartResources() {
-  // Internal Tools - তোমার নিজের features
+  // Internal Tools - our own features
   const internalTools = [
     {
       name: "Cost Calculator",
