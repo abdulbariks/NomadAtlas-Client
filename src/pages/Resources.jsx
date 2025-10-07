@@ -76,7 +76,7 @@ export default function SmartResources() {
     {
       name: "Grammarly",
       link: "https://www.grammarly.com/",
-      logo: "https://static.grammarly.com/assets/images/favicon-32x32.png",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcc-4w3ZxZ4GkRUL-ZZ5U3PxywWaao0RitWg&s",
       desc: "Writing assistant",
     },
   ];
@@ -139,11 +139,15 @@ export default function SmartResources() {
       name: "Digital Nomads Facebook",
       link: "https://www.facebook.com/groups/digitalnomadsaroundtheworld/",
       desc: "150K+ nomads sharing experiences",
+      icon: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
+      color: "blue",
     },
     {
       name: "Reddit r/digitalnomad",
       link: "https://www.reddit.com/r/digitalnomad/",
       desc: "Active discussions and advice",
+      icon: "https://www.logo.wine/a/logo/Reddit/Reddit-Logomark-White-Dark-Background-Logo.wine.svg",
+      color: "orange",
     },
   ];
 
@@ -157,7 +161,7 @@ export default function SmartResources() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white mt-10">
       {/* Hero Section */}
       <header className="text-center py-16 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
         <Globe className="w-16 h-16 mx-auto mb-4 animate-pulse" />
@@ -210,7 +214,7 @@ export default function SmartResources() {
         <section className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-12">
           <div className="flex items-center gap-4 mb-8">
             <BookOpen className="w-10 h-10 text-orange-500" />
-            <h2 className="text-4xl font-bold">📚 Nomad Guides & Tips</h2>
+            <h2 className="text-4xl font-bold">Nomad Guides & Tips</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -269,7 +273,7 @@ export default function SmartResources() {
         <section>
           <div className="flex items-center gap-4 mb-8">
             <Briefcase className="w-10 h-10 text-green-500" />
-            <h2 className="text-4xl font-bold">💼 Find Remote Work</h2>
+            <h2 className="text-4xl font-bold">Find Remote Work</h2>
           </div>
           <p className="text-gray-600 text-lg mb-8">
             Trusted platforms to find remote jobs and freelance opportunities
@@ -302,7 +306,7 @@ export default function SmartResources() {
         <section className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-12">
           <div className="flex items-center gap-4 mb-8">
             <Zap className="w-10 h-10 text-purple-500" />
-            <h2 className="text-4xl font-bold">⚡ Productivity Tools</h2>
+            <h2 className="text-4xl font-bold">Productivity Tools</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -330,7 +334,7 @@ export default function SmartResources() {
         <section>
           <div className="flex items-center gap-4 mb-8">
             <Plane className="w-10 h-10 text-indigo-500" />
-            <h2 className="text-4xl font-bold">✈️ Digital Nomad Visas</h2>
+            <h2 className="text-4xl font-bold"> Digital Nomad Visas</h2>
           </div>
           <p className="text-gray-600 text-lg mb-8">
             Official visa information and application links for digital nomad
@@ -412,7 +416,7 @@ export default function SmartResources() {
         <section>
           <div className="flex items-center gap-4 mb-8">
             <MessageCircle className="w-10 h-10 text-blue-500" />
-            <h2 className="text-4xl font-bold">💬 Join Communities</h2>
+            <h2 className="text-4xl font-bold">Join Communities</h2>
           </div>
           <p className="text-gray-600 text-lg mb-8">
             Connect with thousands of digital nomads around the world
@@ -425,10 +429,40 @@ export default function SmartResources() {
                 href={com.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white border-2 border-gray-100 rounded-xl p-8 hover:border-blue-500 hover:shadow-lg transition"
+                className={`bg-white border-2 border-gray-100 rounded-xl p-8 hover:shadow-lg transition group ${
+                  com.color === "blue"
+                    ? "hover:border-blue-500"
+                    : "hover:border-orange-500"
+                }`}
               >
-                <h3 className="font-bold text-xl mb-2">{com.name}</h3>
-                <p className="text-gray-600">{com.desc}</p>
+                <div className="flex items-start gap-4">
+                  <img
+                    src={com.icon}
+                    alt={com.name}
+                    className="w-14 h-14 object-cover group-hover:scale-110 transition-transform"
+                  />
+                  <div className="flex-1">
+                    <h3
+                      className={`font-bold text-xl mb-2 ${
+                        com.color === "blue"
+                          ? "group-hover:text-blue-600"
+                          : "group-hover:text-orange-600"
+                      } transition`}
+                    >
+                      {com.name}
+                    </h3>
+                    <p className="text-gray-600">{com.desc}</p>
+                    <span
+                      className={`inline-block mt-3 text-sm font-semibold ${
+                        com.color === "blue"
+                          ? "text-blue-600"
+                          : "text-orange-600"
+                      }`}
+                    >
+                      Join Now →
+                    </span>
+                  </div>
+                </div>
               </a>
             ))}
           </div>
