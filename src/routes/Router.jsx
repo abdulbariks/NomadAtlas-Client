@@ -19,7 +19,11 @@ import Admin from "../DashboardPage/Admin";
 import Provider from "../DashboardPage/Provider";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
-import AddNewDestination from "../pages/AddNewDestination";
+
+
+import AddNewDestination from "../pages/Destination/AddNewDestinatios";
+import DestinationsPage from "../pages/Destination/DestinationPage";
+import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,8 +48,20 @@ export const router = createBrowserRouter([
       },
       {
         path: "newDestination",
-        Component: AddNewDestination
+        Component:AddNewDestination
       },
+
+      {
+        path:"/destinations",
+        Component:DestinationsPage
+       }
+
+      ,
+      {
+        path:"/destinations/:id",
+        Component:DestinationDetailsPage
+      }
+      ,
       {
         path: "createBlog",
         Component: CreateBlog

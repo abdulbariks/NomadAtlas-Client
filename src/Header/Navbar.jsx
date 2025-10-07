@@ -17,26 +17,20 @@ const Navbar = () => {
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Is homepage?
   const isHome = location.pathname === "/";
 
-  // Navbar style logic (fixed instead of sticky)
   const navClasses =
     isHome && !scrolled
-      ? "fixed top-0 z-50 left-0  w-full bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
+      ? "fixed top-0 z-50 left-0 w-full bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
       : "fixed top-0 z-50 left-0 w-full bg-white shadow-md text-gray-900";
 
-  // Desktop Links
+  // Desktop Links with dropdown
   const links = (
     <>
       <div className="relative">
@@ -126,7 +120,7 @@ const Navbar = () => {
             <>
               <Link
                 to="/register"
-                className="bg-blue-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-blue-300 transition"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-300 transition"
               >
                 Register
               </Link>

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaWifi, FaCloud, FaShieldAlt, FaBriefcase } from "react-icons/fa";
+import { GiAirplaneDeparture } from "react-icons/gi"; // new icon for 4th card
 
 const perks = [
   {
@@ -21,11 +22,17 @@ const perks = [
     description:
       "Access affordable, remote-worker-friendly insurance packages for health, gear, and trips abroad.",
   },
+  {
+    icon: <GiAirplaneDeparture className="text-blue-600 text-3xl" />,
+    title: "Flight & Travel Deals",
+    description:
+      "Special discounts on flights, accommodation, and travel gear to make exploring new cities easier and cheaper.",
+  },
 ];
 
 const NomadPerks = () => {
   return (
-    <section className="bg-gray-50 py-16 px-6 md:px-12 lg:px-20">
+    <section className="py-16 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Nomad Perks & Discounts
@@ -37,7 +44,7 @@ const NomadPerks = () => {
       </div>
 
       {/* Features Grid */}
-      <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {perks.map((perk, index) => (
           <motion.div
             key={index}
