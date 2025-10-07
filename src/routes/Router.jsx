@@ -7,11 +7,25 @@ import Register from "../pages/Register";
 import CreateBlog from "../components/CreateBlog/CreateBlog";
 import AllBlogs from "../components/CreateBlog/AllBlogs";
 import ForgotPassword from "../pages/ForgotPassword";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculator from "../pages/CostCalculator";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
+import DashboardHome from "../DashboardPage/DashboardHome";
+import DashboardLayout from "../layouts/DashboardLayout";
+import ProtectedRoutes from "./ProtectedRoutes";
+import Admin from "../DashboardPage/Admin";
+import Provider from "../DashboardPage/Provider";
+import Community from "../pages/Community/Community";
+import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
+
+
+import AddNewDestination from "../pages/Destination/AddNewDestination";
+import DestinationsPage from "../pages/Destination/DestinationPage";
+import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
+import Resources from "../pages/Resources";
+import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
 
 export const router = createBrowserRouter([
   {
@@ -31,9 +45,25 @@ export const router = createBrowserRouter([
         Component: AllBlogs,
       },
       {
-        path:"/blogs/:id",
-        Component:BlogDetailsPage,
+        path: "/blogs/:id",
+        Component: BlogDetailsPage,
       },
+      {
+        path: "newDestination",
+        Component: AddNewDestination
+      },
+
+      {
+        path: "/destinations",
+        Component: DestinationsPage
+      }
+
+      ,
+      {
+        path: "/destinations/:id",
+        Component: DestinationDetailsPage
+      }
+      ,
       {
         path: "createBlog",
         Component: CreateBlog
@@ -42,6 +72,19 @@ export const router = createBrowserRouter([
         path: "comparison",
         Component: Comparison,
       },
+      {
+        path: "time-zone-converter",
+        Component: TimeZoneConverter
+      },
+      {
+        path: "/community",
+        Component: Community,
+      },
+      {
+        path: "/weather-alerts",
+        Component: WeatherAlertsPage
+      },
+      // my
       {
         path: "login",
         Component: Login,
@@ -65,10 +108,18 @@ export const router = createBrowserRouter([
       {
         path: "cost-calculator",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <Home></Home>
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
+      },
+      // {
+      //   path: "*",
+      //   Component: Login,
+      // },
+      {
+        path: "resources",
+        Component: Resources,
       },
       {
         path: "*",
@@ -76,4 +127,27 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  {
+    path: '/dashboard',
+    element: <ProtectedRoutes><DashboardLayout></DashboardLayout></ProtectedRoutes>,
+    children: [
+      {
+        index: true,
+        element: <DashboardHome />
+      },
+      {
+        path: "home",
+        Component: DashboardHome
+      },
+      {
+        path: "admin",
+        Component: Admin
+      },
+      {
+        path: "provider",
+        Component: Provider
+      },
+    ]
+  }
 ]);

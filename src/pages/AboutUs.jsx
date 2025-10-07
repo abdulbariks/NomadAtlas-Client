@@ -4,7 +4,7 @@ import { FaGlobe, FaUsers, FaShieldAlt, FaDollarSign } from "react-icons/fa";
 
 const AboutUs = () => {
     return (
-        <div className="w-10/12 mx-auto px-3 py-12">
+        <div className="w-10/12 mx-auto px-3 py-12 mt-16">
             {/* Title */}
             <h2 className="text-4xl font-bold mb-8 text-gray-900">About NomadAtlas</h2>
 

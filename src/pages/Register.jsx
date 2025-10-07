@@ -57,7 +57,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8 my-5">
+    <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8 mb-5 mt-15 py-8">
       <div className="w-full rounded-md shadow sm:p-8 bg-white mb-1 text-gray-800">
         <h2 className="mb-3 text-3xl font-semibold text-center">
           SignUp Your Account
