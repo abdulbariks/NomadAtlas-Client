@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Calculator,
   Map,
@@ -11,145 +11,70 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-export default function SmartResources() {
-  // Internal Tools - our own features
+const ICONS = {
+  Calculator: Calculator,
+  Map: Map,
+  Users: Users,
+  Briefcase: Briefcase,
+  BookOpen: BookOpen,
+  Globe: Globe,
+  Plane: Plane,
+  Zap: Zap,
+  MessageCircle: MessageCircle,
+};
+
+const Resource = () => {
+  //  Hardcoded Internal Tools (old version)
   const internalTools = [
     {
       name: "Cost Calculator",
-      icon: Calculator,
+      icon: "Calculator",
       link: "/cost-calculator",
       desc: "Calculate your budget and find cities that match your spending limit",
       color: "blue",
     },
     {
       name: "City Comparison",
-      icon: Map,
+      icon: "Map",
       link: "/comparison",
       desc: "Compare multiple destinations by cost, wifi, safety, and lifestyle",
       color: "green",
     },
     {
       name: "Community Forum",
-      icon: Users,
+      icon: "Users",
       link: "/community",
       desc: "Connect with fellow nomads, share experiences and get advice",
       color: "purple",
     },
   ];
 
-  // Job Platforms - External but non-competitor
-  const jobPlatforms = [
-    {
-      name: "Remote OK",
-      link: "https://remoteok.com",
-      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNdXsiCMzp6dYOcOVu8SpN_8b17p2sBrm55A&s",
-      desc: "Tech, design, and remote job opportunities worldwide",
-    },
-    {
-      name: "We Work Remotely",
-      link: "https://weworkremotely.com",
-      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwlPjuat4Hf2aGEvyYq-mQBnUStxKoZo7PoQ&s",
-      desc: "One of the largest remote job boards",
-    },
-    {
-      name: "FlexJobs",
-      link: "https://flexjobs.com",
-      logo: "https://www.flexjobs.com/favicon.ico",
-      desc: "Curated remote and flexible job listings",
-    },
-  ];
+  //  Dynamic Data for other sections
+  const [resources, setResources] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Productivity Tools
-  const productivityTools = [
-    {
-      name: "Notion",
-      link: "https://www.notion.so/",
-      logo: "https://www.notion.so/front-static/favicon.ico",
-      desc: "All-in-one workspace",
-    },
-    {
-      name: "Trello",
-      link: "https://trello.com/",
-      logo: "https://trello.com/favicon.ico",
-      desc: "Visual project management",
-    },
-    {
-      name: "Grammarly",
-      link: "https://www.grammarly.com/",
-      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcc-4w3ZxZ4GkRUL-ZZ5U3PxywWaao0RitWg&s",
-      desc: "Writing assistant",
-    },
-  ];
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/resources");
+        const data = await res.json();
+        setResources(data.resources);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchResources();
+  }, []);
 
-  // Visa Resources - Official Government Sites
-  const visaResources = [
-    {
-      country: "Portugal",
-      visaType: "Digital Nomad Visa",
-      duration: "1 Year (Renewable)",
-      income: "€2,800/month",
-      link: "https://portaldascomunidades.mne.gov.pt",
-      flag: "🇵🇹",
-    },
-    {
-      country: "Estonia",
-      visaType: "Digital Nomad Visa",
-      duration: "12 Months",
-      income: "€3,504/month",
-      link: "https://www.workinestonia.com/coming-to-estonia/apply-for-visa/",
-      flag: "🇪🇪",
-    },
-    {
-      country: "Spain",
-      visaType: "Digital Nomad Visa",
-      duration: "1 Year (Renewable)",
-      income: "€2,160/month",
-      link: "https://www.exteriores.gob.es/",
-      flag: "🇪🇸",
-    },
-    {
-      country: "Greece",
-      visaType: "Digital Nomad Visa",
-      duration: "12 Months",
-      income: "€3,500/month",
-      link: "https://www.greekvisa.gr/",
-      flag: "🇬🇷",
-    },
-    {
-      country: "Dubai (UAE)",
-      visaType: "Virtual Working Programme",
-      duration: "1 Year",
-      income: "$5,000/month",
-      link: "https://www.visitdubai.com/en/business-in-dubai/virtual-working-program",
-      flag: "🇦🇪",
-    },
-    {
-      country: "Croatia",
-      visaType: "Digital Nomad Visa",
-      duration: "12 Months",
-      income: "€2,300/month",
-      link: "https://mup.gov.hr/",
-      flag: "🇭🇷",
-    },
-  ];
+  if (loading) return <p className="text-center py-10">Loading...</p>;
 
-  // Communities
-  const communities = [
-    {
-      name: "Digital Nomads Facebook",
-      link: "https://www.facebook.com/groups/digitalnomadsaroundtheworld/",
-      desc: "150K+ nomads sharing experiences",
-      icon: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
-      color: "blue",
-    },
-    {
-      name: "Reddit r/digitalnomad",
-      link: "https://www.reddit.com/r/digitalnomad/",
-      desc: "Active discussions and advice",
-      icon: "https://www.logo.wine/a/logo/Reddit/Reddit-Logomark-White-Dark-Background-Logo.wine.svg",
-      color: "orange",
-    },
-  ];
+  // Filter dynamic resources by type
+  const jobPlatforms = resources.filter((r) => r.type === "job");
+  const productivityTools = resources.filter((r) => r.type === "productivity");
+  const visaResources = resources.filter((r) => r.type === "visa");
+  const communities = resources.filter((r) => r.type === "community");
 
   const getColorClasses = (color) => {
     const colors = {
@@ -175,7 +100,7 @@ export default function SmartResources() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-20">
-        {/* 1. OUR PLATFORM TOOLS */}
+        {/* 1. OUR PLATFORM TOOLS (hardcoded) */}
         <section>
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">🚀 Our Platform Tools</h2>
@@ -186,7 +111,8 @@ export default function SmartResources() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {internalTools.map((tool, i) => {
-              const Icon = tool.icon;
+              const Icon = ICONS[tool.icon];
+              if (!Icon) return null;
               return (
                 <a
                   key={i}
@@ -210,13 +136,12 @@ export default function SmartResources() {
           </div>
         </section>
 
-        {/* 2. NOMAD GUIDES */}
+        {/* 2. NOMAD GUIDES (static as before) */}
         <section className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-12">
           <div className="flex items-center gap-4 mb-8">
             <BookOpen className="w-10 h-10 text-orange-500" />
             <h2 className="text-4xl font-bold">Nomad Guides & Tips</h2>
           </div>
-
           <div className="grid md:grid-cols-2 gap-6">
             <a
               href="/blogs"
@@ -230,7 +155,6 @@ export default function SmartResources() {
                 budget
               </p>
             </a>
-
             <a
               href="/blogs"
               className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
@@ -242,7 +166,6 @@ export default function SmartResources() {
                 Complete visa information for popular nomad destinations
               </p>
             </a>
-
             <a
               href="/blogs"
               className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
@@ -254,7 +177,6 @@ export default function SmartResources() {
                 Smart money management tips for long-term travel
               </p>
             </a>
-
             <a
               href="/blogs"
               className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
@@ -269,7 +191,7 @@ export default function SmartResources() {
           </div>
         </section>
 
-        {/* 3. REMOTE WORK PLATFORMS */}
+        {/* 3. REMOTE WORK PLATFORMS (dynamic) */}
         <section>
           <div className="flex items-center gap-4 mb-8">
             <Briefcase className="w-10 h-10 text-green-500" />
@@ -278,7 +200,6 @@ export default function SmartResources() {
           <p className="text-gray-600 text-lg mb-8">
             Trusted platforms to find remote jobs and freelance opportunities
           </p>
-
           <div className="grid md:grid-cols-3 gap-6">
             {jobPlatforms.map((platform, i) => (
               <a
@@ -302,13 +223,12 @@ export default function SmartResources() {
           </div>
         </section>
 
-        {/* 4. PRODUCTIVITY TOOLS */}
+        {/* 4. PRODUCTIVITY TOOLS (dynamic) */}
         <section className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-12">
           <div className="flex items-center gap-4 mb-8">
             <Zap className="w-10 h-10 text-purple-500" />
             <h2 className="text-4xl font-bold">Productivity Tools</h2>
           </div>
-
           <div className="grid md:grid-cols-3 gap-6">
             {productivityTools.map((tool, i) => (
               <a
@@ -330,7 +250,7 @@ export default function SmartResources() {
           </div>
         </section>
 
-        {/* 5. VISA RESOURCES */}
+        {/* 5. VISA RESOURCES (dynamic) */}
         <section>
           <div className="flex items-center gap-4 mb-8">
             <Plane className="w-10 h-10 text-indigo-500" />
@@ -340,7 +260,6 @@ export default function SmartResources() {
             Official visa information and application links for digital nomad
             visas worldwide
           </p>
-
           <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -401,18 +320,9 @@ export default function SmartResources() {
               </table>
             </div>
           </div>
-
-          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
-            <p className="text-sm text-gray-700">
-              <strong className="text-blue-700">💡 Pro Tip:</strong>{" "}
-              Requirements may change. Always verify details on the official
-              government website before applying. Processing times typically
-              range from 30-90 days.
-            </p>
-          </div>
         </section>
 
-        {/* 6. COMMUNITY */}
+        {/* 6. COMMUNITY (dynamic) */}
         <section>
           <div className="flex items-center gap-4 mb-8">
             <MessageCircle className="w-10 h-10 text-blue-500" />
@@ -421,7 +331,6 @@ export default function SmartResources() {
           <p className="text-gray-600 text-lg mb-8">
             Connect with thousands of digital nomads around the world
           </p>
-
           <div className="grid md:grid-cols-2 gap-6">
             {communities.map((com, i) => (
               <a
@@ -486,4 +395,6 @@ export default function SmartResources() {
       </main>
     </div>
   );
-}
+};
+
+export default Resource;
