@@ -53,8 +53,8 @@ const IconStar = ({ className = "w-10 h-10" }) => (
 
 const Milestones = () => {
   return (
-    <div className="text-center mt-10 flex flex-col items-center px-4">
-      <div className="max-w-3xl">
+    <div className="text-center mt-10  flex flex-col items-center mx-5 md:mx-10 lg:mx-20">
+      <div className=" ">
         <h1 className="text-3xl font-extrabold">NomadAtlas — Quick Stats</h1>
         <p className="font-medium opacity-80 mt-3">
           Real city data and a thriving community — everything a nomad needs to
