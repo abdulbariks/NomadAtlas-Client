@@ -19,7 +19,11 @@ import Admin from "../DashboardPage/Admin";
 import Provider from "../DashboardPage/Provider";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
-import AddNewDestination from "../pages/AddNewDestination";
+import AddNewDestination from "../pages/Destination/AddNewDestination"
+import DestinationPage from "../pages/Destination/DestinationPage"
+import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage"
+import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
+
 
 export const router = createBrowserRouter([
   {
@@ -44,12 +48,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "newDestination",
-        Component:AddNewDestination
+        Component: AddNewDestination,
       },
 
       {
         path:"/destinations",
-        Component:DestinationsPage
+        Component: DestinationPage
        }
 
       ,
@@ -66,8 +70,11 @@ export const router = createBrowserRouter([
         path: "comparison",
         Component: Comparison,
       },
+      {
+        path : "time-zone-converter",
+        Component : TimeZoneConverter
+      },
 
-      // my
       {
         path:"/community",
         Component:Community,
@@ -76,7 +83,6 @@ export const router = createBrowserRouter([
         path:"/weather-alerts",
         Component:WeatherAlertsPage
       },
-// my
       {
         path: "login",
         Component: Login,
