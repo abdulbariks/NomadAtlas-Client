@@ -24,6 +24,8 @@ import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 import AddNewDestination from "../pages/Destination/AddNewDestination";
 import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
+import Resources from "../pages/Resources";
+import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
 
 export const router = createBrowserRouter([
   {
@@ -48,18 +50,18 @@ export const router = createBrowserRouter([
       },
       {
         path: "newDestination",
-        Component:AddNewDestination
+        Component: AddNewDestination
       },
 
       {
-        path:"/destinations",
-        Component:DestinationsPage
-       }
+        path: "/destinations",
+        Component: DestinationsPage
+      }
 
       ,
       {
-        path:"/destinations/:id",
-        Component:DestinationDetailsPage
+        path: "/destinations/:id",
+        Component: DestinationDetailsPage
       }
       ,
       {
@@ -70,17 +72,19 @@ export const router = createBrowserRouter([
         path: "comparison",
         Component: Comparison,
       },
-
+      {
+        path: "time-zone-converter",
+        Component: TimeZoneConverter
+      },
+      {
+        path: "/community",
+        Component: Community,
+      },
+      {
+        path: "/weather-alerts",
+        Component: WeatherAlertsPage
+      },
       // my
-      {
-        path:"/community",
-        Component:Community,
-      },
-      {
-        path:"/weather-alerts",
-        Component:WeatherAlertsPage
-      },
-// my
       {
         path: "login",
         Component: Login,
@@ -113,6 +117,14 @@ export const router = createBrowserRouter([
       //   path: "*",
       //   Component: Login,
       // },
+      {
+        path: "resources",
+        Component: Resources,
+      },
+      {
+        path: "*",
+        Component: Login,
+      },
     ],
   },
 

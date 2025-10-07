@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
-import { ArrowUp } from "lucide-react";
+// import { ArrowUp } from "lucide-react";
+import logoImage from "../../assets/Logo/NomadLogo.png"
 
 const Footer = () => {
   return (
@@ -8,7 +9,9 @@ const Footer = () => {
       <div className=" px-20 py-16 grid md:grid-cols-3 gap-10">
         {/* Left Section */}
         <div>
-          <h2 className="text-xl font-semibold text-white mb-3">NomadAtlas</h2>
+         <div className="flex gap-2 items-center">
+          <img src={logoImage} alt="logo" className="size-6 invert brightness-0" />
+           <h2 className="text-2xl font-semibold text-white mb-3">NomadAtlas</h2></div>
           <p className="text-sm text-gray-200 leading-relaxed">
             Empowering remote workers with the best destinations, communities,
             and resources to live and work anywhere.
