@@ -12,7 +12,7 @@ const AddNewDestination = () => {
     const [loading, setLoading] = useState(false);
     const { user } = useSelector(state => state.auth);
 
-    // Fake user info
+    // user info
     const [userInfo] = useState({
         name: user?.displayName,
         email: user?.email,

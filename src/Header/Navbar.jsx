@@ -59,6 +59,13 @@ const Navbar = () => {
               Destinations
             </NavLink>
             <NavLink
+              to="/time-zone-converter"
+              className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Time zone converter
+            </NavLink>
+            <NavLink
               to="/cost-calculator"
               className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
               onClick={() => setIsDropdownOpen(false)}
@@ -147,6 +154,9 @@ const Navbar = () => {
         <div className="absolute top-14 left-0 w-full bg-black/90 text-white shadow-md flex flex-col items-center space-y-4 py-6 md:hidden">
           <NavLink to="/destinations" onClick={() => setIsOpen(false)}>
             Destinations
+          </NavLink>
+          <NavLink to="/time-zone-converter" onClick={() => setIsOpen(false)}>
+            Time zone converter
           </NavLink>
           <NavLink to="/cost-calculator" onClick={() => setIsOpen(false)}>
             Cost Calculator

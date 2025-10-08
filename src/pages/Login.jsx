@@ -47,7 +47,7 @@ const Login = () => {
       });
   };
   return (
-    <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8 mb-5 mt-20">
+    <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8 mb-5 mt-15 py-8">
       <div className="w-full h-full rounded-md bg-white flex items-center justify-center">
         <Animation></Animation>
       </div>

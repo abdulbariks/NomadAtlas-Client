@@ -1,86 +1,126 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-// import destinations from "../Destination/Destination.json";
-// import reviewsData from "../Destination/reviews.json";
-import {
-  FaWifi,
-  FaSnowflake,
-  FaUtensils,
-  FaLaptop,
-  FaUser,
-  FaClock,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaWifi, FaSnowflake, FaUtensils, FaLaptop, FaUser, FaClock, FaMapMarkerAlt, } from "react-icons/fa";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import DestinationMap from "./DestinationMap";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import Spinner from "../../components/Spinner/Spinner";
 
 const DestinationDetailsPage = () => {
-
   const [activeTab, setActiveTab] = useState("information");
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [userName, setUserName] = useState("Anonymous");
-  const [userAvatar, setUserAvatar] = useState("https://i.pravatar.cc/50");
+  const [userAvatar] = useState(
+    "https://i.postimg.cc/T10WChj6/gettyimages-1300845620-612x612.jpg"
+  );
+
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  console.log(setUserName, setUserAvatar)
+  const { user } = useSelector((state) => state.auth);
 
-
-  const { data: singleDestination, isLoading, isError } = useQuery({
+  //  Fetch single destination details
+  const {
+    data: singleDestination,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["destination", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/destinations/${id}`);
-      return data;
+      return data.data;
     },
   });
 
-  if (isLoading) return <div className="flex justify-center p-10"><Loader className="animate-spin" /></div>;
-  if (isError) return <div className="text-red-500 text-center mt-10">Failed to load destination.</div>;
-  console.log("single destination latitude data", singleDestination.data?.location?.latitude)
-  console.log("single destination longitude data", singleDestination.data?.location?.longitude)
 
-  const destination = singleDestination.data;
+  //  Fetch all reviews for this destination
+  const {
+    data: reviewData,
+    isLoading: reviewsLoading,
+    refetch: refetchReviews,
+  } = useQuery({
+    queryKey: ["reviews", id],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/reviews/${id}`);
+      return data.data;
+    },
+  });
 
-  // const destination = destinations.find((d) => d.id === parseInt(id));
+
+  // Load reviews when fetched
+  useEffect(() => {
+    if (reviewData) setComments(reviewData);
+  }, [reviewData]);
+
+  // Wait for user data before rendering
+  if (!user || !user.displayName || !user.email) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+  const userInfo = {
+    name: user.displayName,
+    email: user.email,
+  };
 
 
-  // useEffect(() => {
-  // Load comments for this destination from reviews.json
-  //   const filteredComments = reviewsData.filter(
-  //     (r) => r.destinationId === destination.id
-  //   );
-  //   setComments(filteredComments);
-  // }, [destination.id]);
+  // Loading and error states
+  if (isLoading)
+    return (
+      <div className="flex justify-center p-10">
+        <Loader className="animate-spin" />
+      </div>
+    );
+  if (isError || !singleDestination)
+    return (
+      <div className="text-red-500 text-center mt-10">
+        Failed to load destination.
+      </div>
+    );
 
-  if (!singleDestination.data) return <p className="p-10">Destination not found!</p>;
+  const destination = singleDestination;
 
-  const handleCommentSubmit = (e) => {
+  // ✅ Handle Comment Submission
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
+    if (!newComment.trim()) return toast.error("Please write a comment");
 
     const today = new Date();
     const dateStr = today.toISOString().split("T")[0];
 
     const commentObj = {
-      id: comments.length + 1,
-      destinationId: destination.id,
+      destinationId: destination._id,
       user: {
-        name: userName,
+        name: userInfo.name,
+        email: userInfo.email,
         avatar: userAvatar,
       },
-      date: dateStr,
       text: newComment,
+      date: dateStr,
     };
 
-    setComments([...comments, commentObj]);
-    setNewComment("");
+    try {
+      const { data } = await axiosSecure.post("/reviews", commentObj);
+      if (data?.success) {
+        toast.success("Comment added!");
+        setNewComment("");
+        refetchReviews(); // 🔄 Refresh reviews from backend
+      } else {
+        toast.error("Failed to post comment");
+      }
+    } catch (error) {
+      console.error("❌ Error posting comment:", error);
+      toast.error("Error adding comment");
+    }
   };
 
   return (
     <section className="w-full mt-15">
-      {/* Top Image */}
+      {/* 🖼️ Top Hero Image */}
       <div className="w-full h-96 relative">
         <img
           src={destination.images[0]}
@@ -92,67 +132,54 @@ const DestinationDetailsPage = () => {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="px-6 md:px-16 lg:px-21 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* Left */}
+      {/* 📄 Main Content */}
+      <div className="px-6 md:px-12 lg:px-20 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        {/* LEFT COLUMN */}
         <div className="lg:col-span-2">
           <h2 className="text-3xl font-bold mb-3">{destination.title}</h2>
 
-          {/* Tabs */}
-          <div className="flex border-b mb-6">
-            <button
-              className={`px-4 py-2 ${activeTab === "information"
-                ? "border-b-2 border-blue-500 font-semibold"
-                : ""
-                }`}
-              onClick={() => setActiveTab("information")}
-            >
-              Information
-            </button>
-            <button
-              className={`px-4 py-2 ${activeTab === "location"
-                ? "border-b-2 border-blue-500 font-semibold"
-                : ""
-                }`}
-              onClick={() => setActiveTab("location")}
-            >
-              Location
-            </button>
-            <button
-              className={`px-4 py-2 ${activeTab === "reviews"
-                ? "border-b-2 border-blue-500 font-semibold"
-                : ""
-                }`}
-              onClick={() => setActiveTab("reviews")}
-            >
-              Reviews ({comments.length})
-            </button>
+          {/* 🔹 Tabs */}
+          <div className="flex flex-wrap border-b mb-6 text-sm sm:text-base">
+            {["information", "location", "reviews"].map((tab) => (
+              <button
+                key={tab}
+                className={`px-4 py-2 capitalize transition-colors ${activeTab === tab
+                  ? "border-b-2 border-blue-500 font-semibold text-blue-600"
+                  : "text-gray-600 hover:text-blue-500"
+                  }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab === "reviews" ? `Reviews (${comments.length})` : tab}
+              </button>
+            ))}
           </div>
 
-          {/* Tab Content */}
+          {/* 🧾 Information Tab */}
           {activeTab === "information" && (
             <div>
               {/* Description */}
-              <p className="text-gray-600 mb-6">{destination.description}</p>
+              <p className="text-gray-700 mb-6 leading-relaxed">
+                {destination.description}
+              </p>
 
               {/* Price */}
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-3 mb-6">
                 <span className="line-through text-red-500 font-semibold">
-                  ${destination.price}
+                  ${destination.avgLivingCost}
                 </span>
                 <span className="text-teal-500 font-bold text-2xl">
-                  ${destination.discountPrice}
+                  ${destination.pricePerMonth}
                 </span>
-                <span className="text-gray-500">/ per month</span>
+                <span className="text-gray-500">/month</span>
               </div>
 
               {/* Quick Info */}
-              <div className="flex flex-wrap gap-6 mb-6 text-gray-700">
+              <div className="flex flex-wrap gap-4 mb-6 text-gray-700">
                 <div className="flex items-center gap-2">
-                  <FaClock /> <span>Best Season: {destination.climate.seasonBest}</span>
+                  <FaClock /> <span>{destination.climate.seasonBest}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FaUser /> <span>Seats: {destination.totalSeat}</span>
+                  <FaUser /> <span>{destination.totalSeat} Seats</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <FaMapMarkerAlt /> <span>{destination.continent}</span>
@@ -184,97 +211,79 @@ const DestinationDetailsPage = () => {
                 )}
               </div>
 
-              {/* Climate & Visa */}
-              <h3 className="text-lg font-semibold mb-3">Climate & Visa Info</h3>
+              {/* Climate & Visa Info */}
+              <h3 className="text-lg font-semibold mb-3">
+                Climate & Visa Information
+              </h3>
               <ul className="list-disc list-inside text-gray-600 mb-6">
                 <li>Temperature: {destination.climate.temperature}°C</li>
                 <li>Humidity: {destination.climate.humidity}%</li>
                 <li>
-                  Visa: {destination.visaInfo.visaType} ({destination.visaInfo.visaDuration})
+                  Visa: {destination.visaInfo.visaType} (
+                  {destination.visaInfo.visaDuration})
                 </li>
               </ul>
-
-              {/* Reviews */}
-              <h3 className="text-lg font-semibold mb-3">Reviews</h3>
-              <div className="mb-6 space-y-3">
-                {comments.length === 0 && <p className="text-gray-500">No reviews yet.</p>}
-                {comments.map((c) => (
-                  <div key={c.id} className="flex gap-3 border-b pb-2">
-                    <img
-                      src={c.user.avatar}
-                      alt={c.user.name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-semibold">{c.user.name}</span>
-                        <span className="text-gray-400 text-sm">{c.date}</span>
-                      </div>
-                      <p className="text-gray-700">{c.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Add Comment */}
-              <form onSubmit={handleCommentSubmit} className="space-y-3 mb-6">
-                <textarea
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Add your comment..."
-                  className="w-full p-2 border rounded"
-                  rows={3}
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-                >
-                  Submit Comment
-                </button>
-              </form>
             </div>
           )}
 
+          {/* 🗺️ Location Tab */}
           {activeTab === "location" && (
             <div className="mb-6 overflow-hidden">
-              <DestinationMap latitude={destination.location.latitude} longitude={destination.location.longitude} name={destination.name}></DestinationMap>
+              <DestinationMap
+                latitude={destination.location.latitude}
+                longitude={destination.location.longitude}
+                name={destination.name}
+              />
             </div>
           )}
 
+          {/* 💬 Reviews Tab */}
           {activeTab === "reviews" && (
             <div>
+              {/* Review List */}
               <div className="mb-6 space-y-3">
-                {comments.length === 0 && <p className="text-gray-500">No reviews yet.</p>}
+                {reviewsLoading && (
+                  <p className="text-gray-500">Loading reviews...</p>
+                )}
+                {!reviewsLoading && comments.length === 0 && (
+                  <p className="text-gray-500">No reviews yet.</p>
+                )}
                 {comments.map((c) => (
-                  <div key={c.id} className="flex gap-3 border-b pb-2">
+                  <div
+                    key={c._id}
+                    className="flex gap-3 border-b pb-2 items-start"
+                  >
                     <img
                       src={c.user.avatar}
                       alt={c.user.name}
                       className="w-10 h-10 rounded-full object-cover"
                     />
-                    <div>
+                    <div className="flex-1">
                       <div className="flex justify-between items-center">
                         <span className="font-semibold">{c.user.name}</span>
                         <span className="text-gray-400 text-sm">{c.date}</span>
                       </div>
-                      <p className="text-gray-700">{c.text}</p>
+                      <p className="text-gray-700 mt-1">{c.text}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Add Comment */}
-              <form onSubmit={handleCommentSubmit} className="space-y-3">
+              {/* Add New Review Form */}
+              <form
+                onSubmit={handleCommentSubmit}
+                className="space-y-3 mt-6 border-t pt-4"
+              >
                 <textarea
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Add your comment..."
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded resize-none focus:ring focus:ring-blue-200"
                   rows={3}
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded w-full sm:w-auto"
                 >
                   Submit Comment
                 </button>
@@ -283,13 +292,25 @@ const DestinationDetailsPage = () => {
           )}
         </div>
 
-        {/* Right - Booking Form */}
+        {/* RIGHT COLUMN - Booking Form */}
         <div className="p-6 border rounded-md shadow-md bg-gray-50">
-          <h3 className="text-xl font-bold mb-4">BOOK THIS DESTINATION</h3>
+          <h3 className="text-xl font-bold mb-4">Book This Destination</h3>
           <form className="space-y-3">
-            <input type="text" placeholder="Name *" className="w-full p-2 border rounded" />
-            <input type="email" placeholder="Email *" className="w-full p-2 border rounded" />
-            <input type="tel" placeholder="Phone" className="w-full p-2 border rounded" />
+            <input
+              type="text"
+              placeholder="Name *"
+              className="w-full p-2 border rounded"
+            />
+            <input
+              type="email"
+              placeholder="Email *"
+              className="w-full p-2 border rounded"
+            />
+            <input
+              type="tel"
+              placeholder="Phone"
+              className="w-full p-2 border rounded"
+            />
             <input type="date" className="w-full p-2 border rounded" />
             <button
               type="submit"
