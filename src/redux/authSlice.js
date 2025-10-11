@@ -58,13 +58,13 @@ export const googleLogIn = createAsyncThunk(
       const result = await signInWithPopup(auth, provider)
       const user = result.user
 
-      // const userInfo = {
-      //   name: user.displayName,
-      //   email: user.email,
-      //   photoURL: user.photoURL,
-      //   role: "user",
-      // };
-      // await axios.post(url, userInfo);
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "user",
+      };
+      await axios.post(url, userInfo);
 
 
       return serializeUser(user)
@@ -82,13 +82,13 @@ export const githubLogIn = createAsyncThunk(
       const result = await signInWithPopup(auth, githubProvider);
       const user = result.user;
 
-      // const userInfo = {
-      //   name: user.displayName,
-      //   email: user.email,
-      //   photoURL: user.photoURL,
-      //   role: "user",
-      // };
-      // await axios.post(url, userInfo);
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "user",
+      };
+      await axios.post(url, userInfo);
 
       return serializeUser(user);
     } catch (err) {
