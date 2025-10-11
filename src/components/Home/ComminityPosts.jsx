@@ -111,7 +111,7 @@ const ComminityPosts = () => {
         {data.map((post) => (
           <article
             key={post.id}
-            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow  "
+            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow "
           >
             {post.image && (
               <div className="h-52 w-full overflow-hidden">
