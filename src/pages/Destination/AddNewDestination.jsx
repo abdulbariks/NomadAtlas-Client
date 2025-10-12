@@ -5,24 +5,27 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { ImagePlus } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
+import { useSelector } from "react-redux";
 
 const AddNewDestination = () => {
     const { register, handleSubmit, reset } = useForm();
     const [loading, setLoading] = useState(false);
+    const {user} = useSelector(state=>state.auth);
 
     // Fake user info
     const [userInfo] = useState({
-        name: "Demo User",
-        email: "demoUser@gmail.com",
+        name: user.displayName,
+        email: user.email,
     });
 
     // Custom image upload hook
     const { picture, handleImageUpload } = useImageUpload();
+    
 
     // Mutation for adding destination
     const { mutateAsync } = useMutation({
         mutationFn: async (data) => {
-            const res = await axios.post("http://localhost:5000/api/destination", data);
+            const res = await axios.post("http://localhost:5000/api/destinations", data);
             return res.data;
         },
         onSuccess: () => {
@@ -56,6 +59,7 @@ const AddNewDestination = () => {
             userEmail: userInfo.email,
             createdDate: new Date().toISOString(),
         };
+        console.log("destination data", destinationData)
 
         await mutateAsync(destinationData);
     };
@@ -218,46 +222,93 @@ const AddNewDestination = () => {
                     </div>
                 </section>
 
-                {/* --- Climate & Visa Info --- */}
+                {/* --- Climate, Safety & Visa Info --- */}
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
-                        Climate & Visa Info
+                        Climate, Safety & Visa Info
                     </h3>
 
-                    <input
-                        {...register("climate.temperature")}
-                        type="number"
-                        placeholder="Avg Temperature (°C)"
-                        className="input input-bordered w-full"
-                    />
+                    {/* --- Climate Details --- */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
+                        <select
+                            {...register("climate.type", { required: true })}
+                            className="select select-bordered w-full"
+                        >
+                            <option value="">Select Climate Type</option>
+                            <option value="Mediterranean">Mediterranean</option>
+                            <option value="Tropical">Tropical</option>
+                            <option value="Spring-like">Spring-like</option>
+                            <option value="Temperate">Temperate</option>
+                            <option value="Arid">Arid</option>
+                        </select>
 
-                    <input
-                        {...register("climate.humidity")}
-                        type="number"
-                        placeholder="Humidity (%)"
-                        className="input input-bordered w-full"
-                    />
+                        <input
+                            {...register("climate.temperature")}
+                            type="number"
+                            placeholder="Avg Temperature (°C)"
+                            className="input input-bordered w-full"
+                        />
 
-                    <input
-                        {...register("climate.seasonBest")}
-                        type="text"
-                        placeholder="Best Season (e.g., Nov–Feb)"
-                        className="input input-bordered w-full"
-                    />
+                        <input
+                            {...register("climate.humidity")}
+                            type="number"
+                            placeholder="Humidity (%)"
+                            className="input input-bordered w-full"
+                        />
 
-                    <input
-                        {...register("visaInfo.visaType")}
-                        type="text"
-                        placeholder="Visa Type (e.g., Digital Nomad Visa)"
-                        className="input input-bordered w-full"
-                    />
+                        <input
+                            {...register("climate.seasonBest")}
+                            type="text"
+                            placeholder="Best Season (e.g., Nov–Feb)"
+                            className="input input-bordered w-full"
+                        />
+                    </div>
 
-                    <input
-                        {...register("visaInfo.visaDuration")}
-                        type="text"
-                        placeholder="Visa Duration (e.g., 6 Months)"
-                        className="input input-bordered w-full"
-                    />
+                    {/* --- Location Coordinates --- */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
+                        <input
+                            {...register("location.latitude", { required: true })}
+                            type="number"
+                            step="any"
+                            placeholder="Latitude (e.g., -8.4095'E)"
+                            className="input input-bordered w-full"
+                        />
+                        <input
+                            {...register("location.longitude", { required: true })}
+                            type="number"
+                            step="any"
+                            placeholder="Longitude (e.g., 115.1889'N)"
+                            className="input input-bordered w-full"
+                        />
+                    </div>
+
+                    {/* --- Visa Info --- */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
+                        <input
+                            {...register("visaInfo.visaType")}
+                            type="text"
+                            placeholder="Visa Type (e.g., Digital Nomad Visa)"
+                            className="input input-bordered w-full"
+                        />
+
+                        <input
+                            {...register("visaInfo.visaDuration")}
+                            type="text"
+                            placeholder="Visa Duration (e.g., 6 Months)"
+                            className="input input-bordered w-full"
+                        />
+                    </div>
+
+                    {/* --- Safety Level --- */}
+                    <select
+                        {...register("safety", { required: true })}
+                        className="select select-bordered w-full"
+                    >
+                        <option value="">Select Safety Level</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
                 </section>
 
                 {/* --- Image Upload --- */}

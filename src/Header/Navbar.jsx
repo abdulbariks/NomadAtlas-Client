@@ -72,6 +72,16 @@ const Navbar = () => {
             >
               Comparison
             </NavLink>
+
+            <NavLink
+              to="/services"
+              className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Services 
+            </NavLink>
+
+            
           </div>
         )}
       </div>
@@ -93,8 +103,9 @@ const Navbar = () => {
   };
 
   return (
+     <>
     <nav
-      className={`px-5 lg:px-20 md:px-10 py-4 flex items-center justify-between z-50 transition-all duration-300 ${navClasses}`}
+      className={`px-5 lg:px-10 md:px-8 py-4 flex items-center justify-between  z-50 transition-all duration-300 ${navClasses}`}
     >
       {/* Left - Logo */}
       <NomadAtlasLogo />
@@ -108,14 +119,25 @@ const Navbar = () => {
             <p>Loading...</p>
           ) : user ? (
             <>
-              <span>Hi, {user.displayName || "User"}</span>
-              <button
-                onClick={handleLogout}
-                className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
-              >
-                Log Out
-              </button>
-            </>
+    <div className="relative group">
+      <img
+        src={user.photoURL || "https://i.ibb.co/YPXktqs/avatar.png"}
+        alt="User Avatar"
+        className="w-10 h-10 rounded-full object-cover border-2 border-yellow-400 cursor-pointer"
+      />
+      {/* Tooltip (shows username on hover) */}
+      <span className="absolute  left-1/2 -translate-x-1/2 bg-white text-black text-sm rounded-md px-3 py-1 opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap">
+        {user.displayName || "User"}
+      </span>
+    </div>
+
+    <button
+      onClick={handleLogout}
+      className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+    >
+      Log Out
+    </button>
+  </>
           ) : (
             <>
               <Link
@@ -200,6 +222,9 @@ const Navbar = () => {
         </div>
       )}
     </nav>
+
+     {!isHome && <div className="h-[50px] md:h-[60px]"></div>}
+  </>
   );
 };
 

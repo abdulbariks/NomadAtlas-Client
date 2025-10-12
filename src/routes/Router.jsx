@@ -25,6 +25,7 @@ import AddNewDestination from "../pages/Destination/AddNewDestination";
 import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
 import Resources from "../pages/Resources";
+import LocalServices from "../pages/Services/LocalServices";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,11 @@ export const router = createBrowserRouter([
       {
         path:"/community",
         Component:Community,
+      },
+
+      {
+        path:"/services",
+        Component:LocalServices
       },
       {
         path:"/weather-alerts",
