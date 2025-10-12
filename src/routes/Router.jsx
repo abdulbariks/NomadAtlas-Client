@@ -27,11 +27,14 @@ import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage"
 import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
 import AddResource from "../DashboardPage/AddResource";
 import AddNewDestination from "../pages/Destination/AddNewDestinatios";
+import Error from "../components/Home/Error";
+import ForbiddenPage from "../components/Home/ForbiddenPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <Error></Error>,
     children: [
       {
         index: true,
@@ -40,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "about-us",
         Component: AboutUs,
+      },
+      {
+        path: "forbidden",
+        Component: ForbiddenPage,
       },
       {
         path: "blogs",
@@ -126,10 +133,10 @@ export const router = createBrowserRouter([
         path: "resources",
         Component: Resources,
       },
-      {
-        path: "*",
-        Component: Login,
-      },
+      // {
+      //   path: "*",
+      //   Component: Login,
+      // },
     ],
   },
 
