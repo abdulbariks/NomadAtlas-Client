@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import NomadAtlasLogo from "../Header/NomadAtlasLogo";
-import { Link, NavLink, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../customHook/useRole";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const { role, loading } = useRole()
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    if (value) {
-      navigate(value);
-    }
-  };
+  // const handleChange = (e) => {
+  //   const value = e.target.value;
+  //   if (value) {
+  //     navigate(value);
+  //   }
+  // };
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-200 p-4 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0`}
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-200 p-4 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0`}
       >
         <NomadAtlasLogo />
         <ul className="mt-6 space-y-3">
@@ -38,7 +39,27 @@ const DashboardLayout = () => {
               Add Resource
             </NavLink>
           </li>
-          <select
+          {!loading && role === "admin" &&
+            <>
+              <li>
+                <NavLink
+                  className="hover:text-yellow-500 transition font-bold text-gray-800"
+                  to="/dashboard/admin"
+                >
+                  Admin
+                </NavLink>
+              </li>
+            </>
+          }
+          <li>
+            <NavLink
+              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              to="/dashboard/provider"
+            >
+              Provider
+            </NavLink>
+          </li>
+          {/* <select
             onChange={handleChange}
             className="hover:text-yellow-500 transition font-bold text-gray-800 space-y-3"
           >
@@ -60,7 +81,7 @@ const DashboardLayout = () => {
             >
               Provider
             </option>
-          </select>
+          </select> */}
         </ul>
       </div>
 

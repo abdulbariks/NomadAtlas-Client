@@ -16,7 +16,8 @@ const useRole = () => {
 
         const checkRole = async () => {
             try {
-                const res = await axiosSecure.post(`${import.meta.env.VITE_API}/users/role/${user.email}`);
+                const res = await axiosSecure.get(`${import.meta.env.VITE_API}/users/role/${user.email}`);
+                console.log(res)
                 setRole(res.data.role);
             } catch (error) {
                 console.error("Error fetching role:", error);

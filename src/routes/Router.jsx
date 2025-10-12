@@ -29,6 +29,7 @@ import AddResource from "../DashboardPage/AddResource";
 import AddNewDestination from "../pages/Destination/AddNewDestinatios";
 import Error from "../components/Home/Error";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
+import AdminRoutes from "./AdminRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -158,7 +159,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "admin",
-        Component: Admin,
+        element: <AdminRoutes><Admin></Admin></AdminRoutes>,
       },
       {
         path: "provider",
