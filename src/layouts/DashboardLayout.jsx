@@ -38,6 +38,14 @@ const DashboardLayout = () => {
               Add Resource
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              to="/dashboard/add-data-to-calculate"
+            >
+              Add data to claculate
+            </NavLink>
+          </li>
           <select
             onChange={handleChange}
             className="hover:text-yellow-500 transition font-bold text-gray-800 space-y-3"
