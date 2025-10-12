@@ -16,7 +16,7 @@ import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage
 import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
-import Admin from "../DashboardPage/Admin";
+import ActiveUsers from "../DashboardPage/ActiveUsers";
 import Provider from "../DashboardPage/Provider";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
@@ -142,7 +142,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: (
       <ProtectedRoutes>
         <DashboardLayout></DashboardLayout>
@@ -158,8 +158,11 @@ export const router = createBrowserRouter([
         Component: DashboardHome,
       },
       {
-        path: "admin",
-        element: <AdminRoutes><Admin></Admin></AdminRoutes>,
+        path: "activeUsers",
+        element:
+          <AdminRoutes>
+            <ActiveUsers></ActiveUsers>
+          </AdminRoutes>,
       },
       {
         path: "provider",

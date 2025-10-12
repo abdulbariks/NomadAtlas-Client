@@ -21,7 +21,9 @@ const users = [
   { id: 9, name: "Reja", email: "rejaul@karim.com", role: "User" },
   { id: 10, name: "Ethan White", email: "ethan@example.com", role: "User" },
 ];
-const Admin = () => {
+const ActiveUsers = () => {
+
+
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold mb-4">User Management</h2>
@@ -69,4 +71,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default ActiveUsers;

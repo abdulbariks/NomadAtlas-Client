@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { logOutUser } from "../redux/authSlice";
+import { getIdToken } from "firebase/auth";
+import { auth } from "../firebase/firebase.init";
 
 const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API,
@@ -15,9 +17,10 @@ const useAxiosSecure = () => {
 
     useEffect(() => {
         const reqInterceptor = axiosSecure.interceptors.request.use(
-            (config) => {
-                if (user?.accessToken) {
-                    config.headers.Authorization = `Bearer ${user.accessToken}`;
+            async (config) => {
+                if (user) {
+                    const token = await getIdToken(auth.currentUser, true); // get fresh token
+                    config.headers.Authorization = `Bearer ${token}`;
                 }
                 return config;
             },

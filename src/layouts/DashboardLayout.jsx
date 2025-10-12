@@ -5,15 +5,9 @@ import useRole from "../customHook/useRole";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const navigate = useNavigate();
   const { role, loading } = useRole()
 
-  // const handleChange = (e) => {
-  //   const value = e.target.value;
-  //   if (value) {
-  //     navigate(value);
-  //   }
-  // };
+
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
@@ -39,12 +33,20 @@ const DashboardLayout = () => {
               Add Resource
             </NavLink>
           </li>
+          {/* <li>
+            <NavLink
+              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              to="/dashboard/activeUsers"
+            >
+              Active Users
+            </NavLink>
+          </li> */}
           {!loading && role === "admin" &&
             <>
               <li>
                 <NavLink
                   className="hover:text-yellow-500 transition font-bold text-gray-800"
-                  to="/dashboard/admin"
+                  to="/dashboard/activeUsers"
                 >
                   Admin
                 </NavLink>
