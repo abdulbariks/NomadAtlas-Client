@@ -41,9 +41,9 @@ const DashboardLayout = () => {
           <li>
             <NavLink
               className="hover:text-yellow-500 transition font-bold text-gray-800"
-              to="/dashboard/add-data-to-calculate"
+              to="/dashboard/data-of-calculator"
             >
-              Add data to claculate
+              Cost calculator crud
             </NavLink>
           </li>
           <select

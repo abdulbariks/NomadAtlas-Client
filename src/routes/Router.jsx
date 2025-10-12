@@ -25,7 +25,7 @@ import AddNewDestination from "../pages/Destination/AddNewDestination";
 import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
 import AddResource from "../DashboardPage/AddResource";
-import AddDataToCalculate from "../DashboardPage/AddDataToCalculate";
+import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 
 export const router = createBrowserRouter([
   {
@@ -149,8 +149,8 @@ export const router = createBrowserRouter([
         Component: AddResource,
       },
       {
-        path: "add-data-to-calculate",
-        Component: AddDataToCalculate,
+        path: "data-of-calculator",
+        Component: DataOfCalculator,
       },
     ],
   },
