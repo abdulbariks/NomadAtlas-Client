@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
+import CostCalculator2 from "../components/CostCalculator/CostCalculator2";
 
 const CostCalclator = () => {
   const [selectedCountry, setSelectedCountry] = useState("Germany");
@@ -255,6 +256,8 @@ const CostCalclator = () => {
           Enter a budget, select a country, and select a city to see results
         </p>
       )}
+
+      <CostCalculator2 data={data}></CostCalculator2>
     </div>
   );
 };
