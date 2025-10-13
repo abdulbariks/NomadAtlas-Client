@@ -96,37 +96,86 @@ const CostCalculator2 = ({ data }) => {
               </div>
             </div>
 
-            {/* Internet Speed Preference */}
+            {/* Optional Preferences */}
             <div className="mb-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Internet Speed 🌐
-              </label>
-              <select
-                value={internetSpeed}
-                onChange={(e) => setInternetSpeed(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              >
-                <option value="any">Any Speed</option>
-                <option value="average">Average (30-50 Mbps)</option>
-                <option value="good">Good (50-100 Mbps)</option>
-                <option value="excellent">Excellent (100+ Mbps)</option>
-              </select>
-            </div>
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-4">
+                <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
+                  <span>✨</span> Others (Optional)
+                </h3>
 
-            {/* Beach Access */}
-            <div className="mb-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Beach Access 🏖️
-              </label>
-              <select
-                value={beachAccess}
-                onChange={(e) => setBeachAccess(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              >
-                <option value="any">Any</option>
-                <option value="yes">Must have beach</option>
-                <option value="no">No preference</option>
-              </select>
+                {/* Internet Speed */}
+                <div className="mb-4">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Internet Speed 🌐
+                  </label>
+                  <select
+                    value={internetSpeed}
+                    onChange={(e) => setInternetSpeed(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm"
+                  >
+                    <option value="any">Any Speed</option>
+                    <option value="average">Average (30-50 Mbps)</option>
+                    <option value="good">Good (50-100 Mbps)</option>
+                    <option value="excellent">Excellent (100+ Mbps)</option>
+                  </select>
+                </div>
+
+                {/* Beach Access */}
+                <div className="mb-4">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Beach Access 🏖️
+                  </label>
+                  <select
+                    value={beachAccess}
+                    onChange={(e) => setBeachAccess(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm"
+                  >
+                    <option value="any">Any</option>
+                    <option value="yes">Must have beach</option>
+                    <option value="no">No preference</option>
+                  </select>
+                </div>
+
+                {/* Weather Preference */}
+                <div className="mb-4">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Weather Preference ☀️
+                  </label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm">
+                    <option value="any">Any Weather</option>
+                    <option value="tropical">Tropical (Hot)</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="cold">Cold</option>
+                  </select>
+                </div>
+
+                {/* Lifestyle Type */}
+                <div className="mb-4">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Lifestyle Type 🎯
+                  </label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm">
+                    <option value="any">Any</option>
+                    <option value="tech">Tech Hub</option>
+                    <option value="nature">Nature & Mountains</option>
+                    <option value="cultural">Cultural & Historical</option>
+                    <option value="nightlife">Nightlife & Party</option>
+                  </select>
+                </div>
+
+                {/* Safety Level */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Safety Level 🛡️
+                  </label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm">
+                    <option value="any">Any</option>
+                    <option value="verySafe">Very Safe (90-100)</option>
+                    <option value="safe">Safe (70-90)</option>
+                    <option value="moderate">Moderate (50-70)</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             {/* Calculate Button */}
