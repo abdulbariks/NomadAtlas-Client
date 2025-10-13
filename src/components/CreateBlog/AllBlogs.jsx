@@ -43,7 +43,7 @@ const AllBlogs = () => {
   const featured = blogList[0];
 
   return (
-    <div className="max-w-8xl mx-auto px-4 md:px-10 py-10 ">
+    <div className=" mx-5 md:mx-8 lg:mx-10  my-10 ">
 
       {/* ================= Hero Banner ================ */}
       {featured && (
@@ -68,7 +68,7 @@ const AllBlogs = () => {
                 className="w-8 h-8 rounded-full"
               />
               <div>
-                <p className="font-medium">{featured.author}</p>
+                <p className="font-medium">{featured.authorName}</p>
                 <p>
                   {new Date(featured.createdAt).toISOString().split("T")[0]}
                 </p>

@@ -11,7 +11,6 @@ import useImageUpload from "../../customHook/useImageUpload";
 const categories = [
   "Destinations",
   "Travel Guides",
-  "Stories",
   "Tips & Tricks",
   "Community",
 ];
@@ -24,24 +23,22 @@ const CreateBlog = () => {
 
   const mutation = useMutation({
     mutationFn: async (newBlog) => {
-      const res = await axios.post(
-        "http://localhost:5000/api/blogs",
-        newBlog
-      );
+      const res = await axios.post("http://localhost:5000/api/blogs", newBlog);
       return res.data;
     },
     onSuccess: () => {
       Swal.fire({
         icon: "success",
         title: "Success!",
-        text: "Your blog has been saved successfully 🎉",
+        text: "Your blog has been saved successfully ",
         timer: 2000,
         showConfirmButton: false,
       });
       reset();
       setLoading(false);
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Create blog error:", error.response?.data || error.message);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -67,12 +64,13 @@ const CreateBlog = () => {
 
     const newBlog = {
       ...data,
-      tags: data.tags.split(",").map((tag) => tag.trim()),
+      tags: data.tags ? data.tags.split(",").map((tag) => tag.trim()) : [],
       image: picture,
-      authorName: user?.displayName,
-      authorEmail: user?.email,
+      authorName: user?.displayName || "Anonymous",
+      authorEmail: user?.email || "anonymous@example.com",
+      authorImage: user?.photoURL || "https://i.ibb.co/default-profile.png",
+      type: isDraft ? "Draft" : "blog",
       createdAt: new Date().toISOString(),
-      type: isDraft ? "Draft" : "Publish",
     };
 
     setLoading(true);
@@ -133,10 +131,9 @@ const CreateBlog = () => {
           <input
             type="text"
             placeholder="e.g. adventure, backpacking, tips"
-            {...register("tags", { required: "Tags are required" })}
+            {...register("tags")}
             className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
-          {errors.tags && <p className="text-red-500 text-sm">{errors.tags.message}</p>}
         </div>
 
         {/* Image Upload */}
@@ -149,7 +146,7 @@ const CreateBlog = () => {
               className="flex flex-col items-center cursor-pointer text-blue-600"
             >
               <Upload size={24} />
-              <span className="mt-2">Click to upload or drag & drop</span>
+              <span className="mt-2">Click to upload</span>
             </label>
 
             {picture && (
