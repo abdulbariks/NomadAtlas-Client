@@ -6,14 +6,94 @@ const CostCalculator2 = ({ data }) => {
   const [minLuxury, setMinLuxury] = useState(50);
   const [internetSpeed, setInternetSpeed] = useState("any");
   const [beachAccess, setBeachAccess] = useState("any");
+  const [weather, setWeather] = useState("any");
+  const [lifestyle, setLifestyle] = useState("any");
+  const [safety, setSafety] = useState("any");
+  const [results, setResults] = useState([]);
 
-  // Dummy calculation - tumi nijei logic add korbe
+  // Calculate options based on user preferences
   const calculateOptions = () => {
-    // Ekhane tomar logic ashbe
-    return [];
-  };
+    let options = [];
 
-  const results = calculateOptions();
+    // Loop through all countries and cities
+    data.forEach((country) => {
+      country.cities.forEach((city) => {
+        // Calculate cost per day
+        const costPerDay = city.livingCost / 30;
+
+        // Calculate total cost for given days
+        const totalCost = costPerDay * days;
+
+        // Check if within budget
+        if (totalCost <= maxBudget) {
+          // Check luxury requirement
+          if (city.luxuryScore >= minLuxury) {
+            // Calculate how many days possible with max budget
+            const possibleDays = Math.floor(maxBudget / costPerDay);
+
+            // Optional filters (future features - ekhon skip korbe if data nai)
+            let passOptionalFilters = true;
+
+            // Internet speed filter
+            if (internetSpeed !== "any" && city.internetSpeed) {
+              if (internetSpeed === "average" && city.internetSpeed < 30)
+                passOptionalFilters = false;
+              if (internetSpeed === "good" && city.internetSpeed < 50)
+                passOptionalFilters = false;
+              if (internetSpeed === "excellent" && city.internetSpeed < 100)
+                passOptionalFilters = false;
+            }
+
+            // Beach access filter
+            if (beachAccess === "yes" && city.beachAccess !== true) {
+              passOptionalFilters = false;
+            }
+
+            // Weather filter
+            if (weather !== "any" && city.weather && city.weather !== weather) {
+              passOptionalFilters = false;
+            }
+
+            // Lifestyle filter
+            if (
+              lifestyle !== "any" &&
+              city.lifestyle &&
+              city.lifestyle !== lifestyle
+            ) {
+              passOptionalFilters = false;
+            }
+
+            // Safety filter
+            if (safety !== "any" && city.safetyScore) {
+              if (safety === "verySafe" && city.safetyScore < 90)
+                passOptionalFilters = false;
+              if (safety === "safe" && city.safetyScore < 70)
+                passOptionalFilters = false;
+              if (safety === "moderate" && city.safetyScore < 50)
+                passOptionalFilters = false;
+            }
+
+            // If passes all filters, add to options
+            if (passOptionalFilters) {
+              options.push({
+                ...city,
+                country: country.country,
+                totalCost: Math.round(totalCost),
+                possibleDays: possibleDays,
+                costPerDay: Math.round(costPerDay),
+              });
+            }
+          }
+        }
+      });
+    });
+
+    // Sort by possible days (highest first)
+    const sorted = options.sort((a, b) => b.possibleDays - a.possibleDays);
+
+    // Update results state
+    setResults(sorted);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 mt-16">
@@ -141,7 +221,11 @@ const CostCalculator2 = ({ data }) => {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Weather Preference ☀️
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm">
+                  <select
+                    value={weather}
+                    onChange={(e) => setWeather(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm"
+                  >
                     <option value="any">Any Weather</option>
                     <option value="tropical">Tropical (Hot)</option>
                     <option value="moderate">Moderate</option>
@@ -154,7 +238,11 @@ const CostCalculator2 = ({ data }) => {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Lifestyle Type 🎯
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm">
+                  <select
+                    value={lifestyle}
+                    onChange={(e) => setLifestyle(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm"
+                  >
                     <option value="any">Any</option>
                     <option value="tech">Tech Hub</option>
                     <option value="nature">Nature & Mountains</option>
@@ -168,7 +256,11 @@ const CostCalculator2 = ({ data }) => {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Safety Level 🛡️
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm">
+                  <select
+                    value={safety}
+                    onChange={(e) => setSafety(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-sm"
+                  >
                     <option value="any">Any</option>
                     <option value="verySafe">Very Safe (90-100)</option>
                     <option value="safe">Safe (70-90)</option>
