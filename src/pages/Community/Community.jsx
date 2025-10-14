@@ -34,7 +34,7 @@ const posts = [
 
 const Community = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white mt-14">
       {/* Hero Section */}
       <section className="text-center py-16 px-4">
         <motion.h1
