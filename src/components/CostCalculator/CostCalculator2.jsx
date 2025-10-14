@@ -11,6 +11,64 @@ const CostCalculator2 = ({ data }) => {
   const [safety, setSafety] = useState("any");
   const [results, setResults] = useState([]);
 
+  // Component er upore helper function banao
+  const getActiveFilters = () => {
+    const filters = [];
+
+    // Internet Speed
+    if (internetSpeed !== "any") {
+      const speedLabels = {
+        average: "Average Internet (30-50 Mbps)",
+        good: "Good Internet (50-100 Mbps)",
+        excellent: "Excellent Internet (100+ Mbps)",
+      };
+      filters.push(speedLabels[internetSpeed]);
+    }
+
+    // Beach Access
+    if (beachAccess === "yes") {
+      filters.push("Beach Access");
+    }
+
+    // Weather
+    if (weather !== "any") {
+      const weatherLabels = {
+        tropical: "Tropical Weather",
+        moderate: "Moderate Weather",
+        cold: "Cold Weather",
+      };
+      filters.push(weatherLabels[weather]);
+    }
+
+    // Lifestyle
+    if (lifestyle !== "any") {
+      const lifestyleLabels = {
+        tech: "Tech Hub",
+        nature: "Nature & Mountains",
+        cultural: "Cultural & Historical",
+        nightlife: "Nightlife & Party",
+      };
+      filters.push(lifestyleLabels[lifestyle]);
+    }
+
+    // Safety
+    if (safety !== "any") {
+      const safetyLabels = {
+        verySafe: "Very Safe (90-100)",
+        safe: "Safe (70-90)",
+        moderate: "Moderate Safety (50-70)",
+      };
+      filters.push(safetyLabels[safety]);
+    }
+
+    // Luxury
+    if (minLuxury > 0) {
+      filters.push(`Luxury ${minLuxury}+`);
+    }
+
+    return filters;
+  };
+
   // Calculate options based on user preferences
   const calculateOptions = () => {
     let options = [];
@@ -309,11 +367,26 @@ const CostCalculator2 = ({ data }) => {
             </div>
           ) : (
             <div>
-              <div className="mb-6 flex items-center justify-between">
+              <div className="mb-6 flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-gray-800">
                   Best Matches for You
                 </h2>
-                <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+
+                {getActiveFilters().length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    <span className="text-gray-600 text-sm">Filtered by:</span>
+                    {getActiveFilters().map((filter, index) => (
+                      <span
+                        key={index}
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-sm"
+                      >
+                        {filter}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold inline-block w-fit">
                   {results.length} Cities Found
                 </span>
               </div>
