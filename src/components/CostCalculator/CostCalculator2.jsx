@@ -331,7 +331,7 @@ const CostCalculator2 = ({ data }) => {
             {/* Calculate Button */}
             <button
               onClick={calculateOptions}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-105 cursor-pointer"
             >
               Find Perfect Cities 🔍
             </button>
