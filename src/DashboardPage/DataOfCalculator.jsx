@@ -7,6 +7,8 @@ import {
   X,
   Search,
   AlertCircle,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const API_URL = "https://nomad-atlas-server-pi.vercel.app/cost-calculator";
@@ -21,13 +23,23 @@ const DataOfCalculator = () => {
   // Form states
   const [country, setCountry] = useState("");
   const [cities, setCities] = useState([
-    { name: "", livingCost: "", luxuryScore: "" },
+    {
+      name: "",
+      livingCost: "",
+      luxuryScore: "",
+      internetSpeed: "",
+      beachAccess: false,
+      weather: "",
+      lifestyle: "",
+      safetyScore: "",
+    },
   ]);
 
   // Edit states
   const [editMode, setEditMode] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
+  const [showOptionalFields, setShowOptionalFields] = useState({});
 
   useEffect(() => {
     fetchCountries();
@@ -47,7 +59,19 @@ const DataOfCalculator = () => {
   };
 
   const addCity = () => {
-    setCities([...cities, { name: "", livingCost: "", luxuryScore: "" }]);
+    setCities([
+      ...cities,
+      {
+        name: "",
+        livingCost: "",
+        luxuryScore: "",
+        internetSpeed: "",
+        beachAccess: false,
+        weather: "",
+        lifestyle: "",
+        safetyScore: "",
+      },
+    ]);
   };
 
   const removeCity = (index) => {
@@ -61,6 +85,13 @@ const DataOfCalculator = () => {
       i === index ? { ...city, [field]: value } : city
     );
     setCities(updatedCities);
+  };
+
+  const toggleOptionalFields = (index) => {
+    setShowOptionalFields((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
   const validateForm = () => {
@@ -111,6 +142,14 @@ const DataOfCalculator = () => {
             name: city.name.trim(),
             livingCost: Number(city.livingCost),
             luxuryScore: Number(city.luxuryScore),
+            internetSpeed: city.internetSpeed
+              ? Number(city.internetSpeed)
+              : null,
+            beachAccess:
+              city.beachAccess === true || city.beachAccess === "true",
+            weather: city.weather || null,
+            lifestyle: city.lifestyle || null,
+            safetyScore: city.safetyScore ? Number(city.safetyScore) : null,
           })),
         }),
       });
@@ -148,6 +187,11 @@ const DataOfCalculator = () => {
         name: city.name,
         livingCost: city.livingCost,
         luxuryScore: city.luxuryScore,
+        internetSpeed: city.internetSpeed || "",
+        beachAccess: city.beachAccess || false,
+        weather: city.weather || "",
+        lifestyle: city.lifestyle || "",
+        safetyScore: city.safetyScore || "",
       }))
     );
     setActiveTab("add");
@@ -177,10 +221,22 @@ const DataOfCalculator = () => {
 
   const resetForm = () => {
     setCountry("");
-    setCities([{ name: "", livingCost: "", luxuryScore: "" }]);
+    setCities([
+      {
+        name: "",
+        livingCost: "",
+        luxuryScore: "",
+        internetSpeed: "",
+        beachAccess: false,
+        weather: "",
+        lifestyle: "",
+        safetyScore: "",
+      },
+    ]);
     setEditMode(false);
     setEditingId(null);
     setMessage({ type: "", text: "" });
+    setShowOptionalFields({});
   };
 
   const filteredCountries = countries.filter(
@@ -330,6 +386,21 @@ const DataOfCalculator = () => {
                                 <span>💰 ${city.livingCost}</span>
                                 <span>⭐ {city.luxuryScore}/100</span>
                               </div>
+                              {city.beachAccess && (
+                                <span className="inline-block mt-1 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                  🏖️ Beach
+                                </span>
+                              )}
+                              {city.weather && (
+                                <span className="inline-block mt-1 ml-1 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                  {city.weather}
+                                </span>
+                              )}
+                              {city.lifestyle && (
+                                <span className="inline-block mt-1 ml-1 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                  {city.lifestyle}
+                                </span>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -367,7 +438,7 @@ const DataOfCalculator = () => {
             ) : (
               <div>
                 {/* Add/Edit Form */}
-                <div className="max-w-4xl">
+                <div className="max-w-5xl">
                   {editMode && (
                     <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
                       <span className="text-blue-800 font-medium">
@@ -432,7 +503,8 @@ const DataOfCalculator = () => {
                             )}
                           </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {/* Required Fields */}
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-1">
                                 City Name *
@@ -491,6 +563,141 @@ const DataOfCalculator = () => {
                               />
                             </div>
                           </div>
+
+                          {/* Optional Fields Toggle */}
+                          <button
+                            onClick={() => toggleOptionalFields(index)}
+                            className="flex items-center gap-2 text-sm text-purple-600 hover:text-purple-800 font-medium mb-2"
+                          >
+                            {showOptionalFields[index] ? (
+                              <ChevronUp size={16} />
+                            ) : (
+                              <ChevronDown size={16} />
+                            )}
+                            {showOptionalFields[index] ? "Hide" : "Show"}{" "}
+                            Optional Fields
+                          </button>
+
+                          {/* Optional Fields */}
+                          {showOptionalFields[index] && (
+                            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mt-3">
+                              <p className="text-xs text-purple-700 font-semibold mb-3">
+                                ✨ Optional Fields (for advanced filtering)
+                              </p>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Internet Speed (Mbps)
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={city.internetSpeed}
+                                    onChange={(e) =>
+                                      updateCity(
+                                        index,
+                                        "internetSpeed",
+                                        e.target.value
+                                      )
+                                    }
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm"
+                                    placeholder="e.g., 80"
+                                  />
+                                </div>
+
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Beach Access
+                                  </label>
+                                  <select
+                                    value={city.beachAccess}
+                                    onChange={(e) =>
+                                      updateCity(
+                                        index,
+                                        "beachAccess",
+                                        e.target.value === "true"
+                                      )
+                                    }
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm"
+                                  >
+                                    <option value={false}>No</option>
+                                    <option value={true}>Yes</option>
+                                  </select>
+                                </div>
+
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Weather
+                                  </label>
+                                  <select
+                                    value={city.weather}
+                                    onChange={(e) =>
+                                      updateCity(
+                                        index,
+                                        "weather",
+                                        e.target.value
+                                      )
+                                    }
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm"
+                                  >
+                                    <option value="">Select...</option>
+                                    <option value="tropical">Tropical</option>
+                                    <option value="moderate">Moderate</option>
+                                    <option value="cold">Cold</option>
+                                  </select>
+                                </div>
+
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Lifestyle Type
+                                  </label>
+                                  <select
+                                    value={city.lifestyle}
+                                    onChange={(e) =>
+                                      updateCity(
+                                        index,
+                                        "lifestyle",
+                                        e.target.value
+                                      )
+                                    }
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm"
+                                  >
+                                    <option value="">Select...</option>
+                                    <option value="tech">Tech Hub</option>
+                                    <option value="nature">
+                                      Nature & Mountains
+                                    </option>
+                                    <option value="cultural">
+                                      Cultural & Historical
+                                    </option>
+                                    <option value="nightlife">
+                                      Nightlife & Party
+                                    </option>
+                                  </select>
+                                </div>
+
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Safety Score (0-100)
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={city.safetyScore}
+                                    onChange={(e) =>
+                                      updateCity(
+                                        index,
+                                        "safetyScore",
+                                        e.target.value
+                                      )
+                                    }
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm"
+                                    placeholder="e.g., 85"
+                                    min="0"
+                                    max="100"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
