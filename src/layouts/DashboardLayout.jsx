@@ -48,42 +48,40 @@ const DashboardLayout = () => {
                   className="hover:text-yellow-500 transition font-bold text-gray-800"
                   to="/dashboard/activeUsers"
                 >
-                  Admin
+                  Active Users
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  className="hover:text-yellow-500 transition font-bold text-gray-800"
+                  to="/dashboard/provider"
+                >
+                  Provider
                 </NavLink>
               </li>
             </>
           }
-          <li>
+          {!loading && role === "provider" &&
+            <>
+              <li>
+                <NavLink
+                  className="hover:text-yellow-500 transition font-bold text-gray-800"
+                  to="/dashboard/provider"
+                >
+                  Provider
+                </NavLink>
+              </li>
+            </>
+          }
+          {/* <li>
             <NavLink
               className="hover:text-yellow-500 transition font-bold text-gray-800"
               to="/dashboard/provider"
             >
               Provider
             </NavLink>
-          </li>
-          {/* <select
-            onChange={handleChange}
-            className="hover:text-yellow-500 transition font-bold text-gray-800 space-y-3"
-          >
-            <option
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              value=""
-            >
-              Role
-            </option>
-            <option
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              value="/dashboard/admin"
-            >
-              Admin
-            </option>
-            <option
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              value="/dashboard/provider"
-            >
-              Provider
-            </option>
-          </select> */}
+          </li> */}
         </ul>
       </div>
 

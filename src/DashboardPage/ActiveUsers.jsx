@@ -1,28 +1,22 @@
-import React from "react";
-const users = [
-  { id: 1, name: "Abdul Barik", email: "abdul@barik.com", role: "Admin" },
-  { id: 2, name: "Kousar Ahmed", email: "kouser@ahmed.com", role: "User" },
-  {
-    id: 3,
-    name: "Altaf Uddin Sifat",
-    email: "sifat@example.com",
-    role: "Moderator",
-  },
-  {
-    id: 4,
-    name: "Michael Brown",
-    email: "michael@example.com",
-    role: "Moderator",
-  },
-  { id: 5, name: "Emily Davis", email: "emily@example.com", role: "User" },
-  { id: 6, name: "Rafi", email: "marjiul@rafi.com", role: "User" },
-  { id: 7, name: "Sophia Taylor", email: "sophia@example.com", role: "User" },
-  { id: 8, name: "Sharmin Akter", email: "sharmin@akter.com", role: "User" },
-  { id: 9, name: "Reja", email: "rejaul@karim.com", role: "User" },
-  { id: 10, name: "Ethan White", email: "ethan@example.com", role: "User" },
-];
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../redux/userSlice";
+import useAxiosSecure from "../customHook/useAxiosSecure";
+import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
 const ActiveUsers = () => {
+  const dispatch = useDispatch();
+  const { users, loading, error } = useSelector((state) => state.users);
+  const axiosSecure = useAxiosSecure();
 
+  useEffect(() => {
+    dispatch(fetchUsers(axiosSecure));
+  }, [dispatch,axiosSecure]);
+
+  if (loading) return <NomadAtlasLoader/>;
+  if (error) {
+    let errMsg = typeof error === "string" ? error : error?.message || "Failed to fetch users";
+    return <p className="text-center text-red-500 mt-6">{errMsg}</p>;
+  }
 
   return (
     <div className="p-6">
@@ -47,19 +41,18 @@ const ActiveUsers = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
+              <tr key={user._id} className="hover:bg-gray-50">
                 <td className="px-6 py-3 border-b">{user.name}</td>
                 <td className="px-6 py-3 border-b">{user.email}</td>
-                <td className="px-6 py-3 border-b">{user.role}</td>
+                <td className="px-6 py-3 border-b capitalize">{user.role}</td>
                 <td className="px-6 py-3 border-b text-center">
                   <button
-                    className={`px-3 py-1 rounded-lg text-white ${
-                      user.role === "Admin"
-                        ? "bg-red-500 hover:bg-red-600"
-                        : "bg-blue-500 hover:bg-blue-600"
-                    }`}
+                    className={`px-3 py-1 rounded-lg text-white ${user.role === "admin"
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-blue-500 hover:bg-blue-600"
+                      }`}
                   >
-                    {user.role === "Admin" ? "Remove Admin" : "Make Admin"}
+                    {user.role === "admin" ? "Remove Admin" : "Make Admin"}
                   </button>
                 </td>
               </tr>
@@ -72,3 +65,47 @@ const ActiveUsers = () => {
 };
 
 export default ActiveUsers;
+
+
+
+
+
+
+
+// import { useEffect, useState } from "react";
+// import useAxiosSecure from "../customHook/useAxiosSecure";
+
+
+// const ActiveUsers = () => {
+
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const axiosSecure = useAxiosSecure();
+
+//   useEffect(() => {
+//     const fetchUsers = async () => {
+//       try {
+//         const res = await axiosSecure.get(`/users`);
+//         setUsers(res.data);
+//       } catch (err) {
+//         console.error("Error fetching users:", err);
+//         setError("Failed to load users.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchUsers();
+//   }, [axiosSecure]);
+
+//   if (loading) return <p className="text-center mt-6">Loading users...</p>;
+//   if (error) return <p className="text-center text-red-500 mt-6">{error}</p>;
+// };
+
+// export default ActiveUsers;
+
+
+
+
+
+

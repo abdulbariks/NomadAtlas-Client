@@ -2,6 +2,7 @@ import React from 'react';
 import useRole from '../customHook/useRole';
 import { Navigate, useLocation } from 'react-router';
 import { useSelector } from 'react-redux';
+import NomadAtlasLoader from '../components/Home/NomadAtlasLoader';
 
 const ProviderRoutes = ({ children }) => {
 
@@ -11,7 +12,7 @@ const ProviderRoutes = ({ children }) => {
 
     const loading = authLoading || roleLoading;
 
-    if (loading) return "....loading";
+    if (loading) return <NomadAtlasLoader/>;
     if (!user || role !== "provider") {
         return <Navigate to="/forbidden" state={{ from: location }} replace />;
     }
