@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../redux/authSlice";
 import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

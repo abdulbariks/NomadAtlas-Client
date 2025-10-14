@@ -8,7 +8,9 @@ const AdminRoutes = ({ children }) => {
     const { role, loading } = useRole()
     const location = useLocation();
 
-    if (loading) return <NomadAtlasLoader/>;
+
+
+    if (loading) return <NomadAtlasLoader />;
     if (role !== "admin")
 
         return <Navigate to="/forbidden" state={{ from: location }} replace />

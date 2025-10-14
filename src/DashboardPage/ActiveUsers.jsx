@@ -10,9 +10,10 @@ const ActiveUsers = () => {
 
   useEffect(() => {
     dispatch(fetchUsers(axiosSecure));
-  }, [dispatch,axiosSecure]);
+  }, [dispatch, axiosSecure]);
 
-  if (loading) return <NomadAtlasLoader/>;
+
+  if (loading) return <NomadAtlasLoader />;
   if (error) {
     let errMsg = typeof error === "string" ? error : error?.message || "Failed to fetch users";
     return <p className="text-center text-red-500 mt-6">{errMsg}</p>;
