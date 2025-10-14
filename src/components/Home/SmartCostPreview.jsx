@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
 import CostCalclator from "../../pages/CostCalculator";
 
 const SmartCostPreview = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://nomad-atlas-server-pi.vercel.app/cost-calculator")
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((err) => console.error("Error fetching data:", err));
+  }, []);
+
   return (
     <div>
       {/* Header */}
@@ -17,7 +26,7 @@ const SmartCostPreview = () => {
         </p>
       </div>
 
-      <CostCalclator></CostCalclator>
+      <CostCalclator data={data}></CostCalclator>
 
       {/* CTA Button */}
       <div className="flex justify-center">

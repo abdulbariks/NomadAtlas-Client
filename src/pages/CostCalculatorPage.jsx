@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CostCalclator from "./CostCalculator";
 import CostCalculator2 from "../components/CostCalculator/CostCalculator2";
 
 const CostCalculatorPage = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://nomad-atlas-server-pi.vercel.app/cost-calculator")
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((err) => console.error("Error fetching data:", err));
+  }, []);
   return (
     <div className="mt-16 pt-10">
       {/* Header for calculator 1 */}
@@ -15,9 +23,9 @@ const CostCalculatorPage = () => {
           dicision
         </p>
       </div>
-      <CostCalclator></CostCalclator>
+      <CostCalclator data={data}></CostCalclator>
 
-      <CostCalculator2></CostCalculator2>
+      <CostCalculator2 data={data}></CostCalculator2>
     </div>
   );
 };

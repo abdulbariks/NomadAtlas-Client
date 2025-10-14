@@ -2,18 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
 
-const CostCalclator = () => {
+const CostCalclator = ({ data }) => {
   const [selectedCountry, setSelectedCountry] = useState("Germany");
   const [selectedCity, setSelectedCity] = useState(null);
   const [budget, setBudget] = useState(0);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch("https://nomad-atlas-server-pi.vercel.app/cost-calculator")
-      .then((res) => res.json())
-      .then((data) => setData(data))
-      .catch((err) => console.error("Error fetching data:", err));
-  }, []);
 
   const selectedCountryData = data.find(
     (countryData) => countryData.country === selectedCountry
