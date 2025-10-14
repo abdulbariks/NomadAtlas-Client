@@ -23,6 +23,8 @@ import AddNewDestination from "../pages/Destination/AddNewDestination"
 import DestinationPage from "../pages/Destination/DestinationPage"
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage"
 import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
+import InternetSpeed from "../pages/Internet Speed Map/InternetSpeed";
+
 
 
 export const router = createBrowserRouter([
@@ -102,6 +104,10 @@ export const router = createBrowserRouter([
       {
         path: "cost-calculator",
         Component: CostCalculator,
+      },
+      {
+        path : "internet-speed",
+        element :<ProtectedRoutes><InternetSpeed/></ProtectedRoutes>
       },
       {
         path: "cost-calculator",
