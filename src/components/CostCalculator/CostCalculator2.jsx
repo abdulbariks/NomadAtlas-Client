@@ -283,15 +283,29 @@ const CostCalculator2 = ({ data }) => {
         {/* Right Side: Results */}
         <div className="lg:col-span-2">
           {results.length === 0 ? (
-            <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center">
-              <div className="text-6xl mb-4">🎯</div>
-              <h3 className="text-2xl font-bold text-gray-700 mb-2">
-                No Results Yet
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-dashed border-blue-300 rounded-2xl p-12 text-center">
+              <div className="text-7xl mb-4">🗺️</div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-3">
+                Ready to Explore?
               </h3>
-              <p className="text-gray-500">
-                Set your preferences and click "Find Perfect Cities" to see
-                results
+              <p className="text-gray-600 text-lg mb-6">
+                Set your travel preferences on the left and discover amazing
+                cities that fit your budget!
               </p>
+              <div className="flex flex-wrap justify-center gap-3 text-sm text-gray-500">
+                <span className="bg-white px-4 py-2 rounded-full shadow-sm">
+                  💰 Budget-friendly options
+                </span>
+                <span className="bg-white px-4 py-2 rounded-full shadow-sm">
+                  🏖️ Beach destinations
+                </span>
+                <span className="bg-white px-4 py-2 rounded-full shadow-sm">
+                  🌐 Fast internet
+                </span>
+                <span className="bg-white px-4 py-2 rounded-full shadow-sm">
+                  🛡️ Safe locations
+                </span>
+              </div>
             </div>
           ) : (
             <div>
@@ -357,30 +371,109 @@ const CostCalculator2 = ({ data }) => {
                     </div>
 
                     {/* Extra Info */}
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
                         💰 ${(city.livingCost / 30).toFixed(2)}/day
                       </span>
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                        ⭐ Luxury {city.luxuryScore}
-                      </span>
+                      {city.internetSpeed && (
+                        <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
+                          🌐 {city.internetSpeed} Mbps
+                        </span>
+                      )}
                       {city.beachAccess && (
-                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                        <span className="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full text-sm font-medium">
                           🏖️ Beach Access
+                        </span>
+                      )}
+                      {city.weather && (
+                        <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
+                          {city.weather === "tropical" && "☀️ Tropical"}
+                          {city.weather === "moderate" && "🌤️ Moderate"}
+                          {city.weather === "cold" && "❄️ Cold"}
+                        </span>
+                      )}
+                      {city.lifestyle && (
+                        <span className="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-medium">
+                          {city.lifestyle === "tech" && "💻 Tech Hub"}
+                          {city.lifestyle === "nature" && "🏞️ Nature"}
+                          {city.lifestyle === "cultural" && "🎭 Cultural"}
+                          {city.lifestyle === "nightlife" && "🎉 Nightlife"}
+                        </span>
+                      )}
+                      {city.safetyScore && (
+                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                          🛡️ Safety {city.safetyScore}/100
                         </span>
                       )}
                     </div>
 
+                    {/* Detailed Info Section */}
+                    <div className="mt-4 pt-4 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <p className="text-xs text-gray-500 mb-1">Daily Cost</p>
+                        <p className="text-sm font-semibold text-gray-700">
+                          ${(city.livingCost / 30).toFixed(2)} per day
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 mb-1">
+                          Monthly Cost
+                        </p>
+                        <p className="text-sm font-semibold text-gray-700">
+                          ${city.livingCost} per month
+                        </p>
+                      </div>
+                      {city.internetSpeed && (
+                        <div>
+                          <p className="text-xs text-gray-500 mb-1">
+                            Internet Speed
+                          </p>
+                          <p className="text-sm font-semibold text-gray-700">
+                            {city.internetSpeed} Mbps
+                            {city.internetSpeed >= 100 && " (Excellent)"}
+                            {city.internetSpeed >= 50 &&
+                              city.internetSpeed < 100 &&
+                              " (Good)"}
+                            {city.internetSpeed >= 30 &&
+                              city.internetSpeed < 50 &&
+                              " (Average)"}
+                          </p>
+                        </div>
+                      )}
+                      {city.safetyScore && (
+                        <div>
+                          <p className="text-xs text-gray-500 mb-1">
+                            Safety Score
+                          </p>
+                          <p className="text-sm font-semibold text-gray-700">
+                            {city.safetyScore}/100
+                            {city.safetyScore >= 90 && " (Very Safe)"}
+                            {city.safetyScore >= 70 &&
+                              city.safetyScore < 90 &&
+                              " (Safe)"}
+                            {city.safetyScore >= 50 &&
+                              city.safetyScore < 70 &&
+                              " (Moderate)"}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
                     {/* Insight */}
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm text-gray-600">
-                        💡 <span className="font-semibold">Insight:</span> With
-                        your ${maxBudget} budget for {days} days, you can
-                        actually stay{" "}
-                        <span className="font-bold text-green-600">
+                    <div className="mt-4 pt-4 border-t border-gray-200 bg-blue-50 rounded-lg p-3">
+                      <p className="text-sm text-gray-700">
+                        💡 <span className="font-semibold">Value Insight:</span>{" "}
+                        With your ${maxBudget} budget, you can stay{" "}
+                        <span className="font-bold text-blue-600">
                           {city.possibleDays} days
                         </span>{" "}
-                        in {city.name}!
+                        in {city.name}
+                        {city.possibleDays > days && (
+                          <span className="text-green-600 font-semibold">
+                            {" "}
+                            ({city.possibleDays - days} extra days!)
+                          </span>
+                        )}
                       </p>
                     </div>
                   </div>
