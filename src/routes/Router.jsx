@@ -10,7 +10,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 // import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
-import CostCalculator from "../pages/CostCalculator";
+import CostCalculatorPage from "../pages/CostCalculatorPage";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
 import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
@@ -29,6 +29,9 @@ import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage"
 import Resources from "../pages/Resources";
 import CheckoutPage from "../Payment/CheckoutPage";
 import PaymentSuccess from "../Payment/PaymentSuccess";
+import AddResource from "../DashboardPage/AddResource";
+import DataOfCalculator from "../DashboardPage/DataOfCalculator";
+
 
 export const router = createBrowserRouter([
   {
@@ -59,9 +62,8 @@ export const router = createBrowserRouter([
       {
         path: "/destinations",
         Component: DestinationsPage
-      }
+      },
 
-      ,
       {
         path: "/destinations/:id",
         Component: DestinationDetailsPage
@@ -85,7 +87,7 @@ export const router = createBrowserRouter([
 
       {
         path: "createBlog",
-        Component: CreateBlog
+        Component: CreateBlog,
       },
       {
         path: "comparison",
@@ -97,13 +99,14 @@ export const router = createBrowserRouter([
       },
 
       {
-        path:"/community",
-        Component:Community,
+        path: "/community",
+        Component: Community,
       },
       {
-        path:"/weather-alerts",
-        Component:WeatherAlertsPage
+        path: "/weather-alerts",
+        Component: WeatherAlertsPage,
       },
+      // my
       {
         path: "login",
         Component: Login,
@@ -122,7 +125,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "cost-calculator",
-        Component: CostCalculator,
+        Component: CostCalculatorPage,
       },
       {
         path : "internet-speed",
@@ -148,25 +151,37 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/dashboard',
-    element: <ProtectedRoutes><DashboardLayout></DashboardLayout></ProtectedRoutes>,
+    path: "/dashboard",
+    element: (
+      <ProtectedRoutes>
+        <DashboardLayout></DashboardLayout>
+      </ProtectedRoutes>
+    ),
     children: [
       {
         index: true,
-        element: <DashboardHome />
+        element: <DashboardHome />,
       },
       {
         path: "home",
-        Component: DashboardHome
+        Component: DashboardHome,
       },
       {
         path: "admin",
-        Component: Admin
+        Component: Admin,
       },
       {
         path: "provider",
-        Component: Provider
+        Component: Provider,
       },
-    ]
-  }
+      {
+        path: "add-resource",
+        Component: AddResource,
+      },
+      {
+        path: "data-of-calculator",
+        Component: DataOfCalculator,
+      },
+    ],
+  },
 ]);

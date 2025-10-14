@@ -5,6 +5,11 @@ export default function YoutubeVideos({ selectedCategory }) {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // console.log(
+  //   "testing the selected category if it passing or not",
+  //   selectedCategory
+  // );
+
   // connecting youtube api key from envfile
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 

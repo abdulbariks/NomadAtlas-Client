@@ -74,3 +74,5 @@ This feature helps nomads:
 - Explore **affordable options**
 - Compare **luxury destinations**
 - Make **smarter travel decisions**
+
+- Added Resources page.

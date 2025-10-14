@@ -156,6 +156,8 @@ const Blogs = () => {
   const [page, setPage] = useState(1);
   const blogsPerPage = 5;
 
+  console.log("Tesing selected vidoes in blogs.jsx", selectedCategory);
+
   // below part for backend part. don't dare to delete.
 
   //  Fetch blogs from backend with filters
