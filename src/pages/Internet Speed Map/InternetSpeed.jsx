@@ -65,6 +65,7 @@ export default function InternetSpeed() {
   const [reportSpeed, setReportSpeed] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  console.log(error,loading)
   useEffect(() => {
     fetchAvg();
     // eslint-disable-next-line
