@@ -10,16 +10,17 @@ import ForgotPassword from "../pages/ForgotPassword";
 // import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
-import CostCalculator from "../pages/CostCalculator";
+import CostCalculatorPage from "../pages/CostCalculatorPage";
 import Resources from "../pages/Resources";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
 import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ActiveUsers from "../DashboardPage/ActiveUsers";
-import Provider from "../DashboardPage/Provider";
+import Provider from "../DashboardPage/AddDestinations";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
+import InternetSpeed from "../pages/Internet Speed Map/InternetSpeed";
 
 
 import DestinationsPage from "../pages/Destination/DestinationPage";
@@ -28,8 +29,10 @@ import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
 import AddResource from "../DashboardPage/AddResource";
 import AddNewDestination from "../pages/Destination/AddNewDestinatios";
 import Error from "../components/Home/Error";
+import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
+import AddDestinations from "../DashboardPage/AddDestinations";
 
 export const router = createBrowserRouter([
   {
@@ -66,7 +69,6 @@ export const router = createBrowserRouter([
         path: "/destinations",
         Component: DestinationsPage,
       },
-
       {
         path: "/destinations/:id",
         Component: DestinationDetailsPage
@@ -120,7 +122,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "cost-calculator",
-        Component: CostCalculator,
+        Component: CostCalculatorPage,
+      },
+      {
+        path : "internet-speed",
+        element :<ProtectedRoutes><InternetSpeed/></ProtectedRoutes>
       },
       {
         path: "cost-calculator",
@@ -165,12 +171,16 @@ export const router = createBrowserRouter([
           </AdminRoutes>,
       },
       {
-        path: "provider",
-        Component: Provider,
+        path: "addDestinations",
+        Component: AddDestinations,
       },
       {
         path: "add-resource",
         Component: AddResource,
+      },
+      {
+        path: "data-of-calculator",
+        Component: DataOfCalculator,
       },
     ],
   },

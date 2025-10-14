@@ -37,6 +37,7 @@ const getCityName = (zone) => {
 const formatTime = (zone) => {
     const now = new Date();
 
+
     const timeOptions = {
         hour: '2-digit',
         minute: '2-digit',
@@ -44,6 +45,7 @@ const formatTime = (zone) => {
         hourCycle: 'h23',
         timeZone: zone,
     };
+
 
     const dateOptions = {
         weekday: 'long',
