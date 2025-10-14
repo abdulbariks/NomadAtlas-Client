@@ -4,19 +4,19 @@ import { useMutation } from '@tanstack/react-query';
 import useAxiosSecure from '../../customHook/useAxiosSecure';
 import toast from 'react-hot-toast';
 import Spinner from '../../components/Spinner/Spinner';
-// import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';   // ✅ added navigation
 
 const BookingForm = ({ singleDestination }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [bookingData, setBookingData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
-//   const navigate = useNavigate();
+  const navigate = useNavigate();   // ✅ activate navigation
 
   const destination = singleDestination;
   const today = new Date().toISOString().split('T')[0];
 
-  //  TanStack Mutation for booking creation
+  // ✅ Mutation for saving booking
   const { mutateAsync: saveBooking, isLoading } = useMutation({
     mutationFn: async (bookingInfo) => {
       const { data } = await axiosSecure.post('/bookings', bookingInfo);
@@ -24,7 +24,6 @@ const BookingForm = ({ singleDestination }) => {
     },
     onSuccess: (res) => {
       toast.success('Booking saved successfully!');
-      console.log('Saved Booking:', res);
     },
     onError: (err) => {
       toast.error('Failed to save booking');
@@ -44,7 +43,7 @@ const BookingForm = ({ singleDestination }) => {
     setIsModalOpen(true);
   };
 
-  //  Save for Later
+  // Save for Later (No payment)
   const handleSaveForLater = async () => {
     if (!bookingData) return;
     try {
@@ -53,15 +52,21 @@ const BookingForm = ({ singleDestination }) => {
       reset();
     } catch (err) {
       console.error(err);
-    } 
+    }
   };
 
-  //  Pay Now: Save + Redirect
+  // ✅ Pay Now (Save + Redirect to Stripe Checkout Page)
   const handlePayNow = async () => {
     if (!bookingData) return;
     try {
-    //   const res = await saveBooking(bookingData);
-    //   navigate(`/payment/${res.data._id}`);
+      const res = await saveBooking(bookingData);  // ✅ save booking first
+      if (res?.data?._id) {
+        toast.success('Redirecting to payment...');
+        console.log("payment id",res.data._id)
+        navigate(`/payment/${res.data._id}`);      // ✅ navigate to Stripe payment page
+      } else {
+        toast.error('Booking not saved properly');
+      }
       setIsModalOpen(false);
       reset();
     } catch (err) {
@@ -159,6 +164,8 @@ const BookingForm = ({ singleDestination }) => {
               >
                 Save for Later
               </button>
+
+              {/* ✅ Updated Pay Now button */}
               <button
                 onClick={handlePayNow}
                 className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded transition-colors"
