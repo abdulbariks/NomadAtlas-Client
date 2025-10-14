@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { Link } from "react-router";
 import { FaPlus } from "react-icons/fa";
+import YoutubeVideos from "../components/YoutubeVideos";
 // import { useQuery } from "@tanstack/react-query";
 // import axios from "axios";
 
@@ -154,6 +155,8 @@ const Blogs = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const blogsPerPage = 5;
+
+  console.log("Tesing selected vidoes in blogs.jsx", selectedCategory);
 
   // below part for backend part. don't dare to delete.
 
@@ -345,6 +348,7 @@ const Blogs = () => {
             </button>
           ))}
         </div>
+        <YoutubeVideos selectedCategory={selectedCategory} />
       </main>
     </div>
   );

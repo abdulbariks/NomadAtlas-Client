@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { GoCommentDiscussion } from "react-icons/go";
 import { Link } from "react-router";
-import { motion, AnimatePresence } from "framer-motion";
 
 const cities = [
   {
@@ -301,15 +300,11 @@ const CityDiscovery = () => {
   const filterSelectedCityPosts = cityPosts.filter((cityPost) =>
     cityPost.location.includes(selectedCity)
   );
-  // Framer Motion variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+
   return (
-    <div className="mx-5 md:mx-10 lg:mx-14">
+    <div className="max-w-7xl mx-auto">
       <section className="p-6">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-2">
+        <h2 className="text-2xl font-bold text-center">
           Discover Cities for Remote Work
         </h2>
         <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
@@ -317,7 +312,7 @@ const CityDiscovery = () => {
         </h2>
 
         {/* Filter / City Buttons */}
-        <div className="flex flex-wrap gap-3 mb-6 justify-center ">
+        <div className="flex flex-wrap gap-3 mb-6 justify-center">
           {cities.map((city) => (
             <button
               key={city.id}
@@ -333,36 +328,34 @@ const CityDiscovery = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 rounded-lg  ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border rounded-lg p-4 bg-gray-50">
           {/* Preview Card */}
-          <motion.div
-            key={selectedCity}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <h1 className="text-2xl font-bold text-center mb-5 ">
+
+          <div>
+            <h1 className="text-2xl font-bold text-center mb-5">
               The City <span className="text-blue-500">{selectedCity}</span>
             </h1>
-            <div className="flex items-start justify-center ">
+            <div className="flex items-start justify-center">
               {findSelectedCity && (
-                <div className="w-full bg-white shadow-md hover:shadow-lg rounded-lg overflow-hidden transition h-156">
+                <div className="w-full bg-white shadow-md hover:shadow-lg rounded-lg overflow-hidden border transition">
                   <img
                     src={findSelectedCity.image}
                     alt={findSelectedCity.name}
-                    className="w-full h-60 object-cover"
+                    className="w-full h-48 object-cover"
                   />
-                  <div className="p-6 space-y-2">
+                  <div className="p-4 space-y-2">
                     <h3 className="text-xl font-semibold text-gray-800">
                       {findSelectedCity.name}
                     </h3>
-                    <p className="text-gray-700 text-sm">
+                    <p className="text-gray-500 text-sm">
                       {findSelectedCity.country}
                     </p>
                     <p className="mt-2 text-gray-700 text-sm leading-relaxed">
                       {findSelectedCity.description}
                     </p>
-                    <div className="grid grid-cols-2 gap-2 mt-3 text-gray-700 text-sm ">
+
+                    {/* Additional Info */}
+                    <div className="grid grid-cols-2 gap-2 mt-3 text-gray-700 text-sm">
                       <div>
                         <span className="font-semibold">Living Cost:</span>{" "}
                         {findSelectedCity.livingCost}
@@ -386,84 +379,81 @@ const CityDiscovery = () => {
                 </div>
               )}
             </div>
-          </motion.div>
-
+          </div>
           {/* Related Posts */}
           <div>
             <h1 className="text-2xl font-bold text-center">
               Posts about <span className="text-blue-400">{selectedCity}</span>
             </h1>
             <p className="text-center mb-5">
-              These posts might help you to know well and make decision about
+              These posts might help you to know well and make disicion about
               this city
             </p>
             {filterSelectedCityPosts.length > 0 ? (
-              <div className="p-2 space-y-3 ">
-                <AnimatePresence>
-                  {filterSelectedCityPosts.map((post) => (
-                    <motion.div
-                      key={post.id}
-                      variants={cardVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit={{ opacity: 0, y: 20 }}
-                      className="bg-white rounded-lg shadow hover:shadow-md transition flex flex-col sm:flex-row overflow-hidden"
-                    >
-                      {/* post image */}
-                      <div className="sm:w-1/3">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+              <div className="p-2 space-y-4">
+                {filterSelectedCityPosts.map((post) => (
+                  <div
+                    key={post.id}
+                    className="bg-white rounded-lg shadow hover:shadow-md transition border flex flex-col sm:flex-row overflow-hidden"
+                  >
+                    {/* post image */}
+                    <div className="sm:w-1/3">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
 
-                      {/* post contents */}
-                      <div className="p-4 flex flex-col justify-between sm:w-2/3">
-                        <div>
-                          <div className="flex items-center gap-2 mb-2">
-                            <img
-                              src={post.avatar}
-                              alt={post.author}
-                              className="w-8 h-8 rounded-full border"
-                            />
-                            <h4 className="font-semibold text-gray-800">
-                              {post.author}
-                            </h4>
-                          </div>
-
-                          <h3 className="font-semibold text-gray-900 line-clamp-1">
-                            {post.title}
-                          </h3>
-                          <p className="mt-2 text-sm text-gray-700 line-clamp-3">
-                            {post.content.length > 80 ? (
-                              <>
-                                {post.content.slice(0, 80)}...{" "}
-                                <Link className="text-blue-600 underline ml-1">
-                                  See more
-                                </Link>
-                              </>
-                            ) : (
-                              post.content
-                            )}
-                          </p>
+                    {/* post contents */}
+                    <div className="p-4 flex flex-col justify-between sm:w-2/3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <img
+                            src={post.avatar}
+                            alt={post.author}
+                            className="w-8 h-8 rounded-full border"
+                          />
+                          <h4 className="font-semibold text-gray-800">
+                            {post.author}
+                          </h4>
                         </div>
 
-                        {/* like/comment count */}
-                        <div className="flex items-center justify-between text-gray-500 text-xs mt-3">
-                          <div className="flex items-center gap-1">
-                            <AiOutlineLike className="h-4 w-4 text-gray-600" />
-                            <span>{post.likes}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <GoCommentDiscussion className="h-4 w-4 text-gray-600" />
-                            <span>{post.comments}</span>
-                          </div>
+                        <h3 className="font-semibold text-gray-900 line-clamp-1">
+                          {post.title}
+                        </h3>
+                        {/* post's content */}
+                        {/* <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+                          {post.content.slice(0, 100)}...
+                        </p> */}
+                        <p className="mt-2 text-sm text-gray-700 line-clamp-3">
+                          {post.content.length > 80 ? (
+                            <>
+                              {post.content.slice(0, 80)}...{" "}
+                              <Link className="text-blue-600 underline ml-1">
+                                See more
+                              </Link>
+                            </>
+                          ) : (
+                            post.content
+                          )}
+                        </p>
+                      </div>
+
+                      {/* like/comment count */}
+                      <div className="flex items-center justify-between text-gray-500 text-xs mt-3">
+                        <div className="flex items-center gap-1">
+                          <AiOutlineLike className="h-4 w-4 text-gray-600" />
+                          <span>{post.likes}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <GoCommentDiscussion className="h-4 w-4 text-gray-600" />
+                          <span>{post.comments}</span>
                         </div>
                       </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
               <h1 className="text-center mt-6 text-gray-500 font-medium">
