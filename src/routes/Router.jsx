@@ -26,6 +26,8 @@ import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
 import Resources from "../pages/Resources";
 import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
+import CheckoutPage from "../Payment/CheckoutPage";
+import PaymentSuccess from "../Payment/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -62,8 +64,24 @@ export const router = createBrowserRouter([
       {
         path: "/destinations/:id",
         Component: DestinationDetailsPage
-      }
-      ,
+      },
+       {
+        path: "/payment/:bookingId",
+        element: (
+          <ProtectedRoutes>
+            <CheckoutPage />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/payment-success/:id",
+        element: (
+          <ProtectedRoutes>
+            <PaymentSuccess />
+          </ProtectedRoutes>
+        ),
+      },
+
       {
         path: "createBlog",
         Component: CreateBlog
@@ -113,10 +131,6 @@ export const router = createBrowserRouter([
           </ProtectedRoutes>
         ),
       },
-      // {
-      //   path: "*",
-      //   Component: Login,
-      // },
       {
         path: "resources",
         Component: Resources,

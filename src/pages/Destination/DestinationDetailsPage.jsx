@@ -8,6 +8,7 @@ import DestinationMap from "./DestinationMap";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import Spinner from "../../components/Spinner/Spinner";
+import BookingForm from "./BookingForm";
 
 const DestinationDetailsPage = () => {
   const [activeTab, setActiveTab] = useState("information");
@@ -293,7 +294,7 @@ const DestinationDetailsPage = () => {
         </div>
 
         {/* RIGHT COLUMN - Booking Form */}
-        <div className="p-6 border rounded-md shadow-md bg-gray-50">
+        {/* <div className="p-6 border rounded-md shadow-md bg-gray-50">
           <h3 className="text-xl font-bold mb-4">Book This Destination</h3>
           <form className="space-y-3">
             <input
@@ -319,7 +320,8 @@ const DestinationDetailsPage = () => {
               Book Now
             </button>
           </form>
-        </div>
+        </div> */}
+        <BookingForm singleDestination={singleDestination}></BookingForm>
       </div>
     </section>
   );
