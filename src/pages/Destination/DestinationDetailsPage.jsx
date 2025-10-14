@@ -294,33 +294,7 @@ const DestinationDetailsPage = () => {
         </div>
 
         {/* RIGHT COLUMN - Booking Form */}
-        {/* <div className="p-6 border rounded-md shadow-md bg-gray-50">
-          <h3 className="text-xl font-bold mb-4">Book This Destination</h3>
-          <form className="space-y-3">
-            <input
-              type="text"
-              placeholder="Name *"
-              className="w-full p-2 border rounded"
-            />
-            <input
-              type="email"
-              placeholder="Email *"
-              className="w-full p-2 border rounded"
-            />
-            <input
-              type="tel"
-              placeholder="Phone"
-              className="w-full p-2 border rounded"
-            />
-            <input type="date" className="w-full p-2 border rounded" />
-            <button
-              type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded"
-            >
-              Book Now
-            </button>
-          </form>
-        </div> */}
+        
         <BookingForm singleDestination={singleDestination}></BookingForm>
       </div>
     </section>

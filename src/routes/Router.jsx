@@ -19,13 +19,14 @@ import Admin from "../DashboardPage/Admin";
 import Provider from "../DashboardPage/Provider";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
+import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
+import InternetSpeed from "../pages/Internet Speed Map/InternetSpeed";
 
 
 import AddNewDestination from "../pages/Destination/AddNewDestination";
 import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
 import Resources from "../pages/Resources";
-import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
 import CheckoutPage from "../Payment/CheckoutPage";
 import PaymentSuccess from "../Payment/PaymentSuccess";
 
@@ -91,18 +92,18 @@ export const router = createBrowserRouter([
         Component: Comparison,
       },
       {
-        path: "time-zone-converter",
-        Component: TimeZoneConverter
+        path : "time-zone-converter",
+        Component : TimeZoneConverter
+      },
+
+      {
+        path:"/community",
+        Component:Community,
       },
       {
-        path: "/community",
-        Component: Community,
+        path:"/weather-alerts",
+        Component:WeatherAlertsPage
       },
-      {
-        path: "/weather-alerts",
-        Component: WeatherAlertsPage
-      },
-      // my
       {
         path: "login",
         Component: Login,
@@ -122,6 +123,10 @@ export const router = createBrowserRouter([
       {
         path: "cost-calculator",
         Component: CostCalculator,
+      },
+      {
+        path : "internet-speed",
+        element :<ProtectedRoutes><InternetSpeed/></ProtectedRoutes>
       },
       {
         path: "cost-calculator",
