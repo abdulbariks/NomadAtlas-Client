@@ -10,7 +10,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 // import ProtectedRoute from "./ProtectedRoute";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
-import CostCalculator from "../pages/CostCalculator";
+import CostCalculatorPage from "../pages/CostCalculatorPage";
 import Resources from "../pages/Resources";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
 import DashboardHome from "../DashboardPage/DashboardHome";
@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "cost-calculator",
-        Component: CostCalculator,
+        Component: CostCalculatorPage,
       },
       {
         path: "cost-calculator",

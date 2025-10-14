@@ -6,6 +6,17 @@ import CostCalclator from "../../pages/CostCalculator";
 const SmartCostPreview = () => {
   return (
     <div>
+      {/* Header */}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-gray-800 mb-3">
+          Smart Cost Calculator Preview
+        </h1>
+        <p className="text-lg text-gray-600">
+          Calculate your expenses based on your budget and lifestyle — or the
+          kind of city you dream to live in.
+        </p>
+      </div>
+
       <CostCalclator></CostCalclator>
 
       {/* CTA Button */}

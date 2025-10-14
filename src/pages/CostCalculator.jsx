@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
-import CostCalculator2 from "../components/CostCalculator/CostCalculator2";
 
 const CostCalclator = () => {
   const [selectedCountry, setSelectedCountry] = useState("Germany");
@@ -60,15 +59,7 @@ const CostCalclator = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">
-        Smart Cost Calculator Preview
-      </h1>
-
-      <p className="text-2xl font-semibold text-blue-600 text-center mb-6">
-        Budget-Based Calculation
-      </p>
-
+    <div className="max-w-7xl mx-auto px-4 pb-10 -mt-5">
       {/* Budget Input */}
       <div className="mb-8 max-w-md mx-auto">
         <label className="block font-semibold text-xl text-gray-800 mb-2">
@@ -256,8 +247,6 @@ const CostCalclator = () => {
           Enter a budget, select a country, and select a city to see results
         </p>
       )}
-
-      <CostCalculator2 data={data}></CostCalculator2>
     </div>
   );
 };
