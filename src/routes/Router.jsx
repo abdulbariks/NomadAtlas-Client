@@ -107,7 +107,7 @@ export const router = createBrowserRouter([
       },
       {
         path : "internet-speed",
-        Component : InternetSpeed,
+        element :<ProtectedRoutes><InternetSpeed/></ProtectedRoutes>
       },
       {
         path: "cost-calculator",

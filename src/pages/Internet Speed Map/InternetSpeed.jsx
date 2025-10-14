@@ -5,14 +5,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { toast } from "react-toastify";
 
-/**
- * InternetSpeedMap.jsx
- * - Fetches aggregated average speeds from: GET /api/internet-speed/average
- * - Expects backend response like: [{ _id: "Lisbon", avgSpeed: 92, count: 3 }, ...]
- * - Uses a small city->latlng lookup. Add entries as needed.
- */
 
-// Fix Leaflet icon path issues in many CRA setups
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -21,7 +14,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-// Basic city -> coords map. Extend this as you need.
+.
 const CITY_COORDS = {
   "Lisbon": [38.7223, -9.1393],
   "Barcelona": [41.3851, 2.1734],
@@ -38,10 +31,10 @@ const CITY_COORDS = {
   "Ho Chi Minh City": [10.8231, 106.6297],
   "Mexico City": [19.4326, -99.1332],
   "Berlin": [52.52, 13.405],
-  // add more as you want
+  
 };
 
-// small helper to choose a marker color class for Mbps
+
 function speedColorClass(mbps) {
   if (mbps >= 90) return "bg-green-600 text-white";
   if (mbps >= 50) return "bg-green-300 text-black";
@@ -49,7 +42,6 @@ function speedColorClass(mbps) {
   return "bg-red-300 text-black";
 }
 
-// small component to programmatically pan/zoom map (used by search)
 function MapFlyTo({ position }) {
   const map = useMap();
   useEffect(() => {
@@ -60,17 +52,17 @@ function MapFlyTo({ position }) {
 }
 
 export default function InternetSpeed() {
-  // Vite exposes envs via import.meta.env with VITE_ prefix
+ 
   const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_BASE) || "";
-  const [data, setData] = useState([]); // aggregated averages from backend
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [flyToPos, setFlyToPos] = useState(null);
   const mapRef = useRef(null);
   const [minSpeed, setMinSpeed] = useState(0);
-  const [sortBy, setSortBy] = useState("speed"); // speed | name | count
-  const [sortOrder, setSortOrder] = useState("desc"); // asc | desc
+  const [sortBy, setSortBy] = useState("speed"); 
+  const [sortOrder, setSortOrder] = useState("desc"); 
   const [reportCity, setReportCity] = useState("");
   const [reportSpeed, setReportSpeed] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -84,11 +76,11 @@ export default function InternetSpeed() {
     setLoading(true);
     setError(null);
     try {
-      // backend route: GET /api/internet-speed/average
+      
       const base = API?.toString?.() || "";
       const url = base.replace(/\/$/, "") + "/api/internet-speed/average";
       const res = await axios.get(url);
-      // Expected array: [{ _id: "Lisbon", avgSpeed: 92, count: 3 }, ...]
+      
       setData(Array.isArray(res.data) ? res.data : (res.data.data || []));
     } catch (err) {
       console.error("Failed to fetch average speeds:", err);
@@ -102,13 +94,13 @@ export default function InternetSpeed() {
     e.preventDefault();
     const q = search.trim();
     if (!q) return;
-    // Try direct lookup
+    
     const key = Object.keys(CITY_COORDS).find((k) => k.toLowerCase().includes(q.toLowerCase()));
     if (key) {
       setFlyToPos(CITY_COORDS[key]);
       return;
     }
-    // Try match in data._id
+    
     const found = data.find((d) => (d._id || "").toLowerCase().includes(q.toLowerCase()));
     if (found) {
       const coords = CITY_COORDS[found._id] || null;
@@ -134,9 +126,9 @@ export default function InternetSpeed() {
       await axios.post(url, { city, speedMbps: speedNum });
       toast.success("Thanks! Report submitted.");
       setReportSpeed("");
-      // Refresh averages
+      
       await fetchAvg();
-      // If city exists in coords, fly to it
+     
       if (CITY_COORDS[city]) setFlyToPos(CITY_COORDS[city]);
     } catch (err) {
       console.error(err);
@@ -155,7 +147,7 @@ export default function InternetSpeed() {
       (pos) => {
         const { latitude, longitude } = pos.coords;
         setFlyToPos([latitude, longitude]);
-        // Optionally show a popup or marker for user location
+        
       },
       (err) => {
         alert("Could not get location: " + err.message);
@@ -163,12 +155,12 @@ export default function InternetSpeed() {
     );
   };
 
-  // transform backend data to include coords if available
+
   const dataWithCoords = data
     .map((d) => {
       const name = d._id || d.location || d.city;
       const coords = CITY_COORDS[name];
-      if (!coords) return null; // skip if no coords (you can choose to fallback)
+      if (!coords) return null;
       return {
         id: name,
         name,
@@ -190,7 +182,7 @@ export default function InternetSpeed() {
       const dir = sortOrder === "asc" ? 1 : -1;
       if (sortBy === "name") return a.name.localeCompare(b.name) * dir;
       if (sortBy === "count") return (a.count - b.count) * dir;
-      // default speed
+      
       return (a.avgSpeed - b.avgSpeed) * dir;
     });
 
@@ -198,7 +190,7 @@ export default function InternetSpeed() {
     <div className="text-slate-800 dark:text-slate-200">
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Global Internet Speed Map</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Global Internet Speed Map</h1>
           <p className="mt-3 max-w-3xl mx-auto text-base text-slate-600 dark:text-slate-400">Search a city to focus the map, filter by minimum Mbps, sort results, and optionally contribute your own speed report to help other remote workers.</p>
         </div>
 
@@ -210,7 +202,7 @@ export default function InternetSpeed() {
               <div className="font-semibold text-slate-900 dark:text-slate-100 mb-3">Search & Filters</div>
               <form onSubmit={handleSearch} className="space-y-4">
                 <div className="relative">
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></span>
                   <input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -317,112 +309,110 @@ export default function InternetSpeed() {
 
           {/* Map */}
           <div className="lg:col-span-8 xl:col-span-9">
-            <div className="relative rounded-xl overflow-hidden shadow-xl aspect-video" style={{ minHeight: 420 }}>
-          {/* Map controls (search & zoom / locate) */}
-              {/* Left search moved to sidebar; keep locate/zoom here */}
+            
+            <div className="relative rounded-xl overflow-hidden shadow-xl aspect-video" style={{ minHeight: 420, zIndex: 20 }}>
+           
+            <div className="absolute top-4 right-4 z-40 flex flex-col gap-2 items-end">
+              <div className="flex flex-col rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm">
+                <button
+                  title="Zoom in"
+                  onClick={() => {
+                    const map = mapRef.current;
+                    if (map) map.setZoom(Math.min(map.getZoom() + 1, 18));
+                  }}
+                  className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-t-lg transition-colors"
+                >
+                  <span className="material-symbols-outlined">add</span>
+                </button>
+                <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
+                <button
+                  title="Zoom out"
+                  onClick={() => {
+                    const map = mapRef.current;
+                    if (map) map.setZoom(Math.max(map.getZoom() - 1, 1));
+                  }}
+                  className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-b-lg transition-colors"
+                >
+                  <span className="material-symbols-outlined">remove</span>
+                </button>
+              </div>
 
-          <div className="absolute top-4 right-4 z-40 flex flex-col gap-2 items-end">
-            <div className="flex flex-col rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm">
               <button
-                title="Zoom in"
-                onClick={() => {
-                  const map = mapRef.current;
-                  if (map) map.setZoom(Math.min(map.getZoom() + 1, 18));
-                }}
-                className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-t-lg transition-colors"
+                title="Center to my location"
+                onClick={handleLocateMe}
+                className="p-2 rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors"
               >
-                <span className="material-symbols-outlined">add</span>
-              </button>
-              <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
-              <button
-                title="Zoom out"
-                onClick={() => {
-                  const map = mapRef.current;
-                  if (map) map.setZoom(Math.max(map.getZoom() - 1, 1));
-                }}
-                className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-b-lg transition-colors"
-              >
-                <span className="material-symbols-outlined">remove</span>
+                <span className="material-symbols-outlined">near_me</span>
               </button>
             </div>
 
-            <button
-              title="Center to my location"
-              onClick={handleLocateMe}
-              className="p-2 rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors"
-            >
-              <span className="material-symbols-outlined">near_me</span>
-            </button>
-          </div>
-
-              {/* The map (Leaflet) */}
+             
               <div className="absolute inset-0">
-            <MapContainer
-              center={[20, 0]}
-              zoom={2}
-              scrollWheelZoom={true}
-              style={{ height: "100%", width: "100%" }}
-              whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
+                <MapContainer
+                  center={[20, 0]}
+                  zoom={2}
+                  scrollWheelZoom={true}
+                  style={{ height: "100%", width: "100%" }}
+                  whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
 
-              <MapFlyTo position={flyToPos} />
+                  <MapFlyTo position={flyToPos} />
 
-              {dataWithCoords.map((c) => {
-                const colorClass = speedColorClass(c.avgSpeed);
-                return (
-                  <Marker key={c.id} position={c.coords}>
-                    <Popup>
-                      <div className="max-w-xs">
-                        <div className="font-semibold text-lg">{c.name}</div>
-                        <div className="text-sm text-gray-500">Avg Speed: <span className="font-bold">{c.avgSpeed.toFixed(1)} Mbps</span></div>
-                        <div className="text-sm text-gray-500">Reports: <span className="font-medium">{c.count}</span></div>
-                        <div className="mt-2">
-                          <div className="text-xs text-gray-500 mb-1">Coworking (estimate)</div>
-                          <div className="flex gap-1">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                              <div key={i} className={`w-6 h-2 rounded ${i < Math.min(5, Math.round(c.avgSpeed/25)) ? "bg-indigo-600" : "bg-gray-200"}`} />
-                            ))}
+                  {dataWithCoords.map((c) => {
+                    const colorClass = speedColorClass(c.avgSpeed);
+                    return (
+                      <Marker key={c.id} position={c.coords}>
+                        <Popup>
+                          <div className="max-w-xs">
+                            <div className="font-semibold text-lg">{c.name}</div>
+                            <div className="text-sm text-gray-500">Avg Speed: <span className="font-bold">{c.avgSpeed.toFixed(1)} Mbps</span></div>
+                            <div className="text-sm text-gray-500">Reports: <span className="font-medium">{c.count}</span></div>
+                            <div className="mt-2">
+                              <div className="text-xs text-gray-500 mb-1">Coworking (estimate)</div>
+                              <div className="flex gap-1">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                  <div key={i} className={`w-6 h-2 rounded ${i < Math.min(5, Math.round(c.avgSpeed/25)) ? "bg-indigo-600" : "bg-gray-200"}`} />
+                                ))}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </Popup>
-                    <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent>
-                      <div className={`px-2 py-1 rounded-full text-xs font-medium ${colorClass}`}>
-                        {c.avgSpeed.toFixed(0)} Mbps
-                      </div>
-                    </Tooltip>
-                  </Marker>
-                );
-              })}
-            </MapContainer>
+                        </Popup>
+                        <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent>
+                          <div className={`px-2 py-1 rounded-full text-xs font-medium ${colorClass}`}>
+                            {c.avgSpeed.toFixed(0)} Mbps
+                          </div>
+                        </Tooltip>
+                      </Marker>
+                    );
+                  })}
+                </MapContainer>
               </div>
             </div>
           </div>
         </div>
 
         <div className="mt-10 max-w-4xl mx-auto">
-          <h3 className="text-lg font-semibold mb-3 text-slate-900 dark:text-slate-100">Legend</h3>
+
           <div className="flex gap-3 items-center">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-green-600" /> <span className="text-sm">90+ Mbps</span>
+              <div className="w-8 h-8 rounded-full bg-green-600" /> <span className="text-sm text-black">90+ Mbps</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-green-300" /> <span className="text-sm">50-89 Mbps</span>
+              <div className="w-8 h-8 rounded-full bg-green-300" /> <span className="text-sm text-black">50-89 Mbps</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-yellow-300" /> <span className="text-sm">30-49 Mbps</span>
+              <div className="w-8 h-8 rounded-full bg-yellow-300" /> <span className="text-sm text-black">30-49 Mbps</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-red-300" /> <span className="text-sm">Below 30 Mbps</span>
+              <div className="w-8 h-8 rounded-full bg-red-300" /> <span className="text-sm text-black">Below 30 Mbps</span>
             </div>
           </div>
         </div>
 
-        {/* small footer note */}
         <div className="mt-8 text-sm text-slate-500 dark:text-slate-400 text-center">
           Data is crowd-sourced and aggregated. For production use, seed with verified metrics.
         </div>
