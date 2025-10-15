@@ -61,7 +61,7 @@ const LocalServices = () => {
               <FaPassport className="text-blue-600 text-xl mt-1" />
               <span>
                 <strong>Visa Requirements:</strong> Up-to-date info on digital
-                nomad visas, entry rules, and stay durations.
+                nomad visas,  entry rules, and stay durations.
               </span>
             </li>
             <li className="flex items-start gap-3">
