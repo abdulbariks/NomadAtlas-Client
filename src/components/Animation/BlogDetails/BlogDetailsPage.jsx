@@ -1,133 +1,217 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { Heart, MessageCircle, Bookmark } from "lucide-react";
-
-//  Add axios for API calls
+import { motion } from "framer-motion";
 import axios from "axios";
 import Spinner from "../../Spinner/Spinner";
 
 const BlogDetailsPage = () => {
   const { id } = useParams();
-
-  //  Replace static blog with state
   const [blog, setBlog] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [liked, setLiked] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const [likes, setLikes] = useState(234);
-  const [comments] = useState([
-    {
-      id: 1,
-      name: "Ethan Carter",
-      time: "2 weeks ago",
-      text: "Great article! I’m planning a trip to Chiang Mai next month and this was super helpful.",
-      avatar: "https://i.pravatar.cc/40?img=3",
-    },
-    {
-      id: 2,
-      name: "Sophia Bennett",
-      time: "1 month ago",
-      text: "I lived in Chiang Mai for a year and everything in this guide is spot on. Highly recommend!",
-      avatar: "https://i.pravatar.cc/40?img=5",
-    },
-    {
-      id: 3,
-      name: "Liam Wilson",
-      time: "3 months ago",
-      text: "The cost breakdown is very useful, thanks for sharing!",
-      avatar: "https://i.pravatar.cc/40?img=7",
-    },
-  ]);
+  // ✅ Fetch Blog + Related
+  const fetchBlog = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+      setBlog(res.data);
 
-  //  Fetch blog + related blogs from backend
+      // ✅ Check localStorage for previous like
+      const likedBlogs = JSON.parse(localStorage.getItem("likedBlogs") || "[]");
+      setLiked(likedBlogs.includes(id));
+
+      const relatedRes = await axios.get(`http://localhost:5000/api/blogs?limit=3`);
+      setRelated(relatedRes.data.data.filter((b) => b._id !== id));
+    } catch (error) {
+      console.error("Error fetching blog:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`https://demo-nomad-server.vercel.app/api/blogs/${id}`);
-        setBlog(res.data);
-
-        // fetch related blogs (excluding current one)
-        const relatedRes = await axios.get("https://demo-nomad-server.vercel.app/api/blogs", {
-          params: { limit: 3 },
-        });
-        setRelated(relatedRes.data.data.filter((b) => b._id !== id));
-      } catch (error) {
-        console.error("Error fetching blog:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchBlog();
   }, [id]);
 
-  if (loading) return <div className="p-6 text-center"><Spinner></Spinner></div>;
-  if (!blog) return <div className="p-6 text-center">Blog not found.</div>;
+  // ✅ Handle Like
+  const handleLike = async () => {
+    try {
+      if (liked) return; // Prevent multiple likes
+      setLiked(true);
+
+      await axios.post(`http://localhost:5000/api/blogs/${id}/like`);
+      setBlog({ ...blog, likes: (blog.likes || 0) + 1 });
+
+      // ✅ Save to localStorage
+      const likedBlogs = JSON.parse(localStorage.getItem("likedBlogs") || "[]");
+      likedBlogs.push(id);
+      localStorage.setItem("likedBlogs", JSON.stringify(likedBlogs));
+    } catch (error) {
+      console.error("Error liking blog:", error);
+    }
+  };
+
+  // ✅ Handle Comment Submit
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!commentText.trim()) return;
+
+    try {
+      setSubmitting(true);
+
+      const newComment = {
+        userName: "Anonymous User",
+        userImage: `https://i.pravatar.cc/40?img=${Math.floor(Math.random() * 70)}`,
+        text: commentText,
+        createdAt: new Date().toISOString(),
+      };
+
+      await axios.post(`http://localhost:5000/api/blogs/${id}/comment`, newComment);
+
+      // ✅ Show newest comment at the top
+      setBlog({
+        ...blog,
+        comments: [newComment, ...(blog.comments || [])],
+      });
+
+      setCommentText("");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (loading)
+    return (
+      <div className="p-10 text-center">
+        <Spinner />
+      </div>
+    );
+
+  if (!blog)
+    return <div className="p-10 text-center text-gray-600">Blog not found.</div>;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      {/* Title & meta */}
+    <motion.div
+      className="max-w-5xl mx-auto px-4 py-10"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Breadcrumb + Title */}
       <div className="mb-6">
-        <h3 className="mb-7">
-          <Link to="/blogs">
-            <span className="text-blue-300">Blogs / </span>
-          </Link>{" "}
+        <Link to="/blogs" className="text-blue-500 hover:underline text-sm">
+          ← Back to Blogs
+        </Link>
+        <h1 className="text-3xl md:text-4xl font-bold mt-3 mb-3 text-gray-900">
           {blog.title}
-        </h3>
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">{blog.title}</h1>
-        <p className="text-blue-300 text-sm">
-          By {blog.author} • Published on{" "}
-          {new Date(blog.createdAt).toISOString().split("T")[0]}
-        </p>
+        </h1>
+        <div className="flex items-center gap-3 text-sm text-gray-600">
+          <img
+            src={blog.authorImage || "https://i.pravatar.cc/40"}
+            alt={blog.authorName}
+            className="w-8 h-8 rounded-full border"
+          />
+          <span>By {blog.authorName}</span>
+          <span>• {new Date(blog.createdAt).toLocaleDateString()}</span>
+        </div>
       </div>
 
-      {/* Image */}
-      <img
+      {/* Main Image */}
+      <motion.img
         src={blog.image}
         alt={blog.title}
-        className="w-full h-[350px] md:h-[450px] object-cover rounded-xl mb-8"
+        className="w-full h-[420px] md:h-[500px] object-cover rounded-2xl mb-10 shadow-lg"
+        initial={{ scale: 1.05 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.7 }}
       />
 
-      {/* Content */}
-      <div className="prose max-w-none mb-10 whitespace-pre-line break-words">
-        {blog.content}
+      {/* Blog Content */}
+      <div className="prose prose-lg max-w-none mb-10 leading-relaxed text-gray-800 bg-gray-50 p-6 rounded-2xl shadow-sm border">
+        <p className="whitespace-pre-line">{blog.content}</p>
       </div>
 
-      {/* Action Icons */}
-      <div className="flex items-center gap-8 mb-10 text-gray-600">
-        <button
-          onClick={() => setLikes(likes + 1)}
-          className="flex items-center gap-1 hover:text-red-500"
+      {/* Like & Comment Buttons */}
+      <div className="flex items-center gap-8 mb-10 text-gray-600 border-b pb-5">
+        <motion.button
+          onClick={handleLike}
+          whileTap={{ scale: 0.9 }}
+          className={`flex items-center gap-2 ${
+            liked ? "text-red-500" : "hover:text-red-400"
+          }`}
         >
-          <Heart size={22} /> {likes}
-        </button>
-        <div className="flex items-center gap-1">
-          <MessageCircle size={22} /> {comments.length}
+          <Heart size={22} /> {blog.likes || 0}
+        </motion.button>
+
+        <div className="flex items-center gap-2">
+          <MessageCircle size={22} /> {blog.comments?.length || 0}
         </div>
-        <button className="flex items-center gap-1 hover:text-blue-500">
+
+        <button className="flex items-center gap-2 hover:text-blue-500">
           <Bookmark size={22} /> Save
         </button>
       </div>
 
-      {/* Comments */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Comments</h2>
+      {/* Comments Section */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-semibold mb-6">Comments</h2>
+
+        {/* Comment Form */}
+        <form
+          onSubmit={handleCommentSubmit}
+          className="mb-8 bg-white rounded-xl shadow-md p-5 border"
+        >
+          <textarea
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+            placeholder="Share your thoughts..."
+            className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 outline-none resize-none bg-gray-50"
+            rows="3"
+          ></textarea>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            disabled={submitting}
+            className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition-all"
+          >
+            {submitting ? "Posting..." : "Post Comment"}
+          </motion.button>
+        </form>
+
+        {/* Display Comments */}
         <div className="space-y-6">
-          {comments.map((c) => (
-            <div key={c.id} className="flex gap-4">
+          {(blog.comments || []).map((c, i) => (
+            <motion.div
+              key={i}
+              className="flex gap-4 items-start bg-gray-50 p-4 rounded-xl border shadow-sm"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+            >
               <img
-                src={c.avatar}
-                alt={c.name}
-                className="w-12 h-12 rounded-full object-cover"
+                src={c.userImage || "https://i.pravatar.cc/40?img=5"}
+                alt={c.userName}
+                className="w-12 h-12 rounded-full border"
               />
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold">{c.name}</span>
-                  <span className="text-sm text-gray-500">{c.time}</span>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-gray-900">{c.userName}</span>
+                  <span className="text-sm text-gray-500">
+                    {c.createdAt
+                      ? new Date(c.createdAt).toLocaleString()
+                      : "Just now"}
+                  </span>
                 </div>
-                <p className="text-gray-700">{c.text}</p>
+                <p className="text-gray-700 mt-1">{c.text}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -137,27 +221,32 @@ const BlogDetailsPage = () => {
         <h2 className="text-2xl font-semibold mb-6">Related Stories</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {related.map((r) => (
-            <Link
-              to={`/blog/${r._id}`}
+            <motion.div
               key={r._id}
-              className="group block border rounded-xl overflow-hidden hover:shadow-lg transition"
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
-              <img
-                src={r.image}
-                alt={r.title}
-                className="w-full h-40 object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg group-hover:text-blue-600">
-                  {r.title}
-                </h3>
-                <p className="text-gray-500 text-sm mt-1">{r.category}</p>
-              </div>
-            </Link>
+              <Link
+                to={`/blog/${r._id}`}
+                className="block border rounded-2xl overflow-hidden shadow hover:shadow-xl bg-white transition-all duration-300"
+              >
+                <img
+                  src={r.image}
+                  alt={r.title}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg hover:text-blue-600 line-clamp-2">
+                    {r.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm mt-1">{r.category}</p>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

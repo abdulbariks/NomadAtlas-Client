@@ -5,6 +5,8 @@ import { FaPlus } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const categories = [
   "All",
@@ -126,29 +128,59 @@ const AllBlogs = () => {
       </div>
 
       {/* ================= Blog Grid ================ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-7">
         {blogList.length > 0 ? (
           blogList.map((blog) => (
             <div
               key={blog._id}
-              className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition"
+              className=" rounded-xl overflow-hidden  transition"
             >
               <img
                 src={blog.image}
                 alt={blog.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-5">
-                <span className="text-xs uppercase text-gray-500 tracking-wide">
+              <div className="pt-4">
+                <div className="flex items-center justify-between text-gray-500 text-sm">
+                <span className="text-xs uppercase  py-1 px-2 font- rounded-md  bg-yellow-50 text-yellow-500 tracking-wide">
                   {blog.category}
                 </span>
-                <h3 className="text-lg font-semibold mt-2 mb-2 hover:text-blue-600 transition">
-                  <Link to={`/blogs/${blog._id}`}>{blog.title}</Link>
-                </h3>
-                <div className="flex items-center justify-between text-gray-500 text-sm">
-                  <span>{blog.author}</span>
+                 <span>{blog.author}</span>
                   <span>{new Date(blog.createdAt).toISOString().split("T")[0]}</span>
                 </div>
+                <h3 className="text-lg font-semibold mt-2 mb-2 hover:text-blue-600 transition">
+                 {blog.title}
+                </h3>
+             <div className="flex justify-between items-center px-4">
+                         {/* Author Section */}
+  <div className="flex items-center mt-4 gap-3 text-sm">
+    <img
+      src={blog.authorImage || "https://i.pravatar.cc/40?img=12"}
+      alt={blog.author}
+      className="w-8 h-8 rounded-full"
+    />
+    <p className="font-medium">{blog.authorName}</p>
+  </div>
+
+  {/* Read More Button with Motion */}
+  <motion.div
+    whileHover={{ x: 5 }} // slight slide to the right on hover
+    transition={{ type: "spring", stiffness: 200, damping: 15 }}
+    className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium mt-4"
+                    >
+                      <Link to={`/blogs/${blog._id}`} className="flex items-center gap-1">
+                        Read More
+                     <motion.span
+                   whileHover={{ x: 4 }} // arrow moves slightly on hover
+                 transition={{ duration: 0.3 }}
+                >
+              <ArrowRight size={18} />
+               </motion.span>
+            </Link>
+           </motion.div>
+              </div>
+
+
               </div>
             </div>
           ))
