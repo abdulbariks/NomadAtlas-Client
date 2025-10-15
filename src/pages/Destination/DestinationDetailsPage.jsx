@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { FaWifi, FaSnowflake, FaUtensils, FaLaptop, FaUser, FaClock, FaMapMarkerAlt, } from "react-icons/fa";
 import useAxiosSecure from "../../customHook/useAxiosSecure";

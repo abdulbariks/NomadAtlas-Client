@@ -31,7 +31,7 @@ const CITY_COORDS = {
   "Ho Chi Minh City": [10.8231, 106.6297],
   "Mexico City": [19.4326, -99.1332],
   "Berlin": [52.52, 13.405],
-  
+
 };
 
 
@@ -52,7 +52,7 @@ function MapFlyTo({ position }) {
 }
 
 export default function InternetSpeed() {
- 
+
   const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_BASE) || "";
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,12 +61,13 @@ export default function InternetSpeed() {
   const [flyToPos, setFlyToPos] = useState(null);
   const mapRef = useRef(null);
   const [minSpeed, setMinSpeed] = useState(0);
-  const [sortBy, setSortBy] = useState("speed"); 
-  const [sortOrder, setSortOrder] = useState("desc"); 
+  const [sortBy, setSortBy] = useState("speed");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [reportCity, setReportCity] = useState("");
   const [reportSpeed, setReportSpeed] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  console.log(error,loading)
   useEffect(() => {
     fetchAvg();
     // eslint-disable-next-line
@@ -76,11 +77,11 @@ export default function InternetSpeed() {
     setLoading(true);
     setError(null);
     try {
-      
+
       const base = API?.toString?.() || "";
       const url = base.replace(/\/$/, "") + "/api/internet-speed/average";
       const res = await axios.get(url);
-      
+
       setData(Array.isArray(res.data) ? res.data : (res.data.data || []));
     } catch (err) {
       console.error("Failed to fetch average speeds:", err);
@@ -94,13 +95,13 @@ export default function InternetSpeed() {
     e.preventDefault();
     const q = search.trim();
     if (!q) return;
-    
+
     const key = Object.keys(CITY_COORDS).find((k) => k.toLowerCase().includes(q.toLowerCase()));
     if (key) {
       setFlyToPos(CITY_COORDS[key]);
       return;
     }
-    
+
     const found = data.find((d) => (d._id || "").toLowerCase().includes(q.toLowerCase()));
     if (found) {
       const coords = CITY_COORDS[found._id] || null;
@@ -126,9 +127,9 @@ export default function InternetSpeed() {
       await axios.post(url, { city, speedMbps: speedNum });
       toast.success("Thanks! Report submitted.");
       setReportSpeed("");
-      
+
       await fetchAvg();
-     
+
       if (CITY_COORDS[city]) setFlyToPos(CITY_COORDS[city]);
     } catch (err) {
       console.error(err);
@@ -147,7 +148,7 @@ export default function InternetSpeed() {
       (pos) => {
         const { latitude, longitude } = pos.coords;
         setFlyToPos([latitude, longitude]);
-        
+
       },
       (err) => {
         alert("Could not get location: " + err.message);
@@ -182,7 +183,7 @@ export default function InternetSpeed() {
       const dir = sortOrder === "asc" ? 1 : -1;
       if (sortBy === "name") return a.name.localeCompare(b.name) * dir;
       if (sortBy === "count") return (a.count - b.count) * dir;
-      
+
       return (a.avgSpeed - b.avgSpeed) * dir;
     });
 
@@ -309,44 +310,44 @@ export default function InternetSpeed() {
 
           {/* Map */}
           <div className="lg:col-span-8 xl:col-span-9">
-            
+
             <div className="relative rounded-xl overflow-hidden shadow-xl aspect-video" style={{ minHeight: 420, zIndex: 20 }}>
-           
-            <div className="absolute top-4 right-4 z-40 flex flex-col gap-2 items-end">
-              <div className="flex flex-col rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm">
+
+              <div className="absolute top-4 right-4 z-40 flex flex-col gap-2 items-end">
+                <div className="flex flex-col rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm">
+                  <button
+                    title="Zoom in"
+                    onClick={() => {
+                      const map = mapRef.current;
+                      if (map) map.setZoom(Math.min(map.getZoom() + 1, 18));
+                    }}
+                    className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-t-lg transition-colors"
+                  >
+                    <span className="material-symbols-outlined">add</span>
+                  </button>
+                  <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
+                  <button
+                    title="Zoom out"
+                    onClick={() => {
+                      const map = mapRef.current;
+                      if (map) map.setZoom(Math.max(map.getZoom() - 1, 1));
+                    }}
+                    className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-b-lg transition-colors"
+                  >
+                    <span className="material-symbols-outlined">remove</span>
+                  </button>
+                </div>
+
                 <button
-                  title="Zoom in"
-                  onClick={() => {
-                    const map = mapRef.current;
-                    if (map) map.setZoom(Math.min(map.getZoom() + 1, 18));
-                  }}
-                  className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-t-lg transition-colors"
+                  title="Center to my location"
+                  onClick={handleLocateMe}
+                  className="p-2 rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors"
                 >
-                  <span className="material-symbols-outlined">add</span>
-                </button>
-                <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
-                <button
-                  title="Zoom out"
-                  onClick={() => {
-                    const map = mapRef.current;
-                    if (map) map.setZoom(Math.max(map.getZoom() - 1, 1));
-                  }}
-                  className="p-2 text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 rounded-b-lg transition-colors"
-                >
-                  <span className="material-symbols-outlined">remove</span>
+                  <span className="material-symbols-outlined">near_me</span>
                 </button>
               </div>
 
-              <button
-                title="Center to my location"
-                onClick={handleLocateMe}
-                className="p-2 rounded-lg shadow-lg bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors"
-              >
-                <span className="material-symbols-outlined">near_me</span>
-              </button>
-            </div>
 
-             
               <div className="absolute inset-0">
                 <MapContainer
                   center={[20, 0]}
@@ -375,7 +376,7 @@ export default function InternetSpeed() {
                               <div className="text-xs text-gray-500 mb-1">Coworking (estimate)</div>
                               <div className="flex gap-1">
                                 {Array.from({ length: 5 }).map((_, i) => (
-                                  <div key={i} className={`w-6 h-2 rounded ${i < Math.min(5, Math.round(c.avgSpeed/25)) ? "bg-indigo-600" : "bg-gray-200"}`} />
+                                  <div key={i} className={`w-6 h-2 rounded ${i < Math.min(5, Math.round(c.avgSpeed / 25)) ? "bg-indigo-600" : "bg-gray-200"}`} />
                                 ))}
                               </div>
                             </div>

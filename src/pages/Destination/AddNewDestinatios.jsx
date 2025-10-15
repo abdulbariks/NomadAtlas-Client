@@ -1,21 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "react-hot-toast";
 import { ImagePlus } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
 import { useSelector } from "react-redux";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const AddNewDestination = () => {
     const { register, handleSubmit, reset } = useForm();
     const [loading, setLoading] = useState(false);
-    const {user} = useSelector(state=>state.auth);
+    const { user } = useSelector(state => state.auth);
+    const axiosSecure = useAxiosSecure()
 
     // user info
     const [userInfo] = useState({
-        name: user.displayName,
-        email: user.email,
+        name: user?.displayName,
+        email: user?.email,
     });
 
     // Custom image upload hook
@@ -24,7 +26,7 @@ const AddNewDestination = () => {
     // Mutation for adding destination
     const { mutateAsync } = useMutation({
         mutationFn: async (data) => {
-            const res = await axios.post(`${import.meta.env.VITE_API}/destination`, data);
+            const res = await axiosSecure.post(`/destinations`, data);
             return res.data;
         },
         onSuccess: () => {
