@@ -74,14 +74,6 @@ const DashboardLayout = () => {
               </li>
             </>
           }
-          {/* <li>
-            <NavLink
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              to="/dashboard/provider"
-            >
-              Provider
-            </NavLink>
-          </li> */}
         </ul>
       </div>
 
