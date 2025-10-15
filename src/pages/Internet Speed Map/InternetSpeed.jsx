@@ -53,7 +53,7 @@ function MapFlyTo({ position }) {
 
 export default function InternetSpeed() {
 
-  const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_BASE) || "";
+  const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API) || "";
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
