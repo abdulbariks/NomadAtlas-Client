@@ -7,6 +7,7 @@ import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import YoutubeVideos from "../YoutubeVideos";
 
 const categories = [
   "All",
@@ -217,6 +218,8 @@ const AllBlogs = () => {
           <FaPlus /> Create a Blog
         </Link>
       </div>
+
+      <YoutubeVideos selectedCategory={selectedCategory}></YoutubeVideos>
     </div>
   );
 };

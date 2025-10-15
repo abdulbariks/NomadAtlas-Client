@@ -1,21 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "react-hot-toast";
 import { ImagePlus } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
 import { useSelector } from "react-redux";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const AddNewDestination = () => {
     const { register, handleSubmit, reset } = useForm();
     const [loading, setLoading] = useState(false);
-    const {user} = useSelector(state=>state.auth);
+    const { user } = useSelector(state => state.auth);
+    const axiosSecure = useAxiosSecure()
 
-    // Fake user info
+    // user info
     const [userInfo] = useState({
-        name: user.displayName,
-        email: user.email,
+        name: user?.displayName,
+        email: user?.email,
     });
 
     // Custom image upload hook
@@ -25,7 +27,7 @@ const AddNewDestination = () => {
     // Mutation for adding destination
     const { mutateAsync } = useMutation({
         mutationFn: async (data) => {
-            const res = await axios.post("http://localhost:5000/api/destinations", data);
+            const res = await axiosSecure.post(`/destinations`, data);
             return res.data;
         },
         onSuccess: () => {
@@ -118,7 +120,6 @@ const AddNewDestination = () => {
                     ></textarea>
                 </section>
 
-                {/* --- Accommodation Info --- */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Accommodation Info
@@ -158,7 +159,6 @@ const AddNewDestination = () => {
                     />
                 </section>
 
-                {/* --- Cost & Connectivity --- */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Cost & Connectivity
@@ -207,7 +207,6 @@ const AddNewDestination = () => {
                     />
                 </section>
 
-                {/* --- Amenities --- */}
                 <section className="bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
                     <h3 className="text-lg sm:text-xl font-semibold border-b pb-2 mb-4">
                         Amenities
@@ -222,13 +221,12 @@ const AddNewDestination = () => {
                     </div>
                 </section>
 
-                {/* --- Climate, Safety & Visa Info --- */}
+              
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Climate, Safety & Visa Info
                     </h3>
 
-                    {/* --- Climate Details --- */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
                         <select
                             {...register("climate.type", { required: true })}
@@ -264,7 +262,6 @@ const AddNewDestination = () => {
                         />
                     </div>
 
-                    {/* --- Location Coordinates --- */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
                         <input
                             {...register("location.latitude", { required: true })}
@@ -282,7 +279,7 @@ const AddNewDestination = () => {
                         />
                     </div>
 
-                    {/* --- Visa Info --- */}
+                
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
                         <input
                             {...register("visaInfo.visaType")}
@@ -299,7 +296,6 @@ const AddNewDestination = () => {
                         />
                     </div>
 
-                    {/* --- Safety Level --- */}
                     <select
                         {...register("safety", { required: true })}
                         className="select select-bordered w-full"
@@ -311,7 +307,6 @@ const AddNewDestination = () => {
                     </select>
                 </section>
 
-                {/* --- Image Upload --- */}
                 <section className="bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
                     <h3 className="text-lg sm:text-xl font-semibold border-b pb-2 mb-4">
                         Destination Image
@@ -341,7 +336,6 @@ const AddNewDestination = () => {
                     </div>
                 </section>
 
-                {/* --- Submit Button --- */}
                 <div className="text-center">
                     <button
                         type="submit"

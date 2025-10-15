@@ -3,7 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import Animation from "../components/Animation/Animation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../components/feature/authSlice";
+import { registerUser } from "../redux/authSlice";
 import { useState } from "react";
 import axios from "axios";
 import SocialLogin from "./SocialLogin";
@@ -47,7 +47,7 @@ const Register = () => {
     const formData = new FormData();
     formData.append("image", image);
 
-    const uploadURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key}`;
+    const uploadURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Image_Upload_Key}`;
     try {
       const res = await axios.post(uploadURL, formData);
       const imageUrl = res.data?.data?.url;

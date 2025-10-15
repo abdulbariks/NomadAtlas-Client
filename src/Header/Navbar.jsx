@@ -3,7 +3,9 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import NomadAtlasLogo from "./NomadAtlasLogo";
 import { useSelector, useDispatch } from "react-redux";
-import { logOutUser } from "../components/feature/authSlice";
+import { logOutUser } from "../redux/authSlice";
+import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +16,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const { user, loading } = useSelector((state) => state.auth);
-
+console.log(user)
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);

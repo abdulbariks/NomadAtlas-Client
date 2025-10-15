@@ -15,6 +15,7 @@ const categories = [
   "Community",
 ];
 
+
 const CreateBlog = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const { picture, handleImageUpload } = useImageUpload();
@@ -187,5 +188,6 @@ const CreateBlog = () => {
     </div>
   );
 };
+
 
 export default CreateBlog;
