@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-@plugin "daisyui";
-
 a.active {
   color: rgb(2, 128, 247);
 }
+@plugin "daisyui";

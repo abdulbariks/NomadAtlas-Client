@@ -54,13 +54,6 @@ const Navbar = () => {
               Destinations
             </NavLink>
             <NavLink
-              to="/time-zone-converter"
-              className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
-              onClick={() => setIsDropdownOpen(false)}
-            >
-              Time zone converter
-            </NavLink>
-            <NavLink
               to="/cost-calculator"
               className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
               onClick={() => setIsDropdownOpen(false)}

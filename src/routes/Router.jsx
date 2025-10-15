@@ -11,7 +11,6 @@ import ForgotPassword from "../pages/ForgotPassword";
 import Blogs from "../pages/Blogs";
 import Comparison from "../pages/Comparison";
 import CostCalculatorPage from "../pages/CostCalculatorPage";
-import Resources from "../pages/Resources";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
 import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
@@ -20,12 +19,14 @@ import ActiveUsers from "../DashboardPage/ActiveUsers";
 // import Provider from "../DashboardPage/AddDestinations";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
+import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
 import InternetSpeed from "../pages/Internet Speed Map/InternetSpeed";
-
 
 import DestinationsPage from "../pages/Destination/DestinationPage";
 import DestinationDetailsPage from "../pages/Destination/DestinationDetailsPage";
-import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
+import Resources from "../pages/Resources";
+import CheckoutPage from "../Payment/CheckoutPage";
+import PaymentSuccess from "../Payment/PaymentSuccess";
 import AddResource from "../DashboardPage/AddResource";
 import AddNewDestination from "../pages/Destination/AddNewDestinatios";
 import Error from "../components/Home/Error";
@@ -68,13 +69,30 @@ export const router = createBrowserRouter([
 
       {
         path: "/destinations",
-        Component: DestinationsPage,
+        Component: DestinationsPage
       },
+
       {
         path: "/destinations/:id",
         Component: DestinationDetailsPage
-      }
-      ,
+      },
+       {
+        path: "/payment/:bookingId",
+        element: (
+          <ProtectedRoutes>
+            <CheckoutPage />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/payment-success/:id",
+        element: (
+          <ProtectedRoutes>
+            <PaymentSuccess />
+          </ProtectedRoutes>
+        ),
+      },
+
       {
         path: "createBlog",
         Component: CreateBlog,
@@ -84,18 +102,10 @@ export const router = createBrowserRouter([
         Component: Comparison,
       },
       {
-        path: "time-zone-converter",
-        Component: TimeZoneConverter
+        path : "time-zone-converter",
+        Component : TimeZoneConverter
       },
-      {
-        path: "/community",
-        Component: Community,
-      },
-      {
-        path: "/weather-alerts",
-        Component: WeatherAlertsPage
-      },
-      // my
+
       {
         path: "/community",
         Component: Community,

@@ -13,6 +13,8 @@ L.Icon.Default.mergeOptions({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
+
+
 const CITY_COORDS = {
   "Lisbon": [38.7223, -9.1393],
   "Barcelona": [41.3851, 2.1734],

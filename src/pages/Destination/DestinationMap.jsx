@@ -19,7 +19,7 @@ const DestinationMap = ({ latitude, longitude, name }) => {
   const position = [latitude, longitude];
 
   return (
-    <div className="h-[400px] w-full rounded-lg overflow-hidden shadow relative z-[1]">
+    <div className="h-[400px] w-full rounded-lg overflow-hidden shadow z-0">
       <MapContainer center={position} zoom={8} style={{ height: "100%", width: "100%" }}>
         <TileLayer
           attribution='&copy; OpenStreetMap contributors'
