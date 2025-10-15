@@ -81,7 +81,7 @@ const CreateBlog = () => {
   return (
     <div className="max-w-4xl mx-auto px-6 py-10 my-10 bg-white shadow-xl rounded-2xl border border-gray-200">
       <h1 className="text-3xl font-bold mb-8 text-gray-800 text-center">
-        ✍️ Create a New Blog
+         Create a New Blog
       </h1>
 
       <form className="space-y-6" onSubmit={handleSubmit((data) => handleSave(data, false))}>
