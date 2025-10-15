@@ -41,14 +41,6 @@ const DashboardLayout = () => {
               Cost calculator crud
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              to="/dashboard/activeUsers"
-            >
-              Active Users
-            </NavLink>
-          </li> */}
           {!loading && role === "admin" &&
             <>
               <li>
@@ -75,9 +67,9 @@ const DashboardLayout = () => {
               <li>
                 <NavLink
                   className="hover:text-yellow-500 transition font-bold text-gray-800"
-                  to="/dashboard/provider"
+                  to="/dashboard/addDestinations"
                 >
-                  Provider
+                  AddDestinations
                 </NavLink>
               </li>
             </>
