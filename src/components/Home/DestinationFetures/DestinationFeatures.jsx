@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 const DestinationFeatures = () => {
   return (
-    <section className="relative py-12 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="relative py-12 px-5 md:px-8 lg:px-10 overflow-hidden mb-10">
       {/* Background Image with Blur */}
       <div
         className="absolute inset-0 bg-cover bg-center blur-sm brightness-75"

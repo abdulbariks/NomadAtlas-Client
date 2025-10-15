@@ -53,7 +53,7 @@ const IconStar = ({ className = "w-10 h-10" }) => (
 
 const Milestones = () => {
   return (
-    <div className="text-center mt-10  flex flex-col items-center mx-5 md:mx-10 lg:mx-20">
+    <div className="text-center mt-10  flex flex-col items-center mx-5 md:mx-8 lg:mx-10">
       <div className=" ">
         <h1 className="text-3xl font-extrabold">NomadAtlas — Quick Stats</h1>
         <p className="font-medium opacity-80 mt-3">

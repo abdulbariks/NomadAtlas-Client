@@ -17,7 +17,7 @@ import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ActiveUsers from "../DashboardPage/ActiveUsers";
-import Provider from "../DashboardPage/AddDestinations";
+// import Provider from "../DashboardPage/AddDestinations";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 import InternetSpeed from "../pages/Internet Speed Map/InternetSpeed";
@@ -33,6 +33,7 @@ import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
+import LocalServices from "../pages/Services/LocalServices";
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +99,11 @@ export const router = createBrowserRouter([
       {
         path: "/community",
         Component: Community,
+      },
+
+      {
+        path:"/services",
+        Component:LocalServices
       },
       {
         path: "/weather-alerts",

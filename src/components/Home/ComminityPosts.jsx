@@ -99,7 +99,7 @@ const ComminityPosts = () => {
   ];
 
   return (
-    <div className="mt-15 mb-10 mx-5 md:mx-10 lg:mx-20  ">
+    <div className="mt-15 mb-10 mx-5 md:mx-8 lg:mx-10  ">
      <div className="text-center">
        <h1 className="text-2xl md:text-3xl lg:text-4xl  font-bold text-center mb-6">
         Community Posts

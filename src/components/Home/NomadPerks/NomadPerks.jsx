@@ -32,7 +32,7 @@ const perks = [
 
 const NomadPerks = () => {
   return (
-    <section className="py-16 px-6 md:px-12 lg:px-20">
+    <section className="py-16 px-5 md:px-8 lg:px-10">
       <div className="max-w-6xl mx-auto text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Nomad Perks & Discounts

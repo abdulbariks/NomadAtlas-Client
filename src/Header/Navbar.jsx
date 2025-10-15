@@ -15,7 +15,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.auth);
-console.log(user)
+  console.log(user)
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +83,7 @@ console.log(user)
               Time Zone Converter
             </NavLink>
 
-              <NavLink
+            <NavLink
               to="/blogs"
               className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
               onClick={() => setIsDropdownOpen(false)}
@@ -123,7 +123,7 @@ console.log(user)
 
         <div className="hidden md:flex items-center gap-6">
           {loading ? (
-            <NomadAtlasLoader/>
+            <NomadAtlasLoader />
           ) : user ? (
             <>
               <span>Hi, {user.displayName || "User"}</span>
@@ -186,13 +186,13 @@ console.log(user)
           </NavLink>
 
           {loading ? (
-           <NomadAtlasLoader/>
+            <NomadAtlasLoader />
           ) : user ? (
             <>
               <span>
                 <NavLink to="/dashboard" onClick={() => setIsOpen(false)}>
-            Dashboard
-          </NavLink>
+                  Dashboard
+                </NavLink>
               </span>
               <button
                 onClick={() => {
