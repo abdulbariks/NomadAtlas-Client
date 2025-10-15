@@ -19,12 +19,12 @@ const NomadFavouriteDestination = () => {
   };
 
   return (
-    <section className="px-5 md:px-10 lg:px-20 py-14 ">
+    <section className="px-5 md:px-8 lg:px-10 py-14 ">
       <motion.h2
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-2xl md:text-3xl font-bold mb-8 text-center"
+        className="text-2xl md:text-4xl font-bold mb-8 text-center"
       >
         Nomads’ Favourite Destinations
       </motion.h2>

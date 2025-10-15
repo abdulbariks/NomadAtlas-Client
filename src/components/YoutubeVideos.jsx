@@ -24,7 +24,7 @@ export default function YoutubeVideos({ selectedCategory }) {
             ? "digital nomad lifestyle"
             : `digital nomad ${selectedCategory}`;
 
-        // useing youtube search endpoind.
+        // using youtube search endpoint.
         const res = await fetch(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
             searchQuery
@@ -41,7 +41,7 @@ export default function YoutubeVideos({ selectedCategory }) {
     }
 
     fetchVideos();
-  }, [selectedCategory]);
+  }, [selectedCategory, API_KEY]);
 
   if (loading) {
     return (

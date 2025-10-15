@@ -3,11 +3,14 @@ import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import Spinner from "../../components/Spinner/Spinner";
+import { FaSearch } from "react-icons/fa";
 
 const DestinationsPage = () => {
   const [continent, setContinent] = useState("All");
   const [priceRange, setPriceRange] = useState("All");
   const [wifiSpeed, setWifiSpeed] = useState("All");
+  const [searchText, setSearchText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   //  pagination state
   const [page, setPage] = useState(1);
@@ -31,7 +34,7 @@ const DestinationsPage = () => {
     },
   });
 
-  if (isLoading) return <h3><Spinner></Spinner></h3>;
+  if (isLoading) return <h3><Spinner /></h3>;
   if (isError) return <h3>Error...</h3>;
 
   const destinations = allDestinations?.data || [];
@@ -50,7 +53,7 @@ const DestinationsPage = () => {
         </p>
       </div>
 
-      {/* Filter Bar */}
+      {/* Filter + Search Bar */}
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
         {/* Continent Filter */}
         <select
@@ -78,7 +81,7 @@ const DestinationsPage = () => {
           <option value="High">High (1000+)</option>
         </select>
 
-        {/* Wi-Fi Speed Filter */}
+        {/* Wi-Fi Filter */}
         <select
           value={wifiSpeed}
           onChange={(e) => { setWifiSpeed(e.target.value); setPage(1); }} // RESET PAGE
@@ -89,6 +92,38 @@ const DestinationsPage = () => {
           <option value="80">80 Mbps+</option>
           <option value="100">100 Mbps+</option>
         </select>
+
+        {/*  Search Input */}
+        {/* <div className="flex items-center border rounded-lg overflow-hidden">
+          <input
+            type="text"
+            placeholder="Search by city, country, continent, title..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="px-4 py-2 outline-none"
+          />
+          <button
+            onClick={() => { setSearchQuery(searchText); setPage(1); }} // 🔹 Trigger search
+            className="bg-yellow-400 hover:bg-yellow-300 px-4 py-2 font-semibold"
+          >
+            Search
+          </button>
+        </div> */}
+        <div className="flex items-center border rounded-lg overflow-hidden">
+          <input
+            type="text"
+            placeholder="Search by city, country, continent, title..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="px-4 py-2 outline-none flex-1"
+          />
+          <button
+            onClick={() => { setSearchQuery(searchText); setPage(1); }}
+            className="bg-yellow-400 bg-full hover:bg-yellow-300 px-3 py-2 flex items-center justify-center"
+          >
+            <FaSearch className="text-black" />
+          </button>
+        </div>
       </div>
 
       {/* Grid */}

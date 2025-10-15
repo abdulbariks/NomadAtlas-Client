@@ -7,7 +7,7 @@ const Newsletter = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
           Subscribe to Our Newsletter 
         </h2>
-        <p className="text-gray-00 mb-6 text-sm md:text-base">
+        <p className="text-gray-600 mb-6 text-sm md:text-base">
           Get travel insights, remote work tips, and NomadAtlas updates every week.
         </p>
 

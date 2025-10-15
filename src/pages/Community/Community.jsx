@@ -16,7 +16,7 @@ const posts = [
     id: 2,
     name: "Lisbon, Portugal",
     image:
-      "https://images.unsplash.com/photo-1505765050516-f72dcac9c60b",
+      "https://i.ibb.co.com/V0Ycp6rT/Lisbon.jpg",
     description:
       "Lisbon offers a thriving community, fast internet, and warm climate – perfect for remote workers.",
     author: "David M.",
@@ -92,7 +92,7 @@ const Community = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="text-center py-16 bg-blue-600 text-white">
+      <section className="text-center py-16 bg-blue-300 text-blue-700">
         <motion.h2
           className="text-3xl font-bold"
           initial={{ opacity: 0, y: 20 }}
