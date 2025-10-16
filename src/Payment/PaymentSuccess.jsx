@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../customHook/useAxiosSecure";
+import { Link } from "react-router";
 
-export default function PaymentSuccess({ onClose,paymentId }) {
+export default function PaymentSuccess({ onClose, paymentId }) {
     const [payment, setPayment] = useState(null);
     const axiosSecure = useAxiosSecure();
 
@@ -73,12 +74,12 @@ export default function PaymentSuccess({ onClose,paymentId }) {
                         Close
                     </button>
 
-                    <a
-                        href="/payment-history"
+                    <Link
+                        to="/dashboard/payment-history"
                         className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition-colors"
                     >
                         Payment History
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

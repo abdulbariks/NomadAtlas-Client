@@ -34,6 +34,7 @@ import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
+import UserPaymentHistory from "../Payment/UserPaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -187,6 +188,10 @@ export const router = createBrowserRouter([
       {
         path: "add-resource",
         Component: AddResource,
+      },
+      {
+        path: "payment-history",
+        Component: UserPaymentHistory,
       },
       {
         path: "data-of-calculator",
