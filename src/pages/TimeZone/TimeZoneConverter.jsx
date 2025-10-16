@@ -22,7 +22,27 @@ const TIME_ZONE_DATA = [
     { city: "Lagos, Nigeria", zone: "Africa/Lagos", offset: "UTC+1" },
     { city: "Hong Kong, HK", zone: "Asia/Hong_Kong", offset: "UTC+8" },
     { city: "Auckland, NZ", zone: "Pacific/Auckland", offset: "UTC+12" },
+    { city: "Lisbon, Portugal", zone: "Europe/Lisbon", offset: "UTC+0" },
+    { city: "Barcelona, Spain", zone: "Europe/Madrid", offset: "UTC+1" },
+    { city: "Bangkok, Thailand", zone: "Asia/Bangkok", offset: "UTC+7" },
+    { city: "Chiang Mai, Thailand", zone: "Asia/Bangkok", offset: "UTC+7" },
+    { city: "Medellín, Colombia", zone: "America/Bogota", offset: "UTC-5" },
+    { city: "Bali, Indonesia", zone: "Asia/Makassar", offset: "UTC+8" },
+    { city: "Canggu (Bali), Indonesia", zone: "Asia/Makassar", offset: "UTC+8" },
+    { city: "Porto, Portugal", zone: "Europe/Lisbon", offset: "UTC+0" },
+    { city: "Buenos Aires, Argentina", zone: "America/Argentina/Buenos_Aires", offset: "UTC-3" },
+    { city: "Jakarta, Indonesia", zone: "Asia/Jakarta", offset: "UTC+7" },
+    { city: "Kuala Lumpur, Malaysia", zone: "Asia/Kuala_Lumpur", offset: "UTC+8" },
+    { city: "Ho Chi Minh City, Vietnam", zone: "Asia/Ho_Chi_Minh", offset: "UTC+7" },
+    { city: "Tbilisi, Georgia", zone: "Asia/Tbilisi", offset: "UTC+4" },
+    { city: "Prague, Czech Republic", zone: "Europe/Prague", offset: "UTC+1" },
+    { city: "Cape Town, South Africa", zone: "Africa/Johannesburg", offset: "UTC+2" },
+    { city: "Da Nang, Vietnam", zone: "Asia/Ho_Chi_Minh", offset: "UTC+7" },
+    { city: "Budapest, Hungary", zone: "Europe/Budapest", offset: "UTC+1" },
+    { city: "Santiago, Chile", zone: "America/Santiago", offset: "UTC-4" },
+    { city: "Istanbul, Turkey", zone: "Europe/Istanbul", offset: "UTC+3" }
 ];
+
 
 const LOCAL_STORAGE_KEY_1 = 'tz1';
 const LOCAL_STORAGE_KEY_2 = 'tz2';
@@ -140,9 +160,9 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
         <div 
             id={`card-${id}`} 
            
-            className={`time-card bg-white rounded-[2rem] shadow-2xl p-6 sm:p-10 border-t-8 ${accentColor.replace('500', '600')} hover:shadow-3xl hover:scale-[1.01] transition-all duration-300 relative`}
+            className={`time-card bg-white rounded-[2rem] shadow-2xl p-6 sm:p-10 border-t-8 ${accentColor} hover:shadow-3xl hover:scale-[1.01] transition-all duration-300 relative`}
         >
-            <label htmlFor={`timezone-search-${id}`} className={`block text-sm font-semibold mb-2 ${accentColor.replace('border-t-4', 'text')}`}>
+            <label htmlFor={`timezone-search-${id}`} className={`block text-sm font-semibold mb-2 ${accentColor.replace('border-t-8', 'text')}`}>
                 {label}
             </label>
             <div className="relative">
@@ -155,27 +175,27 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
                     onFocus={() => setIsDropdownOpen(true)}
                     onBlur={handleInputBlur}
                    
-                    className={`w-full p-4 text-base bg-gray-100 border border-gray-300 rounded-xl focus:ring-4 ${focusRingColor} focus:ring-opacity-50 focus:border-transparent transition-shadow pr-10`}
+                    className={`w-full p-4 text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 ${focusRingColor} focus:ring-opacity-50 focus:border-transparent transition-shadow pr-10`}
                     autoComplete="off"
                 />
             
                 {isDropdownOpen && filteredCities.length > 0 && (
-                    <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-xl shadow-2xl max-h-60 overflow-y-auto custom-scroll">
+                    <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-2xl max-h-60 overflow-y-auto custom-scroll">
                         {filteredCities.map((tz) => (
                             <li 
                                 key={tz.zone} 
                                
                                 onMouseDown={() => handleSelectCity(tz)} 
-                                className="cursor-pointer p-3 hover:bg-indigo-100 transition-colors border-b border-gray-200 last:border-b-0 flex justify-between items-center"
+                                className="cursor-pointer p-3 hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0 flex justify-between items-center"
                             >
-                                <span className="font-medium">{tz.city}</span>
+                                <span className="font-medium text-gray-800">{tz.city}</span>
                                 <span className="text-gray-500 text-sm font-mono">{tz.offset}</span>
                             </li>
                         ))}
                     </ul>
                 )}
                 
-                <Globe className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                <Globe className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
             </div>
 
 
@@ -186,12 +206,12 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
                 </p>
                 
                 
-                <p id={`current-time-${id}`} className={`time-display font-extrabold text-5xl sm:text-7xl ${accentColor.replace('border-t-4', 'text').replace('600', '700')} tabular-nums leading-tight`}>
+                <p id={`current-time-${id}`} className={`time-display font-extrabold text-5xl sm:text-7xl ${accentColor.replace('border-t-8', 'text')} tabular-nums leading-tight`}>
                     {time}
                 </p>
                 
               
-                <p id={`current-date-${id}`} className="text-md text-black mt-4">
+                <p id={`current-date-${id}`} className="text-md text-gray-600 mt-4 font-medium">
                     {date}
                 </p>
             </div>
@@ -260,14 +280,14 @@ const TimeZoneConverter = () => {
     }, [zone1, zone2, city1Name, city2Name]); 
 
     return (
-        <div className="min-h-screen bg-white text-gray-800 p-4 sm:p-8"
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 text-gray-800 p-4 sm:p-8"
             style={{ fontFamily: 'Inter, sans-serif' }}>
 
             <div className="max-w-4xl mx-auto py-10 mt-16">
                 {/* Header */}
                 <header className="text-center mb-16">
-                    <h1 className="text-4xl sm:text-5xl font-extrabold text-indigo-700 mb-3 flex items-center justify-center gap-3">
-                        <Globe className="w-8 h-8"/> Global Time Sync
+                    <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3 flex items-center justify-center gap-3">
+                        <Globe className="w-8 h-8 text-blue-500"/> Global Time Sync
                     </h1>
                     <p className="text-xl text-gray-600">
                         Compare local time between two cities instantly for seamless remote work planning.
@@ -286,8 +306,8 @@ const TimeZoneConverter = () => {
                         time={time1}
                         date={date1}
                         cityName={city1Name}
-                        accentColor="border-indigo-600 text-indigo-600"
-                        focusRingColor="focus:ring-indigo-500"
+                        accentColor="border-blue-500 text-blue-600"
+                        focusRingColor="focus:ring-blue-400"
                     />
 
                     <TimeCard
@@ -299,15 +319,15 @@ const TimeZoneConverter = () => {
                         time={time2}
                         date={date2}
                         cityName={city2Name}
-                        accentColor="border-purple-600 text-purple-600"
-                        focusRingColor="focus:ring-purple-500"
+                        accentColor="border-purple-500 text-purple-600"
+                        focusRingColor="focus:ring-purple-400"
                     />
 
                 </div>
                
                 <div id="time-difference" 
-                    className="text-center mt-10 p-6 bg-gray-100 rounded-2xl shadow-xl border-l-8 border-r-8 border-indigo-500 text-lg sm:text-xl text-gray-700 font-bold transition-all">
-                    <Clock className="w-6 h-6 inline mr-3 align-text-bottom text-indigo-500" /> {differenceText}
+                    className="text-center mt-10 p-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-xl text-white text-lg sm:text-xl font-bold transition-all hover:shadow-2xl hover:scale-[1.02]">
+                    <Clock className="w-6 h-6 inline mr-3 align-text-bottom text-white" /> {differenceText}
                 </div>
                 
                
