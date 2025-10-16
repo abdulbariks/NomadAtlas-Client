@@ -67,6 +67,22 @@ const DashboardLayout = () => {
               Cost calculator crud
             </NavLink>
           </li>
+           <li>
+            <NavLink
+              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              to="/dashboard/payment-history"
+            >
+              Payment History
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              to="/dashboard/admin-booking"
+            >
+              Booked Destination
+            </NavLink>
+          </li>
 
           {!loading && role === "admin" && (
             <>
