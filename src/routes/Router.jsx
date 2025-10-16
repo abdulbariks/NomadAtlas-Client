@@ -16,7 +16,7 @@ import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ActiveUsers from "../DashboardPage/ActiveUsers";
-import Provider from "../DashboardPage/AddDestinations";
+// import Provider from "../DashboardPage/AddDestinations";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
@@ -34,6 +34,9 @@ import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
+import LocalServices from "../pages/Services/LocalServices";
+import UserPaymentHistory from "../Payment/UserPaymentHistory";
+import AdminBookings from "../Payment/AdminBookings";
 
 export const router = createBrowserRouter([
   {
@@ -76,7 +79,7 @@ export const router = createBrowserRouter([
         Component: DestinationDetailsPage
       },
        {
-        path: "/payment/:bookingId",
+        path: "/payment/:id",
         element: (
           <ProtectedRoutes>
             <CheckoutPage />
@@ -181,12 +184,23 @@ export const router = createBrowserRouter([
           </AdminRoutes>,
       },
       {
+        path: "admin-booking",
+        element:
+          <AdminRoutes>
+            <AdminBookings></AdminBookings>
+          </AdminRoutes>,
+      },
+      {
         path: "addDestinations",
         Component: AddDestinations,
       },
       {
         path: "add-resource",
         Component: AddResource,
+      },
+      {
+        path: "payment-history",
+        Component: UserPaymentHistory,
       },
       {
         path: "data-of-calculator",

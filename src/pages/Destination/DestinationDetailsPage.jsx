@@ -295,7 +295,7 @@ const DestinationDetailsPage = () => {
 
         {/* RIGHT COLUMN - Booking Form */}
         
-        <BookingForm singleDestination={singleDestination}></BookingForm>
+        <BookingForm singleDestination={singleDestination} userInfo={userInfo}></BookingForm>
       </div>
     </section>
   );
