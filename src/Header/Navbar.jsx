@@ -29,7 +29,7 @@ console.log(user)
   const navClasses =
     isHome && !scrolled
       ? "fixed top-0 z-50 left-0 w-full bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
-      : "fixed top-0 z-50 left-0 w-full bg-white shadow-md text-gray-900";
+      : "fixed top-0 z-50 left-0 w-full backdrop-blur-lg bg-white/90 shadow-md  text-gray-900";
 
   const handleLogout = () => {
     dispatch(logOutUser());
@@ -38,13 +38,13 @@ console.log(user)
   return (
     <>
       <nav
-        className={`px-5 lg:px-10 md:px-8 py-4 flex items-center justify-between z-50 transition-all duration-300 ${navClasses}`}
+        className={`px-5 lg:px-10 md:px-8 py-3 flex items-center justify-between z-50 transition-all duration-300 ${navClasses}`}
       >
         {/* Left - Logo */}
         <NomadAtlasLogo />
 
         {/* Desktop Menu */}
-        <div className="flex justify-between gap-5 items-center">
+        
           <div className="hidden md:flex gap-6 font-medium">
             {/* Your existing desktop links */}
             <div className="relative">
@@ -152,7 +152,7 @@ console.log(user)
               </>
             )}
           </div>
-        </div>
+        
 
         {/* Mobile Toggle */}
         <div className="md:hidden">
