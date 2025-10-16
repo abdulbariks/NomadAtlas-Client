@@ -49,6 +49,14 @@ const DashboardLayout = () => {
               Payment History
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              to="/dashboard/admin-booking"
+            >
+              Booked Destination
+            </NavLink>
+          </li>
           {/* <li>
             <NavLink
               className="hover:text-yellow-500 transition font-bold text-gray-800"

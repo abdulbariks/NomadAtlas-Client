@@ -35,6 +35,7 @@ import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
+import AdminBookings from "../Payment/AdminBookings";
 
 export const router = createBrowserRouter([
   {
@@ -179,6 +180,13 @@ export const router = createBrowserRouter([
         element:
           <AdminRoutes>
             <ActiveUsers></ActiveUsers>
+          </AdminRoutes>,
+      },
+      {
+        path: "admin-booking",
+        element:
+          <AdminRoutes>
+            <AdminBookings></AdminBookings>
           </AdminRoutes>,
       },
       {

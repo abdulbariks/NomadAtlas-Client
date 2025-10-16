@@ -34,6 +34,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
     },
   });
 
+  console.log("creator email", destination.userEmail)
   const onSubmit = (data) => {
     const bookingInfo = {
       ...data,
@@ -47,7 +48,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
       title: destination.title,
       type: destination.type,
       currency: destination.currency,
-      providerEmail: destination.userName,
+      providerEmail: destination.userEmail,
     };
     setBookingData(bookingInfo);
     setIsModalOpen(true);
