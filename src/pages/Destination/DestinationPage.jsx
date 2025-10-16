@@ -30,7 +30,7 @@ const DestinationsPage = () => {
         wifiSpeed: wifiSpeed !== "All" ? wifiSpeed : undefined,
         search: searchQuery || undefined, // Include search param
       };
-      const { data } = await axiosSecure.get("/destinations", { params });
+      const { data } = await axiosSecure.get("https://nomad-atlas-server-delta.vercel.app/api/destinations/", { params });
       return data;
     },
   });

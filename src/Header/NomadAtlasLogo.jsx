@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import logo from "../assets/Logo/NomadLogo.png";
+import logo from "../assets/Logo/Logo4.png";
 
 const NomadAtlasLogo = () => {
   return (
@@ -12,7 +12,7 @@ const NomadAtlasLogo = () => {
         </div>
 
         {/* Text */}
-        <h2 className="text-xl md:text-xl lg:text-2xl font-extrabold bg-gradient-to-r from-[#14b8a6] to-[#7e32b0] bg-clip-text text-transparent  transition-colors duration-300">
+        <h2 className="text-xl md:text-xl lg:text-2xl font-extrabold bg-gradient-to-r from-[#11c3c0] to-[#3ea1f1] bg-clip-text text-transparent  transition-colors duration-300">
           Nomad Atlas
         </h2>
       </div>

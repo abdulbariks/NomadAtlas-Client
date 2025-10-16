@@ -47,17 +47,20 @@ console.log(user)
         
           <div className="hidden md:flex gap-6 font-medium">
             {/* Your existing desktop links */}
+            <NavLink to="/destinations" className="hover:text-[#11c3c0] transition">
+              Destinations
+            </NavLink>
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-1 hover:text-yellow-500 transition"
+                className="flex items-center gap-1 hover:text-[#11c3c0] transition"
               >
                 Explore
                 {isDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute left-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md flex flex-col py-2 z-50">
+                <div className="absolute left-0 mt-2 w-48 bg-white/80  shadow-lg rounded-md flex flex-col py-2 z-50">
                   {/* <NavLink
                     to="/dashboard"
                     className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
@@ -65,46 +68,51 @@ console.log(user)
                   >
                     Dashboard
                   </NavLink> */}
-                  <NavLink
-                    to="/destinations"
-                    className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Destinations
-                  </NavLink>
+
                   <NavLink
                     to="/cost-calculator"
-                    className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
+                    className="px-4 py-2 hover:bg-[#e0efef] hover:text-[#158e8c]"
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     Cost Calculator
                   </NavLink>
                   <NavLink
                     to="/comparison"
-                    className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
+                    className="px-4 py-2 hover:bg-blue-50 hover:text-[rgb(62,161,241)]"
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     Comparison
                   </NavLink>
+                  
                   <NavLink
                     to="/services"
-                    className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
+                    className="px-4 py-2 hover:bg-[#e0efef] hover:text-[#158e8c]"
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     Services
                   </NavLink>
+                 <NavLink
+                    to="/community"
+                    className="px-4 py-2 hover:bg-blue-50 hover:text-[rgb(62,161,241)]"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    Community
+                  </NavLink>
+
                 </div>
               )}
             </div>
 
-            <NavLink to="/community" className="hover:text-yellow-500 transition">
-              Community
-            </NavLink>
-            <NavLink to="/resources" className="hover:text-yellow-500 transition">
+          
+            <NavLink to="/resources" className="hover:text-[#11c3c0] transition">
               Resources
             </NavLink>
-            <NavLink to="/blogs" className="hover:text-yellow-500 transition">
+            <NavLink to="/blogs" className="hover:text-[#11c3c0] transition">
               Blogs
+            </NavLink>
+
+            <NavLink to="/dashboard" className="hover:text-[#11c3c0] transition">
+              Dashboard
             </NavLink>
           </div>
 
@@ -121,7 +129,7 @@ console.log(user)
                   <img
                     src={user.photoURL || "https://i.ibb.co/YPXktqs/avatar.png"}
                     alt="User Avatar"
-                    className="w-10 h-10 rounded-full object-cover border-2 border-yellow-400"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-[#11c3c0]"
                   />
                   <span className="absolute left-1/2 -translate-x-1/2 bg-white text-black text-sm rounded-md px-3 py-1 opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap">
                     {user.displayName || "User"}
@@ -130,25 +138,27 @@ console.log(user)
 
                 <button
                   onClick={handleLogout}
-                  className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+                  className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#11a19e] transition"
                 >
                   Log Out
                 </button>
               </>
             ) : (
               <>
-                <Link
-                  to="/register"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-300 transition"
-                >
-                  Register
-                </Link>
+
                 <Link
                   to="/login"
-                  className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+                  className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#11a19e] transition"
                 >
                   Log In
                 </Link>
+
+                  <Link
+                  to="/register"
+                  className="bg-[#3ea1f1] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2f7bb9] transition"
+                >
+                  Get Started
+                </Link>              
               </>
             )}
           </div>
