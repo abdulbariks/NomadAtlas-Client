@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
         Component: DestinationDetailsPage
       },
        {
-        path: "/payment/:bookingId",
+        path: "/payment/:id",
         element: (
           <ProtectedRoutes>
             <CheckoutPage />

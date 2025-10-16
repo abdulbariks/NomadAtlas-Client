@@ -1,16 +1,9 @@
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
-import { useNavigate } from "react-router";
-// import useAxiosSecure from "../customHook/useAxiosSecure";
-// import { useSelector } from "react-redux";
 
-// ✅ Add clientSecret as a prop
-export default function PaymentForm({ destination, clientSecret }) {
+export default function PaymentForm({ destination, clientSecret, onPaymentSuccess }) {
     const stripe = useStripe();
     const elements = useElements();
-    // const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate();
-    // const { user } = useSelector((state) => state.auth);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -19,7 +12,6 @@ export default function PaymentForm({ destination, clientSecret }) {
         e.preventDefault();
         if (!stripe || !elements) return;
 
-        // ✅ Guard: make sure clientSecret exists
         if (!clientSecret) {
             setError("Payment not ready yet. Please wait...");
             return;
@@ -41,13 +33,9 @@ export default function PaymentForm({ destination, clientSecret }) {
             return;
         }
 
-        // ✅ Use clientSecret from props
-        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
-            clientSecret,
-            {
-                payment_method: paymentMethod.id,
-            }
-        );
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: paymentMethod.id,
+        });
 
         if (confirmError) {
             setError(confirmError.message);
@@ -56,23 +44,43 @@ export default function PaymentForm({ destination, clientSecret }) {
         }
 
         if (paymentIntent.status === "succeeded") {
-            // Payment succeeded, webhook will update DB automatically
-            navigate(`/payment-success/${paymentIntent.id}`);
+            // ✅ Call the callback from CheckoutPage to update booking UI
+            if (onPaymentSuccess) onPaymentSuccess();
         }
 
         setLoading(false);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            <CardElement className="p-4 border rounded" />
+        <form
+            onSubmit={handleSubmit}
+            className="space-y-6 bg-green-50 p-6 rounded-xl shadow-md"
+        >
+            <h3 className="text-xl font-semibold text-green-700">Payment Details</h3>
+
+            <div className="p-4 border rounded-lg bg-white">
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: "16px",
+                                color: "#065F46", // professional green
+                                "::placeholder": { color: "#A7F3D0" },
+                            },
+                            invalid: { color: "#EF4444" }, // keep red for invalid
+                        },
+                    }}
+                />
+            </div>
+
             {error && <p className="text-red-500 text-sm">{error}</p>}
+
             <button
                 type="submit"
                 disabled={!stripe || loading}
-                className="btn btn-primary w-full"
+                className="w-full bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700 transition duration-300"
             >
-                {loading ? "Processing..." : "Pay Now"}
+                {loading ? "Processing..." : `Pay $${destination.price}`}
             </button>
         </form>
     );
