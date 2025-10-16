@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, ArrowRight, Calendar, Clock } from "lucide-react";
 import { Link } from "react-router";
 import { FaPlus } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
-// import YoutubeVideos from "../YoutubeVideos";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import YoutubeVideos from "../YoutubeVideos";
+
 
 const categories = [
   "All",
@@ -27,7 +27,7 @@ const AllBlogs = () => {
   const { data: blogs = {}, isLoading } = useQuery({
     queryKey: ["blogs", selectedCategory, search, page],
     queryFn: async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API}/blogs`, {
+      const res = await axios.get("http://localhost:5000/api/blogs", {
         params: {
           category: selectedCategory !== "All" ? selectedCategory : undefined,
           search,
@@ -109,85 +109,112 @@ const AllBlogs = () => {
       </div>
 
       {/* ================= Category Tabs ================ */}
-      <div className="flex flex-wrap gap-3 mb-10">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => {
-              setSelectedCategory(cat);
-              setPage(1);
-            }}
-            className={`px-4 py-1.5 rounded-full border text-sm transition ${selectedCategory === cat
-                ? "bg-black text-white border-black"
-                : "bg-white text-gray-700 border-gray-300 hover:border-black"
-              }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+    <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
+  {/* === Category Tabs === */}
+  <div className="flex overflow-x-auto no-scrollbar items-center bg-blue-600 p-1 rounded-full">
+    {categories.map((cat) => (
+      <button
+        key={cat}
+        onClick={() => {
+          setSelectedCategory(cat);
+          setPage(1);
+        }}
+        className={`px-4 py-1.5 text-sm rounded-full transition whitespace-nowrap
+          ${
+            selectedCategory === cat
+              ? "bg-white text-blue-600 font-medium"
+              : "text-white hover:bg-blue-500"
+          }`}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
 
-      {/* ================= Blog Grid ================ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-7">
-        {blogList.length > 0 ? (
-          blogList.map((blog) => (
-            <div
-              key={blog._id}
-              className=" rounded-xl overflow-hidden  transition"
-            >
+  {/* === Create Blog Button === */}
+  <div>
+    <Link
+      to="/createBlog"
+      className="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+    >
+      <FaPlus /> Create a Blog
+    </Link>
+  </div>
+</div>
+
+
+
+     {/* ================= Blog Grid ================ */}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {blogList.length > 0 ? (
+    blogList.map((blog, index) => (
+      <motion.div
+        key={blog._id}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: index * 0.1 }}
+        className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all cursor-pointer flex flex-col"
+      >
+        {/* Image + Category */}
+        <div className="relative">
+          <img
+            src={blog.image}
+            alt={blog.title}
+            className="w-full h-48 object-cover rounded-t-xl"
+          />
+          <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+            {blog.category}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="p-4 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 className="text-lg font-semibold mb-2 hover:text-blue-600 transition">
+              {blog.title}
+            </h3>
+            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+              {blog.content}
+            </p>
+          </div>
+
+          {/* Author Row with Arrow */}
+          <div className="flex items-center justify-between mt-auto pt-2">
+            {/* Author Info */}
+            <div className="flex items-center gap-3">
               <img
-                src={blog.image}
-                alt={blog.title}
-                className="w-full h-48 object-cover"
+                src={blog.authorImage || "https://i.pravatar.cc/40?img=12"}
+                alt={blog.authorName}
+                className="w-8 h-8 rounded-full"
               />
-              <div className="pt-4">
-                <div className="flex items-center justify-between text-gray-500 text-sm">
-                  <span className="text-xs uppercase  py-1 px-2 font- rounded-md  bg-yellow-50 text-yellow-500 tracking-wide">
-                    {blog.category}
-                  </span>
-                  <span>{blog.author}</span>
-                  <span>{new Date(blog.createdAt).toISOString().split("T")[0]}</span>
-                </div>
-                <h3 className="text-lg font-semibold mt-2 mb-2 hover:text-blue-600 transition">
-                  {blog.title}
-                </h3>
-                <div className="flex justify-between items-center px-4">
-                  {/* Author Section */}
-                  <div className="flex items-center mt-4 gap-3 text-sm">
-                    <img
-                      src={blog.authorImage || "https://i.pravatar.cc/40?img=12"}
-                      alt={blog.author}
-                      className="w-8 h-8 rounded-full"
-                    />
-                    <p className="font-medium">{blog.authorName}</p>
-                  </div>
-
-                  {/* Read More Button with Motion */}
-                  <motion.div
-                    whileHover={{ x: 5 }} // slight slide to the right on hover
-                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium mt-4"
-                  >
-                    <Link to={`/blogs/${blog._id}`} className="flex items-center gap-1">
-                      Read More
-                      <motion.span
-                        whileHover={{ x: 4 }} // arrow moves slightly on hover
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight size={18} />
-                      </motion.span>
-                    </Link>
-                  </motion.div>
-                </div>
-
-
+              <div className="text-xs text-gray-600">
+                <p className="font-medium">{blog.authorName}</p>
+                <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
               </div>
             </div>
-          ))
-        ) : (
-          <p className="text-center py-10 col-span-full">No blogs found.</p>
-        )}
-      </div>
+
+            {/* Arrow Button */}
+            <Link
+              to={`/blogs/${blog._id}`}
+              className="text-blue-600 hover:text-blue-700"
+            >
+              <motion.div
+                whileHover={{ x: [0, 6, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+              >
+                <ArrowRight className="h-6 w-6" />
+              </motion.div>
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+    ))
+  ) : (
+    <p className="text-center py-10 col-span-full">No blogs found.</p>
+  )}
+</div>
+
+
 
       {/* ================= Pagination ================ */}
       {blogs?.totalPages > 1 && (
@@ -196,10 +223,11 @@ const AllBlogs = () => {
             <button
               key={num}
               onClick={() => setPage(num)}
-              className={`px-3 py-1 rounded-full ${num === page
+              className={`px-3 py-1 rounded-full ${
+                num === page
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 hover:bg-gray-300"
-                }`}
+              }`}
             >
               {num}
             </button>
@@ -207,15 +235,9 @@ const AllBlogs = () => {
         </div>
       )}
 
-      {/* ================= Create Blog CTA ================ */}
-      <div className="mt-16 text-center">
-        <Link
-          to="/createBlog"
-          className="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
-        >
-          <FaPlus /> Create a Blog
-        </Link>
-      </div>
+     
+
+      <YoutubeVideos selectedCategory={selectedCategory}></YoutubeVideos>
     </div>
   );
 };
