@@ -120,7 +120,7 @@ const DestinationDetailsPage = () => {
   };
 
   return (
-    <section className="w-full mt-15">
+    <section className="w-full ">
       {/* 🖼️ Top Hero Image */}
       <div className="w-full h-96 relative">
         <img

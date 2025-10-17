@@ -127,7 +127,7 @@ const BlogDetailsPage = () => {
       className="mx-auto pb-20"
     >
       {/* ============== Hero Section ============== */}
-      <div className="relative w-full h-[250px] md:h-[350px] overflow-visible">
+      <div className="relative w-full h-[280px] md:h-[380px] overflow-visible">
         {/* 🖼️ Hero Image */}
         <motion.img
           src={blog.image}
@@ -148,13 +148,13 @@ const BlogDetailsPage = () => {
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           className="absolute left-1/2 bottom-[-80px] transform -translate-x-1/2 w-[90%] md:w-3/4"
         >
-          <div className="bg-white/90 backdrop-blur-md px-10 py-8 rounded-2xl shadow-md shadow-blue-200">
+          <div className="bg-white/90 backdrop-blur-md px-10 py-8 rounded-2xl shadow-md shadow-gray-100 max-w-4xl mx-auto ">
             {/* Top Links */}
             <div className="flex items-center gap-3 text-sm mb-3">
-              <Link to="/blogs" className="text-blue-600 hover:underline">
+              <Link to="/blogs" className="text-[#11c3c0] hover:underline">
                 ← Back to Blog
               </Link>
-              <span className="bg-blue-700 text-white px-3 py-1 rounded-full text-xs font-medium">
+              <span className="bg-[#11c3c0] text-white px-3 py-1 rounded-full text-xs font-medium">
                 {blog.category}
               </span>
             </div>
@@ -165,7 +165,7 @@ const BlogDetailsPage = () => {
             </h1>
 
             {/* Author Info */}
-            <div className="flex flex-wrap items-center gap-8 mt-7 text-gray-600">
+            <div className=" flex-wrap items-center gap-8 mt-7 text-gray-600">
               <div className="flex items-center gap-2">
                 <img
                   src={blog.authorImage || "https://i.pravatar.cc/40"}
@@ -174,6 +174,7 @@ const BlogDetailsPage = () => {
                 />
                 <span className="font-medium">{blog.authorName}</span>
               </div>
+              <div className="flex flex-wrap gap-10 mt-6">
               <span className="flex gap-2 items-center">
                 <Calendar size={20} />{" "}
                 {new Date(blog.createdAt).toLocaleDateString()}
@@ -181,6 +182,7 @@ const BlogDetailsPage = () => {
               <span className="flex gap-2 items-center">
                 <Clock size={20} /> 8 min read
               </span>
+              </div>
             </div>
           </div>
         </motion.div>

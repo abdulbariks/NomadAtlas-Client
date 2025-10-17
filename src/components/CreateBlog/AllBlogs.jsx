@@ -124,7 +124,7 @@ const AllBlogs = () => {
       {/* ================= Category Tabs ================ */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
         {/* === Category Tabs === */}
-        <div className="flex overflow-x-auto no-scrollbar items-center bg-blue-600 p-1 rounded-full">
+        <div className="flex overflow-x-auto no-scrollbar items-center bg-[#11c3c0] p-1 rounded-full">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -134,8 +134,8 @@ const AllBlogs = () => {
               }}
               className={`px-4 py-1.5 text-sm rounded-full transition whitespace-nowrap ${
                 selectedCategory === cat
-                  ? "bg-white text-blue-600 font-medium"
-                  : "text-white hover:bg-blue-500"
+                  ? "bg-white text-[#11c3c0] font-medium"
+                  : "text-white hover:bg-[#0eaca9]"
               }`}
             >
               {cat}
@@ -147,7 +147,7 @@ const AllBlogs = () => {
         <div>
           <Link
             to="/createBlog"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#3ea1f1] text-white rounded-full hover:bg-[#368dd4] transition"
           >
             <FaPlus /> Create a Blog
           </Link>
@@ -171,7 +171,7 @@ const AllBlogs = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all cursor-pointer flex flex-col"
+                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all cursor-pointer flex flex-col border-1 hover:border-[#11c3c0] border-gray-300"
               >
                 {/* Image + Category */}
                 <div className="relative">
@@ -180,7 +180,7 @@ const AllBlogs = () => {
                     alt={blog.title}
                     className="w-full h-48 object-cover rounded-t-xl"
                   />
-                  <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-[#11c3c0] text-white text-xs font-semibold px-3 py-1 rounded-full">
                     {blog.category}
                   </span>
                 </div>
@@ -188,7 +188,7 @@ const AllBlogs = () => {
                 {/* Content */}
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold mb-2 hover:text-blue-600 transition">
+                    <h3 className="text-lg font-semibold mb-2 hover:text-[#11c3c0] transition">
                       {blog.title}
                     </h3>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3">
@@ -211,7 +211,7 @@ const AllBlogs = () => {
                     </div>
 
                     {/* Animated Arrow (continuous motion) */}
-                    <Link to={`/blogs/${blog._id}`} className="text-blue-600">
+                    <Link to={`/blogs/${blog._id}`} className="text-[#11c3c0]">
                       <motion.div
                         animate={{ x: [0, 6, 0] }}
                         transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
@@ -238,7 +238,7 @@ const AllBlogs = () => {
               onClick={() => setPage(num)}
               className={`px-3 py-1 rounded-full ${
                 num === page
-                  ? "bg-blue-600 text-white"
+                  ? "bg-[#11c3c0] text-white"
                   : "bg-gray-200 hover:bg-gray-300"
               }`}
             >

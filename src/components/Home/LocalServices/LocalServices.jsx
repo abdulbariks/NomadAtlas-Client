@@ -44,12 +44,12 @@ const services = [
 
 const LocalServices = () => {
   return (
-    <section className=" py-16 px-5 md:px-8 lg:px-10  ">
+    <section className=" mt-15 px-5 md:px-8 lg:px-10  ">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl md:text-4xl font-bold text-center text-gray-900"
+        className="text-3xl md:text-4xl font-bold text-center text-gray-700"
       >
         Local Services & Essentials
       </motion.h2>

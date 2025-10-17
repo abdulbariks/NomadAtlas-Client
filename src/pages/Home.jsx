@@ -16,6 +16,8 @@ import NomadPerks from "../components/Home/NomadPerks/NomadPerks";
 import LocalServices from "../components/Home/LocalServices/LocalServices";
 import WeatherSeasonalInfo from "../components/Home/WeatherSeasonalInfo/WeatherSeasonalInfo";
 import ScrollToTopButton from "../components/Home/ScrollToTopButton/ScrollToTopButton";
+import FeaturedOpportunities from "../components/Home/FeaturedOpportunities/FeaturedOpportunities";
+import CommunityFeatures from "../components/Home/CommunityFeatures/CommunityFeatures";
 
 const Home = () => {
   return (
@@ -40,15 +42,20 @@ const Home = () => {
   
       <NomadPerks/>
       
-      <LocalServices/>
+     
+
+      <FeaturedOpportunities/>
+       <LocalServices/>
+      
 
 
       {/* <WeatherSeasonalInfo/> */}
      
       
       <ComminityPosts />
+      <CommunityFeatures/>
 
-      <SmartCostPreview />
+      {/* <SmartCostPreview /> */}
       <Reviews />
       <Milestones />
       <Newsletter /> 

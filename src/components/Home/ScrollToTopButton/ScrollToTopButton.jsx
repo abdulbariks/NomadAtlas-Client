@@ -29,7 +29,7 @@ const ScrollToTopButton = () => {
       {showButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-17 bg-blue-600 border-2 border-yellow-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition z-50"
+          className="fixed bottom-5 right-17 bg-[#11c3c0] border-2 border-[#3ea1f1] text-white p-4 rounded-full shadow-lg hover:bg-[#08aeab] transition z-50"
           aria-label="Scroll to top"
         >
           <FaArrowUp className="w-5 h-5  " />
