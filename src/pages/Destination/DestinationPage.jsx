@@ -12,15 +12,15 @@ const DestinationsPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  //  pagination state
+  // Pagination state
   const [page, setPage] = useState(1);
-  const limit = 8; // number of items per page
+  const limit = 8;
 
   const axiosSecure = useAxiosSecure();
 
-  //  dynamic query based on filters & pagination
+  // Dynamic query based on filters, search & pagination
   const { data: allDestinations = {}, isLoading, isError } = useQuery({
-    queryKey: ["destinations", { continent, priceRange, wifiSpeed, page }],
+    queryKey: ["destinations", { continent, priceRange, wifiSpeed, searchQuery, page }],
     queryFn: async () => {
       const params = {
         page,
@@ -28,8 +28,9 @@ const DestinationsPage = () => {
         continent: continent !== "All" ? continent : undefined,
         priceRange: priceRange !== "All" ? priceRange : undefined,
         wifiSpeed: wifiSpeed !== "All" ? wifiSpeed : undefined,
+        search: searchQuery || undefined, // Include search param
       };
-      const { data } = await axiosSecure.get("/destinations", { params }); //  UPDATED
+      const { data } = await axiosSecure.get("https://nomad-atlas-server-delta.vercel.app/api/destinations/", { params });
       return data;
     },
   });
@@ -58,7 +59,7 @@ const DestinationsPage = () => {
         {/* Continent Filter */}
         <select
           value={continent}
-          onChange={(e) => { setContinent(e.target.value); setPage(1); }} //  RESET PAGE
+          onChange={(e) => { setContinent(e.target.value); setPage(1); }}
           className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-yellow-300"
         >
           <option value="All">🌍 All Continents</option>
@@ -84,7 +85,7 @@ const DestinationsPage = () => {
         {/* Wi-Fi Filter */}
         <select
           value={wifiSpeed}
-          onChange={(e) => { setWifiSpeed(e.target.value); setPage(1); }} // RESET PAGE
+          onChange={(e) => { setWifiSpeed(e.target.value); setPage(1); }}
           className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-yellow-300"
         >
           <option value="All">📶 Any Wi-Fi</option>
@@ -130,10 +131,7 @@ const DestinationsPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {destinations.length > 0 ? (
           destinations.map((dest) => (
-            <div
-              key={dest._id}
-              className="relative group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
-            >
+            <div key={dest._id} className="relative group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition">
               <img
                 src={dest.images[0]}
                 alt={dest.name}
@@ -145,7 +143,7 @@ const DestinationsPage = () => {
               </div>
               <div className="absolute inset-0 bg-black/70 text-white opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex flex-col justify-center items-center text-center p-4 transition-opacity duration-500">
                 <Link
-                  to={`/destinations/${dest._id}`} // FIXED id reference
+                  to={`/destinations/${dest._id}`}
                   className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
                 >
                   View Details
@@ -164,7 +162,7 @@ const DestinationsPage = () => {
         )}
       </div>
 
-      {/* Pagination Controls */}
+      {/* Pagination */}
       <div className="flex justify-center mt-8 gap-2">
         <button
           disabled={page === 1}

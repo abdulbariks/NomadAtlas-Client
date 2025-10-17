@@ -25,18 +25,18 @@ const Home = () => {
       <Banner1/>
 
     <div className="mx-5 md:mx-8 lg:mx-10 ">
-      <PopularDestination /> 
+      {/* <PopularDestination />  */}
        {/* <HousingList/> */}
 
      </div>
       <NomadFavouriteDestination />
 
-     <DestinationFeatures/>
+     {/* <DestinationFeatures/> */}
 
     
       
       
-      <CityDiscovery />
+      {/* <CityDiscovery /> */}
   
       <NomadPerks/>
       

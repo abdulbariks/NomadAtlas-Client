@@ -112,11 +112,6 @@ export const router = createBrowserRouter([
         path: "/community",
         Component: Community,
       },
-
-      {
-        path:"/services",
-        Component:LocalServices
-      },
       {
         path: "/weather-alerts",
         Component: WeatherAlertsPage,

@@ -227,7 +227,6 @@ const AddNewDestination = () => {
                         Climate, Safety & Visa Info
                     </h3>
 
-                    {/* --- Climate Details --- */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
                         <select
                             {...register("climate.type", { required: true })}
@@ -263,7 +262,6 @@ const AddNewDestination = () => {
                         />
                     </div>
 
-                    {/* --- Location Coordinates --- */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
                         <input
                             {...register("location.latitude", { required: true })}
@@ -281,7 +279,7 @@ const AddNewDestination = () => {
                         />
                     </div>
 
-                    {/* --- Visa Info --- */}
+                
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
                         <input
                             {...register("visaInfo.visaType")}
@@ -298,7 +296,6 @@ const AddNewDestination = () => {
                         />
                     </div>
 
-                    {/* --- Safety Level --- */}
                     <select
                         {...register("safety", { required: true })}
                         className="select select-bordered w-full"
