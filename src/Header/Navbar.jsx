@@ -69,6 +69,14 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink
+              to="/internet-speed"
+              className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Internet Speed Map
+            </NavLink>
+
+            <NavLink
               to="/time-zone-converter"
               className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
               onClick={() => setIsDropdownOpen(false)}
@@ -159,14 +167,17 @@ const Navbar = () => {
           <NavLink to="/destinations" onClick={() => setIsOpen(false)}>
             Destinations
           </NavLink>
-          <NavLink to="/time-zone-converter" onClick={() => setIsOpen(false)}>
-            Time zone converter
-          </NavLink>
           <NavLink to="/cost-calculator" onClick={() => setIsOpen(false)}>
             Cost Calculator
           </NavLink>
           <NavLink to="/comparison" onClick={() => setIsOpen(false)}>
             Comparison
+          </NavLink>
+          <NavLink to="/internet-speed" onClick={() => setIsOpen(false)}>
+            Internet Speed Map
+          </NavLink>
+          <NavLink to="/time-zone-converter" onClick={() => setIsOpen(false)}>
+            Time Zone Converter
           </NavLink>
           <NavLink to="/community" onClick={() => setIsOpen(false)}>
             Community
