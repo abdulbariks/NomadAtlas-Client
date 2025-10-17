@@ -98,6 +98,14 @@ console.log(user)
                   >
                     Community
                   </NavLink>
+                  <NavLink
+                    to="/time-zone-converter"
+                    className="px-4 py-2 hover:bg-[#e0efef] hover:text-[#158e8c]"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                   Time Zone Converter
+                  </NavLink>
+
 
                 </div>
               )}

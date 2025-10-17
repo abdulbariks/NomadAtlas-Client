@@ -1,131 +1,78 @@
 import React from "react";
 
-const StarRating = ({ value = 4, size = 16 }) => {
-  const full = Math.round(value);
-  return (
-    <div className="flex items-center" aria-hidden>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg
-          key={i}
-          width={size}
-          height={size}
-          viewBox="0 0 20 20"
-          fill={i < full ? "currentColor" : "none"}
-          stroke="currentColor"
-          strokeWidth="1"
-          className={`mr-0.5 ${i < full ? "text-blue-400" : "text-gray-300"}`}
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.163c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118L10 15.347l-3.37 2.448c-.784.57-1.84-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.642 9.384c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.957z" />
-        </svg>
-      ))}
-    </div>
-  );
-};
-
 const Reviews = () => {
+  const reviews = [
+    {
+      name: "Alex Thompson",
+      role: "Software Engineer",
+      location: "Currently in Bangkok",
+      tag: "15 countries visited",
+      color: "#3ea1f1",
+      text: `"This platform completely changed my life. I've been working remotely for 2 years now and have visited 15 countries. The community support is incredible!"`,
+    },
+    {
+      name: "Maria Rodriguez",
+      role: "UX Designer",
+      location: "Currently in Porto",
+      tag: "40% savings",
+      color: "#11c3c0",
+      text: `"Found my dream lifestyle thanks to the resources here. The cost calculator helped me plan everything perfectly, and I've saved 40% compared to living in NYC."`,
+    },
+    {
+      name: "James Park",
+      role: "Marketing Manager",
+      location: "Currently in Tokyo",
+      tag: "Found co-founder",
+      color: "#3ea1f1",
+      text: `"The community connections I made here led to incredible opportunities. Met my co-founder at a nomad meetup and now we're building our startup together!"`,
+    },
+  ];
+
   return (
-    <div>
-      <div className="flex justify-center items-center mt-14">
-        <h2 className="text-3xl mb-4 font-bold">
-          What Nomads Say About NomadAtlas
+    <div className=" mt-15  px-5 md:px-8 lg:px-10">
+      <div className="text-center mb-12">
+        <button className="px-4 py-1 rounded-full text-white text-sm font-semibold bg-[#11c3c0] mb-4 shadow-md">
+          ★ Success Stories
+        </button>
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-700">
+          Join thousands of professionals who've transformed their work-life balance
         </h2>
       </div>
 
-      <section className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-5 mb-16 items-center lg:items-stretch justify-center px-5 md:px-8 lg:px-10 py-10">
-        <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-white rounded-lg shadow-sm">
-          <div className="flex justify-between items-start pb-4 border-b border-gray-200">
-            <div className="flex items-center space-x-4">
-              <img
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop"
-                alt="Alex Carter"
-                className="object-cover w-12 h-12 rounded-full"
-              />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8">
+        {reviews.map((review, i) => (
+          <div
+            key={i}
+            className="w-full max-w-sm bg-white shadow-sm rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-shadow"
+          >
+            <div className="text-[#3ea1f1] text-4xl mb-3">❝</div>
+
+            <p className="text-gray-700 text-sm leading-relaxed mb-6">
+              {review.text}
+            </p>
+
+            <span
+              className="inline-block text-white text-xs font-semibold rounded-full px-3 py-1 mb-6"
+              style={{ backgroundColor: review.color }}
+            >
+              {review.tag}
+            </span>
+
+            <div className="flex items-center pt-3 border-t border-gray-100">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#3ea1f1] to-[#11c3c0] flex items-center justify-center text-white font-bold mr-3">
+                {review.name.charAt(0)}
+              </div>
               <div>
-                <h4 className="font-bold">Alex Carter</h4>
-                <span className="text-xs text-gray-600">3 days ago</span>
+                <h4 className="font-semibold text-gray-800 text-sm">
+                  {review.name}
+                </h4>
+                <p className="text-xs text-gray-500">{review.role}</p>
+                <p className="text-xs text-[#11c3c0]">{review.location}</p>
               </div>
             </div>
-
-            <div className="flex flex-col items-end">
-              <StarRating value={5} />
-              <span className="text-xs text-gray-500 mt-1">5 / 5</span>
-            </div>
           </div>
-
-          <div className="pt-4 space-y-2 text-sm text-gray-700">
-            <p>
-              NomadAtlas helped me find the perfect city with affordable living
-              costs and reliable Wi-Fi.
-            </p>
-            <p>
-              Now I can work remotely without worrying about poor connections or
-              high expenses.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-white rounded-lg shadow-sm">
-          <div className="flex justify-between items-start pb-4 border-b border-gray-200">
-            <div className="flex items-center space-x-4">
-              <img
-                src="https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=2080&auto=format&fit=crop"
-                alt="Sophia Martinez"
-                className="object-cover w-12 h-12 rounded-full"
-              />
-              <div>
-                <h4 className="font-bold">Sophia Martinez</h4>
-                <span className="text-xs text-gray-600">21 hours ago</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-end">
-              <StarRating value={4} />
-              <span className="text-xs text-gray-500 mt-1">4 / 5</span>
-            </div>
-          </div>
-
-          <div className="pt-4 space-y-2 text-sm text-gray-700">
-            <p>
-              I loved the coworking space recommendations. They were accurate
-              and super helpful while traveling.
-            </p>
-            <p>
-              A few cities need more updated cost data, but overall very useful!
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col w-full max-w-lg p-6 mx-auto bg-white rounded-lg shadow-sm">
-          <div className="flex justify-between items-start pb-4 border-b border-gray-200">
-            <div className="flex items-center space-x-4">
-              <img
-                src="https://plus.unsplash.com/premium_photo-1688572454849-4348982edf7d?q=80&w=1976&auto=format&fit=crop"
-                alt="Daniel Lee"
-                className="object-cover w-12 h-12 rounded-full"
-              />
-              <div>
-                <h4 className="font-bold">Daniel Lee</h4>
-                <span className="text-xs text-gray-600">2 days ago</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-end">
-              <StarRating value={5} />
-              <span className="text-xs text-gray-500 mt-1">5 / 5</span>
-            </div>
-          </div>
-
-          <div className="pt-4 space-y-2 text-sm text-gray-700">
-            <p>
-              The cost of living comparison feature is a life-saver. Helped me
-              plan my budget in advance.
-            </p>
-            <p>NomadAtlas is now my go-to tool before moving to a new city.</p>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
     </div>
   );
 };

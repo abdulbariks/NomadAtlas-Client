@@ -161,7 +161,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2.5 rounded-lg transition-all duration-200"
+          className="w-full bg-[#11c3c0]  hover:bg-[#0d8583]  text-white font-semibold py-2.5 rounded-lg transition-all duration-200"
         >
           Book Now
         </button>

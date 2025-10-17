@@ -42,7 +42,7 @@ const DestinationsPage = () => {
   const totalPages = allDestinations?.totalPages || 1;
 
   return (
-    <div className="px-6 lg:px-20 pb-12 pt-30">
+    <div className="px-5 md:px-8  lg:px-10 pb-12 pt-10 ">
       {/* Header */}
       <div className="mb-10">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
@@ -74,7 +74,7 @@ const DestinationsPage = () => {
         <select
           value={priceRange}
           onChange={(e) => { setPriceRange(e.target.value); setPage(1); }} //  RESET PAGE
-          className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-yellow-300"
+          className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-[#11c3c0]"
         >
           <option value="All">💰 All Prices</option>
           <option value="Low">Low (under $500)</option>
@@ -86,7 +86,7 @@ const DestinationsPage = () => {
         <select
           value={wifiSpeed}
           onChange={(e) => { setWifiSpeed(e.target.value); setPage(1); }}
-          className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-yellow-300"
+          className="border px-4 py-2 rounded-lg shadow-sm focus:ring focus:ring-[#11c3c0]"
         >
           <option value="All">📶 Any Wi-Fi</option>
           <option value="50">50 Mbps+</option>
@@ -120,9 +120,9 @@ const DestinationsPage = () => {
           />
           <button
             onClick={() => { setSearchQuery(searchText); setPage(1); }}
-            className="bg-yellow-400 bg-full hover:bg-yellow-300 px-3 py-2 flex items-center justify-center"
+            className="bg-[#11c3c0] bg-full hover:bg-[#0ea5a2] px-3 py-2 flex items-center rounded-full justify-center"
           >
-            <FaSearch className="text-black" />
+            <FaSearch className="text-white" />
           </button>
         </div>
       </div>
@@ -144,7 +144,7 @@ const DestinationsPage = () => {
               <div className="absolute inset-0 bg-black/70 text-white opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex flex-col justify-center items-center text-center p-4 transition-opacity duration-500">
                 <Link
                   to={`/destinations/${dest._id}`}
-                  className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+                  className="bg-[#11c3c0] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#0c9c99] transition"
                 >
                   View Details
                 </Link>
@@ -172,7 +172,7 @@ const DestinationsPage = () => {
           Prev
         </button>
 
-        <span className="px-4 py-2 bg-yellow-300 rounded-lg font-semibold">
+        <span className="px-4 py-2 bg-[#11c3c0] text-white rounded-lg font-semibold">
           Page {page} of {totalPages}
         </span>
 

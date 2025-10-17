@@ -59,7 +59,7 @@ const Register = () => {
   };
   return (
     <div
-      className="relative flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden py-10"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "80%",
@@ -67,8 +67,8 @@ const Register = () => {
       }}
     >
       {/* Blur + Overlay */}
-      <div className="absolute inset-0 bg-white/60 backdrop-blur-md z-0"></div>
-      <div className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl p-6 mx-4">
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-md z-0 "></div>
+      <div className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-md border border-gray-200 hover:border-[#11c3c0] shadow-lg rounded-2xl p-6 mx-4">
         <h2 className="mb-3 text-3xl font-semibold text-center">
           SignUp Your Account
         </h2>
