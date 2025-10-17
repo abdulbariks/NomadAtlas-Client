@@ -24,7 +24,7 @@ export default function YoutubeVideos({ selectedCategory }) {
             ? "digital nomad lifestyle"
             : `digital nomad ${selectedCategory}`;
 
-        // useing youtube search endpoind.
+        // using youtube search endpoint.
         const res = await fetch(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
             searchQuery
@@ -41,7 +41,7 @@ export default function YoutubeVideos({ selectedCategory }) {
     }
 
     fetchVideos();
-  }, [selectedCategory]);
+  }, [selectedCategory, API_KEY]);
 
   if (loading) {
     return (
@@ -82,7 +82,7 @@ export default function YoutubeVideos({ selectedCategory }) {
               allowFullScreen
             ></iframe>
             <div className="p-4">
-              <h3 className="text-lg font-semibold group-hover:text-blue-600 transition line-clamp-2">
+              <h3 className="text-lg font-semibold group-hover:text-[#11c3c0] transition line-clamp-2">
                 {video.snippet.title}
               </h3>
               <p className="text-gray-600 text-sm mt-1 line-clamp-2">
@@ -103,7 +103,7 @@ export default function YoutubeVideos({ selectedCategory }) {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+          className="inline-block px-6 py-2 bg-[#11c3c0] text-white rounded-full hover:bg-[#11c3c0] transition"
         >
           See more on YouTube →
         </a>

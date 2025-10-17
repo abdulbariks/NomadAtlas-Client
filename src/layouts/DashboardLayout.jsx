@@ -1,74 +1,151 @@
 import React, { useState } from "react";
 import NomadAtlasLogo from "../Header/NomadAtlasLogo";
-import { Link, NavLink, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../customHook/useRole";
+import { Menu, Home, PlusCircle, Calculator, Users, MapPin, CreditCard, CalendarCheck } from "lucide-react";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const { role, loading } = useRole();
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    if (value) {
-      navigate(value);
-    }
-  };
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gradient-to-br from-[#f9fafb] to-[#eef6f7]">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-200 p-4 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0`}
+        className={`fixed inset-y-0 left-0 z-40 w-64
+          bg-gradient-to-br from-[#ffffffcc] via-[#f0f9ffb3] to-[#e0f2f1cc]
+          backdrop-blur-xl shadow-lg border-r border-white/30
+          p-4 transform transition-transform duration-300 ease-in-out
+          ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         <NomadAtlasLogo />
         <ul className="mt-6 space-y-3">
-          <li>
+          <li className="flex items-center gap-2">
+            <Home className="w-5 h-5 text-teal-600" />
             <NavLink
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                }`
+              }
               to="/dashboard/home"
             >
               Home
             </NavLink>
           </li>
-          <li>
+
+          <li className="flex items-center gap-2">
+            <PlusCircle className="w-5 h-5 text-purple-500" />
             <NavLink
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                }`
+              }
               to="/dashboard/add-resource"
             >
               Add Resource
             </NavLink>
           </li>
-          <li>
+
+          <li className="flex items-center gap-2">
+            <Calculator className="w-5 h-5 text-indigo-500" />
             <NavLink
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                }`
+              }
               to="/dashboard/data-of-calculator"
             >
               Cost calculator crud
             </NavLink>
           </li>
-          <select
-            onChange={handleChange}
-            className="hover:text-yellow-500 transition font-bold text-gray-800 space-y-3"
-          >
-            <option
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              value=""
+          <li className="flex items-center gap-2">
+            <CreditCard className="w-5 h-5 text-teal-600" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                }`
+              }
+              to="/dashboard/payment-history"
             >
-              Role
-            </option>
-            <option
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              value="/dashboard/admin"
+              Payment History
+            </NavLink>
+          </li>
+
+          <li className="flex items-center gap-2">
+            <CalendarCheck className="w-5 h-5 text-teal-600" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                }`
+              }
+              to="/dashboard/admin-booking"
             >
-              Admin
-            </option>
-            <option
-              className="hover:text-yellow-500 transition font-bold text-gray-800"
-              value="/dashboard/provider"
-            >
-              Provider
-            </option>
-          </select>
+              Booked Destination
+            </NavLink>
+          </li>
+
+          {!loading && role === "admin" && (
+            <>
+              <li className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-teal-600" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-teal-500 text-white shadow-sm"
+                      : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                    }`
+                  }
+                  to="/dashboard/activeUsers"
+                >
+                  Active Users
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-pink-500" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-teal-500 text-white shadow-sm"
+                      : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                    }`
+                  }
+                  to="/dashboard/addDestinations"
+                >
+                  AddDestinations
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {!loading && role === "provider" && (
+            <>
+              <li className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-pink-500" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-teal-500 text-white shadow-sm"
+                      : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                    }`
+                  }
+                  to="/dashboard/addDestinations"
+                >
+                  AddDestinations
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
 
@@ -83,31 +160,18 @@ const DashboardLayout = () => {
       {/* Content area */}
       <div className="flex-1 flex flex-col lg:ml-64">
         {/* Navbar */}
-        <div className="lg:hidden flex items-center justify-between bg-gray-700 p-3">
+        <div className="lg:hidden flex items-center justify-between bg-white/80 backdrop-blur-md shadow-sm p-3">
           <button
-            className="p-2 rounded-md hover:bg-gray-400"
+            className="p-2 rounded-md hover:bg-gray-100"
             onClick={() => setIsOpen(true)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            <Menu className="w-6 h-6 text-gray-700" />
           </button>
           <NomadAtlasLogo />
         </div>
 
         {/* Page content */}
-        <div className="p-4 flex-1 overflow-auto bg-gray-50">
+        <div className="p-6 flex-1 overflow-auto bg-gradient-to-br from-[#f9fafb] to-[#eef6f7]">
           <Outlet />
         </div>
       </div>

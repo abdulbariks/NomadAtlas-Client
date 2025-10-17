@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
     BarChart,
     Bar,
@@ -14,12 +15,6 @@ import {
     Cell,
 } from "recharts";
 
-// Dummy user
-const user = {
-    name: "John Doe",
-    email: "johndoe@gmail.com",
-    photoURL: "https://i.postimg.cc/8zZxwg7j/elena-soroka-AOIRbye-iwk-unsplash.jpg",
-};
 
 // Dummy favorites
 const favorites = [
@@ -55,18 +50,39 @@ const destinationData = [
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const Dashboard = () => {
+
+    const { user } = useSelector((state) => state.auth);
+
+    // Wait for user data before rendering
+    if (!user || !user.displayName || !user.email) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <Spinner />
+            </div>
+        );
+    }
+
+    console.log("user data in dashboard",user)
+
+    const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL
+    };
+
+
     return (
         <div className="p-8 space-y-10 bg-gray-100 min-h-screen">
             {/* Profile */}
             <div className="bg-white shadow rounded-xl p-5 flex items-center gap-4">
                 <img
-                    src={user.photoURL}
+                    src="https://i.postimg.cc/br4qWysk/human-human-avatar-male-icon-with-png-and-vector-format-for-free-19807.png"
                     alt="profile"
                     className="w-20 h-20 rounded-full object-cover"
                 />
                 <div>
-                    <h2 className="text-xl font-bold">{user.name}</h2>
-                    <p className="text-gray-500">{user.email}</p>
+                    <h2 className="text-xl font-bold">{userInfo.name}</h2>
+                    <p className="text-gray-500">{userInfo.email}</p>
                 </div>
             </div>
 
@@ -92,26 +108,26 @@ const Dashboard = () => {
 
             {/* Favorites Grid */}
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 className="text-2xl font-bold mb-12 text-gray-800">Your Favorite Destinations</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                        {favorites.map((fav) => (
-                            <div key={fav.id} className="relative pt-32">
-                                <img
-                                    src={fav.img}
-                                    alt={fav.name}
-                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-11/12 h-48 rounded-lg object-cover shadow-lg"
-                                />
-                                <div className="bg-gray-50 pt-28 pb-6 px-4 rounded-xl shadow-md">
-                                    <p className="font-semibold text-lg text-center text-gray-800">{fav.name}</p>
+                <div className="max-w-7xl mx-auto">
+                    <div className="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 className="text-2xl font-bold mb-12 text-gray-800">Your Favorite Destinations</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                            {favorites.map((fav) => (
+                                <div key={fav.id} className="relative pt-32">
+                                    <img
+                                        src={fav.img}
+                                        alt={fav.name}
+                                        className="absolute top-0 left-1/2 transform -translate-x-1/2 w-11/12 h-48 rounded-lg object-cover shadow-lg"
+                                    />
+                                    <div className="bg-gray-50 pt-28 pb-6 px-4 rounded-xl shadow-md">
+                                        <p className="font-semibold text-lg text-center text-gray-800">{fav.name}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
             {/* Charts */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
