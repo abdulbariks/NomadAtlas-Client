@@ -54,9 +54,9 @@ export default function PaymentForm({ destination, clientSecret, onPaymentSucces
     return (
         <form
             onSubmit={handleSubmit}
-            className="space-y-6 bg-green-50 p-6 rounded-xl shadow-md"
+            className="space-y-6 bg-white p-6 rounded-xl shadow-md"
         >
-            <h3 className="text-xl font-semibold text-green-700">Payment Details</h3>
+            <h3 className="text-xl font-semibold text-gray-700">Payment Details</h3>
 
             <div className="p-4 border rounded-lg bg-white">
                 <CardElement
@@ -78,7 +78,7 @@ export default function PaymentForm({ destination, clientSecret, onPaymentSucces
             <button
                 type="submit"
                 disabled={!stripe || loading}
-                className="w-full bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700 transition duration-300"
+                className="w-full bg-[#11c3c0] text-white font-semibold py-3 rounded-lg hover:bg-[#0b9795] transition duration-300"
             >
                 {loading ? "Processing..." : `Pay $${destination.price}`}
             </button>

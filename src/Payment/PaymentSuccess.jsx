@@ -28,7 +28,7 @@ export default function PaymentSuccess({ onClose, paymentId }) {
                 {/* Success Icon */}
                 <div className="flex justify-center mb-4">
                     <svg
-                        className="w-16 h-16 text-green-600"
+                        className="w-16 h-16 text-[#06a5a2]"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth={2}
@@ -76,7 +76,7 @@ export default function PaymentSuccess({ onClose, paymentId }) {
 
                     <Link
                         to="/dashboard/payment-history"
-                        className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition-colors"
+                        className="px-6 py-3 bg-[#11c3c0] text-white font-semibold rounded-lg shadow hover:bg-[#0d9d9a] transition-colors"
                     >
                         Payment History
                     </Link>
