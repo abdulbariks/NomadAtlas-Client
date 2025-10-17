@@ -3,10 +3,11 @@ import { Search, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 import { FaPlus } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import { motion, AnimatePresence } from "framer-motion";
 import YoutubeVideos from "../YoutubeVideos";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const categories = [
   "All",
@@ -22,6 +23,7 @@ const AllBlogs = () => {
   const [tempSearch, setTempSearch] = useState("");
   const [page, setPage] = useState(1);
   const blogsPerPage = 6;
+  const axiosSecure = useAxiosSecure()
 
   // Smooth scroll to top when filters or page change
   useEffect(() => {
@@ -31,7 +33,7 @@ const AllBlogs = () => {
   const { data: blogs = {}, isLoading } = useQuery({
     queryKey: ["blogs", selectedCategory, search, page],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/api/blogs", {
+      const res = await axiosSecure.get(`${import.meta.env.VITE_API}/blogs`, {
         params: {
           category: selectedCategory !== "All" ? selectedCategory : undefined,
           search,

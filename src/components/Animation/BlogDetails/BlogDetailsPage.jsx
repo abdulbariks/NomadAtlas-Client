@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import Spinner from "../../Spinner/Spinner";
 import { useSelector } from "react-redux";
+import useAxiosSecure from "../../../customHook/useAxiosSecure";
 
 const BlogDetailsPage = () => {
   const { id } = useParams();
@@ -15,19 +16,20 @@ const BlogDetailsPage = () => {
   const [commentText, setCommentText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const axiosSecure = useAxiosSecure()
 
   // ✅ Fetch Blog + Related
   const fetchBlog = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+      const res = await axiosSecure.get(`/blogs/${id}`);
       setBlog(res.data);
 
       // 🩷 Restore Like State
       const likedBlogs = JSON.parse(localStorage.getItem("likedBlogs") || "[]");
       setLiked(likedBlogs.includes(id));
 
-      const relatedRes = await axios.get(`http://localhost:5000/api/blogs?limit=3`);
+      const relatedRes = await axiosSecure.get(`/blogs?limit=3`);
       setRelated(relatedRes.data.data.filter((b) => b._id !== id));
     } catch (error) {
       console.error("Error fetching blog:", error);
@@ -54,13 +56,13 @@ const BlogDetailsPage = () => {
       const likedBlogs = JSON.parse(localStorage.getItem("likedBlogs") || "[]");
 
       if (liked) {
-        await axios.post(`http://localhost:5000/api/blogs/${id}/unlike`);
+        await axiosSecure.post(`/blogs/${id}/unlike`);
         setBlog({ ...blog, likes: (blog.likes || 1) - 1 });
         const updated = likedBlogs.filter((b) => b !== id);
         localStorage.setItem("likedBlogs", JSON.stringify(updated));
         setLiked(false);
       } else {
-        await axios.post(`http://localhost:5000/api/blogs/${id}/like`);
+        await axiosSecure.post(`/blogs/${id}/like`);
         setBlog({ ...blog, likes: (blog.likes || 0) + 1 });
         likedBlogs.push(id);
         localStorage.setItem("likedBlogs", JSON.stringify(likedBlogs));
@@ -88,10 +90,10 @@ const BlogDetailsPage = () => {
       };
 
       // Step 1: Save to backend
-      await axios.post(`http://localhost:5000/api/comments/${id}`, newComment);
+      await axiosSecure.post(`/api/comments/${id}`, newComment);
 
       // Step 2: Fetch updated comments
-      const res = await axios.get(`http://localhost:5000/api/comments/${id}`);
+      const res = await axiosSecure.get(`/comments/${id}`);
       const updatedComments = res.data.data;
 
       // Step 3: Update local + cache
