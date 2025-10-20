@@ -38,6 +38,9 @@ import LocalServices from "../pages/Services/LocalServices";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
 import AdminBookings from "../Payment/AdminBookings";
 import JobsPage from "../pages/Jobs/JobsPage";
+import AddJobForm from "../DashboardPage/AddJobForm";
+import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
+
 
 
 export const router = createBrowserRouter([
@@ -65,6 +68,11 @@ export const router = createBrowserRouter([
       {
         path: "/blogs/:id",
         Component: BlogDetailsPage,
+      },
+
+         {
+        path: "/jobs/:id",
+        Component: JobDetailsPage,
       },
       {
         path: "newDestination",
@@ -101,6 +109,8 @@ export const router = createBrowserRouter([
         path: "createBlog",
         Component: CreateBlog,
       },
+
+      
       {
         path:"jobs",
        Component:JobsPage
@@ -211,6 +221,10 @@ export const router = createBrowserRouter([
       {
         path: "data-of-calculator",
         Component: DataOfCalculator,
+      },
+      {
+        path:"add-jobs",
+        Component: AddJobForm,
       },
     ],
   },
