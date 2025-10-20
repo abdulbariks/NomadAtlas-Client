@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { Heart, MessageCircle, Calendar, Clock } from "lucide-react";
 import { motion } from "framer-motion";
-import axios from "axios";
 import Spinner from "../../Spinner/Spinner";
 import { useSelector } from "react-redux";
 import useAxiosSecure from "../../../customHook/useAxiosSecure";
