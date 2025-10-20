@@ -37,6 +37,8 @@ import AddDestinations from "../DashboardPage/AddDestinations";
 import LocalServices from "../pages/Services/LocalServices";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
 import AdminBookings from "../Payment/AdminBookings";
+import JobsPage from "../pages/Jobs/JobsPage";
+
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +100,10 @@ export const router = createBrowserRouter([
       {
         path: "createBlog",
         Component: CreateBlog,
+      },
+      {
+        path:"jobs",
+       Component:JobsPage
       },
       {
         path: "comparison",

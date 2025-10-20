@@ -53,14 +53,14 @@ console.log(user)
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-1 hover:text-[#11c3c0] transition"
+                className="flex items-center gap-1 hover:text-[#11c3c0] transition "
               >
                 Explore
                 {isDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute left-0 mt-2 w-48 bg-white/80  shadow-lg rounded-md flex flex-col py-2 z-50">
+                <div className="absolute left-0 mt-2 w-48 bg-white/80  shadow-lg rounded-md flex flex-col py-2 z-50 text-gray-700">
                   {/* <NavLink
                     to="/dashboard"
                     className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
@@ -118,7 +118,10 @@ console.log(user)
             <NavLink to="/blogs" className="hover:text-[#11c3c0] transition">
               Blogs
             </NavLink>
-
+            
+            <NavLink to="/jobs" className="hover:text-[#11c3c0] transition">
+              Jobs
+            </NavLink>
             <NavLink to="/dashboard" className="hover:text-[#11c3c0] transition">
               Dashboard
             </NavLink>
@@ -181,7 +184,7 @@ console.log(user)
 
      {/* ✅ MOBILE DRAWER UPDATE */}
        {isOpen && (
-       <div className="absolute top-14 left-0 w-full bg-black/90 text-white shadow-md flex flex-col md:hidden">
+       <div className="absolute top-14 left-0 w-full bg-white/90 text-gray-800 shadow-md flex flex-col md:hidden">
     {/* === Drawer Header with Profile === */}
     {user && !loading ? (
       <div className="flex items-center justify-between px-6 py-4 border-b border-white/20">
@@ -196,11 +199,11 @@ console.log(user)
           <img
             src={user.photoURL || "https://i.ibb.co/YPXktqs/avatar.png"}
             alt="User Avatar"
-            className="w-12 h-12 rounded-full border-2 border-yellow-400 object-cover"
+            className="w-12 h-12 rounded-full border-2 border-[#11c3c0] object-cover"
           />
           <div className="flex flex-col">
             <span className="text-sm font-medium">{user.displayName || "User"}</span>
-            <span className="text-xs text-gray-300">Go to Dashboard</span>
+            <span className="text-xs text-gray-700">Go to Dashboard</span>
           </div>
         </div>
 
@@ -210,7 +213,7 @@ console.log(user)
             handleLogout();
             setIsOpen(false);
           }}
-          className="bg-yellow-400 text-black px-3 py-1 rounded-lg font-semibold hover:bg-yellow-300 transition text-sm"
+          className="bg-[#11c3c0] text-white px-3 py-1 rounded-lg font-semibold hover:bg-[#059a97] transition text-sm"
         >
           Log Out
         </button>
@@ -220,14 +223,14 @@ console.log(user)
         <div className="flex justify-end items-center gap-2 px-6 py-3 border-b border-white/20">
           <Link
             to="/register"
-            className="bg-yellow-400 text-black px-3 py-1 rounded-lg text-sm font-semibold hover:bg-yellow-300 transition"
+            className="bg-[#3ea1f1] text-white px-3 py-1 rounded-lg text-sm font-semibold  transition"
             onClick={() => setIsOpen(false)}
           >
-            Register
+            Get Started
           </Link>
           <Link
             to="/login"
-            className="bg-gray-200 text-gray-900 px-3 py-1 rounded-lg text-sm font-semibold hover:bg-gray-300 transition"
+            className="bg-[#11c3c0] text-white px-3 py-1 rounded-lg text-sm font-semibold  transition"
             onClick={() => setIsOpen(false)}
           >
             Log In
@@ -256,6 +259,11 @@ console.log(user)
       <NavLink to="/blogs" onClick={() => setIsOpen(false)}>
         Blogs
       </NavLink>
+       <NavLink to="/jobs" onClick={() => setIsOpen(false)}>
+        Jobs
+      </NavLink>
+
+
     </div>
   </div>
 )}
