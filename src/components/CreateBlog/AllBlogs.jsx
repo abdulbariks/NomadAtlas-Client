@@ -3,7 +3,6 @@ import { Search, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 import { FaPlus } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-// import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import { motion, AnimatePresence } from "framer-motion";
 import YoutubeVideos from "../YoutubeVideos";

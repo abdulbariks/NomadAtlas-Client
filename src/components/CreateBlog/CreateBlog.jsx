@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-// import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { Upload, Loader2 } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
-// import { Link } from "react-router";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const categories = [
