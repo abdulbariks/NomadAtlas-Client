@@ -65,13 +65,13 @@ const LocalServices = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white border border-gray-200 hover:border-[#11c3c0] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+            className="bg-white border border-gray-100 hover:border-cyan-200 rounded-2xl p-6 transition-all duration-300 cursor-pointer"
           >
             <div className="flex flex-col items-start space-y-3">
               <div className="bg-[#f1fcfc] p-3 rounded-xl">{service.icon}</div>
               <h3 className="text-lg font-semibold text-gray-900">{service.title}</h3>
               <p className="text-gray-600 text-sm">{service.desc}</p>
-              <span className="text-sm font-medium text-[#3ea1f1] mt-1">{service.count}</span>
+              <span className="text-sm font-medium text-sky-400 mt-1">{service.count}</span>
             </div>
           </motion.div>
         ))}
