@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import Spinner from "../../components/Spinner/Spinner";
 import { FaSearch } from "react-icons/fa";
 
 const DestinationsPage = () => {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const initialQuery = params.get("query") || "";
+
   const [continent, setContinent] = useState("All");
   const [priceRange, setPriceRange] = useState("All");
   const [wifiSpeed, setWifiSpeed] = useState("All");
-  const [searchText, setSearchText] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchText, setSearchText] = useState(initialQuery);
+  const [searchQuery, setSearchQuery] = useState(initialQuery); 
 
   // Pagination state
   const [page, setPage] = useState(1);
