@@ -150,13 +150,13 @@ const JobsPage = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="bg-orange-400 text-white px-2 py-1 text-xs rounded-full">
+                  <span className="bg-orange-300 text-gray-700 px-2 py-1 text-xs rounded-full">
                     {job.jobType}
                   </span>
                   <span className="bg-[#11c3c0] text-white px-2 py-1 text-xs rounded-full">
                     {job.location}
                   </span>
-                  <span className="bg-orange-400 text-white px-2 py-1 text-xs rounded-full">
+                  <span className="bg-orange-300 text-gray-700 px-2 py-1 text-xs rounded-full">
                     ${job.minSalary} - {job.maxSalary}
                   </span>
                 </div>

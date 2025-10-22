@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
       },
      {
         path: "/jobs/:id",
-        Component: JobDetailsPage,
+       element:<ProtectedRoutes><JobDetailsPage/></ProtectedRoutes>
       },
       {
         path: "newDestination",
