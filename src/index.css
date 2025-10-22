@@ -4,3 +4,7 @@ a.active {
   color: rgb(62,161,241);
 }
 @plugin "daisyui";
+
+.color-primary {
+  color: #3ea1f1;
+}
