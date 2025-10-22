@@ -69,8 +69,11 @@ export const router = createBrowserRouter([
         path: "/blogs/:id",
         Component: BlogDetailsPage,
       },
-
-         {
+      {
+        path:"jobs",
+        Component:JobsPage
+      },
+     {
         path: "/jobs/:id",
         Component: JobDetailsPage,
       },
@@ -111,10 +114,9 @@ export const router = createBrowserRouter([
       },
 
       
-      {
-        path:"jobs",
-       Component:JobsPage
-      },
+     
+
+    
       {
         path: "comparison",
         Component: Comparison,

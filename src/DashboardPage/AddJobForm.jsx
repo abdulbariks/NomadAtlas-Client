@@ -15,7 +15,13 @@ const AddJobForm = () => {
     skills: [],
     requirements: [""],
     benefits: [""],
+    PostedTime: new Date().toISOString().slice(0, 10), // reset to today
+    lastDate: "",
   });
+  
+  const [skillInput, setSkillInput] = useState("");
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +42,22 @@ const AddJobForm = () => {
     const updated = [...jobData[field]];
     updated.splice(index, 1);
     setJobData({ ...jobData, [field]: updated });
+  };
+  
+
+   // ✅ Add Skill
+  const handleAddSkill = () => {
+    if (skillInput.trim() !== "") {
+      setJobData({ ...jobData, skills: [...jobData.skills, skillInput.trim()] });
+      setSkillInput("");
+    }
+  };
+
+  // ✅ Remove Skill
+  const handleRemoveSkill = (index) => {
+    const updated = [...jobData.skills];
+    updated.splice(index, 1);
+    setJobData({ ...jobData, skills: updated });
   };
 
   const handleSubmit = async (e) => {
@@ -70,7 +92,7 @@ const AddJobForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-8 bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg">
+    <div className="max-w-3xl mx-auto mt-8 bg-white dark:bg-gray-900 p-6 rounded-xl border-2 border-gray-100">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
         Create New Job Posting
       </h2>
@@ -211,6 +233,7 @@ const AddJobForm = () => {
         </div>
 
         {/* Application URL */}
+
         <div>
           <label className="font-medium text-sm">Application URL *</label>
           <input
@@ -222,6 +245,73 @@ const AddJobForm = () => {
             onChange={handleChange}
             required
           />
+        </div>
+
+
+        {/* Apply / Posted Date */}
+
+   <div className="grid grid-cols-2 gap-4">
+   <div>
+  <label className="font-medium text-sm">Posted Date</label>
+  <input
+    type="date"
+    name="postedTime"
+    className="input input-bordered w-full mt-1"
+    value={jobData.PostedTime}
+    onChange={handleChange}
+  />
+</div>
+
+{/* Last Date to Apply */}
+<div >
+  <label className="font-medium text-sm">Application Deadline *</label>
+  <input
+    type="date"
+    name="lastDate"
+    className="input input-bordered w-full mt-1"
+    value={jobData.lastDate}
+    onChange={handleChange}
+    required
+  />
+</div>
+</div>
+
+
+         {/* ✅ Skills Tag Input */}
+        <div>
+          <label className="font-medium text-sm">Skills (Press Enter to Add)</label>
+          <div className="flex gap-2 mt-1">
+            <input
+              type="text"
+              placeholder="e.g. React, TypeScript"
+              className="input input-bordered w-full"
+              value={skillInput}
+              onChange={(e) => setSkillInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddSkill())}
+            />
+            <button type="button" onClick={handleAddSkill} className="btn btn-outline">
+              Add
+            </button>
+          </div>
+
+          {/* ✅ Show Skill Tags */}
+          <div className="flex flex-wrap gap-2 mt-2">
+            {jobData.skills.map((skill, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-1 bg-blue-100 dark:bg-blue-600 text-blue-700 dark:text-white px-3 py-1 rounded-full text-sm"
+              >
+                {skill}
+                <button
+                  type="button"
+                  className="ml-2 text-red-500"
+                  onClick={() => handleRemoveSkill(index)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Requirements */}
@@ -289,7 +379,7 @@ const AddJobForm = () => {
         </div>
 
         {/* Submit */}
-        <button type="submit" className="btn btn-primary w-full">
+        <button type="submit" className="btn bg-[#11c3c0] hover:bg-[#0ca5a3] text-white w-full">
           Create Job
         </button>
       </form>

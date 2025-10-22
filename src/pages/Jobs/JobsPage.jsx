@@ -1,180 +1,188 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJobs, setCategory, setSearchQuery } from "../../redux/jobSlice";
 import { motion } from "framer-motion";
-import { Search, Heart, ExternalLink } from "lucide-react";
+import { Search, Heart, ExternalLink,Funnel,Building2 } from "lucide-react";
+import { Link } from "react-router";
 
-const categories = ["All Categories", "Engineering", "Design", "Marketing", "Product"];
-
-const jobData = [
-  {
-    id: 1,
-    title: "Senior Frontend Developer",
-    company: "TechVision Inc",
-    type: "Full-time",
-    location: "Remote • Worldwide",
-    salary: "$100,000 - $120,000",
-    category: "Engineering",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js"],
-    flexibility: "95%",
-    sentiment: "88%",
-  },
-  {
-    id: 2,
-    title: "UX/UI Designer",
-    company: "DesignLab Studio",
-    type: "Full-time",
-    location: "Remote • Europe",
-    salary: "$60,000 - $80,000",
-    category: "Design",
-    skills: ["Figma", "Adobe XD", "User Research", "Prototyping"],
-    flexibility: "90%",
-    sentiment: "85%",
-  },
- {
-    id: 3,
-    title: "Backend Developer (Node.js)",
-    company: "CloudScale Systems",
-    type: "Full-time",
-    location: "Remote • Americas",
-    salary: "$75,000 - $110,000",
-    skills: ["Node.js", "PostgreSQL", "Docker", "AWS"],
-    flexibility: "92%",
-    sentiment: "90%",
-  },
-  {
-    id: 4,
-    title: "Product Manager",
-    company: "InnovateX",
-    type: "Full-time",
-    location: "Remote • Worldwide",
-    salary: "$90,000 - $130,000",
-    skills: ["Agile", "Roadmapping", "Team Collaboration"],
-    flexibility: "94%",
-    sentiment: "87%",
-  },
-  {
-    id: 5,
-    title: "DevOps Engineer",
-    company: "NextGen Cloud",
-    type: "Contract",
-    location: "Remote",
-    salary: "$80,000 - $100,000",
-    skills: ["Kubernetes", "CI/CD", "AWS", "Terraform"],
-    flexibility: "93%",
-    sentiment: "89%",
-  },
-];
+const categories = ["All Categories", "Engineering", "Design", "Marketing", "Product", "Developer"];
 
 const JobsPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const dispatch = useDispatch();
+  const { jobs, loading, error, selectedCategory, searchQuery } = useSelector((state) => state.jobs);
+  // const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  const filteredJobs =
-    selectedCategory === "All Categories"
-      ? jobData
-      : jobData.filter((job) => job.category === selectedCategory);
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
+
+  const filteredJobs = jobs.filter((job) => {
+    const matchesCategory =
+      selectedCategory === "All Categories" || job.category === selectedCategory;
+    const matchesSearch =
+      job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.company.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  if (loading) return <p className="text-center mt-10">Loading jobs...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <div className="px-5 md:px-8 lg:px-10 py-10">
-      {/* Header Section */}
-      <div className="text-center mb-8">
-        <h2 className="text-xl font-medium text-gray-600">Find your perfect remote opportunity</h2>
-        <p className="text-sm text-gray-500">✨ {jobData.length} remote positions available</p>
-      </div>
-
-      {/* AI-Powered Job Matching */}
-      <div className="bg-[#EBFDFC] border border-[#11C3C0] py-4 px-6 rounded-lg mb-6">
-        <h3 className="font-semibold text-[#11C3C0]">⚡ AI-Powered Job Matching</h3>
-        <p className="text-sm text-gray-500">
-          Get personalized job recommendations based on your skills & experience.
-        </p>
-      </div>
-
-      {/* Search */}
-      <div className="mb-5">
-        <div className="flex items-center gap-2 border rounded-lg px-3 py-2 shadow-sm">
-          <Search className="w-5 h-5 text-gray-400" />
-          <input type="text" placeholder="Search jobs, companies, keywords..." className="w-full outline-none" />
+    <div className="h-screen flex flex-col ">
+      
+      <h1 className="text-lg md:hidden block font-bold md:text text-center text-gray-700 mt-8 ">Find your dream job here</h1>
+      {/* ✅ Mobile Top Bar with Search + Filter Button */}
+      <div className="md:hidden flex items-center justify-between px-4 py-3    ">
+  
+        
+        <div className="relative w-full max-w-xs">
+          
+          <Search className="absolute left-3 top-3 text-gray-400" size={18} />
+          <input
+            type="text"
+            placeholder="Search jobs..."
+            className="w-full border border-gray-300  rounded-lg py-2 pl-9 pr-4 text-sm focus:ring-2 focus:ring-[#93eeed]"
+            value={searchQuery}
+            onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+          />
         </div>
+        {/* <button
+          onClick={() => setMobileFilterOpen(true)}
+          className="ml-3 flex items-center border px-3 py-2 rounded-lg text-sm hover:bg-gray-100"
+        >
+          <Filter size={16} className="mr-1" /> Filters
+        </button> */}
       </div>
 
-      {/* Filter Buttons */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 text-sm rounded-full border transition ${
-              selectedCategory === cat
-                ? "bg-[#11C3C0] text-white"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-[#11C3C0]/10"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      {/* ✅ Mobile Filter Drawer
+      {mobileFilterOpen && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex">
+          <div className="bg-white w-72 h-full p-6 overflow-y-auto shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold text-lg">Filters</h3>
+              <button onClick={() => setMobileFilterOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => dispatch(setCategory(cat))}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm mb-2 ${
+                  selectedCategory === cat ? "bg-primary text-white" : "hover:bg-gray-100"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      )} */}
 
-      {/* Job Cards */}
-      <div className="space-y-6">
-        {filteredJobs.map((job, index) => (
-          <motion.div
-            key={job.id}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.4 }}
-            whileHover={{ scale: 1.01 }}
-            className="border-1 border-gray-300 hover:border-[#45dedc] rounded-xl shadow-sm hover:shadow-lg p-6 bg-white transition"
-          >
-            {/* Top Section */}
-            <div className="flex justify-between items-start">
-              <div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#11C3C0]/20 text-[#11C3C0] flex items-center justify-center rounded-full font-bold">
-                    {job.company.charAt(0)}
+      {/* ✅ Main Layout */}
+      <div className="flex flex-1 overflow-hidden">
+       
+        
+        {/* ✅ Desktop Sidebar */}
+        <div className="w-80 bg-white border-r border-r-gray-300 p-6 hidden md:block sticky top-0 h-screen overflow-y-auto">
+         
+          
+          <h1 className="text-lg  font-bold md:text text-center text-gray-700 ">Find your dream job here</h1>
+         
+           <div className="relative w-full max-w-xs mt-6 mb-4">
+          <Search className="absolute left-3 top-3 text-gray-400" size={18} />
+          <input
+            type="text"
+            placeholder="Search jobs..."
+            className="w-full border border-gray-300 rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#93eeed]"
+            value={searchQuery}
+            onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+          />
+        </div>
+
+          <h3 className="font-semibold text-lg flex   gap-2 items-center mb-4"><Funnel size={17} /> Filters</h3>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => dispatch(setCategory(cat))}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm mb-2 ${
+                selectedCategory === cat ? "bg-[#11c3c0] text-white" : "hover:bg-gray-100"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+          <p className="text-sm text-gray-500 mt-4">
+            Showing <span className="text-[#11c3c0]">{filteredJobs.length}</span> jobs
+          </p>
+        </div>
+
+        {/* ✅ Job Cards */}
+        <div className="flex-1 overflow-y-auto p-6">
+          
+          {filteredJobs.length === 0 ? (
+            <p className="text-center text-gray-500 mt-10">No jobs found.</p>
+          ) : (
+
+            
+            filteredJobs.map((job, index) => (
+              <motion.div
+                key={job._id || index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+                whileHover={{ scale: 1.01 }}
+                className="border border-gray-200 hover:border-[#75fbf8] rounded-xl  p-6 bg-white transition mb-6"
+              >
+                {/* ✅ Card Content */}
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-base-100 text-[#11c3c0] flex items-center justify-center rounded-full font-bold">
+                      {job.company?.charAt(0)}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">{job.title}</h3>
+                      <p className="text-sm text-gray-500 flex items-center gap-1"><Building2 size={14} />{job.company}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold">{job.title}</h3>
-                    <p className="text-sm text-gray-500">{job.company}</p>
-                  </div>
+                  <Heart className="text-gray-400 hover:text-red-500 cursor-pointer" />
                 </div>
-                <p className="text-sm text-gray-600 mt-3">
-                  We are looking for an experienced {job.title} to join our remote team.
-                </p>
-              </div>
-              <Heart className="text-gray-400 hover:text-red-500 cursor-pointer" />
-            </div>
 
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mt-3">
-              <span className="bg-orange-400 text-white px-2 py-1 text-xs rounded-full">{job.type}</span>
-              <span className="bg-[#11C3C0] text-white px-2 py-1 text-xs rounded-full">{job.location}</span>
-              <span className="bg-[#ff7750] text-white px-2 py-1 text-xs rounded-full">{job.salary}</span>
-            </div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <span className="bg-orange-400 text-white px-2 py-1 text-xs rounded-full">
+                    {job.jobType}
+                  </span>
+                  <span className="bg-[#11c3c0] text-white px-2 py-1 text-xs rounded-full">
+                    {job.location}
+                  </span>
+                  <span className="bg-orange-400 text-white px-2 py-1 text-xs rounded-full">
+                    ${job.minSalary} - {job.maxSalary}
+                  </span>
+                </div>
 
-            {/* Skills */}
-            <div className="flex flex-wrap gap-2 mt-3">
-              {job.skills.map((skill, i) => (
-                <span key={i} className="bg-gray-100 px-2 py-1 text-xs rounded-full">{skill}</span>
-              ))}
-            </div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {job.skills?.map((skill, i) => (
+                    <span key={i} className="bg-gray-100 px-2 py-1 text-xs rounded-full">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
 
-            {/* Flexibility & Sentiment */}
-            <div className="flex gap-6 text-sm text-gray-600 mt-4 border-t pt-3">
-              <p>✨ Flexibility: {job.flexibility}</p>
-              <p>💬 Sentiment: {job.sentiment}</p>
-            </div>
+                <div className="mt-4 flex justify-between items-center">
 
-            {/* Buttons */}
-            <div className="mt-4 flex justify-between items-center">
-              <button className="w-full bg-[#11C3C0] text-white py-2 rounded-lg hover:bg-[#0fa7a4] transition">
-                View Details
-              </button>
-              <button className="flex items-center gap-1 ml-4 border px-4 py-2 rounded-lg hover:bg-gray-100">
-                <ExternalLink size={16} /> Apply
-              </button>
-            </div>
-          </motion.div>
-        ))}
+
+                  <Link to={`/jobs/${job._id}`} className="block w-full"><button className="w-full md:px-10 bg-[#11c3c0] text-white py-2 rounded-lg hover:bg-[#23a3a1] transition">
+                    View Details
+                  </button></Link>
+                  <button className="flex items-center gap-1 ml-4 border px-4 py-2 rounded-lg hover:bg-gray-100">
+                    <ExternalLink size={16} /> Apply
+                  </button>
+                </div>
+              </motion.div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

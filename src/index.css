@@ -3,4 +3,5 @@
 a.active {
   color: rgb(62,161,241);
 }
+
 @plugin "daisyui";
