@@ -11,7 +11,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 
-const API_URL = "https://nomad-atlas-server-pi.vercel.app/cost-calculator";
+const API_URL = "https://nomad-atlas-server-one.vercel.app/cost-calculator";
 
 const DataOfCalculator = () => {
   const [activeTab, setActiveTab] = useState("list");
@@ -172,7 +172,7 @@ const DataOfCalculator = () => {
         });
       }
     } catch (error) {
-      setMessage({ type: "error", text: "Network error. Please try again." });
+      setMessage({ type: "error", text: "Network error. Please try again.", error });
     } finally {
       setLoading(false);
     }

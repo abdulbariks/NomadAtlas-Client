@@ -64,7 +64,7 @@ const NomadFavouriteDestination = () => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
            transition={{ duration: 0.6, delay: index * 0.1 }}
-           className="relative bg-white rounded-xl border border-gray-200 hover:border-[#11c3c0] transition-all duration-300 overflow-hidden shadow-sm hover:shadow-md"
+           className="relative bg-white rounded-xl border border-gray-200 hover:border-[#11c3c0] transition-all duration-300 overflow-hidden hover:shadow-md"
           >
            {/* Image Section */}
             <div className="relative">

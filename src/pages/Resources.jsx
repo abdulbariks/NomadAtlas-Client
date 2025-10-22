@@ -57,7 +57,7 @@ const Resource = () => {
     const fetchResources = async () => {
       try {
         const res = await fetch(
-          "https://nomad-atlas-server-pi.vercel.app/resources"
+          "https://nomad-atlas-server-one.vercel.app/resources"
         );
         const data = await res.json();
         setResources(data.resources);

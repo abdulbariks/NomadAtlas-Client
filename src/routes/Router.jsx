@@ -32,6 +32,7 @@ import Error from "../components/Home/Error";
 import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
+import ProviderRoutes from "./ProviderRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
 import LocalServices from "../pages/Services/LocalServices";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
@@ -187,8 +188,17 @@ export const router = createBrowserRouter([
       },
       {
         path: "addDestinations",
-        Component: AddDestinations,
+        element:
+          // <AdminRoutes>
+            <AddDestinations></AddDestinations>,
+          // </AdminRoutes>
       },
+      // {
+      //   path: "addDestinations",
+      //   element: <ProviderRoutes>
+      //     <AddDestinations></AddDestinations>
+      //   </ProviderRoutes>,
+      // },
       {
         path: "add-resource",
         Component: AddResource,
