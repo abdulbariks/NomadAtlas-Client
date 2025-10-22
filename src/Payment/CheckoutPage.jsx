@@ -66,13 +66,13 @@ export default function CheckoutPage() {
 
     if (!booking)
         return (
-            <div className="flex justify-center items-center min-h-screen bg-green-50">
+            <div className="flex justify-center items-center min-h-screen bg-cyan-50">
                 <p className="text-lg text-cyan-700">Loading booking details...</p>
             </div>
         );
 
     return (
-        <div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 py-10 bg-cyan-50">
+        <div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 py-10 bg-[#f4f8f8]">
             <div className="w-full max-w-2xl bg-white rounded-2xl p-6 md:p-10 ">
                 {/* Header */}
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-cyan-700 text-center">
