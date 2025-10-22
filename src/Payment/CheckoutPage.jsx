@@ -67,51 +67,51 @@ export default function CheckoutPage() {
     if (!booking)
         return (
             <div className="flex justify-center items-center min-h-screen bg-green-50">
-                <p className="text-lg text-green-700">Loading booking details...</p>
+                <p className="text-lg text-cyan-700">Loading booking details...</p>
             </div>
         );
 
     return (
-        <div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 py-10 bg-green-50">
-            <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-6 md:p-10 border-t-8 border-green-500">
+        <div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 py-10 bg-cyan-50">
+            <div className="w-full max-w-2xl bg-white rounded-2xl p-6 md:p-10 ">
                 {/* Header */}
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-green-700 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-cyan-700 text-center">
                     Checkout
                 </h2>
 
                 {/* Booking Details Card */}
-                <div className="bg-green-50 p-6 rounded-xl shadow-md mb-8">
+                <div className="bg-cyan-50 p-6 rounded-xl mb-8">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
                         <div className="space-y-2">
-                            <p className="text-lg md:text-xl text-green-800 font-semibold">
+                            <p className="text-lg md:text-xl text-cyan-800 font-semibold">
                                 {booking.city}, {booking.country}
                             </p>
-                            <p className="text-green-700">
+                            <p className="text-cyan-700">
                                 <span className="font-semibold">Type:</span> {booking.type}
                             </p>
-                            <p className="text-green-700">
+                            <p className="text-cyan-700">
                                 <span className="font-semibold">Booked Date:</span> {booking.bookedDate}
                             </p>
-                            <p className="text-green-700">
+                            <p className="text-cyan-700">
                                 <span className="font-semibold">Booked Time:</span>{" "}
                                 {new Date(booking.bookedTime).toLocaleString()}
                             </p>
                         </div>
 
                         <div className="text-left md:text-right space-y-2">
-                            <p className="text-xl font-semibold text-green-800">
+                            <p className="text-xl font-semibold text-cyan-800">
                                 ${booking.price}
                             </p>
                             <span
                                 className={`inline-block px-4 py-1 rounded-full font-medium text-sm ${booking.paymentStatus === "paid"
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-green-500 text-white"
+                                    ? "bg-green-100 text-cyan-800"
+                                    : "bg-cyan-500 text-white"
                                     }`}
                             >
                                 {booking.paymentStatus === "paid" ? "Paid" : "Unpaid"}
                             </span>
                             {booking.paymentStatus === "paid" && booking.paidAt && (
-                                <p className="text-green-700 text-sm mt-1">
+                                <p className="text-cyan-700 text-sm mt-1">
                                     Paid at: {new Date(booking.paidAt).toLocaleString()}
                                 </p>
                             )}

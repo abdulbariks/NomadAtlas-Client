@@ -91,8 +91,8 @@ const BookingForm = ({ singleDestination, userInfo }) => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="p-6 md:p-8 border rounded-2xl shadow-lg bg-white max-w-md w-full mx-auto">
-      <h3 className="text-2xl font-semibold mb-6 text-center text-gray-800">
+    <div className="p-6 md:p-8 rounded-2xl max-w-md w-full mx-auto md:mx-0">
+      <h3 className="text-2xl font-semibold mb-6 text-start text-gray-800">
         Book This Destination
       </h3>
 
@@ -103,7 +103,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
           <input
             type="text"
             placeholder="Full Name *"
-            className={`w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-400 ${errors.userName ? 'border-red-500' : 'border-gray-300'
+            className={`w-full p-3 border rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 ${errors.userName ? 'border-red-500' : 'border-gray-300'
               }`}
             {...register('userName', { required: 'Name is required' })}
           />
@@ -119,7 +119,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
             placeholder="Email *"
             defaultValue={userInfo?.email || ''}
             readOnly
-            className="w-full p-3 border rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+            className="w-full p-3 border rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed outline-none focus:ring-1 focus:ring-cyan-400"
             {...register('userEmail', { required: true })}
           />
         </div>
@@ -129,7 +129,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
           <input
             type="tel"
             placeholder="Phone *"
-            className={`w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-400 ${errors.userPhone ? 'border-red-500' : 'border-gray-300'
+            className={`w-full p-3 border rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 ${errors.userPhone ? 'border-red-500' : 'border-gray-300'
               }`}
             {...register('userPhone', {
               required: 'Phone is required',
@@ -149,7 +149,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
           <input
             type="date"
             min={today}
-            className={`w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-400 ${errors.bookedDate ? 'border-red-500' : 'border-gray-300'
+            className={`w-full p-3 border rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 ${errors.bookedDate ? 'border-red-500' : 'border-gray-300'
               }`}
             {...register('bookedDate', { required: 'Booking date is required' })}
           />
@@ -205,7 +205,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
 
               <button
                 onClick={handlePayNow}
-                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition-colors"
+                className="flex-1 bg-cyan-200 hover:bg-cyan-600 text-black hover:text-white font-medium py-2.5 rounded-lg transition-colors"
               >
                 Pay Now
               </button>
@@ -213,7 +213,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
 
             <button
               onClick={() => setIsModalOpen(false)}
-              className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2.5 rounded-lg transition-colors font-medium"
+              className="mt-4 w-full bg-red-100 hover:bg-red-500 text-red-500 hover:text-white py-2.5 rounded-lg transition-colors font-medium"
             >
               Cancel
             </button>
