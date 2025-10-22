@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { Heart, MessageCircle, Calendar, Clock } from "lucide-react";
 import { motion } from "framer-motion";
-import axios from "axios";
 import Spinner from "../../Spinner/Spinner";
 import { useSelector } from "react-redux";
 import useAxiosSecure from "../../../customHook/useAxiosSecure";
@@ -18,6 +17,8 @@ const BlogDetailsPage = () => {
   const { user } = useSelector((state) => state.auth);
   const axiosSecure = useAxiosSecure()
 
+  console.log("blog id", id)
+
   // ✅ Fetch Blog + Related
   const fetchBlog = async () => {
     try {
@@ -29,7 +30,7 @@ const BlogDetailsPage = () => {
       const likedBlogs = JSON.parse(localStorage.getItem("likedBlogs") || "[]");
       setLiked(likedBlogs.includes(id));
 
-      const relatedRes = await axiosSecure.get(`/blogs?limit=3`);
+      const relatedRes = await axiosSecure.get(`/api/blogs?limit=3`);
       setRelated(relatedRes.data.data.filter((b) => b._id !== id));
     } catch (error) {
       console.error("Error fetching blog:", error);
@@ -39,7 +40,7 @@ const BlogDetailsPage = () => {
   };
 
   useEffect(() => {
-    fetchBlog();
+    fetchBlog(id);
   }, [id]);
 
   // ✅ Keep cached comments on mount
@@ -175,13 +176,13 @@ const BlogDetailsPage = () => {
                 <span className="font-medium">{blog.authorName}</span>
               </div>
               <div className="flex flex-wrap gap-10 mt-6">
-              <span className="flex gap-2 items-center">
-                <Calendar size={20} />{" "}
-                {new Date(blog.createdAt).toLocaleDateString()}
-              </span>
-              <span className="flex gap-2 items-center">
-                <Clock size={20} /> 8 min read
-              </span>
+                <span className="flex gap-2 items-center">
+                  <Calendar size={20} />{" "}
+                  {new Date(blog.createdAt).toLocaleDateString()}
+                </span>
+                <span className="flex gap-2 items-center">
+                  <Clock size={20} /> 8 min read
+                </span>
               </div>
             </div>
           </div>
@@ -202,9 +203,8 @@ const BlogDetailsPage = () => {
             liked ? { scale: [1, 1.3, 1], rotate: [0, -10, 10, 0] } : {}
           }
           transition={{ duration: 0.4 }}
-          className={`flex items-center gap-2 font-medium ${
-            liked ? "text-red-600" : "hover:text-red-500"
-          }`}
+          className={`flex items-center gap-2 font-medium ${liked ? "text-red-600" : "hover:text-red-500"
+            }`}
         >
           <Heart
             size={24}
@@ -223,7 +223,7 @@ const BlogDetailsPage = () => {
       {/* ============== Comment Section ============== */}
       <div className="mt-8  max-w-4xl mx-auto ">
 
-                {/* Comments List */}
+        {/* Comments List */}
         <div className="space-y-5">
           {(blog.comments || []).length > 0 ? (
             blog.comments.map((c, i) => (

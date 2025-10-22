@@ -105,6 +105,13 @@ console.log(user)
                   >
                    Time Zone Converter
                   </NavLink>
+                  <NavLink
+                    to="/internet-speed"
+                    className="px-4 py-2 hover:bg-[#e0efef] hover:text-[#158e8c]"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                   Internet Speed
+                  </NavLink>
 
 
                 </div>
@@ -249,6 +256,9 @@ console.log(user)
       </NavLink>
       <NavLink to="/community" onClick={() => setIsOpen(false)}>
         Community
+      </NavLink>
+      <NavLink to="/internet-speed" onClick={() => setIsOpen(false)}>
+        Internet Speed
       </NavLink>
       <NavLink to="/resources" onClick={() => setIsOpen(false)}>
         Resources
