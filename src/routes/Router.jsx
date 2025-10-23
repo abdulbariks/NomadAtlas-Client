@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
         path: "/weather-alerts",
         Component: WeatherAlertsPage,
       },
-      // my
+      
       {
         path: "login",
         Component: Login,
