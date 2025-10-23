@@ -43,7 +43,7 @@ export default function PaymentSuccess({ onClose, paymentId }) {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-3xl md:text-4xl font-bold text-green-600 mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-cyan-600 mb-6">
                     Payment Successful!
                 </h2>
 
