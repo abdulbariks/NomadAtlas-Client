@@ -11,7 +11,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 
-const API_URL = "https://nomad-atlas-server-one.vercel.app/cost-calculator";
+const API_URL = "http://localhost:3000/cost-calculator";
 
 const DataOfCalculator = () => {
   const [activeTab, setActiveTab] = useState("list");

@@ -57,7 +57,7 @@ const Resource = () => {
     const fetchResources = async () => {
       try {
         const res = await fetch(
-          "https://nomad-atlas-server-one.vercel.app/resources"
+          "http://localhost:3000/resources"
         );
         const data = await res.json();
         setResources(data.resources);
@@ -311,7 +311,7 @@ const Resource = () => {
                           href={visa.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sky-300 hover:text-gray-500 hover:underline font-semibold text-sm transition"
+                          className="inline-flex items-center gap-1 text-teal-300 hover:text-gray-500 hover:underline font-semibold text-sm transition"
                         >
                           Apply Here →
                         </a>

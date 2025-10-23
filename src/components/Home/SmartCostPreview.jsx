@@ -7,7 +7,7 @@ const SmartCostPreview = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("https://nomad-atlas-server-one.vercel.app/cost-calculator")
+    fetch("http://localhost:3000/cost-calculator")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));
