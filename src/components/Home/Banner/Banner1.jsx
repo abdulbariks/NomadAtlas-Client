@@ -3,7 +3,7 @@ import React from "react";
 import bannerImage from "../../../assets/BannerImage/hero-workspace.jpg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { MapPin, Search } from "lucide-react";
-
+import { useNavigate } from "react-router"; 
 
 export function GradualSpacing({ text = "Gradual Spacing" }) {
   const ref = React.useRef(null);
@@ -31,8 +31,16 @@ export function GradualSpacing({ text = "Gradual Spacing" }) {
 }
 
 const Banner1 = () => {
+  const navigate = useNavigate(); 
+  const [searchQuery, setSearchQuery] = React.useState(""); 
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return; 
+    navigate(`/destinations?query=${encodeURIComponent(searchQuery)}`); 
+  };
+
   return (
-    <section className="relative w-full h-[80] md:h-[95vh] pt-15 pb-6 md:pt-6 md:pb-0  flex items-center justify-center text-white overflow-hidden mt-0 inset-0  ">
+    <section className="relative w-full h-[80] md:h-[95vh] pt-15 pb-6 md:pt-6 md:pb-0 flex items-center justify-center text-white overflow-hidden mt-0 inset-0">
       {/* Background Image */}
       <img
         src={bannerImage}
@@ -45,53 +53,43 @@ const Banner1 = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6">
-          {/* <GradualSpacing  text="Discover Your Next Nomad Destination" /> */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-5xl font-extrabold"
+        >
+          Find Your Perfect Remote <br /> Work{" "}
+          <span className="text-[#07eff7]">Destination</span>
+        </motion.h1>
 
-          <motion.h1
-           initial={{ opacity: 0, y: 30 }}
-           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }} className="text-5xl font-extrabold">Find Your Perfect Remote <br /> Work <span className="text-[#07eff7] ">Destination</span> </motion.h1>
-
-        <p className="mt-4 text-light text-gray-300 font-medium text- max-w-2xl mx-auto">
-          Explore the world's best cities for digital nomads. Compare costs, discover amenities, and connect with a global community.
+        <p className="mt-4 text-light text-gray-300 font-medium max-w-2xl mx-auto">
+          Explore the world's best cities for digital nomads. Compare costs,
+          discover amenities, and connect with a global community.
         </p>
 
-        {/* <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          whileHover={{
-            scale: 1.1,
-            backgroundColor: "#0d9488",
-            color: "#fff",
-          }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-6 px-6 py-3 bg-[#14b8a6] text-white font-semibold rounded-xl shadow-md transition"
-        >
-          Start Exploring
-        </motion.button> */}
-                {/* Search Section */}
+        {/* Search Section */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mt-10 max-w-2xl mx-auto"
         >
-          {/* 📍 Custom Input Field */}
-         <div className="relative flex-1">
-  <MapPin 
-    className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white z-10" 
-  />
-  <input
-    type="text"
-    placeholder="Where do you want to work from?"
-    className="w-full pl-12 pr-4 h-14 text-lg rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none backdrop-blur-md relative z-0"
-  />
-</div>
+          {/* Custom Input Field */}
+          <div className="relative flex-1">
+            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white z-10" />
+            <input
+              type="text"
+              placeholder="Where do you want to work from?"
+              className="w-full pl-12 pr-4 h-14 text-lg rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none backdrop-blur-md relative z-0"
+              value={searchQuery} 
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
 
-
-          {/* 🔍 Custom Search Button */}
+          {/*Custom Search Button */}
           <button
+            onClick={handleSearch} 
             className="h-14 px-8 bg-[#11c3c0] hover:bg-[#0a8d8b] text-white font-semibold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
           >
             <Search className="h-5 w-5" />

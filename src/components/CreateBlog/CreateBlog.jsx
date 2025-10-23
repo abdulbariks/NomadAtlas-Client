@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { Upload, Loader2 } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
-import { Link } from "react-router";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const categories = [
   "Destinations",
@@ -22,10 +21,11 @@ const CreateBlog = () => {
   const { picture, handleImageUpload } = useImageUpload();
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const axiosSecure = useAxiosSecure();
 
   const mutation = useMutation({
     mutationFn: async (newBlog) => {
-      const res = await axios.post("http://localhost:5000/api/blogs", newBlog);
+      const res = await axiosSecure.post(`/blogs`, newBlog);
       return res.data;
     },
     onSuccess: () => {

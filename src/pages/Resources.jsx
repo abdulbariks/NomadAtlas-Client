@@ -57,7 +57,7 @@ const Resource = () => {
     const fetchResources = async () => {
       try {
         const res = await fetch(
-          "https://nomad-atlas-server-pi.vercel.app/resources"
+          "https://nomad-atlas-server-one.vercel.app/resources"
         );
         const data = await res.json();
         setResources(data.resources);
@@ -147,7 +147,7 @@ const Resource = () => {
           <div className="grid md:grid-cols-2 gap-6">
             <a
               href="/blogs"
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
+              className="bg-white p-6 rounded-xl transition group"
             >
               <h3 className="text-xl font-bold mb-2 group-hover:text-orange-600">
                 How to Choose Your Next Destination
@@ -159,7 +159,7 @@ const Resource = () => {
             </a>
             <a
               href="/blogs"
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
+              className="bg-white p-6 rounded-xl transition group"
             >
               <h3 className="text-xl font-bold mb-2 group-hover:text-orange-600">
                 Digital Nomad Visa Guide 2025
@@ -170,7 +170,7 @@ const Resource = () => {
             </a>
             <a
               href="/blogs"
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
+              className="bg-white p-6 rounded-xl transition group"
             >
               <h3 className="text-xl font-bold mb-2 group-hover:text-orange-600">
                 Budget Planning for Nomads
@@ -181,7 +181,7 @@ const Resource = () => {
             </a>
             <a
               href="/blogs"
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition group"
+              className="bg-white p-6 rounded-xl transition group"
             >
               <h3 className="text-xl font-bold mb-2 group-hover:text-orange-600">
                 Safety Tips for Remote Workers
@@ -196,7 +196,7 @@ const Resource = () => {
         {/* 3. REMOTE WORK PLATFORMS (dynamic) */}
         <section>
           <div className="flex items-center gap-4 mb-8">
-            <Briefcase className="w-10 h-10 text-green-500" />
+            <Briefcase className="w-10 h-10 text-cyan-400" />
             <h2 className="text-4xl font-bold">Find Remote Work</h2>
           </div>
           <p className="text-gray-600 text-lg mb-8">
@@ -209,7 +209,7 @@ const Resource = () => {
                 href={platform.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-green-500 hover:shadow-lg transition"
+                className="bg-white rounded-xl p-6 hover:border-cyan-200 hover:shadow-lg transition"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <img
@@ -226,9 +226,9 @@ const Resource = () => {
         </section>
 
         {/* 4. PRODUCTIVITY TOOLS (dynamic) */}
-        <section className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-12">
+        <section className="bg-white rounded-3xl p-12">
           <div className="flex items-center gap-4 mb-8">
-            <Zap className="w-10 h-10 text-purple-500" />
+            <Zap className="w-10 h-10 text-blue-300" />
             <h2 className="text-4xl font-bold">Productivity Tools</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -255,17 +255,17 @@ const Resource = () => {
         {/* 5. VISA RESOURCES (dynamic) */}
         <section>
           <div className="flex items-center gap-4 mb-8">
-            <Plane className="w-10 h-10 text-indigo-500" />
+            <Plane className="w-10 h-10 text-cyan-200" />
             <h2 className="text-4xl font-bold"> Digital Nomad Visas</h2>
           </div>
           <p className="text-gray-600 text-lg mb-8">
             Official visa information and application links for digital nomad
             visas worldwide
           </p>
-          <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+          <div className="bg-white rounded-2xl overflow-hidden border border-gray-100">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-indigo-50 to-purple-50">
+                <thead className="bg-cyan-100">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700">
                       Country
@@ -302,7 +302,7 @@ const Resource = () => {
                         {visa.duration}
                       </td>
                       <td className="px-6 py-4">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 font-semibold text-sm">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-cyan-500 font-semibold text-sm">
                           {visa.income}
                         </span>
                       </td>
@@ -311,7 +311,7 @@ const Resource = () => {
                           href={visa.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 font-semibold text-sm transition"
+                          className="inline-flex items-center gap-1 text-sky-300 hover:text-gray-500 hover:underline font-semibold text-sm transition"
                         >
                           Apply Here →
                         </a>
@@ -380,7 +380,7 @@ const Resource = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-12 text-center text-white">
+        <section className="bg-gradient-to-r from-cyan-300 to-cyan-400 rounded-3xl p-12 text-center text-white">
           <h2 className="text-4xl font-bold mb-4">
             Ready to Start Your Nomad Journey?
           </h2>
@@ -389,7 +389,7 @@ const Resource = () => {
           </p>
           <a
             href="/destinations"
-            className="inline-block bg-white text-indigo-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-50 transition"
+            className="inline-block bg-white text-gray-500 px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-50 transition"
           >
             Explore Destinations →
           </a>
