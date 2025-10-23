@@ -4,6 +4,7 @@ import bannerImage from "../../../assets/BannerImage/hero-workspace.jpg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { MapPin, Search } from "lucide-react";
 import { useNavigate } from "react-router"; 
+import { Typewriter } from "react-simple-typewriter";
 
 export function GradualSpacing({ text = "Gradual Spacing" }) {
   const ref = React.useRef(null);
@@ -54,16 +55,26 @@ const Banner1 = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-6">
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-5xl font-extrabold"
-        >
-          Find Your Perfect Remote <br /> Work{" "}
-          <span className="text-[#07eff7]">Destination</span>
-        </motion.h1>
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  className="text-5xl font-extrabold"
+>
+  Find Your Perfect Remote <br /> Work{" "}
+  <span className="text-white">
+    <Typewriter
+      words={['Destination',  'Workspace','City',]}
+      loop={true}
+      cursor
+      cursorStyle="_"
+      typeSpeed={70}
+      deleteSpeed={50}
+      delaySpeed={1500}
+    />
+  </span>
+</motion.h1>
 
-        <p className="mt-4 text-light text-gray-300 font-medium max-w-2xl mx-auto">
+        <p className="mt-4 text-light text-gray-100 font-light max-w-2xl mx-auto">
           Explore the world's best cities for digital nomads. Compare costs,
           discover amenities, and connect with a global community.
         </p>
@@ -81,7 +92,7 @@ const Banner1 = () => {
             <input
               type="text"
               placeholder="Where do you want to work from?"
-              className="w-full pl-12 pr-4 h-14 text-lg rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none backdrop-blur-md relative z-0"
+              className="w-full pl-12 pr-4 h-14 text-lg rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-gray-300 focus:ring-2 focus:ring-[#11c3c0] focus:outline-none backdrop-blur-md relative z-0"
               value={searchQuery} 
               onChange={(e) => setSearchQuery(e.target.value)}
             />

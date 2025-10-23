@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import logo from "../assets/Logo/Logo4.png";
+import logo from "../assets/Logo/NLogo2.png";
 
 const NomadAtlasLogo = () => {
   return (
@@ -14,7 +14,7 @@ const NomadAtlasLogo = () => {
 
        
         {/* Text */}
-        <h2 className="text-md md:text-xl font-extrabold bg-gradient-to-r from-[#11c3c0] to-[#3ea1f1] bg-clip-text text-transparent  transition-colors duration-300">
+        <h2 className="text-md md:text-xl font-extrabold bg-[#11c3c0] bg-clip-text text-transparent  transition-colors duration-300">
           NA
         </h2> </div>
    
