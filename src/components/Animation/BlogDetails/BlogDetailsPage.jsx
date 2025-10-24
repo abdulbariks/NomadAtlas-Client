@@ -242,7 +242,7 @@ const BlogDetailsPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:shadow-md transition-all"
+                className="bg-white p-7 rounded-2xl border border-gray-100 flex gap-4 items-start  transition-all"
               >
                 <img
                   src={c.userImage || "https://i.pravatar.cc/40?img=5"}
@@ -278,21 +278,21 @@ const BlogDetailsPage = () => {
                 `https://i.pravatar.cc/40?img=${Math.floor(Math.random() * 50)}`
               }
               alt="User"
-              className="w-10 h-10 rounded-full border border-blue-400"
+              className="w-10 h-10 rounded-full border border-cyan-300"
             />
             <div className="flex-1">
               <textarea
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
                 placeholder="Write your comment..."
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none resize-none bg-gray-50 text-gray-800"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-cyan-300/70 outline-none resize-none bg-gray-50 text-gray-800"
                 rows="3"
               />
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 disabled={submitting}
-                className="mt-3 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all disabled:opacity-70"
+                className="mt-3 bg-[#11c3c0] text-white px-6 py-2 rounded-lg hover:bg-[#0f9f9c] transition-all disabled:opacity-70"
               >
                 {submitting ? "Posting..." : "Post Comment"}
               </motion.button>

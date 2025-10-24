@@ -129,7 +129,7 @@ export default function App() {
     setError(null);
     try {
 
-      const base = API?.toString?.() || "http://localhost:5000";
+      const base = API?.toString?.() || "https://nomad-atlas-server-delta.vercel.app";
       const url = base.replace(/\/$/, "") + "/api/internet-speed/average";
 
       let res;
@@ -205,7 +205,7 @@ export default function App() {
 
     try {
       setSubmitting(true);
-      const base = API?.toString?.() || "http://localhost:5000";
+      const base = API?.toString?.() || "https://nomad-atlas-server-delta.vercel.app";
       const url = base.replace(/\/$/, "") + "/api/internet-speed/report";
 
       let res;

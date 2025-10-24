@@ -63,7 +63,7 @@ const AllBlogs = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-2xl overflow-hidden shadow-lg mb-14"
+          className="relative rounded-2xl overflow-hidden mb-14"
         >
           <img
             src={featured.image}
@@ -146,7 +146,7 @@ const AllBlogs = () => {
         <div>
           <Link
             to="/createBlog"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#3ea1f1] text-white rounded-full hover:bg-[#368dd4] transition"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#11c3c0] text-white rounded-full hover:bg-[#368dd4] transition"
           >
             <FaPlus /> Create a Blog
           </Link>
@@ -170,7 +170,7 @@ const AllBlogs = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all cursor-pointer flex flex-col border-1 hover:border-[#11c3c0] border-gray-300"
+                className="bg-white rounded-xl  overflow-hidden transition-all cursor-pointer flex flex-col border-1 hover:border-[#8dfffd] border-gray-300"
               >
                 {/* Image + Category */}
                 <div className="relative">

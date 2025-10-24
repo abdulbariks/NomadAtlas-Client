@@ -6,6 +6,7 @@ import { FiShare2 } from "react-icons/fi";
 import { BsArrowRight } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router";
+import { Star } from "lucide-react";
 
 const CommunitySpotlight = () => {
   const data = [
@@ -44,9 +45,9 @@ const CommunitySpotlight = () => {
   return (
     <div className="pt-15 px-5 md:px-20 ">
       {/* Header */}
-      <div className="text-center mb-12">
-        <span className="bg-blue-400 text-white text-sm font-semibold px-4 py-1 rounded-full">
-          Community Spotlight
+      <div className="text-center mb-12 ">
+       <span className="inline-flex items-center gap-2 px-5 py-1 bg-[#3ea1f1] text-white text-sm md:text-base font-medium rounded-full">
+          <Star size={15} /> Communitys Post
         </span>
         <h2 className="text-2xl md:text-3xl font-bold mt-6 text-gray-700">
           Real experiences from digital nomads thriving around the world
@@ -58,7 +59,7 @@ const CommunitySpotlight = () => {
         {data.map((post, index) => (
           <motion.div
             key={post.id}
-            className="bg-white border border-gray-200 shadow-sm rounded-2xl p-6 hover:shadow-lg transition-shadow"
+            className="bg-white border border-gray-200 hover:border hover:border-[#7af6f4] rounded-2xl p-6  hover:scale-105 transition-all"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -124,7 +125,7 @@ const CommunitySpotlight = () => {
       >
         <Link
           to="/community"
-          className="bg-[#11c3c0] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:opacity-90 transition duration-300 flex items-center gap-2"
+          className="bg-[#11c3c0] text-white font-semibold py-3 px-8 rounded-2xl shadow-md hover:opacity-90 transition duration-300 flex items-center gap-2 hover:scale-105"
         >
           See more posts
           <BsArrowRight className="text-lg" />

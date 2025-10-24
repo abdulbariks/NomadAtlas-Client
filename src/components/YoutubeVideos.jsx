@@ -67,11 +67,11 @@ export default function YoutubeVideos({ selectedCategory }) {
       </h2>
 
       {/* Eikhane youtube video iframe use kore dekacci, jate website ei use kora jay. */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid  md:grid-cols-3 gap-6">
         {videos.map((video) => (
           <div
             key={video.id.videoId}
-            className="group bg-white  rounded-xl overflow-hidden shadow-md hover:shadow-md transition"
+            className="group bg-white  rounded-xl overflow-hidden hover:scale-105 transition"
           >
             <iframe
               className="w-full h-48"
