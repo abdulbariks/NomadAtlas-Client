@@ -37,7 +37,7 @@ import AddDestinations from "../DashboardPage/AddDestinations";
 import LocalServices from "../pages/Services/LocalServices";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
 import AdminBookings from "../Payment/AdminBookings";
-import CommunityPage from "../Socket/CommunityPage";
+// import CommunityPage from "../Socket/CommunityPage";
 
 export const router = createBrowserRouter([
   {
@@ -57,10 +57,10 @@ export const router = createBrowserRouter([
         path: "forbidden",
         Component: ForbiddenPage,
       },
-      {
-        path: "socket",
-        Component: CommunityPage,
-      },
+      // {
+      //   path: "socket",
+      //   Component: CommunityPage,
+      // },
       {
         path: "blogs",
         Component: AllBlogs,
