@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NomadAtlasLogo from "../Header/NomadAtlasLogo";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import useRole from "../customHook/useRole";
-import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog } from "lucide-react";
+import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog, CalendarCheck } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../redux/authSlice";
 
