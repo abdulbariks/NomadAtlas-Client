@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import NomadAtlasLogo from "../Header/NomadAtlasLogo";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import useRole from "../customHook/useRole";
-import { Menu, Home, PlusCircle, Calculator, Users, MapPin, CreditCard, CalendarCheck } from "lucide-react";
+import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../redux/authSlice";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { role, loading } = useRole();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+
+  const handleLogout = () => {
+    dispatch(logOutUser());
+    navigate("/login")
+  };
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-[#f9fafb] to-[#eef6f7]">
@@ -21,12 +31,12 @@ const DashboardLayout = () => {
         <NomadAtlasLogo />
         <ul className="mt-6 space-y-3">
           <li className="flex items-center gap-2">
-            <Home className="w-5 h-5 text-teal-600" />
+            <Home className="w-5 h-5 text-black" />
             <NavLink
               className={({ isActive }) =>
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                   ? "bg-teal-500 text-white shadow-sm"
-                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                 }`
               }
               to="/dashboard/home"
@@ -36,12 +46,12 @@ const DashboardLayout = () => {
           </li>
 
           <li className="flex items-center gap-2">
-            <PlusCircle className="w-5 h-5 text-purple-500" />
+            <FilePlus className="w-5 h-5 text-black" />
             <NavLink
               className={({ isActive }) =>
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                   ? "bg-teal-500 text-white shadow-sm"
-                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                 }`
               }
               to="/dashboard/add-resource"
@@ -50,27 +60,43 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
-          <li className="flex items-center gap-2">
-            <Calculator className="w-5 h-5 text-indigo-500" />
+          {/* <li className="flex items-center gap-2">
+            <UsersRound className="w-5 h-5 text-black" />
             <NavLink
               className={({ isActive }) =>
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                   ? "bg-teal-500 text-white shadow-sm"
-                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
+                }`
+              }
+              to="/dashboard/community"
+            >
+              Community
+            </NavLink>
+          </li> */}
+
+          <li className="flex items-center gap-2">
+            <Calculator className="w-5 h-5 text-black" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                 }`
               }
               to="/dashboard/data-of-calculator"
             >
-              Cost calculator crud
+              Cost Calculator CRUD
             </NavLink>
           </li>
+
           <li className="flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-teal-600" />
+            <CreditCard className="w-5 h-5 text-black" />
             <NavLink
               className={({ isActive }) =>
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                   ? "bg-teal-500 text-white shadow-sm"
-                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                 }`
               }
               to="/dashboard/payment-history"
@@ -80,29 +106,29 @@ const DashboardLayout = () => {
           </li>
 
           <li className="flex items-center gap-2">
-            <CalendarCheck className="w-5 h-5 text-teal-600" />
+            <Calendar className="w-5 h-5 text-black" />
             <NavLink
               className={({ isActive }) =>
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                   ? "bg-teal-500 text-white shadow-sm"
-                  : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                 }`
               }
               to="/dashboard/admin-booking"
             >
-              Booked Destination
+              Booked Destinations
             </NavLink>
           </li>
 
           {!loading && role === "admin" && (
             <>
               <li className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-teal-600" />
+                <UserCog className="w-5 h-5 text-black" />
                 <NavLink
                   className={({ isActive }) =>
                     `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                       ? "bg-teal-500 text-white shadow-sm"
-                      : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                     }`
                   }
                   to="/dashboard/activeUsers"
@@ -112,41 +138,52 @@ const DashboardLayout = () => {
               </li>
 
               <li className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-pink-500" />
+                <MapPin className="w-5 h-5 text-black" />
                 <NavLink
                   className={({ isActive }) =>
                     `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
                       ? "bg-teal-500 text-white shadow-sm"
-                      : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
                     }`
                   }
                   to="/dashboard/addDestinations"
                 >
-                  AddDestinations
+                  Add Destinations
                 </NavLink>
               </li>
             </>
           )}
 
           {!loading && role === "provider" && (
-            <>
-              <li className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-pink-500" />
-                <NavLink
-                  className={({ isActive }) =>
-                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
-                      ? "bg-teal-500 text-white shadow-sm"
-                      : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
-                    }`
-                  }
-                  to="/dashboard/addDestinations"
-                >
-                  AddDestinations
-                </NavLink>
-              </li>
-            </>
+            <li className="flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-black" />
+              <NavLink
+                className={({ isActive }) =>
+                  `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                    ? "bg-teal-500 text-white shadow-sm"
+                    : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
+                  }`
+                }
+                to="/dashboard/addDestinations"
+              >
+                Add Destinations
+              </NavLink>
+            </li>
           )}
+          <div className="mt-6 border-t border-gray-200 pt-4">
+            <li className="flex items-center gap-2 cursor-pointer list-none">
+              <LogOut className="w-5 h-5 text-black" />
+              <Link
+                onClick={handleLogout}
+                className="transition font-semibold rounded-lg px-2 py-1 flex-1 text-left text-gray-800 hover:bg-red-100 hover:text-red-600"
+              >
+                Logout
+              </Link>
+            </li>
+          </div>
         </ul>
+
+
       </div>
 
       {/* Overlay (mobile) */}
