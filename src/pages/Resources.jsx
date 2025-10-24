@@ -57,7 +57,7 @@ const Resource = () => {
     const fetchResources = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/resources"
+          "http://localhost:5000/api/resources"
         );
         const data = await res.json();
         setResources(data.resources);

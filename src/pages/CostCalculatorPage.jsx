@@ -6,7 +6,7 @@ const CostCalculatorPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/cost-calculator")
+    fetch("http://localhost:5000/api/cost-calculator")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));
