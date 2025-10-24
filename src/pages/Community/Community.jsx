@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router";
 import {
   MapPin,
   Users,
@@ -12,9 +11,10 @@ import {
   Heart,
   Sparkles,
   Search,
+  X,
 } from "lucide-react";
 import ChatSection from "../../Socket/ChatSection";
-// --- Dummy data (same as before) ---
+
 const posts = [
   {
     id: 1,
@@ -295,7 +295,6 @@ const stats = [
   { icon: MessageCircle, label: "Discussions", value: "8.9K" },
   { icon: Globe, label: "Countries", value: "95" },
 ];
-console.log(stats);
 
 const upcomingMeetups = [
   { city: "Barcelona", date: "Oct 28", attendees: 24, type: "Coworking Day" },
@@ -303,12 +302,13 @@ const upcomingMeetups = [
   { city: "Tokyo", date: "Nov 5", attendees: 31, type: "Cultural Meetup" },
 ];
 
-// --- Main Component ---
+
 const Community = () => {
   const [activeTab, setActiveTab] = useState("posts");
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [likedPosts, setLikedPosts] = useState(new Set());
+  const [selectedPost, setSelectedPost] = useState(null); // for modal
 
   const filters = ["All", "Trending", "Destination Guide", "City Spotlight", "Hidden Gem"];
 
@@ -334,7 +334,7 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-cyan-50 mt-14">
-      {/* Header Section with Tabs */}
+      {/* Header */}
       <section className="text-center py-16 px-4 border-b border-cyan-100 bg-white/60 backdrop-blur-md">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Sparkles className="text-[#3ea1f1] w-6 h-6" />
@@ -375,137 +375,149 @@ const Community = () => {
         </div>
       </section>
 
-      {/* Tabs Content */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      {/* Content */}
+      <section className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {activeTab === "posts" ? (
           <>
-            {/* Search */}
-            <div className="max-w-2xl mx-auto mb-10">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search destinations, stories, or nomads..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-cyan-200 focus:outline-none focus:ring-2 focus:ring-[#11c3c0] transition"
-                />
-              </div>
-            </div>
-
-            {/* Filters */}
-            <div className="flex flex-wrap gap-3 justify-center mb-10">
-              {filters.map((filter) => (
-                <motion.button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-6 py-2.5 rounded-full font-medium transition-all ${activeFilter === filter
-                    ? "bg-[#11c3c0] text-white"
-                    : "bg-white text-gray-700 hover:bg-cyan-50 border border-cyan-200"
-                    }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {filter}
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Posts & Sidebar */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Feed */}
-              <div className="lg:col-span-2">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                  <TrendingUp className="w-6 h-6 text-[#3ea1f1]" />
-                  Community Stories
-                </h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <AnimatePresence mode="popLayout">
-                    {filteredPosts.map((post, index) => (
-                      <motion.div
-                        key={post.id}
-                        layout
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ delay: index * 0.1, duration: 0.4 }}
-                        className="group bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:scale-105 border border-cyan-200 hover:border-cyan-300"
-                        whileHover={{ y: -8 }}
-                      >
-                        <div className="relative overflow-hidden h-56">
-                          <motion.img
-                            src={post.image}
-                            alt={post.name}
-                            className="w-full h-full object-cover"
-                            whileHover={{ scale: 1.1 }}
-                            transition={{ duration: 0.6 }}
-                          />
-                          <div className="absolute inset-0 bg-black/40" />
-                          <div className="absolute top-4 left-4 flex gap-2">
-                            <span className="px-3 py-1 bg-white rounded-full text-xs font-semibold text-gray-800">
-                              {post.category}
-                            </span>
-                            {post.trending && (
-                              <span className="px-3 py-1 bg-[#3ea1f1] rounded-full text-xs font-semibold text-white flex items-center gap-1">
-                                <TrendingUp className="w-3 h-3" /> Trending
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-[#11c3c0]" /> {post.name}
-                          </h3>
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                            {post.description}
-                          </p>
-                          <div className="flex items-center justify-between pt-4 border-t border-cyan-100">
-                            <div className="flex items-center gap-3">
-                              <img
-                                src={post.avatar}
-                                alt={post.author}
-                                className="w-8 h-8 rounded-full ring-2 ring-cyan-100"
-                              />
-                              <span className="text-sm font-medium text-gray-700">
-                                {post.author}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-4">
-                              <button
-                                onClick={() => toggleLike(post.id)}
-                                className="flex items-center gap-1 text-gray-600 hover:text-[#11c3c0] transition"
-                              >
-                                <Heart
-                                  className={`w-4 h-4 ${likedPosts.has(post.id)
-                                    ? "fill-[#11c3c0] text-[#11c3c0]"
-                                    : ""
-                                    }`}
-                                />
-                                <span className="text-sm font-medium">
-                                  {post.likes + (likedPosts.has(post.id) ? 1 : 0)}
-                                </span>
-                              </button>
-                            </div>
-                          </div>
-                          <Link
-                            to={`/community/${post.id}`}
-                            className="mt-4 inline-flex items-center text-sm font-semibold text-[#11c3c0] hover:text-[#3ea1f1] transition group"
-                          >
-                            Read full story
-                            <span className="ml-1 group-hover:translate-x-1 transition-transform">
-                              →
-                            </span>
-                          </Link>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
+            {/* Left Section */}
+            <div className="lg:col-span-2">
+              {/* Search */}
+              <div className="max-w-2xl mx-auto mb-10">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search destinations, stories, or nomads..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-cyan-200 focus:outline-none focus:ring-2 focus:ring-[#11c3c0] transition"
+                  />
                 </div>
               </div>
 
-              {/* Sidebar */}
+              {/* Filters */}
+              <div className="flex flex-wrap gap-3 justify-center mb-10">
+                {filters.map((filter) => (
+                  <motion.button
+                    key={filter}
+                    onClick={() => setActiveFilter(filter)}
+                    className={`px-6 py-2.5 rounded-full font-medium transition-all ${activeFilter === filter
+                      ? "bg-[#11c3c0] text-white"
+                      : "bg-white text-gray-700 hover:bg-cyan-50 border border-cyan-200"
+                      }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {filter}
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Posts */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <AnimatePresence mode="popLayout">
+                  {filteredPosts.map((post, index) => (
+                    <motion.div
+                      key={post.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ delay: index * 0.1, duration: 0.4 }}
+                      className="group bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:scale-105 border border-cyan-200 hover:border-cyan-300"
+                      whileHover={{ y: -8 }}
+                    >
+                      <div className="relative overflow-hidden h-56">
+                        <motion.img
+                          src={post.image}
+                          alt={post.name}
+                          className="w-full h-full object-cover"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.6 }}
+                        />
+                        <div className="absolute inset-0 bg-black/40" />
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          <span className="px-3 py-1 bg-white rounded-full text-xs font-semibold text-gray-800">
+                            {post.category}
+                          </span>
+                          {post.trending && (
+                            <span className="px-3 py-1 bg-[#3ea1f1] rounded-full text-xs font-semibold text-white flex items-center gap-1">
+                              <TrendingUp className="w-3 h-3" /> Trending
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-[#11c3c0]" /> {post.name}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                          {post.description}
+                        </p>
+
+                        <div className="flex items-center justify-between pt-4 border-t border-cyan-100">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={post.avatar}
+                              alt={post.author}
+                              className="w-8 h-8 rounded-full ring-2 ring-cyan-100"
+                            />
+                            <span className="text-sm font-medium text-gray-700">
+                              {post.author}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <button
+                              onClick={() => toggleLike(post.id)}
+                              className="flex items-center gap-1 text-gray-600 hover:text-[#11c3c0] transition"
+                            >
+                              <Heart
+                                className={`w-4 h-4 ${likedPosts.has(post.id)
+                                  ? "fill-[#11c3c0] text-[#11c3c0]"
+                                  : ""
+                                  }`}
+                              />
+                              <span className="text-sm font-medium">
+                                {post.likes + (likedPosts.has(post.id) ? 1 : 0)}
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => setSelectedPost(post)}
+                          className="mt-4 inline-flex items-center text-sm font-semibold text-[#11c3c0] hover:text-[#3ea1f1] transition group"
+                        >
+                          Read full story
+                          <span className="ml-1 group-hover:translate-x-1 transition-transform">
+                            →
+                          </span>
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* ✅ Sidebar */}
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <Award className="w-5 h-5 text-[#3ea1f1]" /> Community Insights
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                {stats.map((s, i) => (
+                  <div
+                    key={i}
+                    className="bg-white p-4 rounded-xl border border-cyan-200 hover:border-cyan-300 transition text-center"
+                  >
+                    <s.icon className="mx-auto text-[#11c3c0] w-6 h-6 mb-2" />
+                    <p className="font-semibold text-gray-800">{s.value}</p>
+                    <p className="text-xs text-gray-500">{s.label}</p>
+                  </div>
+                ))}
+              </div>
               <div className="space-y-6">
                 <motion.div
                   className="bg-white rounded-3xl p-6 transition duration-300 hover:scale-105 border border-cyan-100 hover:border-cyan-300"
@@ -581,19 +593,91 @@ const Community = () => {
                   </div>
                 </motion.div>
               </div>
-            
+            </div>
 
-            
-          
-          </div>
-      </>
-      ) : (
-      <div className="max-w-3xl mx-auto">
-        <ChatSection />
-      </div>
+
+          </>
+        ) : (
+          <ChatSection />
         )}
-    </section>
-    </div >
+      </section>
+
+      {/* ✅ Modal (Now elegant & professional) */}
+      <AnimatePresence>
+        {selectedPost && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-lg bg-white/20"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative bg-gradient-to-b from-white/90 to-cyan-50/90 backdrop-blur-lg border border-cyan-200 rounded-3xl shadow-2xl max-w-3xl w-full mx-4 overflow-hidden"
+            >
+              {/* Header */}
+              <div className="bg-gradient-to-r from-[#11c3c0] to-[#3ea1f1] px-6 py-4 flex justify-between items-center">
+                <h2 className="text-lg md:text-xl font-semibold text-white">
+                  {selectedPost.name}
+                </h2>
+                <button
+                  onClick={() => setSelectedPost(null)}
+                  className="text-white hover:text-cyan-100 transition"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Body */}
+              <div className="p-6 overflow-y-auto max-h-[75vh]">
+                <img
+                  src={selectedPost.image}
+                  alt={selectedPost.name}
+                  className="w-full rounded-xl mb-5"
+                />
+                {/* Full Story Content */}
+                <div className="prose prose-cyan max-w-none mb-6 leading-relaxed text-gray-700">
+                  {selectedPost.fullStory ? (
+                    <div
+                      className="space-y-5 text-[15px] sm:text-base tracking-wide"
+                      dangerouslySetInnerHTML={{ __html: selectedPost.fullStory }}
+                    />
+                  ) : (
+                    <p className="text-gray-600 italic">
+                      {selectedPost.description}
+                    </p>
+                  )}
+                </div>
+
+
+                <div className="flex items-center justify-between mt-6 border-t pt-4 border-cyan-100">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={selectedPost.avatar}
+                      alt={selectedPost.author}
+                      className="w-10 h-10 rounded-full ring-2 ring-cyan-200"
+                    />
+                    <div>
+                      <p className="font-medium text-gray-800">{selectedPost.author}</p>
+                      <p className="text-xs text-gray-500">Shared on NomadAtlas</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setSelectedPost(null)}
+                    className="px-5 py-2 rounded-full bg-[#11c3c0] text-white font-medium hover:bg-[#3ea1f1] transition"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
