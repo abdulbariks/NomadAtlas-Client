@@ -29,7 +29,7 @@ console.log(user)
   const navClasses =
     isHome && !scrolled
       ? "fixed top-0 z-50 left-0 w-full bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
-      : "fixed top-0 z-50 left-0 w-full backdrop-blur-lg bg-white/90 shadow-md  text-gray-900";
+      : "fixed top-0 z-50 left-0 w-full backdrop-blur-lg bg-white/90 border-b border-cyan-200  text-gray-900";
 
   const handleLogout = () => {
     dispatch(logOutUser());
@@ -84,13 +84,6 @@ console.log(user)
                     Comparison
                   </NavLink>
                   
-                  <NavLink
-                    to="/services"
-                    className="px-4 py-2 hover:bg-[#e0efef] hover:text-[#158e8c]"
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Services
-                  </NavLink>
                  <NavLink
                     to="/community"
                     className="px-4 py-2 hover:bg-blue-50 hover:text-[rgb(62,161,241)]"

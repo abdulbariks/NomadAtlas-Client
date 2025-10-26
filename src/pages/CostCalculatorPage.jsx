@@ -6,7 +6,7 @@ const CostCalculatorPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/cost-calculator")
+    fetch("https://nomad-atlas-server-delta.vercel.app/api/cost-calculator")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));

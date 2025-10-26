@@ -120,7 +120,7 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           <li className="flex items-center gap-2">
-            <CalendarCheck className="w-5 h-5 text-teal-600" />
+            <CalendarCheck className="w-5 h-5 text-gray-800" />
             <NavLink
               className={({ isActive }) =>
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive

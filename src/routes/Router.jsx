@@ -34,7 +34,6 @@ import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
 // import ProviderRoutes from "./ProviderRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
-import LocalServices from "../pages/Services/LocalServices";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
 import AdminBookings from "../Payment/AdminBookings";
 // import CommunityPage from "../Socket/CommunityPage";
