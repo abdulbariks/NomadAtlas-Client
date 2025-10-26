@@ -38,7 +38,7 @@ const perks = [
 
 const NomadPerks = () => {
   return (
-    <section className="mt-15 pb-10 ">
+    <section className="mt-15 ">
       <div className="px-5 md:px-8 lg:px-10">
         {/* Heading */}
         <motion.div
@@ -48,10 +48,10 @@ const NomadPerks = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 text-gray-700">
+          <h2 className=" text-3xl md:text-4xl font-bold mb-4 text-gray-700 text-center">
             Nomad Perks & Discounts
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+          <p className="text-sm text-center mx-auto font-light text-gray-600 max-w-2xl">
             Exclusive deals for NomadAtlas members to make remote work easier, safer, and more affordable.
           </p>
         </motion.div>
@@ -66,7 +66,7 @@ const NomadPerks = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col border border-gray-100 hover:border-gray-200">
+              <div className="p-6 bg-white rounded-2xl transition-all duration-300 hover:scale-105 h-full flex flex-col border border-transparent hover:border-[#c0fffe]">
                 
                 {/* Icon */}
                 <div
@@ -96,14 +96,20 @@ const NomadPerks = () => {
                   whileHover={{
                     scale: 1.05,
                     backgroundColor: perk.color,
-                    color: "#fff",
+                    color: "#ffffff",
                     borderColor: perk.color,
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="w-full py-2 rounded-lg border border-gray-300 text-gray-600 font-medium transition-all duration-300"
+                  className="w-full py-2 rounded-lg font-medium transition-all duration-300"
+                  style={{
+                    backgroundColor: "transparent",      // No background by default
+                    color: perk.color,                   // Text same as card color
+                    border: `1px solid ${perk.color}`,   // ✅ Border now matches card color
+                  }}
                 >
                   Get Deal
                 </motion.button>
+
               </div>
             </motion.div>
           ))}
@@ -114,4 +120,3 @@ const NomadPerks = () => {
 };
 
 export default NomadPerks;
-

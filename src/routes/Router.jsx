@@ -32,12 +32,17 @@ import Error from "../components/Home/Error";
 import DataOfCalculator from "../DashboardPage/DataOfCalculator";
 import ForbiddenPage from "../components/Home/ForbiddenPage";
 import AdminRoutes from "./AdminRoutes";
-import ProviderRoutes from "./ProviderRoutes";
+// import ProviderRoutes from "./ProviderRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
 import LocalServices from "../pages/Services/LocalServices";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
 import AdminBookings from "../Payment/AdminBookings";
 // import CommunityPage from "../Socket/CommunityPage";
+import JobsPage from "../pages/Jobs/JobsPage";
+import AddJobForm from "../DashboardPage/AddJobForm";
+import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
+
+
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +73,14 @@ export const router = createBrowserRouter([
       {
         path: "/blogs/:id",
         Component: BlogDetailsPage,
+      },
+      {
+        path: "jobs",
+        Component: JobsPage
+      },
+      {
+        path: "/jobs/:id",
+        element: <ProtectedRoutes><JobDetailsPage /></ProtectedRoutes>
       },
       {
         path: "newDestination",
@@ -104,6 +117,11 @@ export const router = createBrowserRouter([
         path: "createBlog",
         Component: CreateBlog,
       },
+
+
+
+
+
       {
         path: "comparison",
         Component: Comparison,
@@ -121,7 +139,7 @@ export const router = createBrowserRouter([
         path: "/weather-alerts",
         Component: WeatherAlertsPage,
       },
-      
+
       {
         path: "login",
         Component: Login,
@@ -195,8 +213,8 @@ export const router = createBrowserRouter([
         path: "addDestinations",
         element:
           // <AdminRoutes>
-            <AddDestinations></AddDestinations>,
-          // </AdminRoutes>
+          <AddDestinations></AddDestinations>,
+        // </AdminRoutes>
       },
       // {
       //   path: "addDestinations",
@@ -215,6 +233,10 @@ export const router = createBrowserRouter([
       {
         path: "data-of-calculator",
         Component: DataOfCalculator,
+      },
+      {
+        path: "add-jobs",
+        Component: AddJobForm,
       },
     ],
   },

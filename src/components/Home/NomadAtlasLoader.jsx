@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/Logo/NomadLogo.png";
+import logo from "../../assets/Logo/NLogo2.png";
 
 const NomadAtlasLoader = () => {
     return (

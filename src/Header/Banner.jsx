@@ -27,7 +27,7 @@ const Banner = () => {
         >
           Discover Your Next{" "}
           <span className="bg-gradient-to-r from-blue-400 via-teal-300 to-green-400 bg-clip-text text-transparent">
-            Nomad Destination
+            Nomad <span >Destination</span>
           </span>
         </motion.h1>
 

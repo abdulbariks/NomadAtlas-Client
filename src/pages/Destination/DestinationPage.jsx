@@ -152,7 +152,7 @@ const DestinationsPage = () => {
                 <div className="absolute inset-0 bg-black/70 text-white opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex flex-col justify-center items-center text-center p-4 transition-opacity duration-500">
                   <Link
                     to={`/destinations/${dest._id}`}
-                    className="bg-[#11c3c0] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#0c9c99] transition"
+                    className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#0c9c99] transition"
                   >
                     View Details
                   </Link>
