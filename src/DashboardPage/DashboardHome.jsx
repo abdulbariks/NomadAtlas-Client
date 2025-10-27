@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { motion } from "framer-motion";
 import { Sparkles, MapPin, Heart, CreditCard, Plane } from "lucide-react";
+import { FaEdit } from "react-icons/fa";
 
 // Dummy favorites
 const favorites = [
@@ -81,6 +82,9 @@ const Dashboard = () => {
             "https://i.postimg.cc/br4qWysk/human-human-avatar-male-icon-with-png-and-vector-format-for-free-19807.png",
     };
 
+    const handleProfileUpdate = () => {
+        console.log("handle profile 9is working fine")
+    }
     return (
         <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-8 space-y-12">
             {/* Header */}
@@ -100,7 +104,7 @@ const Dashboard = () => {
                     Your Nomad Dashboard
                 </h1>
                 <p className="text-gray-500 text-lg">
-                    Track your travels, favorites, and stats in one glance 🌍
+                    Track your travels, favorites, and stats in one glance.
                 </p>
             </motion.div>
 
@@ -119,6 +123,11 @@ const Dashboard = () => {
                 <div className="text-center sm:text-left">
                     <h2 className="text-2xl font-bold text-gray-800">{userInfo.name}</h2>
                     <p className="text-gray-500">{userInfo.email}</p>
+                </div>
+                <div>
+                    <button onClick={handleProfileUpdate} className="text-end">
+                        <FaEdit className="size-8  text-cyan-800" />
+                    </button>
                 </div>
             </motion.div>
 

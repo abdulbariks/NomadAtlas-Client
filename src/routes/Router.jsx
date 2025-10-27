@@ -39,6 +39,7 @@ import AdminBookings from "../Payment/AdminBookings";
 import JobsPage from "../pages/Jobs/JobsPage";
 import AddJobForm from "../DashboardPage/AddJobForm";
 import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
+import MyProfile from "../DashboardPage/MyProfile";
 
 
 
@@ -220,6 +221,10 @@ export const router = createBrowserRouter([
       //     <AddDestinations></AddDestinations>
       //   </ProviderRoutes>,
       // },
+      {
+        path: "profile",
+        Component: MyProfile,
+      },
       {
         path: "add-resource",
         Component: AddResource,

@@ -3,6 +3,7 @@ import NomadAtlasLogo from "../Header/NomadAtlasLogo";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import useRole from "../customHook/useRole";
 import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog, CalendarCheck } from "lucide-react";
+import { IoPersonCircleSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../redux/authSlice";
 
@@ -45,6 +46,20 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
+          <li className="flex items-center gap-2">
+            <IoPersonCircleSharp className="w-5 h-5 text-black"/>
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-teal-500 text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-teal-700"
+                }`
+              }
+              to="/dashboard/profile"
+            >
+              Profile
+            </NavLink>
+          </li>
           <li className="flex items-center gap-2">
             <FilePlus className="w-5 h-5 text-black" />
             <NavLink
