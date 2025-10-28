@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NomadAtlasLogo from "../Header/NomadAtlasLogo";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import useRole from "../customHook/useRole";
-import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog, CalendarCheck } from "lucide-react";
+import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog, CalendarCheck,Heart } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../redux/authSlice";
 
@@ -133,6 +133,21 @@ const DashboardLayout = () => {
              Add Jobs
             </NavLink>
           </li>
+           <li className="flex items-center gap-2">
+  <Heart className="w-5 h-5 text-gray-800" /> {/* Changed icon to Heart */}
+  <NavLink
+    className={({ isActive }) =>
+      `transition font-semibold rounded-lg px-2 py-1 flex-1 ${
+        isActive
+          ? "bg-teal-500 text-white shadow-sm"
+          : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-teal-700"
+      }`
+    }
+    to="/dashboard/favorite-job"
+  >
+    Favorite Jobs
+  </NavLink>
+</li>
 
           {!loading && role === "admin" && (
             <>

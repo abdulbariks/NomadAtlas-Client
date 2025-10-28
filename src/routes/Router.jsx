@@ -43,6 +43,7 @@ import FavoriteJobsPage from "../pages/Jobs/FavoriteJobsPage";
 
 
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -82,10 +83,7 @@ export const router = createBrowserRouter([
        element:<ProtectedRoutes><JobDetailsPage/></ProtectedRoutes>
       },
 
-      {
-         path:"/favorite-jobs",
-         element:<ProtectedRoutes><FavoriteJobsPage/></ProtectedRoutes>
-      },
+    
       {
         path: "newDestination",
         Component: AddNewDestination
@@ -242,6 +240,11 @@ export const router = createBrowserRouter([
         path:"add-jobs",
         Component: AddJobForm,
       },
+
+    {
+      path:"favorite-job",
+      Component:FavoriteJobsPage
+    },
     ],
   },
 ]);

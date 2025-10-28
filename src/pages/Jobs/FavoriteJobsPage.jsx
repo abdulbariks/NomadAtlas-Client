@@ -24,32 +24,52 @@ const FavoriteJobsPage = () => {
   // Remove favorite with SweetAlert confirmation
   const handleRemove = (favoriteId) => {
     MySwal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "Do you want to remove this job from your favorites?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#11c3c0',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, remove it!',
-      cancelButtonText: 'No, keep it'
+      confirmButtonColor: "#11c3c0",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+      cancelButtonText: "No, keep it",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(removeFavorite(favoriteId));
-        MySwal.fire('Removed!', 'Job has been removed from favorites.', 'success');
+        MySwal.fire("Removed!", "Job has been removed from favorites.", "success");
       }
     });
   };
 
-  if (!user) return <p className="text-center mt-10 text-gray-500">Please login to see your favorite jobs.</p>;
-  if (loading) return <p className="text-center mt-10 text-gray-500">Loading favorites...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+  if (!user)
+    return (
+      <p className="text-center mt-10 text-gray-500">
+        Please login to see your favorite jobs.
+      </p>
+    );
+  if (loading)
+    return <p className="text-center mt-10 text-gray-500">Loading favorites...</p>;
+  if (error)
+    return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <div className="h-screen p-6 md:p-10">
+    <div className="min-h-screen p-6 md:p-10">
       <h1 className="text-2xl font-bold mb-6 text-gray-700">Your Favorite Jobs</h1>
 
       {favorites.length === 0 ? (
-        <p className="text-gray-500">You have no favorite jobs yet. ❤️</p>
+        <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-4">
+          <Heart size={64} className="text-gray-400" strokeWidth={1.5} />
+          <h2 className="text-xl font-semibold text-gray-700">
+            No favorite jobs yet
+          </h2>
+          <p className="text-gray-500">
+            Start exploring jobs and save your favorites
+          </p>
+          <Link to="/jobs">
+            <button className="bg-[#11c3c0] hover:bg-[#0ea3a0] text-white px-6 py-2 rounded-md transition">
+              Browse Jobs
+            </button>
+          </Link>
+        </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {favorites.map((fav, index) => (
@@ -65,7 +85,9 @@ const FavoriteJobsPage = () => {
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <h3 className="text-lg font-bold">{fav.title}</h3>
-                    <p className="text-sm text-gray-500 flex items-center gap-1"><Building2 size={14} /> {fav.company}</p>
+                    <p className="text-sm text-gray-500 flex items-center gap-1">
+                      <Building2 size={14} /> {fav.company}
+                    </p>
                   </div>
                   <Heart
                     className="cursor-pointer text-[#11c3c0] hover:text-red-500"
@@ -75,8 +97,12 @@ const FavoriteJobsPage = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="bg-gray-100 px-2 py-1 text-xs rounded-full">{fav.category}</span>
-                  <span className="bg-[#11c3c0] text-white px-2 py-1 text-xs rounded-full">{fav.location}</span>
+                  <span className="bg-gray-100 px-2 py-1 text-xs rounded-full">
+                    {fav.category}
+                  </span>
+                  <span className="bg-[#11c3c0] text-white px-2 py-1 text-xs rounded-full">
+                    {fav.location}
+                  </span>
                 </div>
               </div>
 
@@ -86,7 +112,10 @@ const FavoriteJobsPage = () => {
                     View Details
                   </button>
                 </Link>
-                <a href="#" className="flex items-center gap-1 border px-3 py-2 rounded-lg hover:bg-gray-100">
+                <a
+                  href="#"
+                  className="flex items-center gap-1 border px-3 py-2 rounded-lg hover:bg-gray-100"
+                >
                   <ExternalLink size={14} /> Apply
                 </a>
               </div>
