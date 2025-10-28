@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import { motion } from "framer-motion";
 import { Sparkles, MapPin, Heart, CreditCard, Plane } from "lucide-react";
-import { FaEdit } from "react-icons/fa";
+import { FaBattleNet } from "react-icons/fa";
 
 // Dummy favorites
 const favorites = [
@@ -86,7 +86,7 @@ const Dashboard = () => {
         console.log("handle profile 9is working fine")
     }
     return (
-        <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-8 space-y-12">
+        <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-blue-50 rounded-lg p-8 space-y-12">
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -113,7 +113,7 @@ const Dashboard = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="bg-white/70 backdrop-blur-xl border border-cyan-100 rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 max-w-4xl mx-auto"
+                className="bg-white/70 backdrop-blur-xl border border-cyan-100 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-center-safe gap-6 max-w-4xl mx-auto"
             >
                 <img
                     src={userInfo.photoURL}
@@ -126,7 +126,8 @@ const Dashboard = () => {
                 </div>
                 <div>
                     <button onClick={handleProfileUpdate} className="text-end">
-                        <FaEdit className="size-8  text-cyan-800" />
+                        <FaBattleNet className="size-8  text-cyan-800"/>
+                        
                     </button>
                 </div>
             </motion.div>

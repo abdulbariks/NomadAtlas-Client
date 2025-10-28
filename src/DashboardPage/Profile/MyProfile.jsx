@@ -3,20 +3,18 @@ import { Mail, MapPin, Phone, Calendar } from "lucide-react";
 import EditProfileModal from "./EditProfileModal";
 import { GoPencil, GoPerson } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-// import useAxiosSecure from "../../customHook/useAxiosSecure";
 import NomadAtlasLoader from "../../components/Home/NomadAtlasLoader";
-import { fetchUserByEmail } from "../../redux/userSlice";
+import { fetchUserByEmail, updateUserProfile } from "../../redux/userSlice";
+import Swal from "sweetalert2";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   // Get the current user data from Redux store
-  const { currentUser, loading, error } = useSelector((state) => state.users);
-  // const axiosSecure = useAxiosSecure();
-
+  const { currentUser, loading, error, updateLoading } = useSelector((state) => state.users);
   // Get the logged-in user's email from your auth state
-  const { user: authUser } = useSelector((state) => state.auth); // Adjust this based on your auth slice
+  const { user: authUser } = useSelector((state) => state.auth);
 
   console.log("currentUser", currentUser);
 
@@ -36,11 +34,12 @@ const MyProfile = () => {
     phone: currentUser?.phone || "Add A Phone Number",
     location: currentUser?.location || "Add Your Location",
     memberSince: currentUser?.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : "Add Your Joining Date In the Website",
-    profileImage: currentUser?.photoURL || "",
+    photoURL: currentUser?.photoURL || "", // Changed from profileImage to photoURL
     backgroundImage: currentUser?.backgroundImage || "",
   });
 
   console.log("profile data", profile)
+
   // Update profile state when currentUser changes
   useEffect(() => {
     if (currentUser) {
@@ -53,15 +52,47 @@ const MyProfile = () => {
         phone: currentUser.phone || "Add A Phone Number",
         location: currentUser.location || "Add Your Location",
         memberSince: currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : "Add Your Joining Date In the Website",
-        profileImage: currentUser.photoURL || "",
+        photoURL: currentUser.photoURL || "", // Changed from profileImage to photoURL
         backgroundImage: currentUser.backgroundImage || "",
       });
     }
   }, [currentUser]);
 
-  const handleSave = (updatedProfile) => {
-    setProfile(updatedProfile);
-    setIsModalOpen(false);
+  const handleSave = async (updatedProfile) => {
+    try {
+      console.log("Sending update to backend:", updatedProfile);
+
+      // Send update to backend
+      const result = await dispatch(updateUserProfile({
+        email: authUser.email,
+        userData: updatedProfile
+      })).unwrap();
+
+      console.log("Update successful:", result);
+
+      // Update local state with the response from backend
+      setProfile(updatedProfile);
+      setIsModalOpen(false);
+
+      // Show success message
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Profile updated successfully",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+      console.error("Error response:", error.response?.data);
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: error?.message || "Failed to update profile",
+        timer: 3000,
+      });
+    }
   };
 
   if (loading) return <NomadAtlasLoader />;
@@ -81,7 +112,7 @@ const MyProfile = () => {
           style={{
             backgroundImage: profile.backgroundImage
               ? `url(${profile.backgroundImage})`
-              : "linear-gradient(to right, #06b6d4, #0891b2)",
+              : "linear-gradient(to right, #11c3c0, #11a19e)",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -93,14 +124,14 @@ const MyProfile = () => {
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-6">
               {/* Profile image */}
               <div className="size-28 md:size-32 sm:w-40 sm:h-40 rounded-xl overflow-hidden border-4 border-white shadow-lg -mt-12 sm:-mt-16">
-                {profile.profileImage ? (
+                {profile.photoURL ? ( // Changed from profileImage to photoURL
                   <img
-                    src={profile.profileImage}
+                    src={profile.photoURL} // Changed from profileImage to photoURL
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-cyan-600 flex items-center justify-center text-gray-100 text-5xl">
+                  <div className="w-full h-full bg-[#11a19e] flex items-center justify-center text-gray-100 text-5xl">
                     <GoPerson />
                   </div>
                 )}
@@ -108,7 +139,7 @@ const MyProfile = () => {
 
               {/* Name and role */}
               <div className="text-center sm:text-left">
-                <h2 className="text-2xl font-bold text-black">{profile.name} ( {profile.role === "admin" ? `${profile.role}` : ""} )</h2>
+                <h2 className="text-2xl font-bold text-black">{profile.name} {profile.role === "admin" ? `(${profile.role})` : ""}</h2>
                 <p className="md:text-gray-600 text-gray-200 text-base">{profile.status}</p>
               </div>
             </div>
@@ -116,9 +147,11 @@ const MyProfile = () => {
             {/* Right section: Edit button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="text-white bg-cyan-600 flex justify-center items-center gap-2 font-medium px-4 py-2 rounded-lg hover:bg-cyan-700 transition w-full sm:w-auto"
+              disabled={updateLoading}
+              className="text-white bg-[#11c3c0] flex justify-center items-center gap-2 font-medium px-4 py-2 rounded-lg hover:bg-cyan-700 transition w-full sm:w-auto disabled:opacity-50"
             >
-              <GoPencil /> Edit Profile
+              <GoPencil />
+              {updateLoading ? "Updating..." : "Edit Profile"}
             </button>
           </div>
         </div>
@@ -175,6 +208,7 @@ const MyProfile = () => {
         onClose={() => setIsModalOpen(false)}
         profile={profile}
         onSave={handleSave}
+        loading={updateLoading}
       />
     </div>
   );

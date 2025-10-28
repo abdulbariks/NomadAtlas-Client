@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
 
-const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
+const EditProfileModal = ({ isOpen, onClose, profile, onSave, loading = false }) => {
   const { register, handleSubmit, setValue, watch, reset } = useForm({
     defaultValues: profile,
   });
@@ -25,7 +25,7 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
   // Set image URLs when pictures update
   useEffect(() => {
     if (profilePicture) {
-      setValue("profileImage", profilePicture);
+      setValue("photoURL", profilePicture);
     }
   }, [profilePicture, setValue]);
 
@@ -54,6 +54,9 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
     onSave(data);
   };
 
+  // Handle form submission with loading state
+  const handleFormSubmit = handleSubmit(onSubmit);
+
   if (!isOpen) return null;
 
   return (
@@ -64,14 +67,15 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
           <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition"
+            disabled={loading}
+            className="text-gray-400 hover:text-gray-600 transition disabled:opacity-50"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
+        <form onSubmit={handleFormSubmit} className="p-6 space-y-6">
           {/* Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
@@ -80,7 +84,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             <input
               {...register("name")}
               placeholder="Add your full name"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+              disabled={loading}
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {!formValues.name && (
               <p className="text-sm text-gray-500 mt-1">Add your name</p>
@@ -94,8 +99,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             </label>
             <input
               {...register("role")}
+              disabled
               className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-gray-50 placeholder:text-gray-400"
-              readOnly
             />
             <p className="text-sm text-gray-500 mt-1">Role is assigned by system</p>
           </div>
@@ -108,7 +113,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             <input
               {...register("status")}
               placeholder="Add your position or title (e.g., Senior Developer, Project Manager)"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+              disabled={loading}
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {!formValues.status && (
               <p className="text-sm text-gray-500 mt-1">Add your position</p>
@@ -124,7 +130,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
               {...register("about")}
               placeholder="Add information about yourself"
               rows="4"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none placeholder:text-gray-400"
+              disabled={loading}
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {!formValues.about && (
               <p className="text-sm text-gray-500 mt-1">Add about information</p>
@@ -140,8 +147,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
               {...register("email")}
               type="email"
               placeholder="Add email address"
+              disabled
               className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-gray-50 placeholder:text-gray-400"
-              readOnly
             />
             <p className="text-sm text-gray-500 mt-1">Email cannot be changed</p>
           </div>
@@ -154,7 +161,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             <input
               {...register("phone")}
               placeholder="Add phone number"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+              disabled={loading}
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {!formValues.phone && (
               <p className="text-sm text-gray-500 mt-1">Add phone number</p>
@@ -169,7 +177,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             <input
               {...register("location")}
               placeholder="Add your location"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+              disabled={loading}
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {!formValues.location && (
               <p className="text-sm text-gray-500 mt-1">Add location</p>
@@ -189,30 +198,33 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
               onChange={handleProfileImageUpload}
               className="hidden"
               accept="image/*"
+              disabled={loading}
             />
 
             <div className="flex gap-2">
               <input
-                {...register("profileImage")}
+                {...register("photoURL")}
                 placeholder="Profile image URL or upload using button"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+                disabled={loading}
+                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 type="button"
                 onClick={triggerProfileImageInput}
-                className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition whitespace-nowrap"
+                disabled={loading}
+                className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Upload
               </button>
             </div>
-            {!formValues.profileImage && !profilePicture && (
+            {!formValues.photoURL && !profilePicture && (
               <p className="text-sm text-gray-500 mt-1">Add profile image</p>
             )}
-            {(profilePicture || formValues.profileImage) && (
+            {(profilePicture || formValues.photoURL) && (
               <div className="mt-2">
                 <p className="text-sm text-green-600">Image preview:</p>
                 <img
-                  src={profilePicture || formValues.profileImage}
+                  src={profilePicture || formValues.photoURL}
                   alt="Preview"
                   className="mt-1 h-20 w-20 object-cover rounded-lg border"
                 />
@@ -233,18 +245,21 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
               onChange={handleBackgroundImageUpload}
               className="hidden"
               accept="image/*"
+              disabled={loading}
             />
 
             <div className="flex gap-2">
               <input
                 {...register("backgroundImage")}
                 placeholder="Background image URL or upload using button"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+                disabled={loading}
+                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 type="button"
                 onClick={triggerBackgroundImageInput}
-                className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition whitespace-nowrap"
+                disabled={loading}
+                className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Upload
               </button>
@@ -272,8 +287,8 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             <input
               {...register("memberSince")}
               placeholder="Add member since date"
+              disabled
               className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-gray-50 placeholder:text-gray-400"
-              readOnly
             />
             <p className="text-sm text-gray-500 mt-1">Member since cannot be changed</p>
           </div>
@@ -283,15 +298,18 @@ const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 border border-gray-300 text-gray-700 rounded-lg py-3 font-medium hover:bg-gray-50 transition"
+              disabled={loading}
+              className="flex-1 border border-gray-300 text-gray-700 rounded-lg py-3 font-medium hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 bg-cyan-600 text-white rounded-lg py-3 font-medium hover:bg-cyan-700 transition"
+              disabled={loading}
+              className="flex-1 bg-[#11c3c0] text-white rounded-lg py-3 font-medium hover:bg-cyan-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Save Changes
+              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+              {loading ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </form>

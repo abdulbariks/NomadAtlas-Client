@@ -14,7 +14,7 @@ export const fetchUsers = createAsyncThunk(
     }
 );
 
-// NEW: Get user by email
+// Get user by email
 export const fetchUserByEmail = createAsyncThunk(
     "users/fetchUserByEmail",
     async (email, { rejectWithValue }) => {
@@ -27,7 +27,7 @@ export const fetchUserByEmail = createAsyncThunk(
     }
 );
 
-// NEW: Update user profile
+// Update user profile
 export const updateUserProfile = createAsyncThunk(
     "users/updateUserProfile",
     async ({ email, userData }, { rejectWithValue }) => {
@@ -42,21 +42,26 @@ export const updateUserProfile = createAsyncThunk(
 
 const userSlice = createSlice({
     name: "users",
-    initialState: { 
-        users: [], 
-        currentUser: null, // NEW: for storing single user data
-        loading: false, 
+    initialState: {
+        users: [],
+        currentUser: null, // for storing single user data
+        loading: false,
         error: null,
-        updateLoading: false, // NEW: separate loading state for update
-        updateError: null // NEW: separate error state for update
+        updateLoading: false, // separate loading state for update
+        updateError: null // separate error state for update
     },
     reducers: {
-        // NEW: Clear current user data
+        // Clear current user data
         clearCurrentUser: (state) => {
             state.currentUser = null;
         },
-        // NEW: Clear update errors
+        // Clear update errors
         clearUpdateError: (state) => {
+            state.updateError = null;
+        },
+        // Clear all errors
+        clearErrors: (state) => {
+            state.error = null;
             state.updateError = null;
         }
     },
@@ -75,7 +80,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-            // NEW: fetchUserByEmail cases
+            // fetchUserByEmail cases
             .addCase(fetchUserByEmail.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -88,7 +93,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-            // NEW: updateUserProfile cases
+            //  updateUserProfile cases
             .addCase(updateUserProfile.pending, (state) => {
                 state.updateLoading = true;
                 state.updateError = null;
@@ -110,6 +115,6 @@ const userSlice = createSlice({
 });
 
 // Export the new actions
-export const { clearCurrentUser, clearUpdateError } = userSlice.actions;
+export const { clearCurrentUser, clearUpdateError, clearErrors } = userSlice.actions;
 
 export default userSlice.reducer;
