@@ -9,7 +9,7 @@ const PopularDestination = () => {
     const fetchDestinations = async () => {
       try {
         const res = await axios.get(
-          "https://nomad-atlas-server-delta.vercel.app/api/destinations/"
+          "https://nomad-atlas-server-one.vercel.app/api/destinations/"
         );
         if (res.data.success) {
           // Wrap single object in array for mapping

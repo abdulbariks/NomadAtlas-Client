@@ -32,7 +32,7 @@ const DestinationsPage = () => {
         search: searchQuery || undefined,
       };
       const { data } = await axiosSecure.get(
-        "https://nomad-atlas-server-delta.vercel.app/api/destinations/",
+        "https://nomad-atlas-server-one.vercel.app/api/destinations/",
         { params }
       );
       return data;

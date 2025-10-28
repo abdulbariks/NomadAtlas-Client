@@ -65,9 +65,14 @@ export default function ChatSection() {
         // Add immediately to UI
         setMessages(prev => [...prev, { ...payload, createdAt: new Date().toISOString() }]);
 
-        socket.emit("send_message", payload);
 
         setText("");
+        socket.emit("send_message", payload);
+        try {
+            await axiosSecure.post("/community/messages", payload);
+        } catch (err) {
+            console.error("Backup save failed:", err);
+        }
     };
 
 
