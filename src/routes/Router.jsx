@@ -39,7 +39,7 @@ import AdminBookings from "../Payment/AdminBookings";
 import JobsPage from "../pages/Jobs/JobsPage";
 import AddJobForm from "../DashboardPage/AddJobForm";
 import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
-import MyProfile from "../DashboardPage/MyProfile";
+import MyProfile from "../DashboardPage/Profile/MyProfile";
 
 
 
