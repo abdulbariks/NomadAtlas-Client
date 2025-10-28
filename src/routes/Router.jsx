@@ -40,6 +40,8 @@ import AdminBookings from "../Payment/AdminBookings";
 import JobsPage from "../pages/Jobs/JobsPage";
 import AddJobForm from "../DashboardPage/AddJobForm";
 import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
+import FavoriteJobsPage from "../pages/Jobs/FavoriteJobsPage";
+
 
 
 
@@ -81,6 +83,8 @@ export const router = createBrowserRouter([
         path: "/jobs/:id",
         element: <ProtectedRoutes><JobDetailsPage /></ProtectedRoutes>
       },
+
+    
       {
         path: "newDestination",
         Component: AddNewDestination
@@ -237,6 +241,11 @@ export const router = createBrowserRouter([
         path: "add-jobs",
         Component: AddJobForm,
       },
+
+    {
+      path:"favorite-job",
+      Component:FavoriteJobsPage
+    },
     ],
   },
 ]);

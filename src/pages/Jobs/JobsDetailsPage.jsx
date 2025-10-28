@@ -1,15 +1,29 @@
-"use client";
 import React, { useEffect, useState } from "react";
-
 import { useParams } from "react-router";
 import axios from "axios";
 import { Heart,Check,FileText,HandHeart,BrainCircuit ,Building2,MapPin, CalendarDays, CircleDollarSign, Globe, Send,ArrowRight,Clock4, Share2, Link, Mail, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import SimilarJobsCard from "./SimilarJobCard/SimilarJobsCard";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorite, removeFavorite, fetchFavorites } from "../../redux/favoritejobSlice";
+import { toast } from "react-hot-toast";
+
 
 const JobsDetailsPage = () => {
+  const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
   const [job, setJob] = useState(null);
+  const dispatch = useDispatch();
+  const { items: favorites } = useSelector((state) => state.favorites);
+
+
+// Fetch favorites on page load or user change
+useEffect(() => {
+  if (user?.email) {
+    dispatch(fetchFavorites(user.email));
+  }
+}, [dispatch, user?.email]);
+
 
   useEffect(() => {
     // Fetch job details from backend
@@ -18,6 +32,31 @@ const JobsDetailsPage = () => {
       .then((res) => setJob(res.data))
       .catch((err) => console.error(err));
   }, [id]);
+
+
+    const isFavorite = (jobId) => favorites.some(f => f.jobId === jobId);
+
+const handleFavoriteToggle = () => {
+  if (!user) return toast.error("Please login to save favorites");
+
+  const fav = favorites.find(f => f.jobId === job._id);
+
+  if (fav) {
+    dispatch(removeFavorite(fav._id));
+    toast.success("Removed from favorites ");
+  } else {
+    dispatch(addFavorite({
+      userEmail: user.email,
+      jobId: job._id,
+      title: job.title,
+      company: job.company,
+      category: job.category,
+      location: job.location
+    }));
+    toast.success("Added to favorites");
+  }
+};
+
 
   if (!job)
     return <div className="text-center mt-20 text-gray-500">Loading...</div>;
@@ -45,7 +84,15 @@ const JobsDetailsPage = () => {
     </span>
       </div>
     </div>
-    <Heart className="text-gray-400 hover:text-red-500 cursor-pointer" />
+    <button
+     onClick={() => handleFavoriteToggle(job)}
+     className={`p-2 rounded-full transition ${
+       isFavorite(job._id) ? "bg-[#11c3c0] text-white" : "bg-gray-100 text-gray-400"
+     }`}
+   >
+     <Heart fill={isFavorite(job._id) ? "#11c3c0" : "none"} strokeWidth={2} />
+   </button>
+
   </div>
 
   {/* Icons + Info */}

@@ -4,18 +4,34 @@ import { fetchJobs, setCategory, setSearchQuery } from "../../redux/jobSlice";
 import { motion } from "framer-motion";
 import { Search, Heart, ExternalLink,Funnel,Building2 } from "lucide-react";
 import { Link } from "react-router";
+import { addFavorite, removeFavorite,fetchFavorites } from "../../redux/favoritejobSlice";
+
+
+import { toast } from "react-hot-toast"; 
+
 
 const categories = ["All Categories", "Engineering", "Design", "Marketing", "Product", "Developer"];
 
 const JobsPage = () => {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { jobs, loading, error, selectedCategory, searchQuery } = useSelector((state) => state.jobs);
   // const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const { items: favorites } = useSelector((state) => state.favorites);
+  
 
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
 
+
+      useEffect(() => {
+  if (user?.email) {
+    dispatch(fetchFavorites(user.email));
+  }
+}, [dispatch, user?.email]);
+
+  // filter job
   const filteredJobs = jobs.filter((job) => {
     const matchesCategory =
       selectedCategory === "All Categories" || job.category === selectedCategory;
@@ -24,6 +40,33 @@ const JobsPage = () => {
       job.company.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  // add favorite job
+  const isFavorite = (jobId) => favorites.some(f => f.jobId === jobId);
+
+
+  const handleFavoriteToggle = (job) => {
+  if (!user) return toast.error("Please login to save favorites");
+
+  const fav = favorites.find(f => f.jobId === job._id);
+  
+  if (fav) {
+    dispatch(removeFavorite(fav._id));
+    toast.success("Removed from favorites");
+  } else {
+    dispatch(addFavorite({
+      userEmail: user.email,
+      jobId: job._id,
+      title: job.title,
+      company: job.company,
+      category: job.category,
+      location: job.location
+    }));
+    toast.success("Added to favorites");
+  }
+};
+
+
 
   if (loading) return <p className="text-center mt-10">Loading jobs...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
@@ -146,7 +189,16 @@ const JobsPage = () => {
                       <p className="text-sm text-gray-500 flex items-center gap-1"><Building2 size={14} />{job.company}</p>
                     </div>
                   </div>
-                  <Heart className="text-gray-400 hover:text-red-500 cursor-pointer" />
+             <button
+  onClick={() => handleFavoriteToggle(job)}
+  className={`p-2 rounded-full transition ${
+    isFavorite(job._id) ? "bg-[#11c3c0] text-white" : "bg-gray-100 text-gray-400"
+  }`}
+>
+  <Heart fill={isFavorite(job._id) ? "#11c3c0" : "none"} strokeWidth={2} />
+</button>
+
+
                 </div>
 
                 <div className="flex flex-wrap gap-2 mt-3">
