@@ -1,135 +1,295 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { X } from "lucide-react";
+import useImageUpload from "../../customHook/useImageUpload";
 
 const EditProfileModal = ({ isOpen, onClose, profile, onSave }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ defaultValues: profile });
+  const { register, handleSubmit, setValue, watch, reset } = useForm({
+    defaultValues: profile,
+  });
+
+  // Use separate hook instances for profile and background images
+  const { picture: profilePicture, handleImageUpload: handleProfileImageUpload } = useImageUpload();
+  const { picture: backgroundPicture, handleImageUpload: handleBackgroundImageUpload } = useImageUpload();
+
+  // Create refs for file inputs
+  const profileImageInputRef = useRef(null);
+  const backgroundImageInputRef = useRef(null);
+
+  console.log("profile picture", profilePicture);
+  console.log("background picture", backgroundPicture);
+
+  // Watch form values to update previews
+  const formValues = watch();
+
+  // Set image URLs when pictures update
+  useEffect(() => {
+    if (profilePicture) {
+      setValue("profileImage", profilePicture);
+    }
+  }, [profilePicture, setValue]);
+
+  useEffect(() => {
+    if (backgroundPicture) {
+      setValue("backgroundImage", backgroundPicture);
+    }
+  }, [backgroundPicture, setValue]);
+
+  // Reset form when profile changes
+  useEffect(() => {
+    reset(profile);
+  }, [profile, reset]);
+
+  // Trigger file input click
+  const triggerProfileImageInput = () => {
+    profileImageInputRef.current?.click();
+  };
+
+  const triggerBackgroundImageInput = () => {
+    backgroundImageInputRef.current?.click();
+  };
 
   const onSubmit = (data) => {
+    console.log("all updated data", data);
     onSave(data);
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-lg w-full max-w-lg p-6 relative overflow-y-auto max-h-[90vh]">
-        <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
-          Edit Profile
-        </h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 transition"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Full Name */}
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
+          {/* Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Full Name
             </label>
             <input
-              {...register("name", { required: "Name is required" })}
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              {...register("name")}
+              placeholder="Add your full name"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.name.message}
-              </p>
+            {!formValues.name && (
+              <p className="text-sm text-gray-500 mt-1">Add your name</p>
             )}
           </div>
 
-          {/* Role */}
+          {/* Role (Read-only - from database) */}
           <div>
-            <label className="block text-gray-700 font-medium mb-1">Role</label>
+            <label className="block text-gray-700 font-medium mb-1">
+              Role
+            </label>
             <input
               {...register("role")}
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-gray-50 placeholder:text-gray-400"
+              readOnly
             />
+            <p className="text-sm text-gray-500 mt-1">Role is assigned by system</p>
+          </div>
+
+          {/* Position (Editable - will save as status) */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Position / Title
+            </label>
+            <input
+              {...register("status")}
+              placeholder="Add your position or title (e.g., Senior Developer, Project Manager)"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+            />
+            {!formValues.status && (
+              <p className="text-sm text-gray-500 mt-1">Add your position</p>
+            )}
           </div>
 
           {/* About */}
           <div>
-            <label className="block text-gray-700 font-medium mb-1">About</label>
+            <label className="block text-gray-700 font-medium mb-1">
+              About
+            </label>
             <textarea
               {...register("about")}
-              rows={3}
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            ></textarea>
+              placeholder="Add information about yourself"
+              rows="4"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none placeholder:text-gray-400"
+            />
+            {!formValues.about && (
+              <p className="text-sm text-gray-500 mt-1">Add about information</p>
+            )}
           </div>
 
-          {/* Profile Image URL */}
+          {/* Email */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Profile Image URL
+              Email
             </label>
             <input
-              {...register("profileImage")}
-              placeholder="Paste image URL"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              {...register("email")}
+              type="email"
+              placeholder="Add email address"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-gray-50 placeholder:text-gray-400"
+              readOnly
             />
+            <p className="text-sm text-gray-500 mt-1">Email cannot be changed</p>
           </div>
 
-          {/* Background Image URL */}
+          {/* Phone */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Background Image URL
+              Phone
             </label>
             <input
-              {...register("backgroundImage")}
-              placeholder="Paste background image URL"
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              {...register("phone")}
+              placeholder="Add phone number"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
             />
+            {!formValues.phone && (
+              <p className="text-sm text-gray-500 mt-1">Add phone number</p>
+            )}
           </div>
 
-          {/* Contact Info */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">Email</label>
+          {/* Location */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Location
+            </label>
+            <input
+              {...register("location")}
+              placeholder="Add your location"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
+            />
+            {!formValues.location && (
+              <p className="text-sm text-gray-500 mt-1">Add location</p>
+            )}
+          </div>
+
+          {/* Profile Image */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Profile Image
+            </label>
+
+            {/* Hidden file input for profile image */}
+            <input
+              type="file"
+              ref={profileImageInputRef}
+              onChange={handleProfileImageUpload}
+              className="hidden"
+              accept="image/*"
+            />
+
+            <div className="flex gap-2">
               <input
-                {...register("email")}
-                type="email"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                {...register("profileImage")}
+                placeholder="Profile image URL or upload using button"
+                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
               />
+              <button
+                type="button"
+                onClick={triggerProfileImageInput}
+                className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition whitespace-nowrap"
+              >
+                Upload
+              </button>
             </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">Phone</label>
+            {!formValues.profileImage && !profilePicture && (
+              <p className="text-sm text-gray-500 mt-1">Add profile image</p>
+            )}
+            {(profilePicture || formValues.profileImage) && (
+              <div className="mt-2">
+                <p className="text-sm text-green-600">Image preview:</p>
+                <img
+                  src={profilePicture || formValues.profileImage}
+                  alt="Preview"
+                  className="mt-1 h-20 w-20 object-cover rounded-lg border"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Background Image */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Background Image
+            </label>
+
+            {/* Hidden file input for background image */}
+            <input
+              type="file"
+              ref={backgroundImageInputRef}
+              onChange={handleBackgroundImageUpload}
+              className="hidden"
+              accept="image/*"
+            />
+
+            <div className="flex gap-2">
               <input
-                {...register("phone")}
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                {...register("backgroundImage")}
+                placeholder="Background image URL or upload using button"
+                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-gray-400"
               />
+              <button
+                type="button"
+                onClick={triggerBackgroundImageInput}
+                className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition whitespace-nowrap"
+              >
+                Upload
+              </button>
             </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Location
-              </label>
-              <input
-                {...register("location")}
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Member Since
-              </label>
-              <input
-                {...register("memberSince")}
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-              />
-            </div>
+            {!formValues.backgroundImage && !backgroundPicture && (
+              <p className="text-sm text-gray-500 mt-1">Add background image</p>
+            )}
+            {(backgroundPicture || formValues.backgroundImage) && (
+              <div className="mt-2">
+                <p className="text-sm text-green-600">Background preview:</p>
+                <img
+                  src={backgroundPicture || formValues.backgroundImage}
+                  alt="Background Preview"
+                  className="mt-1 h-20 w-full object-cover rounded-lg border"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Member Since (Read-only) */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Member Since
+            </label>
+            <input
+              {...register("memberSince")}
+              placeholder="Add member since date"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-gray-50 placeholder:text-gray-400"
+              readOnly
+            />
+            <p className="text-sm text-gray-500 mt-1">Member since cannot be changed</p>
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end space-x-3 mt-6">
+          <div className="flex gap-3 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+              className="flex-1 border border-gray-300 text-gray-700 rounded-lg py-3 font-medium hover:bg-gray-50 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg bg-cyan-600 text-white hover:bg-cyan-700 transition"
+              className="flex-1 bg-cyan-600 text-white rounded-lg py-3 font-medium hover:bg-cyan-700 transition"
             >
               Save Changes
             </button>
