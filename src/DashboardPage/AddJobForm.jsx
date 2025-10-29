@@ -92,7 +92,7 @@ const AddJobForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-8 bg-white  p-6 rounded-xl border-2 border-gray-100">
+    <div className="max-w-3xl mx-auto mt-8 bg-gradient-to-br from-cyan-50 via-white to-cyan-50/30  p-6 rounded-xl border-2 border-gray-100">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
         Create New Job Posting
       </h2>

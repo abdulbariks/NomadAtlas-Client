@@ -40,6 +40,20 @@ export const updateUserProfile = createAsyncThunk(
     }
 );
 
+// NEW: Update user role - FIXED ENDPOINT
+export const updateUserRole = createAsyncThunk(
+    "users/updateUserRole",
+    async ({ email, role }, { rejectWithValue }) => {
+        try {
+            // ✅ CORRECT: Use the role-specific endpoint
+            const res = await axiosSecure.patch(`/users/email/${email}/role`, { role });
+            return res.data; // updated user object
+        } catch (err) {
+            return rejectWithValue(err.response?.data || err.message);
+        }
+    }
+);
+
 const userSlice = createSlice({
     name: "users",
     initialState: {
@@ -93,7 +107,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-            //  updateUserProfile cases
+            // updateUserProfile cases
             .addCase(updateUserProfile.pending, (state) => {
                 state.updateLoading = true;
                 state.updateError = null;
@@ -108,6 +122,27 @@ const userSlice = createSlice({
                 }
             })
             .addCase(updateUserProfile.rejected, (state, action) => {
+                state.updateLoading = false;
+                state.updateError = action.payload;
+            })
+            // NEW: updateUserRole cases
+            .addCase(updateUserRole.pending, (state) => {
+                state.updateLoading = true;
+                state.updateError = null;
+            })
+            .addCase(updateUserRole.fulfilled, (state, action) => {
+                state.updateLoading = false;
+                // Update in users array
+                const index = state.users.findIndex(user => user.email === action.payload.email);
+                if (index !== -1) {
+                    state.users[index] = action.payload;
+                }
+                // Update currentUser if it's the same user
+                if (state.currentUser && state.currentUser.email === action.payload.email) {
+                    state.currentUser = action.payload;
+                }
+            })
+            .addCase(updateUserRole.rejected, (state, action) => {
                 state.updateLoading = false;
                 state.updateError = action.payload;
             });
