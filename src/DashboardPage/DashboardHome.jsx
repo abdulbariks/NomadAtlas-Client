@@ -15,8 +15,8 @@ import {
     Cell,
 } from "recharts";
 import { motion } from "framer-motion";
-import { Sparkles, MapPin, Heart, CreditCard, Plane } from "lucide-react";
 import { FaBattleNet } from "react-icons/fa";
+import { Sparkles } from "lucide-react";
 
 // Dummy favorites
 const favorites = [

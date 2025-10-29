@@ -7,7 +7,6 @@ import Register from "../pages/Register";
 import CreateBlog from "../components/CreateBlog/CreateBlog";
 import AllBlogs from "../components/CreateBlog/AllBlogs";
 import ForgotPassword from "../pages/ForgotPassword";
-// import ProtectedRoute from "./ProtectedRoute";
 import Comparison from "../pages/Comparison";
 import CostCalculatorPage from "../pages/CostCalculatorPage";
 import BlogDetailsPage from "../components/Animation/BlogDetails/BlogDetailsPage";
@@ -15,7 +14,6 @@ import DashboardHome from "../DashboardPage/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ActiveUsers from "../DashboardPage/ActiveUsers";
-// import Provider from "../DashboardPage/AddDestinations";
 import Community from "../pages/Community/Community";
 import WeatherAlertsPage from "../pages/WeatherAlert/WeatherAlertsPage";
 import TimeZoneConverter from "../pages/TimeZone/TimeZoneConverter";
@@ -35,11 +33,12 @@ import AdminRoutes from "./AdminRoutes";
 import AddDestinations from "../DashboardPage/AddDestinations";
 import UserPaymentHistory from "../Payment/UserPaymentHistory";
 import AdminBookings from "../Payment/AdminBookings";
-// import CommunityPage from "../Socket/CommunityPage";
 import JobsPage from "../pages/Jobs/JobsPage";
 import AddJobForm from "../DashboardPage/AddJobForm";
 import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
 import MyProfile from "../DashboardPage/Profile/MyProfile";
+import FavoriteJobsPage from "../pages/Jobs/FavoriteJobsPage";
+
 
 
 
@@ -74,13 +73,15 @@ export const router = createBrowserRouter([
         Component: BlogDetailsPage,
       },
       {
-        path:"jobs",
-        Component:JobsPage
+        path: "jobs",
+        Component: JobsPage
       },
-     {
+      {
         path: "/jobs/:id",
-       element:<ProtectedRoutes><JobDetailsPage/></ProtectedRoutes>
+        element: <ProtectedRoutes><JobDetailsPage /></ProtectedRoutes>
       },
+
+    
       {
         path: "newDestination",
         Component: AddNewDestination
@@ -117,10 +118,10 @@ export const router = createBrowserRouter([
         Component: CreateBlog,
       },
 
-      
-     
 
-    
+
+
+
       {
         path: "comparison",
         Component: Comparison,
@@ -138,7 +139,7 @@ export const router = createBrowserRouter([
         path: "/weather-alerts",
         Component: WeatherAlertsPage,
       },
-      
+
       {
         path: "login",
         Component: Login,
@@ -212,8 +213,8 @@ export const router = createBrowserRouter([
         path: "addDestinations",
         element:
           // <AdminRoutes>
-            <AddDestinations></AddDestinations>,
-          // </AdminRoutes>
+          <AddDestinations></AddDestinations>,
+        // </AdminRoutes>
       },
       // {
       //   path: "addDestinations",
@@ -238,9 +239,14 @@ export const router = createBrowserRouter([
         Component: DataOfCalculator,
       },
       {
-        path:"add-jobs",
+        path: "add-jobs",
         Component: AddJobForm,
       },
+
+    {
+      path:"favorite-job",
+      Component:FavoriteJobsPage
+    },
     ],
   },
 ]);

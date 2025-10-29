@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
-import { FaTrashAlt, FaEye } from "react-icons/fa";
+import { FaTrashAlt, FaEye, FaMapMarkerAlt } from "react-icons/fa";
 import useAxiosSecure from "../customHook/useAxiosSecure";
 import { useSelector } from "react-redux";
 
@@ -59,9 +59,9 @@ export default function AdminBookings() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 p-4 md:p-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-green-800 text-center mb-10">
-                🌍 All Destination Bookings
+        <div className="min-h-screen bg-gradient-to-br from-[#11c3c0]/10 to-[#11c3c0]/5 p-4 md:p-10">
+            <h1 className="text-3xl md:text-4xl font-bold text-[#11c3c0] text-center mb-10">
+                All Destination Bookings
             </h1>
 
             {bookings.length === 0 ? (
@@ -79,15 +79,15 @@ export default function AdminBookings() {
                             key={index}
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.2 }}
-                            className="w-full md:w-[45%] lg:w-[30%] bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-green-200 hover:border-green-400 transition-all p-5 flex flex-col justify-between"
+                            className="w-full md:w-[45%] lg:w-[30%] bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-[#11c3c0]/20 hover:border-[#11c3c0]/40 transition-all p-5 flex flex-col justify-between"
                         >
                             <div>
-                                <h2 className="text-xl font-semibold text-green-700 mb-2">
+                                <h2 className="text-xl font-semibold text-[#11c3c0] mb-2">
                                     {booking.title}{" "}
                                     <span className="text-sm text-gray-500">({booking.type})</span>
                                 </h2>
                                 <p className="text-gray-600 text-sm mb-1">
-                                    📍 {booking.city}, {booking.country}
+                                    <FaMapMarkerAlt className="inline mr-1 text-[#11c3c0]" /> {booking.city}, {booking.country}
                                 </p>
                                 <p className="text-sm text-gray-500">
                                     <span className="font-medium">Booked By:</span> {booking.userName}
@@ -100,10 +100,10 @@ export default function AdminBookings() {
                                     <span className="font-medium">Status:</span>{" "}
                                     <span
                                         className={`px-3 py-1 rounded-full text-xs font-semibold ${booking.paymentStatus === "paid"
-                                                ? "bg-green-100 text-green-700"
-                                                : booking.paymentStatus === "cancelled"
-                                                    ? "bg-red-100 text-red-600"
-                                                    : "bg-yellow-100 text-yellow-600"
+                                            ? "bg-[#11c3c0]/10 text-[#11c3c0]"
+                                            : booking.paymentStatus === "cancelled"
+                                                ? "bg-red-100 text-red-600"
+                                                : "bg-yellow-100 text-yellow-600"
                                             }`}
                                     >
                                         {booking.paymentStatus}
@@ -114,7 +114,7 @@ export default function AdminBookings() {
                             <div className="mt-5 flex gap-3">
                                 <button
                                     onClick={() => setSelectedBooking(booking)}
-                                    className="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl shadow-md transition-all"
+                                    className="flex-1 flex items-center justify-center gap-2 bg-[#11c3c0] hover:bg-[#0fa9a7] text-white py-2 rounded-xl shadow-md transition-all"
                                 >
                                     <FaEye /> View
                                 </button>
@@ -137,22 +137,22 @@ export default function AdminBookings() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-green-950/40 backdrop-blur-[2px] flex items-center justify-center z-50 p-4"
+                        className="fixed inset-0 bg-[#11c3c0]/40 backdrop-blur-[2px] flex items-center justify-center z-50 p-4"
                     >
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg max-h-[85vh] overflow-y-auto border border-green-200"
+                            className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg max-h-[85vh] overflow-y-auto border border-[#11c3c0]/20"
                         >
-                            <h3 className="text-2xl font-semibold text-green-700 mb-3 border-b pb-2">
+                            <h3 className="text-2xl font-semibold text-[#11c3c0] mb-3 border-b pb-2">
                                 {selectedBooking.title}
                             </h3>
 
                             <div className="space-y-2 text-gray-700 text-sm">
                                 <p><strong>👤 User:</strong> {selectedBooking.userName} ({selectedBooking.userEmail})</p>
                                 <p><strong>📞 Phone:</strong> {selectedBooking.userPhone}</p>
-                                <p><strong>🏙️ City:</strong> {selectedBooking.city}, {selectedBooking.country}</p>
+                                <p><strong><FaMapMarkerAlt className="inline mr-1" /> City:</strong> {selectedBooking.city}, {selectedBooking.country}</p>
                                 <p><strong>💰 Price:</strong> {selectedBooking.price} {selectedBooking.currency}</p>
                                 <p><strong>📆 Booked Date:</strong> {new Date(selectedBooking.bookedDate).toLocaleDateString()}</p>
                                 <p><strong>⏰ Created At:</strong> {new Date(selectedBooking.createdAt).toLocaleString()}</p>
@@ -160,10 +160,10 @@ export default function AdminBookings() {
                                     <strong>💳 Payment Status:</strong>{" "}
                                     <span
                                         className={`px-3 py-1 rounded-full text-xs font-semibold ${selectedBooking.paymentStatus === "paid"
-                                                ? "bg-green-100 text-green-700"
-                                                : selectedBooking.paymentStatus === "cancelled"
-                                                    ? "bg-red-100 text-red-600"
-                                                    : "bg-yellow-100 text-yellow-600"
+                                            ? "bg-[#11c3c0]/10 text-[#11c3c0]"
+                                            : selectedBooking.paymentStatus === "cancelled"
+                                                ? "bg-red-100 text-red-600"
+                                                : "bg-yellow-100 text-yellow-600"
                                             }`}
                                     >
                                         {selectedBooking.paymentStatus}
@@ -176,7 +176,7 @@ export default function AdminBookings() {
                             <div className="mt-6 text-right">
                                 <button
                                     onClick={() => setSelectedBooking(null)}
-                                    className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-md transition-all"
+                                    className="px-6 py-2 bg-[#11c3c0] hover:bg-[#0fa9a7] text-white rounded-xl shadow-md transition-all"
                                 >
                                     Close
                                 </button>
