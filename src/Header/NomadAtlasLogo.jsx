@@ -8,15 +8,13 @@ const NomadAtlasLogo = () => {
       <div className="flex gap-2 items-center">
         {/* Logo */}
         <div className="  group-hover:scale-110 transition-transform duration-300">
-          <img src={logo} alt="NomadAtlas Logo" className="w-7 h-6 md:w-7 md:h-7 " />
+          <img src={logo} alt="NomadAtlas Logo" className="w-7 h-7 md:w-10 md:h-10 " />
         </div>
        
-
+        
        
         {/* Text */}
-        <h2 className="text-md md:text-xl font-extrabold bg-[#11c3c0] bg-clip-text text-transparent  transition-colors duration-300">
-          NA
-        </h2> </div>
+        </div>
    
     </Link>
   );

@@ -5,7 +5,7 @@ import logoImage from "../../assets/Logo/NLogo2.png";
 const Footer = () => {
   return (
     <footer className="bg-white text-gray-600 border-t border-gray-200">
-      <div className="max-w-6xl mx-auto px-8 py-12 grid md:grid-cols-4 gap-10">
+      <div className="max-w-6xl mx-auto px-8 pb-12 pt-25 grid md:grid-cols-4 gap-10">
         {/* Left Section */}
         <div>
           <div className="flex items-center gap-2 mb-4">
@@ -78,7 +78,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-200 text-center py-4 text-sm text-gray-500">
-        © {new Date().getFullYear()} NomadAtlas. All rights reserved. Made with <span className="text-[#11c3c0]">💙</span> for digital nomads.
+        © {new Date().getFullYear()} NomadAtlas. All rights reserved.  <span className="text-[#11c3c0]">Crafted with passion</span> for digital nomads.
       </div>
     </footer>
   );
