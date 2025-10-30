@@ -39,7 +39,7 @@ const ContactUs = () => {
       console.error(error);
       toast.error(" Something went wrong. Please try again.", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
@@ -63,7 +63,7 @@ const ContactUs = () => {
       >
         {/* Left Side */}
         <div
-          className="md:w-1/2 bg-[#c0f3f2] text-gray-700 pt-7  px-6 flex flex-col justify-between"
+          className="md:w-1/2 bg-[#cff9f7] text-gray-700 pt-7  px-6 flex flex-col justify-between"
           style={{
             backgroundImage: "url('/images/leaves-bg.jpg')",
             backgroundSize: "cover",

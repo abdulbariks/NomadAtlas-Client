@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import Lottie from "lottie-react";
 import remoteWorkAnimation from "../assets/Lottie/Connect with us.json";
+import image from "../assets/Logo/Contact.png"
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -40,15 +41,26 @@ const ContactUs = () => {
   return (
 
     <div>
-       <div className="bg-[#11c3c0] py-15 text-white">
-  <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-    Contact Us
-  </h1>
-  <p className="text-center max-w-3xl mx-auto mt-3 text-sm md:text-base opacity-90">
-    We’d love to hear from you! Whether you have questions, feedback, or partnership ideas — 
-    the Nomad Atlas team is here to help you explore the best remote work destinations around the globe.
-  </p>
+     <div className="relative py-15 text-gray-800 ">
+  {/* Background image with blur */}
+  <img
+    src={image}// replace with your image path
+    alt="Background"
+    className="absolute inset-0 w-full h-full object-cover filter blur-sm"
+  />
+
+  {/* Content */}
+  <div className="relative z-10 text-center px-4 flex flex-col justify-center items-center h-full">
+    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+      Contact Us
+    </h1>
+    <p className="max-w-3xl mx-auto mt-3 text-sm md:text-base opacity-90">
+      We’d love to hear from you! Whether you have questions, feedback, or partnership ideas — 
+      the Nomad Atlas team is here to help you explore the best remote work destinations around the globe.
+    </p>
+  </div>
 </div>
+
 
     <div className="my-10 flex justify-center items-center bg-cover bg-center"
       style={{ backgroundImage: "url('/images/leaves-bg.jpg')" }}>

@@ -21,7 +21,8 @@ import CommunityFeatures from "../components/Home/CommunityFeatures/CommunityFea
 import MoreAboutUs from "../components/Home/MoreAboutUs";
 import Milestones from "../components/Home/Milestone"
 import SuccessStories from "../components/Home/SuccessStories";
-import ContactUs from "../components/Home/ContactFeatures";
+
+import FAQSection from "../components/Home/FAQSection";
 
 
 const Home = () => {
@@ -51,6 +52,7 @@ const Home = () => {
      
 
       <FeaturedOpportunities/>
+      <FAQSection/>
        <LocalServices/>
       
 
@@ -66,7 +68,8 @@ const Home = () => {
 
       <SuccessStories/>
        <Milestones/>
-       <ContactUs/>
+       
+       
       <Newsletter />
 
       

@@ -41,6 +41,7 @@ import AddJobForm from "../DashboardPage/AddJobForm";
 import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
 import FavoriteJobsPage from "../pages/Jobs/FavoriteJobsPage";
 import ContactUs from "../pages/ContactUs";
+import FAQPage from "../pages/FAQPage";
 
 
 
@@ -62,6 +63,11 @@ export const router = createBrowserRouter([
       {
         path: "contact-us",
         Component:ContactUs,
+      },
+
+      {
+        path:"faqs",
+        Component:FAQPage
       },
       {
         path: "forbidden",

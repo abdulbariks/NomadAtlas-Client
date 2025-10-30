@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import {ArrowUpRight } from "lucide-react";
+import { Link } from "react-router";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -22,8 +24,7 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="relative z-10 -mb-20 px-6 mt-16 flex justify-center"> 
-      {/* -mb-24 pulls it above footer */}
+    <div className="relative z-10 -mb-20 px-6 mt-16 flex justify-center">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -31,13 +32,15 @@ const Newsletter = () => {
         viewport={{ once: true }}
         className="bg-gradient-to-r from-[#11c3c0] to-[#7aeae6] rounded-2xl px-8 py-14 max-w-5xl w-full text-center "
       >
+        {/* 🌍 Title */}
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
           Subscribe to Our Newsletter
         </h2>
         <p className="text-white/90 mb-8 text-sm md:text-base">
-          Get travel insights, remote work tips, and NomadAtlas updates every week.
+          Get travel insights, remote work tips, and Nomad Atlas updates every week.
         </p>
 
+        {/* ✉️ Input and Button */}
         <div className="flex flex-col md:flex-row items-center gap-4">
           <input
             type="email"
@@ -56,8 +59,32 @@ const Newsletter = () => {
         </div>
 
         {message && (
-          <p className="text-white mt-4 text-sm font-medium">{message}</p>
+          <p className="text-white mt-3 text-sm font-medium">{message}</p>
         )}
+
+        {/* ✨ Contact Now Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mt-5"
+        >
+          <div className="flex justify-center mt-8">
+      <h1 className="bg-white font-semibold px-4 py-2 rounded-full flex items-center gap-2 text-gray-700 transition-all">
+        Meet Your Local Destination Guides!{" "}
+        <Link to="/contact-us"
+         className="text-[#11c3c0] font-medium flex">Contact Now
+        <motion.span
+          className="flex items-center"
+          initial={{ x: 0 }}
+          whileHover={{ x: 6 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <ArrowUpRight size={18} />
+        </motion.span></Link>
+      </h1>
+    </div>
+        </motion.div>
       </motion.div>
     </div>
   );
