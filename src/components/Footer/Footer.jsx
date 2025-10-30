@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router";
 import logoImage from "../../assets/Logo/NLogo2.png";
+ import { NavLink } from "react-router";
 
 const Footer = () => {
   return (
     <footer className="bg-white text-gray-600 border-t border-gray-200">
-      <div className="max-w-6xl mx-auto px-8 pb-12 pt-25 grid md:grid-cols-4 gap-10">
+      <div className="mx-auto px-8 pb-12 pt-25 grid md:grid-cols-4 gap-10">
         {/* Left Section */}
         <div>
           <div className="flex items-center gap-2 mb-4">
@@ -42,39 +43,149 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Destinations */}
-        <div>
-          <h3 className="text-gray-800 font-semibold mb-3">Destinations</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/asia" className="hover:text-[#3ea1f1]">Asia</Link></li>
-            <li><Link to="/europe" className="hover:text-[#3ea1f1]">Europe</Link></li>
-            <li><Link to="/americas" className="hover:text-[#3ea1f1]">Americas</Link></li>
-            <li><Link to="/africa" className="hover:text-[#3ea1f1]">Africa</Link></li>
-          </ul>
-        </div>
+        {/*Explore Features */}
+      
 
-        {/* Resources */}
-        <div>
-          <h3 className="text-gray-800 font-semibold mb-3">Resources</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/cost-calculator" className="hover:text-[#11c3c0]">Cost Calculator</Link></li>
-            <li><Link to="/visa-guide" className="hover:text-[#11c3c0]">Visa Guide</Link></li>
-            <li><Link to="/blogs" className="hover:text-[#11c3c0]">Blog</Link></li>
-            <li><Link to="/community" className="hover:text-[#11c3c0]">Community</Link></li>
-          </ul>
-        </div>
+<div>
+  <h3 className="text-gray-800 font-semibold mb-3">Explore</h3>
+  <ul className="space-y-2 text-sm">
+    <li>
+      <NavLink
+        to="/destinations"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        Destination
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/cost-calculator"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        Cost Calculator
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/jobs"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        Jobs
+      </NavLink>
+    </li>
+  </ul>
+</div>
 
-        {/* Company */}
-        <div>
-          <h3 className="text-gray-800 font-semibold mb-3">Company</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/about-us" className="hover:text-[#3ea1f1]">About Us</Link></li>
-            <li><Link to="/contact-us" className="hover:text-[#3ea1f1]">Contact Us</Link></li>
-            <li><Link to="/faqs" className="hover:text-[#3ea1f1]">FAQ</Link></li>
-            <li><Link to="/privacy-policy" className="hover:text-[#3ea1f1]">Privacy</Link></li>
-            <li><Link to="/terms-of-service" className="hover:text-[#3ea1f1]">Terms</Link></li>
-          </ul>
-        </div>
+{/* Community */}
+<div>
+  <h3 className="text-gray-800 font-semibold mb-3">Community</h3>
+  <ul className="space-y-2 text-sm">
+    <li>
+      <NavLink
+        to="/resources"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#11c3c0]"
+        }
+      >
+        Resource
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/blogs"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#11c3c0]"
+        }
+      >
+        Blog
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/community"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#11c3c0]"
+        }
+      >
+        Community
+      </NavLink>
+    </li>
+  </ul>
+</div>
+
+{/* Company */}
+<div>
+  <h3 className="text-gray-800 font-semibold mb-3">Company</h3>
+  <ul className="space-y-2 text-sm">
+    <li>
+      <NavLink
+        to="/about-us"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        About Us
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/contact-us"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        Contact Us
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/faqs"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        FAQ
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/term-privey"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#11c3c0] underline"
+            : "hover:text-[#3ea1f1]"
+        }
+      >
+        Term & Privacy
+      </NavLink>
+    </li>
+  </ul>
+</div>
+
       </div>
 
       {/* Bottom Bar */}

@@ -35,7 +35,7 @@ const FAQSection = () => {
         hidden: { opacity: 0, y: 70 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
       }}
-      className="py-20  dark:bg-gray-900 mx-5 md:mx-8 lg:mx-10"
+      className="mt-16  dark:bg-gray-900 mx-5 md:mx-8 lg:mx-10"
       id="faq"
     >
       {/* Section Title */}
