@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiUser, FiMail, FiPhone, FiSend } from "react-icons/fi";
 import axios from "axios";
-import { useState } from "react";
 import Lottie from "lottie-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import remoteWorkAnimation from "../../assets/Lottie/Connect with us.json";
 
 const ContactUs = () => {
@@ -23,7 +24,10 @@ const ContactUs = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/contact", formData);
-      alert("Message sent successfully!");
+      toast.success(" Message sent successfully!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
       setFormData({
         firstName: "",
         lastName: "",
@@ -33,53 +37,66 @@ const ContactUs = () => {
       });
     } catch (error) {
       console.error(error);
-      alert("Something went wrong!");
+      toast.error(" Something went wrong. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
   return (
-     <div className="mt-18 flex justify-center items-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/leaves-bg.jpg')" }}>
+
+    <div className="">
+       
+    <div
+      className="mt-18 flex justify-center items-center bg-cover bg-center"
+      
+    >
+
+      
+      <ToastContainer /> {/* 🔥 Toast container added here */}
       <motion.div
-        className="bg-white/90 backdrop-blur-lg rounded-2xl  flex flex-col md:flex-row w-[90%] md:w-[80%] overflow-hidden"
+        className="bg-white/90 backdrop-blur-lg rounded-2xl flex flex-col md:flex-row mx-5 md:mx-8 lg:mx-10 overflow-hidden "
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         {/* Left Side */}
-        <div className="md:w-1/2 bg-[#c0f3f2] text-gray-700 p-8 flex flex-col justify-between"
-          style={{ backgroundImage: "url('/images/leaves-bg.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-         <motion.div
-  initial={{ opacity: 0, x: -60 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ delay: 0.3 }}
-  className="flex flex-col items-start"
->
-  <div className="w-40 md:w-56 mb-4">
-   
-  </div>
+        <div
+          className="md:w-1/2 bg-[#c0f3f2] text-gray-700 pt-7  px-6 flex flex-col justify-between"
+          style={{
+            backgroundImage: "url('/images/leaves-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col items-center"
+          >
+            <h2 className="text-3xl font-bold mb-3 text-gray-700">
+              Nomad Atlas
+            </h2>
+            <p className="text-sm text-center leading-relaxed text-gray-400 mb-2">
+              Discover your next remote work paradise. Connect with us for
+              collaboration, partnership, or support.
+            </p>
 
-  <h2 className="text-3xl font-bold mb-3 text-gray-700">Nomad Atlas</h2>
-  <p className="text-sm leading-relaxed text-gray-400">
-    Discover your next remote work paradise. Connect with us for collaboration, partnership, or support.
-  </p>
-   <Lottie 
-      animationData={remoteWorkAnimation} 
-      loop={true}
-      className="w-full h-auto"
-    />
-</motion.div>
+            <Lottie
+              animationData={remoteWorkAnimation}
+              loop={true}
+              className="w-[450px] h-[350px]"
+            />
+          </motion.div>
 
-          <div className="flex gap-4 mt-6">
-            <a href="#" className="hover:text-blue-400"><i className="fab fa-facebook-f"></i></a>
-            <a href="#" className="hover:text-blue-400"><i className="fab fa-twitter"></i></a>
-            <a href="#" className="hover:text-blue-400"><i className="fab fa-instagram"></i></a>
-          </div>
+         
         </div>
 
         {/* Right Side Form */}
         <motion.div
-          className="md:w-1/2 p-10"
+          className="md:w-1/2 py-5 px-4 md:px-8 md:py-5 lg:px-10 lg:py-7  "
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
@@ -88,6 +105,7 @@ const ContactUs = () => {
           <p className="text-gray-500 text-sm mb-6">
             24/7 We will answer your questions and problems
           </p>
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex gap-3">
               <div className="relative w-1/2">
@@ -159,6 +177,7 @@ const ContactUs = () => {
           </form>
         </motion.div>
       </motion.div>
+    </div>
     </div>
   );
 };
