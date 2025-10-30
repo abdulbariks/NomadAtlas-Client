@@ -24,8 +24,7 @@ function resolveApiBase() {
   if (/\/api(\b|\/)/.test(url)) return `${url}/community`;
   return `${url}/api/community`;
 }
-
-const API_BASE = resolveApiBase();
+const API = resolveApiBase();
 
 const emptyNewPost = {
   name: "",
@@ -53,7 +52,7 @@ const Community = () => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyText, setReplyText] = useState("");
 
-  const filters = ["All", "Destination Guide", "City Spotlight", "Hidden Gem"];
+  const filters = ["All", "Destination Guide", "City Spotlight", "Hidden Gem", "Trending"];
 
   const authUser = useSelector((state) => state?.auth?.user);
   const currentUserName = authUser?.displayName || (authUser?.email ? authUser.email.split("@")[0] : null) || "Anonymous";
@@ -93,10 +92,9 @@ const Community = () => {
     setLoadingPosts(true);
     setError(null);
     try {
-      const res = await fetch(`${API_BASE}/posts`);
+      const res = await fetch(`${API}/posts`);
       if (!res.ok) throw new Error("Failed to fetch posts");
       const data = await res.json();
-
       setPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -146,12 +144,10 @@ const Community = () => {
 
   const createPost = async (e) => {
     e.preventDefault();
-
     if (!newPost.name.trim() || !newPost.description.trim() || !newPost.image.trim()) {
       setToast("Please provide title, description and image link");
       return;
     }
-
     try {
       setCreating(true);
       const payload = {
@@ -162,7 +158,7 @@ const Community = () => {
         author: currentUserName,
         authorAvatar: currentUserPhoto || undefined,
       };
-      const res = await fetch(`${API_BASE}/posts`, {
+      const res = await fetch(`${API}/posts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -172,7 +168,7 @@ const Community = () => {
         throw new Error(err.message || "Failed to create post");
       }
       const created = await res.json();
-
+      
       setPosts((p) => [created, ...p]);
       setNewPost({ ...emptyNewPost });
       setToast("Post created");
@@ -185,7 +181,7 @@ const Community = () => {
 
   const likePost = async (postId) => {
     if (likedPosts.has(postId)) return;
-
+  
     setLikedPosts((prev) => {
       const next = new Set(prev);
       next.add(postId);
@@ -199,14 +195,14 @@ const Community = () => {
     );
 
     try {
-      const res = await fetch(`${API_BASE}/posts/${postId}/like`, {
+      const res = await fetch(`${API}/posts/${postId}/like`, {
         method: "POST",
       });
       if (!res.ok) {
         throw new Error("Failed to like post");
       }
       const updated = await res.json();
-
+    
       if (updated && updated._id) {
         setPosts((p) => p.map((x) => (x._id === updated._id ? updated : x)));
         setSelectedPost((prev) => (prev && prev._id === updated._id ? { ...prev, ...updated } : prev));
@@ -231,7 +227,7 @@ const Community = () => {
       return;
     }
     try {
-      const res = await fetch(`${API_BASE}/posts/${postId}/comments`, {
+      const res = await fetch(`${API}/posts/${postId}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, author: currentUserName, authorAvatar: currentUserPhoto || undefined }),
@@ -272,7 +268,7 @@ const Community = () => {
       return;
     }
     try {
-      const res = await fetch(`${API_BASE}/posts/${postId}/comments/${commentId}/replies`, {
+      const res = await fetch(`${API}/posts/${postId}/comments/${commentId}/replies`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, author: currentUserName, authorAvatar: currentUserPhoto || undefined }),
@@ -321,7 +317,7 @@ const Community = () => {
       return;
     }
     try {
-      const res = await fetch(`${API_BASE}/posts/${post._id}`);
+      const res = await fetch(`${API}/posts/${post._id}`);
       if (!res.ok) throw new Error("Failed to fetch post");
       const data = await res.json();
       setSelectedPost(data);
@@ -348,7 +344,7 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-cyan-50 mt-14">
-
+      
       {toast && (
         <div className="fixed right-6 top-6 z-50 bg-white/95 border border-cyan-200 px-4 py-2 rounded-lg shadow">
           {toast}
@@ -367,7 +363,6 @@ const Community = () => {
           Join thousands of digital nomads sharing experiences, building connections, and exploring the world together.
         </p>
 
-        {/* Tabs */}
         <div className="mt-8 flex justify-center gap-3 flex-wrap">
           <button
             className={`px-6 py-2 rounded-full font-medium transition-all ${activeTab === "posts" ? "bg-[#11c3c0] text-white" : "bg-white text-gray-700 hover:bg-cyan-50 border border-cyan-200"}`}
@@ -384,122 +379,12 @@ const Community = () => {
         </div>
       </section>
 
-      {/* Content */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         {activeTab === "posts" ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-            <div className="lg:col-span-2 flex flex-col gap-10">
-
-              <div className="max-w-2xl mx-auto">
-                <div className="relative mb-4">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Search destinations, stories, or authors..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-cyan-200 focus:outline-none focus:ring-2 focus:ring-[#11c3c0] transition"
-                  />
-                </div>
-
-                <div className="flex flex-wrap gap-3 justify-center mb-6">
-                  {filters.map((filter) => (
-                    <motion.button
-                      key={filter}
-                      onClick={() => setActiveFilter(filter)}
-                      className={`px-6 py-2.5 rounded-full font-medium transition-all ${activeFilter === filter ? "bg-[#11c3c0] text-white" : "bg-white text-gray-700 hover:bg-cyan-50 border border-cyan-200"}`}
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      {filter}
-                    </motion.button>
-                  ))}
-                  <button onClick={clearSearchAndFilter} className="px-4 py-2 rounded-full bg-white border border-cyan-100 text-sm text-gray-600">Clear</button>
-                </div>
-              </div>
-
-              {/* Posts */}
-              {filteredPosts.length === 0 ? (
-                <div className="bg-white rounded-3xl p-12 text-center shadow-xl border border-cyan-100">
-                  <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-600 text-lg mb-2">No stories found</p>
-                  <p className="text-gray-400 text-sm mb-6">Try adjusting your search or filters</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <AnimatePresence mode="popLayout">
-                    {filteredPosts.map((post, index) => (
-                      <motion.article
-                        key={post._id || post.id || index}
-                        layout
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.96 }}
-                        transition={{ delay: index * 0.03, duration: 0.3 }}
-                        className="group bg-white rounded-3xl overflow-hidden border border-cyan-200 hover:border-cyan-300 transition transform hover:-translate-y-2"
-                      >
-                        <div className="relative h-56 overflow-hidden">
-                          <motion.img
-                            src={post.image}
-                            alt={post.name}
-                            className="w-full h-full object-cover"
-                            whileHover={{ scale: 1.08 }}
-                            transition={{ duration: 0.5 }}
-                          />
-                          <div className="absolute inset-0 bg-black/25" />
-                          <div className="absolute top-4 left-4 flex gap-2">
-                            <span className="px-3 py-1 bg-white rounded-full text-xs font-semibold text-gray-800">{post.category}</span>
-                            {post.trending && (
-                              <span className="px-3 py-1 bg-[#3ea1f1] rounded-full text-xs font-semibold text-white flex items-center gap-1">
-                                <TrendingUp className="w-3 h-3" /> Trending
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-[#11c3c0]" /> {post.name}
-                          </h3>
-
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
-
-                          <div className="flex items-center justify-between pt-4 border-t border-cyan-100">
-                            <div className="flex items-center gap-3">
-                              {renderAvatar(post.author || "Anonymous", post.authorAvatar || (post.author === currentUserName ? currentUserPhoto : null), "w-8 h-8 rounded-full ring-2 ring-cyan-100", 32)}
-                              <span className="text-sm font-medium text-gray-700">{post.author || "Anonymous"}</span>
-                            </div>
-
-                            <div className="flex items-center gap-4">
-                              <button
-                                onClick={() => {
-                                  likePost(post._id);
-                                }}
-                                disabled={likedPosts.has(post._id)}
-                                className={`flex items-center gap-1 transition ${likedPosts.has(post._id) ? "text-cyan-400 cursor-not-allowed" : "text-gray-600 hover:text-[#11c3c0]"}`}
-                              >
-                                <Heart className={`w-4 h-4 ${likedPosts.has(post._id) ? "fill-[#11c3c0] text-[#11c3c0]" : ""}`} />
-                                <span className="text-sm font-medium">{post.likes || 0}</span>
-                              </button>
-
-                              <button onClick={() => openFullPost(post)} className="flex items-center gap-1 text-gray-600 hover:text-[#3ea1f1] transition">
-                                <MessageCircle className="w-4 h-4" />
-                                <span className="text-sm font-medium">{(post.comments && post.comments.length) || 0}</span>
-                              </button>
-                            </div>
-                          </div>
-
-                          <button onClick={() => openFullPost(post)} className="mt-4 inline-flex items-center text-sm font-semibold text-[#11c3c0] hover:text-[#3ea1f1] transition group">
-                            Read full story
-                            <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                          </button>
-                        </div>
-                      </motion.article>
-                    ))}
-                  </AnimatePresence>
-                </div>
-              )}
-
+            {/* MAIN LEFT: span 2 columns on large screens */}
+            <div className="lg:col-span-2 flex flex-col gap-8">
+              {/* ---- Share Form (moved to top) ---- */}
               <motion.form onSubmit={createPost} className="bg-white rounded-3xl p-6 border border-cyan-100 shadow-sm">
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">Share a Post</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -557,10 +442,127 @@ const Community = () => {
                   </button>
                 </div>
               </motion.form>
+
+              {/* ---- Search & Filters (under the form) ---- */}
+              <div className="max-w-2xl mx-auto w-full">
+                <div className="relative mb-4">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search destinations, stories, or authors..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-cyan-200 focus:outline-none focus:ring-2 focus:ring-[#11c3c0] transition"
+                  />
+                </div>
+
+                <div className="flex flex-wrap gap-3 justify-center mb-6">
+                  {filters.map((filter) => (
+                    <motion.button
+                      key={filter}
+                      onClick={() => setActiveFilter(filter)}
+                      className={`px-6 py-2.5 rounded-full font-medium transition-all ${activeFilter === filter ? "bg-[#11c3c0] text-white" : "bg-white text-gray-700 hover:bg-cyan-50 border border-cyan-200"}`}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      {filter}
+                    </motion.button>
+                  ))}
+                  <button onClick={clearSearchAndFilter} className="px-4 py-2 rounded-full bg-white border border-cyan-100 text-sm text-gray-600">Clear</button>
+                </div>
+              </div>
+
+             
+              {filteredPosts.length === 0 ? (
+                <div className="bg-white rounded-3xl p-12 text-center shadow-xl border border-cyan-100">
+                  <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-600 text-lg mb-2">No stories found</p>
+                  <p className="text-gray-400 text-sm mb-6">Try adjusting your search or filters</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-96 gap-y-9">
+                  <AnimatePresence mode="popLayout">
+                    {filteredPosts.map((post, index) => (
+                      <motion.article
+                        key={post._id || post.id || index}
+                        layout
+                        initial={{ opacity: 0, scale: 0.96 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.96 }}
+                        transition={{ delay: index * 0.03, duration: 0.3 }}
+                        className="group bg-white rounded-3xl overflow-hidden border border-cyan-200 hover:border-cyan-300 transition transform hover:-translate-y-2 w-full"
+                        style={{ minWidth: '360px', maxWidth: '360px' }}
+                      >
+                        {/* Image */}
+                        <div className="relative h-56 overflow-hidden">
+                          <motion.img
+                            src={post.image}
+                            alt={post.name}
+                            className="w-full h-full object-cover"
+                            whileHover={{ scale: 1.08 }}
+                            transition={{ duration: 0.5 }}
+                          />
+                          <div className="absolute inset-0 bg-black/25" />
+                          <div className="absolute top-4 left-4 flex gap-2">
+                            <span className="px-3 py-1 bg-white rounded-full text-xs font-semibold text-gray-800">{post.category}</span>
+                            {post.trending && (
+                              <span className="px-3 py-1 bg-[#3ea1f1] rounded-full text-xs font-semibold text-white flex items-center gap-1">
+                                <TrendingUp className="w-3 h-3" /> Trending
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6">
+                          <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-[#11c3c0]" /> {post.name}
+                          </h3>
+                          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
+
+                          <div className="flex items-center justify-between pt-4 border-t border-cyan-100">
+                            <div className="flex items-center gap-3">
+                              {renderAvatar(
+                                post.author || "Anonymous",
+                                post.authorAvatar || (post.author === currentUserName ? currentUserPhoto : null),
+                                "w-8 h-8 rounded-full ring-2 ring-cyan-100",
+                                32
+                              )}
+                              <span className="text-sm font-medium text-gray-700">{post.author || "Anonymous"}</span>
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                              <button
+                                onClick={() => likePost(post._id)}
+                                disabled={likedPosts.has(post._id)}
+                                className={`flex items-center gap-1 transition ${likedPosts.has(post._id) ? "text-cyan-400 cursor-not-allowed" : "text-gray-600 hover:text-[#11c3c0]"}`}
+                              >
+                                <Heart className={`w-4 h-4 ${likedPosts.has(post._id) ? "fill-[#11c3c0] text-[#11c3c0]" : ""}`} />
+                                <span className="text-sm font-medium">{post.likes || 0}</span>
+                              </button>
+
+                              <button onClick={() => openFullPost(post)} className="flex items-center gap-1 text-gray-600 hover:text-[#3ea1f1] transition">
+                                <MessageCircle className="w-4 h-4" />
+                                <span className="text-sm font-medium">{(post.comments && post.comments.length) || 0}</span>
+                              </button>
+                            </div>
+                          </div>
+
+                          <button onClick={() => openFullPost(post)} className="mt-4 inline-flex items-center text-sm font-semibold text-[#11c3c0] hover:text-[#3ea1f1] transition group">
+                            Read full story
+                            <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                          </button>
+                        </div>
+                      </motion.article>
+                    ))}
+                  </AnimatePresence>
+                </div>
+
+              )}
             </div>
 
+            {/* RIGHT PANEL */}
             <div className="space-y-6">
-              <StatsAndMeetupsPanel apiBase={API_BASE} />
+              <StatsAndMeetupsPanel apiBase={API} />
             </div>
           </div>
         ) : (
@@ -609,13 +611,11 @@ const Community = () => {
         {selectedPost && (
           <motion.div key="modal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-lg bg-white/20">
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="relative bg-gradient-to-b from-white/95 to-cyan-50/95 backdrop-blur-lg border border-cyan-200 rounded-3xl shadow-2xl max-w-3xl w-full mx-4 overflow-hidden">
-              {/* Header */}
               <div className="bg-gradient-to-r from-[#11c3c0] to-[#3ea1f1] px-6 py-4 flex justify-between items-center">
                 <h2 className="text-lg md:text-xl font-semibold text-white">{selectedPost.name}</h2>
                 <button onClick={() => setSelectedPost(null)} className="text-white hover:text-cyan-100 transition"><X className="w-6 h-6" /></button>
               </div>
 
-              {/* Body */}
               <div className="p-6 overflow-y-auto max-h-[75vh]">
                 <img src={selectedPost.image} alt={selectedPost.name} className="w-full rounded-xl mb-5 object-cover" />
 
@@ -627,7 +627,6 @@ const Community = () => {
                   )}
                 </div>
 
-                {/* Comments */}
                 <div className="mt-6">
                   <h4 className="font-semibold mb-3">Comments</h4>
 
@@ -648,8 +647,7 @@ const Community = () => {
                                 <div className="font-medium text-gray-800 text-sm">{c.author || "Anonymous"}</div>
                                 <div className="text-xs text-gray-500">{new Date(c.createdAt).toLocaleString()}</div>
                               </div>
-                              <div className="text-sm text-gray-500">
-                              </div>
+                              <div className="text-sm text-gray-500"></div>
                             </div>
                             <p className="mt-2 text-gray-700 text-sm">{c.text}</p>
 
@@ -681,7 +679,6 @@ const Community = () => {
                       </div>
                     ))}
                   </div>
-
                 </div>
 
                 <div className="flex items-center justify-between mt-6 border-t pt-4 border-cyan-100">
@@ -801,7 +798,6 @@ function StatsAndMeetupsPanel({ apiBase }) {
 
   return (
     <>
-      {/* Stats tiles */}
       <motion.div className="bg-white rounded-3xl p-6 border border-cyan-100" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}>
         <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><Award className="w-5 h-5 text-[#3ea1f1]" /> Community Stats</h3>
 
@@ -829,7 +825,6 @@ function StatsAndMeetupsPanel({ apiBase }) {
         )}
       </motion.div>
 
-      {/* Meetups */}
       <motion.div className="bg-white rounded-3xl p-6 border border-cyan-100" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}>
         <h3 className="text-lg font-semibold text-gray-800 mb-3">Upcoming Meetups</h3>
 

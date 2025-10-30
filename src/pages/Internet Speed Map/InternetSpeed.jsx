@@ -102,7 +102,7 @@ const Button = ({ children, className = "", onClick, type = "button", disabled =
 
 
 export default function App() {
-  const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_BASE) || "";
+  const API = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API) || "";
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
