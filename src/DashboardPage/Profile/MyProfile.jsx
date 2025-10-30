@@ -3,9 +3,9 @@ import { Mail, MapPin, Phone, Calendar } from "lucide-react";
 import EditProfileModal from "./EditProfileModal";
 import { GoPencil, GoPerson } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-import NomadAtlasLoader from "../../components/Home/NomadAtlasLoader";
 import { fetchUserByEmail, updateUserProfile } from "../../redux/userSlice";
 import Swal from "sweetalert2";
+import Spinner from "../../components/Spinner/Spinner";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,7 +95,7 @@ const MyProfile = () => {
     }
   };
 
-  if (loading) return <NomadAtlasLoader />;
+  if (loading) return <Spinner></Spinner>;
 
   if (error) {
     let errMsg =
@@ -104,7 +104,7 @@ const MyProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10  flex items-center justify-center p-6">
       <div className="bg-white border border-gray-300 rounded-2xl w-full max-w-3xl overflow-hidden">
         {/* Header */}
         <div

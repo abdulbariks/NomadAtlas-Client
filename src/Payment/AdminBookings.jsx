@@ -59,7 +59,7 @@ export default function AdminBookings() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50/30 p-4 md:p-10">
+        <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10 p-6">
             <div className="text-center mb-12">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
                     All Destination Bookings

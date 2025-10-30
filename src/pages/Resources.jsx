@@ -10,6 +10,7 @@ import {
   Zap,
   MessageCircle,
 } from "lucide-react";
+import Spinner from "../components/Spinner/Spinner";
 
 const ICONS = {
   Calculator,
@@ -66,7 +67,7 @@ const Resource = () => {
     fetchResources();
   }, []);
 
-  if (loading) return <p className="text-center py-10">Loading...</p>;
+  if (loading) return <Spinner></Spinner>;
 
   const jobPlatforms = resources.filter((r) => r.type === "job");
   const productivityTools = resources.filter((r) => r.type === "productivity");

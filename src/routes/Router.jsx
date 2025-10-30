@@ -77,10 +77,6 @@ export const router = createBrowserRouter([
         path: "forbidden",
         Component: ForbiddenPage,
       },
-      // {
-      //   path: "socket",
-      //   Component: CommunityPage,
-      // },
       {
         path: "blogs",
         Component: AllBlogs,
@@ -135,10 +131,6 @@ export const router = createBrowserRouter([
         Component: CreateBlog,
       },
 
-
-
-
-
       {
         path: "comparison",
         Component: Comparison,
@@ -189,12 +181,12 @@ export const router = createBrowserRouter([
         path: "resources",
         Component: Resources,
       },
-      // {
-      //   path: "*",
-      //   Component: Login,
-      // },
+      
     ],
   },
+
+
+  // dashboard route
 
   {
     path: "dashboard",
@@ -233,12 +225,6 @@ export const router = createBrowserRouter([
           <AddDestinations></AddDestinations>,
         // </AdminRoutes>
       },
-      // {
-      //   path: "addDestinations",
-      //   element: <ProviderRoutes>
-      //     <AddDestinations></AddDestinations>
-      //   </ProviderRoutes>,
-      // },
       {
         path: "profile",
         Component: MyProfile,
