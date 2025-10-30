@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API || 'https://nomad-atlas-server-delta.vercel.app/api';
+const API_BASE = import.meta.env.VITE_API || 'https://nomad-atlas-server-one.vercel.app/api';
 
 export async function fetchHousings(params = {}) {
   const qs = new URLSearchParams(params).toString();

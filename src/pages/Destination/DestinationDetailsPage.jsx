@@ -30,7 +30,7 @@ const DestinationDetailsPage = () => {
   } = useQuery({
     queryKey: ["destination", id],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`https://nomad-atlas-server-delta.vercel.app/api/destinations/${id}`);
+      const { data } = await axiosSecure.get(`https://nomad-atlas-server-one.vercel.app/api/destinations/${id}`);
       return data.data;
     },
   });

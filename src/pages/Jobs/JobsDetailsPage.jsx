@@ -28,7 +28,7 @@ useEffect(() => {
   useEffect(() => {
     // Fetch job details from backend
     axios
-      .get(`https://nomad-atlas-server-delta.vercel.app/api/jobs/${id}`)
+      .get(`https://nomad-atlas-server-one.vercel.app/api/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch((err) => console.error(err));
   }, [id]);

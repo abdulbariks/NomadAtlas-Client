@@ -14,7 +14,7 @@ const NomadFavouriteDestination = () => {
     const fetchDestinations = async () => {
       try {
         const res = await axios.get(
-          "https://nomad-atlas-server-delta.vercel.app/api/destinations/"
+          "https://nomad-atlas-server-one.vercel.app/api/destinations/"
         );
 
         const result = res.data?.data;
