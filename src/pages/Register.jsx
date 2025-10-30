@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router";
-import { Eye, EyeOff } from "lucide-react";
-import Animation from "../components/Animation/Animation";
+// import { Eye, EyeOff } from "lucide-react";
+// import Animation from "../components/Animation/Animation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/authSlice";
@@ -8,6 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import SocialLogin from "./SocialLogin";
 import { toast } from "react-toastify";
+import bgImage from "../assets/Logo/authentication.jpg"
 
 
 const Register = () => {
@@ -57,14 +58,23 @@ const Register = () => {
     }
   };
   return (
-    <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8 mb-5 mt-15 py-8">
-      <div className="w-full rounded-md shadow sm:p-8 bg-white mb-1 text-gray-800">
+    <div
+      className="relative flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden py-10"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "80%",
+        backgroundPosition: "center center"
+      }}
+    >
+      {/* Blur + Overlay */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-md z-0 "></div>
+      <div className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-md border border-gray-200 hover:border-[#11c3c0] shadow-lg rounded-2xl p-6 mx-4">
         <h2 className="mb-3 text-3xl font-semibold text-center">
           SignUp Your Account
         </h2>
         <p className="text-sm text-center text-gray-600 mb-6">
           Have Account?
-          <Link to={"/login"} className="focus:underline hover:underline">
+          <Link to={"/login"} className="text-teal-600 font-medium hover:underline ml-1">
             {" "}
             LogIn Here
           </Link>
@@ -97,19 +107,18 @@ const Register = () => {
               <p className="text-red-600 text-sm mt-1">Password must be 6+ characters</p>
             )}
           </div>
-          <button className="w-full px-8 py-3 font-semibold rounded-md bg-[#37b6f5] text-gray-50">Sign Up</button>
-        <div className="flex items-center w-full my-4">
-          <hr className="w-full text-gray-600" />
-          <p className="px-3 text-gray-600">OR</p>
-          <hr className="w-full text-gray-600" />
-        </div>
-        <div className="m-6">
-          <SocialLogin />
-        </div>
+            <button className="w-full px-8 py-3 font-semibold rounded-md bg-[#14b8a6] hover:bg-[#0f9f8e] text-white transition duration-200 shadow-md">
+            Sign Up
+            </button>
+          <div className="flex items-center w-full my-4">
+            <hr className="w-full text-gray-600" />
+            <p className="px-3 text-gray-600">OR</p>
+            <hr className="w-full text-gray-600" />
+          </div>
+          <div className="m-6">
+            <SocialLogin />
+          </div>
         </form>
-      </div>
-      <div className="w-full h-full rounded-md bg-white flex items-center justify-center">
-        <Animation></Animation>
       </div>
     </div>
   );

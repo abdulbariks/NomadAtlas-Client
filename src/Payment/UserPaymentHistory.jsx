@@ -74,7 +74,7 @@ export default function UserPaymentHistory() {
 
     return (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <h2 className="text-2xl font-bold text-center text-green-700 mb-6">
+            <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
                 Payment History
             </h2>
 
@@ -105,7 +105,7 @@ export default function UserPaymentHistory() {
             ) : (
                 <div className="overflow-x-auto">
                     <table className="table w-full border border-gray-200 shadow-md rounded-lg">
-                        <thead className="bg-green-600 text-white">
+                        <thead className="bg-[#11c3c0] text-white">
                             <tr>
                                 <th>#</th>
                                 <th>Destination</th>
@@ -147,7 +147,7 @@ export default function UserPaymentHistory() {
                                         {/* View Button */}
                                         <button
                                             onClick={() => setSelectedBooking(booking)}
-                                            className="btn btn-sm bg-green-600 hover:bg-green-700 text-white flex items-center gap-1"
+                                            className="btn btn-sm bg-[#11c3c0] text-white flex items-center gap-1"
                                         >
                                             <FaEye /> View
                                         </button>
@@ -171,7 +171,7 @@ export default function UserPaymentHistory() {
                                             <>
                                                 {/* Pay Button */}
                                                 <button
-                                                    className="btn btn-sm bg-green-500 hover:bg-green-600 text-white"
+                                                    className="btn btn-sm bg-[#3ea1f1] text-white"
                                                     onClick={() => {
                                                         toast.success("Redirecting to payment...");
                                                         navigate(`/payment/${booking._id}`);

@@ -16,6 +16,8 @@ import NomadPerks from "../components/Home/NomadPerks/NomadPerks";
 import LocalServices from "../components/Home/LocalServices/LocalServices";
 import WeatherSeasonalInfo from "../components/Home/WeatherSeasonalInfo/WeatherSeasonalInfo";
 import ScrollToTopButton from "../components/Home/ScrollToTopButton/ScrollToTopButton";
+import FeaturedOpportunities from "../components/Home/FeaturedOpportunities/FeaturedOpportunities";
+import CommunityFeatures from "../components/Home/CommunityFeatures/CommunityFeatures";
 
 const Home = () => {
   return (
@@ -24,31 +26,36 @@ const Home = () => {
 
       <Banner1/>
 
-    
-      <PopularDestination /> 
-       <HousingList/>
+    <div className="mx-5 md:mx-8 lg:mx-10 ">
+      {/* <PopularDestination />  */}
+       {/* <HousingList/> */}
 
-
-      
-
-     <DestinationFeatures/>
-
-    
-      
+     </div>
       <NomadFavouriteDestination />
-      <CityDiscovery />
+
+     {/* <DestinationFeatures/> */}
+
+    
+      
+      
+      {/* <CityDiscovery /> */}
   
       <NomadPerks/>
       
-      <LocalServices/>
+     
+
+      <FeaturedOpportunities/>
+       <LocalServices/>
+      
 
 
       {/* <WeatherSeasonalInfo/> */}
      
       
       <ComminityPosts />
+      <CommunityFeatures/>
 
-      <SmartCostPreview />
+      {/* <SmartCostPreview /> */}
       <Reviews />
       <Milestones />
       <Newsletter /> 
@@ -56,6 +63,7 @@ const Home = () => {
       <ScrollToTopButton/>
       
        {/* <WeatherAndCostAlert/> */}
+       
     </div>
   );
 };

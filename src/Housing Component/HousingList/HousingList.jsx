@@ -80,7 +80,7 @@ export default function HousingList() {
   };
 
   return (
-    <div className="mx-5 md:mx-10 lg:mx-20 my-12 px-3 py-6 rounded-md">
+    <div className=" my-12  py-6 rounded-md">
       {/* 🔹 Heading Section */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-3 text-gray-800">

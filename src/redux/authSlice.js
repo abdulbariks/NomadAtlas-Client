@@ -107,15 +107,7 @@ export const logOutUser = createAsyncThunk("auth/logOutUser", async () => {
   return null
 })
 
-// export const resetPass = createAsyncThunk("auth/resetPass",
-//   async (email, { rejectWithValue }) => {
-//     try {
-//       await sendPasswordResetEmail(auth, email)
-//       return "Password reset email sent"
-//     } catch (err) {
-//       return rejectWithValue(err.message);
-//     }
-//   })
+
 export const sendResetEmail = createAsyncThunk(
   "auth/sendResetEmail",
   async (email, { rejectWithValue }) => {
@@ -127,17 +119,6 @@ export const sendResetEmail = createAsyncThunk(
     }
   }
 );
-
-// export const resetPass = createAsyncThunk("auth/resetPass",
-//   async (email, { rejectWithValue }) => {
-//     try {
-//       await sendPasswordResetEmail(auth, email)
-//       return "Password reset email sent"
-//     } catch (err) {
-//       return rejectWithValue(err.message);
-//     }
-//   })
-
 
 export const observeAuthState = () => (dispatch) => {
   dispatch(setLoading(true));
