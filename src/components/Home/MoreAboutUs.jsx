@@ -20,7 +20,7 @@ const MoreAboutUs = () => {
           whileHover={{ scale: 1.05 }}
           src="https://i.ibb.co.com/S4m1gBcY/asian-woman-working-laptop-vacation-1.jpg"
           alt="Traveler on cliff"
-          className="h-[440px] w-[290px] object-cover rounded-[160px] rounded-br-[0px]"
+          className=" h-[380px] md:h-[440px] w-[240px] md:w-[290px] object-cover rounded-[160px] rounded-br-[0px]"
         />
 
         <div className="flex flex-col gap-6">
@@ -29,14 +29,14 @@ const MoreAboutUs = () => {
             whileHover={{ scale: 1.05 }}
             src="https://i.ibb.co.com/PsctGdrb/people-inspiration-modern-lifestyle-electronic-devices-concept-1.jpg"
             alt="Plane over island"
-            className="w-[220px] h-[220px] object-cover rounded-full rounded-bl-[0px]"
+            className="w-[190px] md:w-[220px] h-[190px] md:h-[220px] object-cover rounded-full rounded-bl-[0px]"
           />
           {/* Rounded Rectangle Image */}
           <motion.img
             whileHover={{ scale: 1.05 }}
             src="https://i.ibb.co.com/gLnZf0cq/tourist-with-baggage-map-fuji-mountain-kawaguchiko-japan-1.jpg"
             alt="image-3"
-            className="w-[260px] h-[200px] object-cover rounded-full rounded-tr-[0px]"
+            className="w-[240px] h-[180px] md:w-[260px] md:h-[200px] object-cover rounded-full rounded-tr-[0px]"
           />
         </div>
       </motion.div>

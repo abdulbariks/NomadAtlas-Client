@@ -35,7 +35,7 @@ const FAQSection = () => {
         hidden: { opacity: 0, y: 70 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
       }}
-      className="mt-16   mx-5 md:mx-8 lg:mx-10"
+      className="mt-16 mx-5 md:mx-8 lg:mx-10"
       id="faq"
     >
       {/* Section Title */}
@@ -59,7 +59,7 @@ const FAQSection = () => {
       </div>
 
       {/* FAQ + Image Section */}
-      <div className="  grid md:grid-cols-2 gap-10 px-5 items-start">
+      <div className="  grid md:grid-cols-2 gap-10  items-start">
         <div className="space-y-5">
   {faqs.slice(0, 5).map((faq, index) => (  // <-- show only first 5
     <motion.div
