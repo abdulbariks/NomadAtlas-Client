@@ -6,6 +6,7 @@ import { Heart, Building2, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Spinner from "../../components/Spinner/Spinner";
 
 const MySwal = withReactContent(Swal);
 
@@ -47,7 +48,7 @@ const FavoriteJobsPage = () => {
       </p>
     );
   if (loading)
-    return <p className="text-center mt-10 text-gray-500">Loading favorites...</p>;
+    return <Spinner></Spinner>;
   if (error)
     return <p className="text-center mt-10 text-red-500">{error}</p>;
 

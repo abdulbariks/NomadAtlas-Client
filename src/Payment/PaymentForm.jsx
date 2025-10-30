@@ -8,51 +8,6 @@ export default function PaymentForm({ destination, clientSecret, onPaymentSucces
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     if (!stripe || !elements) return;
-
-    //     if (!clientSecret) {
-    //         setError("Payment not ready yet. Please wait...");
-    //         return;
-    //     }
-
-    //     setLoading(true);
-    //     setError("");
-
-    //     const card = elements.getElement(CardElement);
-
-    //     const { paymentMethod, error: pmError } = await stripe.createPaymentMethod({
-    //         type: "card",
-    //         card,
-    //     });
-
-    //     if (pmError) {
-    //         setError(pmError.message);
-    //         setLoading(false);
-    //         return;
-    //     }
-
-    //     const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-    //         payment_method: paymentMethod.id,
-    //     });
-
-
-
-    //     if (confirmError) {
-    //         setError(confirmError.message);
-    //         setLoading(false);
-    //         return;
-    //     }
-
-    //     if (paymentIntent.status === "succeeded") {
-    //         // ✅ Call the callback from CheckoutPage to update booking UI
-    //         if (onPaymentSuccess) onPaymentSuccess();
-    //     }
-
-    //     setLoading(false);
-    // };
-
 
     // updated and automated version
 
@@ -111,7 +66,7 @@ export default function PaymentForm({ destination, clientSecret, onPaymentSucces
                                 color: "#155E75",
                                 "::placeholder": { color: "#06B6D4" },
                             },
-                            invalid: { color: "#EF4444" }, // keep red for invalid
+                            invalid: { color: "#EF4444" },
                         },
                     }}
                 />

@@ -72,9 +72,7 @@ const DestinationDetailsPage = () => {
   // Loading and error states
   if (isLoading)
     return (
-      <div className="flex justify-center p-10">
-        <Loader className="animate-spin" />
-      </div>
+      <Spinner></Spinner>
     );
   if (isError || !singleDestination)
     return (

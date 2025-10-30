@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, updateUserRole } from "../redux/userSlice";
 import useAxiosSecure from "../customHook/useAxiosSecure";
 import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
+import Spinner from "../components/Spinner/Spinner";
 
 const ActiveUsers = () => {
   const dispatch = useDispatch();
@@ -88,7 +89,7 @@ const ActiveUsers = () => {
     return allRoles.filter(role => role !== currentRole);
   };
 
-  if (loading) return <NomadAtlasLoader />;
+  if (loading) return <Spinner></Spinner>;
 
   if (error) {
     let errMsg = typeof error === "string" ? error : error?.message || "Failed to fetch users";

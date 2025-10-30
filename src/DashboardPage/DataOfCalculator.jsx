@@ -10,6 +10,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import Spinner from "../components/Spinner/Spinner";
 
 const API_URL = "https://nomad-atlas-server-delta.vercel.app/api/cost-calculator";
 
@@ -329,10 +330,7 @@ const DataOfCalculator = () => {
 
                 {/* Countries List */}
                 {loading ? (
-                  <div className="text-center py-12">
-                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
-                    <p className="mt-2 text-gray-600">Loading...</p>
-                  </div>
+                  <Spinner></Spinner>
                 ) : filteredCountries.length === 0 ? (
                   <div className="text-center py-12 text-gray-500">
                     <p>No countries found</p>

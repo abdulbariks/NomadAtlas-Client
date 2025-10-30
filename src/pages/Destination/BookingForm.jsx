@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import useAxiosSecure from '../../customHook/useAxiosSecure';
 import toast from 'react-hot-toast';
-import Spinner from '../../components/Spinner/Spinner';
 import { useNavigate } from 'react-router';
+import Spinner from '../../components/Spinner/Spinner';
 
 const BookingForm = ({ singleDestination, userInfo }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -88,7 +88,7 @@ const BookingForm = ({ singleDestination, userInfo }) => {
   };
 
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Spinner></Spinner>;
 
   return (
     <div className="p-6 md:p-8 rounded-2xl max-w-md w-full mx-auto md:mx-0">

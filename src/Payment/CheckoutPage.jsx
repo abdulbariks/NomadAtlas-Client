@@ -5,6 +5,7 @@ import PaymentForm from "./PaymentForm";
 import { useParams } from "react-router";
 import useAxiosSecure from "../customHook/useAxiosSecure";
 import PaymentSuccess from "./PaymentSuccess";
+import Spinner from "../components/Spinner/Spinner";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -66,9 +67,7 @@ export default function CheckoutPage() {
 
     if (!booking)
         return (
-            <div className="flex justify-center items-center min-h-screen bg-cyan-50">
-                <p className="text-lg text-cyan-700">Loading booking details...</p>
-            </div>
+            <Spinner></Spinner>
         );
 
     return (

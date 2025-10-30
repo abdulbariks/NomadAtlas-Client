@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../customHook/useAxiosSecure";
 import { Link } from "react-router";
+import Spinner from "../components/Spinner/Spinner";
 
 export default function PaymentSuccess({ onClose, paymentId }) {
     const [payment, setPayment] = useState(null);
@@ -16,9 +17,7 @@ export default function PaymentSuccess({ onClose, paymentId }) {
     console.log("payment data", payment)
     if (!payment)
         return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                <p className="text-white text-lg">Loading payment details...</p>
-            </div>
+            <Spinner></Spinner>
         );
 
     return (

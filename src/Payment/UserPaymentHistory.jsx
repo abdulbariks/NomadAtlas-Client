@@ -5,6 +5,7 @@ import { FaEye, FaMoneyBillWave } from "react-icons/fa";
 import { FaTimesCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import Spinner from "../components/Spinner/Spinner";
 
 export default function UserPaymentHistory() {
     const axiosSecure = useAxiosSecure();
@@ -67,9 +68,7 @@ export default function UserPaymentHistory() {
 
     if (loading)
         return (
-            <div className="text-center py-10 text-gray-500">
-                Loading payment history...
-            </div>
+            <Spinner></Spinner>
         );
 
     return (

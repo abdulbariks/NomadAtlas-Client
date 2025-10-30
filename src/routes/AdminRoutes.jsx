@@ -2,6 +2,7 @@ import React from 'react';
 import useRole from '../customHook/useRole';
 import { Navigate, useLocation } from 'react-router';
 import NomadAtlasLoader from '../components/Home/NomadAtlasLoader';
+import Spinner from '../components/Spinner/Spinner';
 
 const AdminRoutes = ({ children }) => {
 
@@ -10,7 +11,7 @@ const AdminRoutes = ({ children }) => {
 
 
 
-    if (loading) return <NomadAtlasLoader />;
+    if (loading) return <Spinner></Spinner>;
     if (role !== "admin")
 
         return <Navigate to="/forbidden" state={{ from: location }} replace />
