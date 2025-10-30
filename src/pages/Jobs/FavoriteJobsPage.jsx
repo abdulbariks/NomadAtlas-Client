@@ -52,7 +52,7 @@ const FavoriteJobsPage = () => {
     return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen p-6 md:p-10">
+    <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10 p-6">
       <h1 className="text-2xl font-bold mb-6 text-gray-700">Your Favorite Jobs</h1>
 
       {favorites.length === 0 ? (

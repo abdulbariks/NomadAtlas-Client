@@ -248,7 +248,7 @@ const DataOfCalculator = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-lg shadow-md">
           {/* Header */}
@@ -342,7 +342,7 @@ const DataOfCalculator = () => {
                     {filteredCountries.map((countryData) => (
                       <div
                         key={countryData._id}
-                        className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition"
+                        className="border border-gray-200 bg-[#11c3c010] rounded-lg p-5 transition duration-100 hover:scale-95"
                       >
                         <div className="flex items-start justify-between mb-3">
                           <div>
@@ -487,7 +487,7 @@ const DataOfCalculator = () => {
                       {cities.map((city, index) => (
                         <div
                           key={index}
-                          className="p-4 border border-gray-200 rounded-lg bg-gray-50"
+                          className="p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10"
                         >
                           <div className="flex items-start justify-between mb-3">
                             <h4 className="font-medium text-gray-700">
@@ -515,7 +515,7 @@ const DataOfCalculator = () => {
                                 onChange={(e) =>
                                   updateCity(index, "name", e.target.value)
                                 }
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                 placeholder="e.g., Barcelona"
                               />
                             </div>
@@ -534,7 +534,7 @@ const DataOfCalculator = () => {
                                     e.target.value
                                   )
                                 }
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                 placeholder="e.g., 1300"
                                 min="0"
                                 step="1"
@@ -555,7 +555,7 @@ const DataOfCalculator = () => {
                                     e.target.value
                                   )
                                 }
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                                 placeholder="e.g., 80"
                                 min="0"
                                 max="100"
@@ -567,7 +567,7 @@ const DataOfCalculator = () => {
                           {/* Optional Fields Toggle */}
                           <button
                             onClick={() => toggleOptionalFields(index)}
-                            className="flex items-center gap-2 text-sm text-purple-600 hover:text-purple-800 font-medium mb-2"
+                            className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 font-medium mb-2"
                           >
                             {showOptionalFields[index] ? (
                               <ChevronUp size={16} />
@@ -581,8 +581,8 @@ const DataOfCalculator = () => {
                           {/* Optional Fields */}
                           {showOptionalFields[index] && (
                             <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mt-3">
-                              <p className="text-xs text-purple-700 font-semibold mb-3">
-                                ✨ Optional Fields (for advanced filtering)
+                              <p className="text-xs text-blue-600 font-semibold mb-3">
+                                 Optional Fields (for advanced filtering)
                               </p>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -708,7 +708,7 @@ const DataOfCalculator = () => {
                     <button
                       onClick={handleSubmit}
                       disabled={loading}
-                      className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+                      className="flex items-center gap-2 px-6 py-3 bg-[#11c3c0] text-white rounded-lg hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
                     >
                       <Save size={18} />
                       {loading
