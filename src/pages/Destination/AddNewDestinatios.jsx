@@ -67,14 +67,14 @@ const AddNewDestination = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-4 sm:p-6 md:p-8 bg-gradient-to-br from-cyan-50 via-white to-cyan-50/30 rounded-xl  my-10">
+        <div className="max-w-6xl mx-auto p-4 sm:p-6 md:p-8 bg-gray-50 rounded-xl  my-10">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">
                  Create New Destination
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 text-gray-800">
                 {/* --- Basic Info --- */}
-                <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
+                <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6 rounded-xl bg-[#11c3c010] border border-[#11c3c050]">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Basic Information
                     </h3>
@@ -120,7 +120,7 @@ const AddNewDestination = () => {
                     ></textarea>
                 </section>
 
-                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
+                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-6 rounded-xl bg-[#11c3c010] border border-[#11c3c050]">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Accommodation Info
                     </h3>
@@ -159,7 +159,7 @@ const AddNewDestination = () => {
                     />
                 </section>
 
-                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
+                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6  p-4 sm:p-6 rounded-xl bg-[#11c3c010] border border-[#11c3c050]">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Cost & Connectivity
                     </h3>
@@ -207,7 +207,7 @@ const AddNewDestination = () => {
                     />
                 </section>
 
-                <section className="bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
+                <section className="p-4 sm:p-6 rounded-xl bg-[#11c3c010] border border-[#11c3c050]">
                     <h3 className="text-lg sm:text-xl font-semibold border-b pb-2 mb-4">
                         Amenities
                     </h3>
@@ -222,7 +222,7 @@ const AddNewDestination = () => {
                 </section>
 
               
-                <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
+                <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6 rounded-xl bg-[#11c3c010] border border-[#11c3c050]">
                     <h3 className="text-lg sm:text-xl font-semibold col-span-full border-b pb-2">
                         Climate, Safety & Visa Info
                     </h3>
@@ -307,7 +307,7 @@ const AddNewDestination = () => {
                     </select>
                 </section>
 
-                <section className="bg-base-100 p-4 sm:p-6 rounded-xl shadow-sm">
+                <section className="p-4 sm:p-6 rounded-xl bg-[#11c3c010] border border-[#11c3c050]">
                     <h3 className="text-lg sm:text-xl font-semibold border-b pb-2 mb-4">
                         Destination Image
                     </h3>
@@ -326,7 +326,7 @@ const AddNewDestination = () => {
                             <img
                                 src={picture}
                                 alt="Preview"
-                                className="w-40 sm:w-48 h-28 sm:h-32 object-cover rounded-lg border"
+                                className="w-40 sm:w-48 h-28 sm:h-32 object-cover rounded-lg border border-[#11c3c0]"
                             />
                         ) : (
                             <div className="w-40 sm:w-48 h-28 sm:h-32 flex items-center justify-center border rounded-lg text-gray-400">
@@ -339,7 +339,7 @@ const AddNewDestination = () => {
                 <div className="text-center">
                     <button
                         type="submit"
-                        className={`btn btn-primary px-8 sm:px-10 w-full sm:w-auto transition-opacity duration-300 ${!picture ? "opacity-50 cursor-not-allowed" : "opacity-100"
+                        className={`btn bg-[#11c3c0] text-white hover:bg-cyan-600 px-8 sm:px-10 w-full sm:w-auto transition-opacity duration-300 ${!picture ? "opacity-50 cursor-not-allowed" : "opacity-100"
                             }`}
                         disabled={loading || !picture}
                     >

@@ -58,18 +58,18 @@ const ActiveUsers = () => {
   const getRoleBadge = (role) => {
     const roleConfig = {
       admin: {
-        bg: "bg-gradient-to-r from-cyan-500 to-cyan-600",
-        border: "border-cyan-200",
+        bg: "bg-[#11c3c0]",
+        border: "border-[#0fa6a4]",
         text: "text-white"
       },
       "service provider": {
-        bg: "bg-gradient-to-r from-blue-500 to-blue-600",
-        border: "border-blue-200",
+        bg: "bg-[#11c3c0]",
+        border: "border-[#0fa6a4]",
         text: "text-white"
       },
       user: {
-        bg: "bg-gradient-to-r from-gray-500 to-gray-600",
-        border: "border-gray-200",
+        bg: "bg-[#11c3c0]",
+        border: "border-[#0fa6a4]",
         text: "text-white"
       }
     };
@@ -103,21 +103,21 @@ const ActiveUsers = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-cyan-50/30 rounded-xl p-6">
+    <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-cyan-900 mb-2">User Management</h1>
-              <p className="text-cyan-700/80">Manage user roles and permissions across the platform</p>
+              <h1 className="text-3xl font-bold text-[#0d8c8a] mb-2">User Management</h1>
+              <p className="text-[#0d8c8a]/80">Manage user roles and permissions across the platform</p>
             </div>
             <div className="flex items-center space-x-6">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-cyan-200 px-6 py-4">
-                <div className="text-sm text-cyan-700/70 font-medium">Total Users</div>
-                <div className="text-2xl font-bold text-cyan-900">{users.length}</div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-[#d1f5f4] px-6 py-4">
+                <div className="text-sm text-[#0d8c8a]/70 font-medium">Total Users</div>
+                <div className="text-2xl font-bold text-[#0d8c8a]">{users.length}</div>
               </div>
-              <div className="bg-cyan-500 rounded-2xl shadow-lg px-6 py-4">
+              <div className="bg-[#11c3c0] rounded-2xl shadow-lg px-6 py-4">
                 <div className="text-sm text-white/90 font-medium">Admins</div>
                 <div className="text-2xl font-bold text-white">
                   {users.filter(user => user.role === 'admin').length}
@@ -128,9 +128,9 @@ const ActiveUsers = () => {
         </div>
 
         {/* Table Container */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-cyan-300/50 overflow-hidden">
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-[#d1f5f4] overflow-hidden">
           {/* Table Header */}
-          <div className="px-8 py-6 bg-gradient-to-r from-cyan-500 to-cyan-600">
+          <div className="px-8 py-6 bg-[#11c3c0]">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold text-white">All Users</h2>
               <div className="text-white/90">
@@ -143,29 +143,29 @@ const ActiveUsers = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-cyan-50/80 border-b border-cyan-200/50">
-                  <th className="px-8 py-6 text-left text-sm font-semibold text-cyan-900 uppercase tracking-wider">
+                <tr className="bg-[#ecfdfd] border-b border-[#d1f5f4]">
+                  <th className="px-8 py-6 text-left text-sm font-semibold text-[#0d8c8a] uppercase tracking-wider">
                     User
                   </th>
-                  <th className="px-6 py-6 text-left text-sm font-semibold text-cyan-900 uppercase tracking-wider">
+                  <th className="px-6 py-6 text-left text-sm font-semibold text-[#0d8c8a] uppercase tracking-wider">
                     Contact
                   </th>
-                  <th className="px-6 py-6 text-left text-sm font-semibold text-cyan-900 uppercase tracking-wider">
+                  <th className="px-6 py-6 text-left text-sm font-semibold text-[#0d8c8a] uppercase tracking-wider">
                     Role
                   </th>
-                  <th className="px-6 py-6 text-left text-sm font-semibold text-cyan-900 uppercase tracking-wider">
+                  <th className="px-6 py-6 text-left text-sm font-semibold text-[#0d8c8a] uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-6 text-center text-sm font-semibold text-cyan-900 uppercase tracking-wider">
+                  <th className="px-6 py-6 text-center text-sm font-semibold text-[#0d8c8a] uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-cyan-100/50">
+              <tbody className="divide-y divide-[#e0f2f2]">
                 {currentUsers.map((user, index) => (
                   <tr
                     key={user._id}
-                    className="hover:bg-cyan-50/30 transition-all duration-200 group"
+                    className="hover:bg-[#f7fdfd] transition-all duration-200 group"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* User Column */}
@@ -179,7 +179,7 @@ const ActiveUsers = () => {
                               alt={user.name}
                             />
                           ) : (
-                            <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center border-2 border-white shadow-lg">
+                            <div className="h-12 w-12 rounded-2xl bg-[#11c3c0] flex items-center justify-center border-2 border-white shadow-lg">
                               <span className="text-white font-bold text-sm">
                                 {user.name?.charAt(0)?.toUpperCase() || 'U'}
                               </span>
@@ -190,10 +190,10 @@ const ActiveUsers = () => {
                           </div>
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-semibold text-cyan-900 group-hover:text-cyan-700">
+                          <div className="text-sm font-semibold text-[#0d8c8a] group-hover:text-[#11c3c0]">
                             {user.name}
                           </div>
-                          <div className="text-xs text-cyan-600/70 mt-1">
+                          <div className="text-xs text-[#0d8c8a]/70 mt-1">
                             Joined {new Date(user.createdAt).toLocaleDateString()}
                           </div>
                         </div>
@@ -202,8 +202,8 @@ const ActiveUsers = () => {
 
                     {/* Contact Column */}
                     <td className="px-6 py-6 whitespace-nowrap">
-                      <div className="text-sm text-cyan-900 font-medium">{user.email}</div>
-                      <div className="text-xs text-cyan-600/70 mt-1">Active now</div>
+                      <div className="text-sm text-[#0d8c8a] font-medium">{user.email}</div>
+                      <div className="text-xs text-[#0d8c8a]/70 mt-1">Active now</div>
                     </td>
 
                     {/* Role Column */}
@@ -215,7 +215,7 @@ const ActiveUsers = () => {
                     <td className="px-6 py-6 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                        <span className="text-sm font-medium text-cyan-900">Active</span>
+                        <span className="text-sm font-medium text-[#0d8c8a]">Active</span>
                       </div>
                     </td>
 
@@ -225,7 +225,7 @@ const ActiveUsers = () => {
                         <button
                           onClick={() => toggleDropdown(user._id)}
                           disabled={updateLoading && updatingUser === user.email}
-                          className="inline-flex items-center px-4 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                          className="inline-flex items-center px-4 py-2.5 bg-[#11c3c0] hover:bg-[#0fa6a4] text-white text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
                           {updateLoading && updatingUser === user.email ? (
                             <span className="flex items-center">
@@ -245,20 +245,20 @@ const ActiveUsers = () => {
 
                         {/* Dropdown Menu */}
                         {openDropdown === user._id && (
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-cyan-200/50 z-10 overflow-hidden backdrop-blur-sm">
+                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-[#d1f5f4] z-10 overflow-hidden backdrop-blur-sm">
                             <div className="p-2">
-                              <div className="text-xs font-semibold text-cyan-900/70 px-3 py-2 border-b border-cyan-100">
+                              <div className="text-xs font-semibold text-[#0d8c8a]/70 px-3 py-2 border-b border-[#e0f2f2]">
                                 Change to:
                               </div>
                               {getRoleOptions(user.role).map((role) => (
                                 <button
                                   key={role}
                                   onClick={() => handleRoleUpdate(user.email, role)}
-                                  className="w-full px-4 py-3 text-left text-sm text-cyan-900 hover:bg-cyan-50 transition-colors duration-150 flex items-center space-x-3 group"
+                                  className="w-full px-4 py-3 text-left text-sm text-[#0d8c8a] hover:bg-[#f7fdfd] transition-colors duration-150 flex items-center space-x-3 group"
                                 >
-                                  <div className={`w-3 h-3 rounded-full transition-colors duration-200 ${role === "admin" ? "bg-cyan-500 group-hover:bg-cyan-600" :
-                                    role === "service provider" ? "bg-blue-500 group-hover:bg-blue-600" :
-                                      "bg-gray-500 group-hover:bg-gray-600"
+                                  <div className={`w-3 h-3 rounded-full transition-colors duration-200 ${role === "admin" ? "bg-[#11c3c0] group-hover:bg-[#0fa6a4]" :
+                                      role === "service provider" ? "bg-[#11c3c0] group-hover:bg-[#0fa6a4]" :
+                                        "bg-[#11c3c0] group-hover:bg-[#0fa6a4]"
                                     }`}></div>
                                   <span className="capitalize font-medium">Set as {role}</span>
                                 </button>
@@ -277,26 +277,26 @@ const ActiveUsers = () => {
           {/* Empty State */}
           {users.length === 0 && !loading && (
             <div className="text-center py-16">
-              <div className="bg-cyan-50/50 rounded-3xl border-2 border-dashed border-cyan-200 p-12 max-w-md mx-auto">
-                <div className="w-20 h-20 bg-cyan-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-[#f7fdfd] rounded-3xl border-2 border-dashed border-[#d1f5f4] p-12 max-w-md mx-auto">
+                <div className="w-20 h-20 bg-[#ecfdfd] rounded-3xl flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-10 h-10 text-[#11c3c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-cyan-900 mb-2">No Users Found</h3>
-                <p className="text-cyan-700/70">There are no users to display at the moment.</p>
+                <h3 className="text-xl font-bold text-[#0d8c8a] mb-2">No Users Found</h3>
+                <p className="text-[#0d8c8a]/70">There are no users to display at the moment.</p>
               </div>
             </div>
           )}
 
           {/* Table Footer with Enhanced Pagination */}
           {users.length > 0 && (
-            <div className="px-8 py-6 bg-cyan-50/50 border-t border-cyan-200/50">
+            <div className="px-8 py-6 bg-[#f7fdfd] border-t border-[#d1f5f4]">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 {/* Showing results info */}
-                <div className="text-sm text-cyan-700/70">
-                  Showing <span className="font-semibold text-cyan-900">{indexOfFirstUser + 1}-{Math.min(indexOfLastUser, users.length)}</span> of{" "}
-                  <span className="font-semibold text-cyan-900">{users.length}</span> users
+                <div className="text-sm text-[#0d8c8a]/70">
+                  Showing <span className="font-semibold text-[#0d8c8a]">{indexOfFirstUser + 1}-{Math.min(indexOfLastUser, users.length)}</span> of{" "}
+                  <span className="font-semibold text-[#0d8c8a]">{users.length}</span> users
                 </div>
 
                 {/* Pagination Controls */}
@@ -305,7 +305,7 @@ const ActiveUsers = () => {
                   <button
                     onClick={prevPage}
                     disabled={currentPage === 1}
-                    className="flex items-center px-4 py-2 text-sm font-medium text-cyan-700 bg-white border border-cyan-200 rounded-xl hover:bg-cyan-50 hover:text-cyan-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+                    className="flex items-center px-4 py-2 text-sm font-medium text-[#0d8c8a] bg-white border border-[#d1f5f4] rounded-xl hover:bg-[#f7fdfd] hover:text-[#11c3c0] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -320,8 +320,8 @@ const ActiveUsers = () => {
                         key={page}
                         onClick={() => goToPage(page)}
                         className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-xl transition-all duration-200 ${currentPage === page
-                            ? "bg-cyan-500 text-white shadow-lg"
-                            : "text-cyan-700 bg-white border border-cyan-200 hover:bg-cyan-50 hover:text-cyan-900"
+                          ? "bg-[#11c3c0] text-white shadow-lg"
+                          : "text-[#0d8c8a] bg-white border border-[#d1f5f4] hover:bg-[#f7fdfd] hover:text-[#11c3c0]"
                           }`}
                       >
                         {page}
@@ -333,7 +333,7 @@ const ActiveUsers = () => {
                   <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
-                    className="flex items-center px-4 py-2 text-sm font-medium text-cyan-700 bg-white border border-cyan-200 rounded-xl hover:bg-cyan-50 hover:text-cyan-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+                    className="flex items-center px-4 py-2 text-sm font-medium text-[#0d8c8a] bg-white border border-[#d1f5f4] rounded-xl hover:bg-[#f7fdfd] hover:text-[#11c3c0] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
                   >
                     Next
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -343,9 +343,9 @@ const ActiveUsers = () => {
                 </div>
 
                 {/* Page Info */}
-                <div className="text-sm text-cyan-700/70">
-                  Page <span className="font-semibold text-cyan-900">{currentPage}</span> of{" "}
-                  <span className="font-semibold text-cyan-900">{totalPages}</span>
+                <div className="text-sm text-[#0d8c8a]/70">
+                  Page <span className="font-semibold text-[#0d8c8a]">{currentPage}</span> of{" "}
+                  <span className="font-semibold text-[#0d8c8a]">{totalPages}</span>
                 </div>
               </div>
             </div>

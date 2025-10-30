@@ -102,9 +102,9 @@ const MyProfile = () => {
       typeof error === "string" ? error : error?.message || "Failed to fetch user data";
     return <p className="text-center text-red-500 mt-6">{errMsg}</p>;
   }
-
+  
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10  flex items-center justify-center p-6">
       <div className="bg-white border border-gray-300 rounded-2xl w-full max-w-3xl overflow-hidden">
         {/* Header */}
         <div
