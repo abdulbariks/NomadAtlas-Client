@@ -52,7 +52,7 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white"
+          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800"
         >
           Frequently Asked Questions
         </motion.h2>

@@ -1,37 +1,41 @@
-// src/pages/Community/ChatSection.jsx
 import React, { useEffect, useState, useRef } from "react";
-import useAxiosSecure from "../customHook/useAxiosSecure"; // you have this
+import useAxiosSecure from "../customHook/useAxiosSecure";
 import { useSelector } from "react-redux";
 import socket from "../api/socketIO";
+import { MessageCircle, X } from "lucide-react";
 
-export default function ChatSection() {
+export default function ChatSection({ room = "general", onClose }) {
     const axiosSecure = useAxiosSecure();
-    const { user } = useSelector((state) => state.auth); // your auth slice
+    const { user } = useSelector((state) => state.auth);
     const [messages, setMessages] = useState([]);
     const [text, setText] = useState("");
     const messagesEndRef = useRef(null);
 
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
     useEffect(() => {
         socket.connect();
+        socket.emit("join_room", room);
 
-        // load history from API
         let mounted = true;
         axiosSecure
-            .get("/community/messages")
+            .get(`/community/messages?room=${room}`)
             .then((res) => {
                 if (!mounted) return;
                 setMessages(res.data || []);
-                // scroll to bottom after messages loaded
                 setTimeout(() => scrollToBottom(), 50);
             })
             .catch((err) => {
                 console.error("Failed to fetch chat messages:", err);
             });
 
-        // listen for incoming messages
         socket.on("receive_message", (msg) => {
-            setMessages((prev) => [...prev, msg]);
-            scrollToBottom();
+            if (msg.room === room) {
+                setMessages((prev) => [...prev, msg]);
+                scrollToBottom();
+            }
         });
 
         socket.on("error_message", (err) => {
@@ -40,17 +44,11 @@ export default function ChatSection() {
 
         return () => {
             mounted = false;
-            // remove listeners
             socket.off("receive_message");
             socket.off("error_message");
             socket.disconnect();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // run once
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    }, [room, axiosSecure]);
 
     const handleSend = async () => {
         const trimmed = text.trim();
@@ -60,13 +58,12 @@ export default function ChatSection() {
             senderId: user?.uid || user?.email || "guest",
             senderName: user?.displayName || user?.email || "Anonymous",
             text: trimmed,
+            room,
         };
 
-        // Add immediately to UI
         setMessages(prev => [...prev, { ...payload, createdAt: new Date().toISOString() }]);
-
-
         setText("");
+
         socket.emit("send_message", payload);
         try {
             await axiosSecure.post("/community/messages", payload);
@@ -75,41 +72,65 @@ export default function ChatSection() {
         }
     };
 
-
     return (
-        <div className="bg-white rounded shadow p-4">
-            <div className="h-96 overflow-y-auto border p-3 rounded mb-3">
+        <div className="bg-white rounded-2xl shadow-xl border border-cyan-200 overflow-hidden flex flex-col h-full">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[#11c3c0] to-[#3ea1f1] px-6 py-4 flex justify-between items-center">
+                <h3 className="text-lg font-semibold text-white">Community Chat</h3>
+                {onClose && (
+                    <button
+                        onClick={onClose}
+                        className="text-white hover:text-cyan-100 transition p-1 rounded-full hover:bg-white/20"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                )}
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
                 {messages.length === 0 ? (
-                    <p className="text-sm text-gray-500">No messages yet — say hi 👋</p>
+                    <div className="text-center text-gray-500 py-8">
+                        <MessageCircle className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                        <p>No messages yet — say hi!</p>
+                    </div>
                 ) : (
                     messages.map((m) => (
-                        <div key={m._id ?? m.createdAt} className="mb-2">
-                            <div className="text-sm">
-                                <strong>{m.senderName}</strong>{" "}
-                                <span className="text-gray-400 text-xs ml-2">
+                        <div key={m._id ?? m.createdAt} className="mb-4">
+                            <div className="flex items-center gap-2 mb-1">
+                                <strong className="text-sm text-gray-800">{m.senderName}</strong>
+                                <span className="text-gray-400 text-xs">
                                     {new Date(m.createdAt).toLocaleString()}
                                 </span>
                             </div>
-                            <div className="text-gray-800">{m.text}</div>
+                            <div className="text-gray-700 bg-white rounded-lg p-3 border border-cyan-100">
+                                {m.text}
+                            </div>
                         </div>
                     ))
                 )}
                 <div ref={messagesEndRef} />
             </div>
 
-            <div className="flex gap-2">
-                <input
-                    className="flex-1 border rounded p-2"
-                    placeholder="Type a message..."
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") handleSend();
-                    }}
-                />
-                <button onClick={handleSend} className="px-4 py-2 rounded bg-teal-600 text-white">
-                    Send
-                </button>
+            {/* Input */}
+            <div className="p-4 border-t border-cyan-200 bg-white">
+                <div className="flex gap-2">
+                    <input
+                        className="flex-1 border border-cyan-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#11c3c0]"
+                        placeholder="Type a message..."
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSend();
+                        }}
+                    />
+                    <button
+                        onClick={handleSend}
+                        className="px-6 py-3 rounded-lg bg-[#11c3c0] text-white font-semibold hover:bg-[#0fa9a7] transition"
+                    >
+                        Send
+                    </button>
+                </div>
             </div>
         </div>
     );

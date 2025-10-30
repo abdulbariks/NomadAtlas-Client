@@ -16,16 +16,12 @@ import {
 import ChatSection from "../../Socket/ChatSection";
 import { useSelector } from "react-redux";
 
-
 function resolveApiBase() {
   const raw = (import.meta.env.VITE_API || "").toString().trim();
   if (!raw) return "/api/community";
   let url = raw.replace(/\/$/, "");
-  // If already includes /community, use as-is
   if (/\/community(\b|$)/.test(url)) return url;
-  // If includes /api but not /community, append /community
   if (/\/api(\b|\/)/.test(url)) return `${url}/community`;
-  // Otherwise, append full path
   return `${url}/api/community`;
 }
 
@@ -48,6 +44,7 @@ const Community = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [selectedPost, setSelectedPost] = useState(null);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   const [creating, setCreating] = useState(false);
   const [newPost, setNewPost] = useState({ ...emptyNewPost });
@@ -58,7 +55,6 @@ const Community = () => {
 
   const filters = ["All", "Destination Guide", "City Spotlight", "Hidden Gem"];
 
-  
   const authUser = useSelector((state) => state?.auth?.user);
   const currentUserName = authUser?.displayName || (authUser?.email ? authUser.email.split("@")[0] : null) || "Anonymous";
   const currentUserId = authUser?.uid || authUser?.email || "guest";
@@ -112,7 +108,6 @@ const Community = () => {
 
   useEffect(() => {
     fetchPosts();
-  
   }, []);
 
   useEffect(() => {
@@ -123,7 +118,6 @@ const Community = () => {
         setLikedPosts(new Set(saved));
       }
     } catch { }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUserId]);
 
   useEffect(() => {
@@ -152,7 +146,7 @@ const Community = () => {
 
   const createPost = async (e) => {
     e.preventDefault();
-   
+
     if (!newPost.name.trim() || !newPost.description.trim() || !newPost.image.trim()) {
       setToast("Please provide title, description and image link");
       return;
@@ -178,7 +172,7 @@ const Community = () => {
         throw new Error(err.message || "Failed to create post");
       }
       const created = await res.json();
-      
+
       setPosts((p) => [created, ...p]);
       setNewPost({ ...emptyNewPost });
       setToast("Post created");
@@ -190,9 +184,8 @@ const Community = () => {
   };
 
   const likePost = async (postId) => {
- 
     if (likedPosts.has(postId)) return;
-  
+
     setLikedPosts((prev) => {
       const next = new Set(prev);
       next.add(postId);
@@ -213,18 +206,15 @@ const Community = () => {
         throw new Error("Failed to like post");
       }
       const updated = await res.json();
-    
+
       if (updated && updated._id) {
         setPosts((p) => p.map((x) => (x._id === updated._id ? updated : x)));
-        
         setSelectedPost((prev) => (prev && prev._id === updated._id ? { ...prev, ...updated } : prev));
       } else {
-       
         fetchPosts();
       }
     } catch (err) {
       setToast(err.message || "Like failed");
-      
       setLikedPosts((prev) => {
         const s = new Set(prev);
         s.delete(postId);
@@ -234,7 +224,6 @@ const Community = () => {
     }
   };
 
-  // add comment to a post
   const postComment = async (postId) => {
     const text = commentText.trim();
     if (!text) {
@@ -252,7 +241,6 @@ const Community = () => {
         throw new Error(err.message || "Failed to post comment");
       }
       const newComment = await res.json();
-      // update local posts state
       setPosts((p) =>
         p.map((post) =>
           post._id === postId
@@ -263,7 +251,7 @@ const Community = () => {
             : post
         )
       );
-  
+
       setSelectedPost((prev) =>
         prev && prev._id === postId
           ? { ...prev, comments: [newComment, ...(prev.comments || [])] }
@@ -294,7 +282,7 @@ const Community = () => {
         throw new Error(err.message || "Failed to post reply");
       }
       const newReply = await res.json();
-      
+
       setPosts((p) =>
         p.map((post) =>
           post._id === postId
@@ -307,7 +295,7 @@ const Community = () => {
             : post
         )
       );
-      
+
       setSelectedPost((prev) =>
         prev && prev._id === postId
           ? {
@@ -328,7 +316,6 @@ const Community = () => {
   };
 
   const openFullPost = async (post) => {
-
     if (post.fullStory || (post.comments && post.comments.length >= 0)) {
       setSelectedPost(post);
       return;
@@ -343,13 +330,11 @@ const Community = () => {
     }
   };
 
-  
   const clearSearchAndFilter = () => {
     setSearchQuery("");
     setActiveFilter("All");
   };
 
-  
   if (loadingPosts) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cyan-50 mt-14">
@@ -363,14 +348,13 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-cyan-50 mt-14">
-      
+
       {toast && (
         <div className="fixed right-6 top-6 z-50 bg-white/95 border border-cyan-200 px-4 py-2 rounded-lg shadow">
           {toast}
         </div>
       )}
 
-   
       <section className="text-center py-16 px-4 border-b border-cyan-100 bg-white/60 backdrop-blur-md">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Sparkles className="text-[#3ea1f1] w-6 h-6" />
@@ -391,12 +375,12 @@ const Community = () => {
           >
             Posts
           </button>
-          <button
+          {/* <button
             className={`px-6 py-2 rounded-full font-medium transition-all ${activeTab === "chat" ? "bg-[#3ea1f1] text-white" : "bg-white text-gray-700 hover:bg-cyan-50 border border-cyan-200"}`}
             onClick={() => setActiveTab("chat")}
           >
             Chat
-          </button>
+          </button> */}
         </div>
       </section>
 
@@ -404,10 +388,9 @@ const Community = () => {
       <section className="max-w-7xl mx-auto px-4 py-12">
         {activeTab === "posts" ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-           
+
             <div className="lg:col-span-2 flex flex-col gap-10">
 
-             
               <div className="max-w-2xl mx-auto">
                 <div className="relative mb-4">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 w-5 h-5" />
@@ -582,12 +565,45 @@ const Community = () => {
           </div>
         ) : (
           <div className="flex justify-center">
-            <div className="w-full max-w-3xl">
+            {/* <div className="w-full max-w-3xl">
               <ChatSection />
-            </div>
+            </div> */}
           </div>
         )}
       </section>
+
+      {/* Floating Chat Button */}
+      <motion.button
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowChatModal(true)}
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-r from-[#11c3c0] to-[#3ea1f1] shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </motion.button>
+
+      {/* Chat Modal */}
+      <AnimatePresence>
+        {showChatModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/30 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-md h-[600px]"
+            >
+              <ChatSection onClose={() => setShowChatModal(false)} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {selectedPost && (
@@ -637,7 +653,6 @@ const Community = () => {
                             </div>
                             <p className="mt-2 text-gray-700 text-sm">{c.text}</p>
 
-
                             <div className="mt-3 ml-0 pl-0 space-y-2">
                               {(c.replies || []).map((r) => (
                                 <div key={r._id} className="bg-cyan-50 p-2 rounded-md border border-cyan-100 text-sm">
@@ -668,7 +683,6 @@ const Community = () => {
                   </div>
 
                 </div>
-
 
                 <div className="flex items-center justify-between mt-6 border-t pt-4 border-cyan-100">
                   <div className="flex items-center gap-3">
@@ -702,7 +716,6 @@ const Community = () => {
 
 export default Community;
 
-
 function StatsAndMeetupsPanel({ apiBase }) {
   const [tiles, setTiles] = React.useState(null);
   const [meetups, setMeetups] = React.useState(null);
@@ -720,7 +733,6 @@ function StatsAndMeetupsPanel({ apiBase }) {
     TrendingUp,
   };
 
-
   React.useEffect(() => {
     let mounted = true;
     (async () => {
@@ -734,7 +746,6 @@ function StatsAndMeetupsPanel({ apiBase }) {
         if (Array.isArray(data)) {
           if (mounted) setTiles(data);
         } else if (data && typeof data === "object") {
-
           const raw = Array.isArray(data) ? data[0] || {} : data || {};
           const statsData = raw.stats || raw;
 
@@ -763,7 +774,6 @@ function StatsAndMeetupsPanel({ apiBase }) {
     };
   }, [apiBase]);
 
-  // fetch meetups
   React.useEffect(() => {
     let mounted = true;
     (async () => {
