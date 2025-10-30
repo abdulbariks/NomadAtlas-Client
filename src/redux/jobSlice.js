@@ -4,7 +4,7 @@ export const fetchJobs = createAsyncThunk(
   "jobs/fetchJobs",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch("https://nomad-atlas-server-delta.vercel.app/api/jobs");
+      const res = await fetch("http://localhost:5000/api/jobs");
       if (!res.ok) throw new Error("Failed to fetch jobs");
       const data = await res.json();
       return data;

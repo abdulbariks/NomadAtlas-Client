@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { Heart,Check,FileText,HandHeart,BrainCircuit ,Building2,MapPin, CalendarDays, CircleDollarSign, Globe, Send,ArrowRight,Clock4, Share2, Link, Mail, Linkedin } from "lucide-react";
@@ -9,12 +9,15 @@ import { addFavorite, removeFavorite, fetchFavorites } from "../../redux/favorit
 import { toast } from "react-hot-toast";
 
 
+
 const JobsDetailsPage = () => {
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const dispatch = useDispatch();
   const { items: favorites } = useSelector((state) => state.favorites);
+  const [message, setMessage] = useState("");
+  const [image, setImage] = useState(null);
 
 
 // Fetch favorites on page load or user change
@@ -28,7 +31,7 @@ useEffect(() => {
   useEffect(() => {
     // Fetch job details from backend
     axios
-      .get(`https://nomad-atlas-server-delta.vercel.app/api/jobs/${id}`)
+      .get(`http://localhost:5000/api/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch((err) => console.error(err));
   }, [id]);
@@ -57,7 +60,48 @@ const handleFavoriteToggle = () => {
   }
 };
 
+    const handleSubmitApplication = async () => {
+  if (!user) return toast.error("Please login first");
 
+  const formData = new FormData();
+  formData.append("jobId", job._id);
+  formData.append("applicantEmail", user.email);
+  formData.append("message", message);
+  if (image) formData.append("image", image);
+
+  try {
+    await axios.post("http://localhost:5000/api/applications", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    toast.success("Application submitted successfully!");
+    setMessage("");
+    setImage(null);
+  } catch (err) {
+    toast.error("Failed to submit application");
+  }
+};
+
+ const handleCopyLink = () => {
+      navigator.clipboard.writeText(window.location.href);
+        toast.success("Link copied to clipboard!");
+       };
+ 
+ const handleEmailShare = () => {
+  const subject = encodeURIComponent(`Check out this job: ${job.title}`);
+  const body = encodeURIComponent(`I found this interesting job on NomadAtlas:\n\n${window.location.href}`);
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+};
+     
+
+   const handleLinkedInShare = () => {
+  const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+  window.open(linkedInUrl, "_blank");
+     };
+
+
+
+
+   
   if (!job)
     return <div className="text-center mt-20 text-gray-500">Loading...</div>;
 
@@ -184,17 +228,31 @@ const handleFavoriteToggle = () => {
         </div>
 
         {/* Apply Section */}
-        <section className="border-t pt-4">
-          <h2 className="font-semibold mb-2 text-lg">Apply for this position</h2>
-          <textarea
-            className="w-full border rounded-lg p-3 mb-3"
-            placeholder="Tell us why you're a great fit..."
-            rows={3}
-          ></textarea>
-          <button className="w-full bg-[#11c3c0] hover:bg-[#23a3a1] text-white font-semibold py-2 rounded-lg transition">
-            Submit Application
-          </button>
-        </section>
+      
+   <section className="border-t pt-4">
+  <h2 className="font-semibold mb-2 text-lg">Apply for this position</h2>
+  <textarea
+    className="w-full border rounded-lg p-3 mb-3"
+    placeholder="Tell us why you're a great fit..."
+    rows={3}
+    value={message}
+    onChange={(e) => setMessage(e.target.value)}
+  ></textarea>
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => setImage(e.target.files[0])}
+    className="mb-3 w-full border p-2 rounded-lg"
+  />
+
+  <button
+    onClick={handleSubmitApplication}
+    className="w-full bg-[#11c3c0] hover:bg-[#23a3a1] text-white font-semibold py-2 rounded-lg transition"
+  >
+    Submit Application
+  </button>
+</section>
       </div>
 
       {/* RIGHT SIDEBAR */}
@@ -209,33 +267,39 @@ const handleFavoriteToggle = () => {
       </div>
 
       {/* Options */}
-      <div className="space-y-2">
+     <div className="space-y-2">
+  <button
+    onClick={handleCopyLink}
+    className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 border border-gray-300 rounded-lg transition"
+  >
+    <Link size={16} />
+    Copy Link
+  </button>
 
-        {/* Copy Link */}
-        <button className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 border border-gray-300 rounded-lg transition">
-          <Link size={16} />
-          Copy Link
-        </button>
+  <button
+    onClick={handleEmailShare}
+    className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 border border-gray-300 rounded-lg transition"
+  >
+    <Mail size={16} />
+    Share via Email
+  </button>
 
-        {/* Share via Email */}
-        <button className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 border border-gray-300 rounded-lg transition">
-          <Mail size={16} />
-          Share via Email
-        </button>
+  <button
+    onClick={handleLinkedInShare}
+    className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 border border-gray-300 rounded-lg transition"
+  >
+    <Linkedin size={16} />
+    Share on LinkedIn
+  </button>
+</div>
 
-        {/* Share on LinkedIn */}
-        <button className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 border border-gray-300 rounded-lg transition">
-          <Linkedin size={16} />
-          Share on LinkedIn
-        </button>
-
-      </div>
     </div>
   
      {/* similar job card */}
 
      <div>
-      <SimilarJobsCard/>
+    <SimilarJobsCard category={job.category} jobId={job._id} />
+
      </div>
 
         {/* Job Stats

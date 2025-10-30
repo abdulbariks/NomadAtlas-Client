@@ -31,7 +31,7 @@ const SuccessStories = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % stories.length);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(timer);
   }, [stories]);
 

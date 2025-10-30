@@ -190,13 +190,13 @@ const JobsPage = () => {
                     </div>
                   </div>
              <button
-  onClick={() => handleFavoriteToggle(job)}
-  className={`p-2 rounded-full transition ${
-    isFavorite(job._id) ? "bg-[#11c3c0] text-white" : "bg-gray-100 text-gray-400"
-  }`}
->
-  <Heart fill={isFavorite(job._id) ? "#11c3c0" : "none"} strokeWidth={2} />
-</button>
+               onClick={() => handleFavoriteToggle(job)}
+               className={`p-2 rounded-full transition ${
+               isFavorite(job._id) ? "bg-[#11c3c0] text-white" : "bg-gray-100 text-gray-400"
+                }`}
+              >
+            <Heart fill={isFavorite(job._id) ? "#11c3c0" : "none"} strokeWidth={2} />
+            </button>
 
 
                 </div>
