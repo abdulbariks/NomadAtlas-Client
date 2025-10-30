@@ -11,8 +11,8 @@ const features = [
     description:
       "Join 100,000+ professionals who’ve ditched the 9–5 cubicle for beaches, mountains, and cities worldwide.",
     button1: "Start Your Journey",
-    button2: "Learn More",
-    image: "https://i.ibb.co/4Z9q90sR/business-scene-with-nature-1.jpg",
+   
+    image: "https://i.ibb.co.com/VYg5626j/business-man-his-office-outdoors-1.jpg",
     link: "/destinations",
   },
   {
@@ -22,8 +22,8 @@ const features = [
     description:
       "Access exclusive remote job boards, coworking spaces, and networking events in 150+ cities.",
     button1: "Explore Jobs",
-    button2: "Learn More",
-    image: "https://i.ibb.co/p6VyyvTs/person-home-working-late-night-1.jpg",
+   
+    image: "https://i.ibb.co.com/Q399TybR/girll-with-earphones-making-video-call-waving-1.jpg",
     link: "/jobs",
   },
   {
@@ -33,8 +33,8 @@ const features = [
     description:
       "Meet like-minded nomads, attend meetups, and build lasting friendships across continents.",
     button1: "Join Community",
-    button2: "Learn More",
-    image: "https://i.ibb.co/Wvf65BDn/entrepreneur-uses-high-speed-internet-connection-mountain-top-1.jpg",
+   
+    image: "https://i.ibb.co.com/Lh6YQbmm/students-holding-network-graphic-overlay-banner-1.jpg",
     link: "/community",
   },
 ];
@@ -74,7 +74,7 @@ const FeaturedOpportunities = () => {
               <img
                 src={feature.image}
                 alt={feature.title}
-                className="w-full h-full object-cover md:rounded-none rounded-t-2xl"
+                className="w-full h-80 object-cover md:rounded-none rounded-t-2xl"
               />
             </motion.div>
 
@@ -101,36 +101,24 @@ const FeaturedOpportunities = () => {
 
               <div className="flex gap-4 flex-wrap">
                 {/* Primary Button */}
-                <Link
-                  to={feature.link} 
-                  className="text-white font-semibold px-5 py-2 rounded-full transition flex items-center gap-2 hover:scale-105"
-                  style={{
-                    background: "linear-gradient(to right,#229a98, #11c3c0)",
-                  }}
-                >
-                  {feature.button1} <ArrowRight size={16} />
-                </Link>
+                <motion.div
+  whileHover={{ scale: 1.08 }}
+  whileTap={{ scale: 0.95 }}
+  transition={{ type: "spring", stiffness: 300 }}
+>
+  <Link
+    to={feature.link}
+    className="text-white font-semibold px-5 py-2 rounded-full flex items-center gap-2 transition-all duration-300"
+    style={{
+      background: "#11c3c0",
+    }}
+    onMouseEnter={(e) => (e.currentTarget.style.background = "#0fa8a6")}
+    onMouseLeave={(e) => (e.currentTarget.style.background = "#11c3c0")}
+  >
+    {feature.button1} <ArrowRight size={16} />
+  </Link>
+</motion.div>
 
-                {/* Secondary Button */}
-                <Link
-                  to={feature.link} 
-                  className="border-2 px-5 py-2 rounded-full font-semibold transition flex items-center gap-2"
-                  style={{
-                    borderColor: "#11c3c0",
-                    color: "#11c3c0",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background =
-                      "linear-gradient(to right, #229a98, #11c3c0)";
-                    e.target.style.color = "white";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = "transparent";
-                    e.target.style.color = "#11c3c0";
-                  }}
-                >
-                  {feature.button2}
-                </Link>
               </div>
             </motion.div>
           </motion.div>

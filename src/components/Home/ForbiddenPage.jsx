@@ -4,12 +4,12 @@ import NomadAtlasLogo from "../../Header/NomadAtlasLogo";
 
 const ForbiddenPage = () => {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-tr from-blue-50 to-yellow-50 text-center p-6">
+        <div className="min-h-screen flex flex-col items-center justify-center  text-center p-6">
             {/* Logo */}
-            <NomadAtlasLogo />
+           
 
             {/* Error Code */}
-            <h1 className="text-7xl md:text-9xl font-extrabold bg-gradient-to-tr from-blue-500 to-yellow-400 bg-clip-text text-transparent mt-8">
+            <h1 className="text-7xl md:text-9xl font-extrabold bg-gradient-to-tr from-cyan-500 to-cyan-400 bg-clip-text text-transparent mt-8">
                 403
             </h1>
 
@@ -20,11 +20,12 @@ const ForbiddenPage = () => {
 
             {/* Back to Home Button */}
             <Link
-                to="/"
-                className="mt-8 inline-block bg-gradient-to-tr from-blue-500 to-yellow-400 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
-            >
-                Go Back Home
-            </Link>
+                   to="/"
+                   className="mt-8 inline-block bg-[#11c3c0] text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:bg-[#0fa9a6] transition-all duration-300"
+                 >
+                   Go Back Home
+                 </Link>
+           
 
             {/* Decorative Lock Icon */}
             <div className="mt-12 text-blue-400 animate-pulse">
