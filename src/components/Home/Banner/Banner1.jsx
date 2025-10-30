@@ -41,7 +41,7 @@ const Banner1 = () => {
   };
 
   return (
-    <section className="relative w-full h-[80] md:h-[95vh] pt-15 pb-6 md:pt-6 md:pb-0 flex items-center justify-center text-white overflow-hidden mt-0 inset-0">
+    <section className="relative w-full h-[75vh] md:h-[95vh] pt-15 pb-6 md:pt-6 md:pb-0 flex items-center justify-center text-white overflow-hidden mt-0 inset-0">
       {/* Background Image */}
       <img
         src={bannerImage}
@@ -58,7 +58,7 @@ const Banner1 = () => {
   initial={{ opacity: 0, y: 30 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8, ease: "easeOut" }}
-  className="text-5xl font-extrabold"
+  className="text-3xl md:text-4xl lg:text-5xl md:font-extrabold font-bold"
 >
   Find Your Perfect Remote <br /> Work{" "}
   <span className="text-white">
@@ -74,7 +74,7 @@ const Banner1 = () => {
   </span>
 </motion.h1>
 
-        <p className="mt-4 text-light text-gray-100 font-light max-w-2xl mx-auto">
+        <p className="mt-4 text-light  text-sm md:text-lg text-gray-100 font-light max-w-2xl mx-auto">
           Explore the world's best cities for digital nomads. Compare costs,
           discover amenities, and connect with a global community.
         </p>

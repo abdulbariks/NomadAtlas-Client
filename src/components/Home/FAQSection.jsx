@@ -35,7 +35,7 @@ const FAQSection = () => {
         hidden: { opacity: 0, y: 70 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
       }}
-      className="mt-16  dark:bg-gray-900 mx-5 md:mx-8 lg:mx-10"
+      className="mt-16   mx-5 md:mx-8 lg:mx-10"
       id="faq"
     >
       {/* Section Title */}
@@ -52,7 +52,7 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white"
+          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white"
         >
           Frequently Asked Questions
         </motion.h2>
@@ -66,14 +66,14 @@ const FAQSection = () => {
       key={faq._id}
       whileHover={{ scale: 1.02 }}
       onClick={() => toggleFAQ(index)}
-      className={`border rounded-2xl p-5 shadow-sm cursor-pointer transition-all duration-300 ${
+      className={`border border-gray-500  rounded-2xl p-5 cursor-pointer transition-all duration-300 ${
         activeIndex === index
           ? "bg-[#11c3c0]/10 border-[#11c3c0]"
           : "bg-white dark:bg-gray-800"
       }`}
     >
       <div className="flex justify-between items-center">
-        <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+        <h3 className="font-semibold text-lg text-gray-700 dark:text-white">
           {faq.question}
         </h3>
         <ChevronDown
