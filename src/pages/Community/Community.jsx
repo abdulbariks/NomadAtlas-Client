@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 
 function resolveApiBase() {
   const raw = (import.meta.env.VITE_API || "").toString().trim();
-  if (!raw) return "/api/community";
+  if (!raw) return "/community";
   let url = raw.replace(/\/$/, "");
   if (/\/community(\b|$)/.test(url)) return url;
   if (/\/api(\b|\/)/.test(url)) return `${url}/community`;
@@ -168,7 +168,7 @@ const Community = () => {
         throw new Error(err.message || "Failed to create post");
       }
       const created = await res.json();
-      
+
       setPosts((p) => [created, ...p]);
       setNewPost({ ...emptyNewPost });
       setToast("Post created");
@@ -181,7 +181,7 @@ const Community = () => {
 
   const likePost = async (postId) => {
     if (likedPosts.has(postId)) return;
-  
+
     setLikedPosts((prev) => {
       const next = new Set(prev);
       next.add(postId);
@@ -202,7 +202,7 @@ const Community = () => {
         throw new Error("Failed to like post");
       }
       const updated = await res.json();
-    
+
       if (updated && updated._id) {
         setPosts((p) => p.map((x) => (x._id === updated._id ? updated : x)));
         setSelectedPost((prev) => (prev && prev._id === updated._id ? { ...prev, ...updated } : prev));
@@ -344,7 +344,7 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-cyan-50 mt-14">
-      
+
       {toast && (
         <div className="fixed right-6 top-6 z-50 bg-white/95 border border-cyan-200 px-4 py-2 rounded-lg shadow">
           {toast}
@@ -471,7 +471,7 @@ const Community = () => {
                 </div>
               </div>
 
-             
+
               {filteredPosts.length === 0 ? (
                 <div className="bg-white rounded-3xl p-12 text-center shadow-xl border border-cyan-100">
                   <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
