@@ -21,7 +21,7 @@ const SuccessStories = () => {
   // Fetch stories
   useEffect(() => {
     const fetchStories = async () => {
-      const res = await axios.get("http://localhost:5000/api/success-stories");
+      const res = await axios.get("https://nomad-atlas-server-one.vercel.app/api/success-stories");
       setStories(res.data);
     };
     fetchStories();
@@ -38,7 +38,7 @@ const SuccessStories = () => {
   // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/api/success-stories", formData);
+    await axios.post("https://nomad-atlas-server-one.vercel.app/api/success-stories", formData);
     setFormData({
       name: "",
       role: "",
@@ -49,7 +49,7 @@ const SuccessStories = () => {
       text: "",
     });
     setShowModal(false);
-    const res = await axios.get("http://localhost:5000/api/success-stories");
+    const res = await axios.get("https://nomad-atlas-server-one.vercel.app/api/success-stories");
     setStories(res.data);
     toast.success(" Success story added successfully!");
   };

@@ -18,7 +18,7 @@ const NomadPerks = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/perks")
+      .get("https://nomad-atlas-server-one.vercel.app/api/perks")
       .then((res) => setPerks(res.data))
       .catch((err) => console.error(err));
   }, []);

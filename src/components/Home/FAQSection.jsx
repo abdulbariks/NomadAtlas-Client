@@ -17,7 +17,7 @@ const FAQSection = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/faqs")
+      .get("https://nomad-atlas-server-one.vercel.app/api/faqs")
       .then((res) => setFaqs(res.data))
       .catch((err) => console.error(err));
   }, []);

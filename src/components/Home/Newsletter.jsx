@@ -13,7 +13,7 @@ const Newsletter = () => {
     if (!email) return setMessage("Please enter your email.");
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/newsletter", { email });
+      const res = await axios.post("https://nomad-atlas-server-one.vercel.app/api/newsletter", { email });
       setMessage(res.data.message);
       setEmail("");
     } catch (err) {

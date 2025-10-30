@@ -23,7 +23,7 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/contact", formData);
+      await axios.post("https://nomad-atlas-server-one.vercel.app/api/contact", formData);
       toast.success(" Message sent successfully!", {
         position: "top-center",
         autoClose: 2000,

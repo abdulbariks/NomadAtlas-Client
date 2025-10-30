@@ -16,7 +16,7 @@ const Milestones = () => {
   const [stats, setStats] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/stats").then((res) => setStats(res.data));
+    axios.get("https://nomad-atlas-server-one.vercel.app/api/stats").then((res) => setStats(res.data));
   }, []);
 
   return (
