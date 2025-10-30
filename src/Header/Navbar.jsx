@@ -45,7 +45,7 @@ console.log(user)
 
         {/* Desktop Menu */}
         
-          <div className="hidden md:flex gap-6 text-lg font-medium">
+          <div className="hidden md:flex gap-6 text-md font-medium">
             {/* Your existing desktop links */}
             <NavLink to="/destinations" className="hover:text-[#11c3c0] transition">
               Destinations

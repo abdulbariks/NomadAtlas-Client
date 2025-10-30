@@ -42,6 +42,7 @@ import JobDetailsPage from "../pages/Jobs/JobsDetailsPage";
 import FavoriteJobsPage from "../pages/Jobs/FavoriteJobsPage";
 import ContactUs from "../pages/ContactUs";
 import FAQPage from "../pages/FAQPage";
+import TermsAndConditions from "../pages/TermsAndConditions";
 
 
 
@@ -69,6 +70,11 @@ export const router = createBrowserRouter([
         path:"faqs",
         Component:FAQPage
       },
+      {
+        path:"terms",
+        Component:TermsAndConditions
+      }
+      ,
       {
         path: "forbidden",
         Component: ForbiddenPage,
