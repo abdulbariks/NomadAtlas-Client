@@ -1,12 +1,4 @@
-import React, { useState } from "react";
-
-const OPTIONS = [
-  { id: "barcelona", name: "Barcelona", cost: "$1,500/month", wifi: "50 Mbps", safety: "High", climate: "Mediterranean", coworking: "Available" },
-  { id: "chiangmai", name: "Chiang Mai", cost: "$800/month", wifi: "30 Mbps", safety: "Medium", climate: "Tropical", coworking: "Available" },
-  { id: "medellin", name: "Medellin", cost: "$1,200/month", wifi: "40 Mbps", safety: "Medium", climate: "Spring-like", coworking: "Available" },
-  { id: "lisbon", name: "Lisbon", cost: "$1,100/month", wifi: "45 Mbps", safety: "High", climate: "Mediterranean", coworking: "Available" },
-  { id: "bangkok", name: "Bangkok", cost: "$900/month", wifi: "35 Mbps", safety: "Medium", climate: "Tropical", coworking: "Available" },
-];
+import React, { useEffect, useState } from "react";
 
 const IconSearch = ({ className = "w-5 h-5" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none">
@@ -15,24 +7,63 @@ const IconSearch = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
-const IconGlobe = ({ className = "w-6 h-6" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
-    <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M2 12h20M12 2c2.5 3 3 7 3 10s-.5 7-3 10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 export default function Comparison() {
   const [query, setQuery] = useState("");
   const [optionsVisible, setOptionsVisible] = useState(false);
-  const [compare, setCompare] = useState([OPTIONS[0], OPTIONS[1], OPTIONS[2]]);
+  const [compare, setCompare] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filtered = OPTIONS.filter(
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState({
+    id: "",
+    name: "",
+    cost: "",
+    wifi: "",
+    safety: "Medium",
+    climate: "",
+    coworking: "Available",
+
+  });
+  const [submitting, setSubmitting] = useState(false);
+
+  // Use the environment variable
+  const API_BASE = import.meta.env.VITE_API || 'https://nomad-atlas-server-one.vercel.app/api';
+
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      setLoading(true);
+      try {
+        const res = await fetch(`${API_BASE}/cities`);
+        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+        const data = await res.json();
+        if (mounted) {
+          setCities(data);
+          setCompare(data.slice(0, 3));
+          setError(null);
+        }
+      } catch (err) {
+        console.error(err);
+        if (mounted) setError(err.message || "Unknown error");
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+    load();
+    return () => { mounted = false; };
+  }, [API_BASE]);
+
+  const filtered = cities.filter(
     (o) => o.name.toLowerCase().includes(query.toLowerCase()) && !compare.find((c) => c.id === o.id)
   );
 
-  const addCity = (city) => {
-    setCompare((c) => [...c, city]);
+  const addCityLocal = (city) => {
+    setCompare((c) => {
+      if (c.find((x) => x.id === city.id)) return c;
+      return [...c, city];
+    });
     setQuery("");
     setOptionsVisible(false);
   };
@@ -41,15 +72,73 @@ export default function Comparison() {
     setCompare((c) => c.filter((x) => x.id !== id));
   };
 
+
+  const onFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const res = await fetch(`${API_BASE}/cities`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+      if (res.status === 409) {
+        const body = await res.json();
+        throw new Error(body.message || "Duplicate id");
+      }
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.message || `Server returned ${res.status}`);
+      }
+      const created = await res.json();
+      // refresh city list locally (prepend)
+      setCities((prev) => [created, ...prev]);
+      // add to compare
+      addCityLocal(created);
+      setShowModal(false);
+      // reset form
+      setForm({
+        id: "",
+        name: "",
+        cost: "",
+        wifi: "",
+        safety: "Medium",
+        climate: "",
+        coworking: "Available",
+        experience: ""
+      });
+    } catch (err) {
+      alert("Failed to add city: " + err.message);
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen pt-10">
       <main className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">Comparison Planner</h1>
-            <p className="mt-2 text-sm text-gray-500 max-w-2xl">
-              Compare cities side-by-side to find your ideal nomad destination — view costs, connectivity, safety and local amenities at a glance.
-            </p>
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">Comparison Planner</h1>
+              <p className="mt-2 text-sm text-gray-500 max-w-2xl">
+                Compare cities side-by-side. Share your real experience in the Add City form!
+              </p>
+            </div>
+            <div>
+              <button
+                onClick={() => setShowModal(true)}
+                className="inline-flex items-center gap-2 cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded-md shadow hover:bg-indigo-700"
+              >
+                Add City
+              </button>
+            </div>
           </div>
 
           <div className="relative z-20">
@@ -68,7 +157,8 @@ export default function Comparison() {
                   onFocus={() => setOptionsVisible(true)}
                   onBlur={() => setTimeout(() => setOptionsVisible(false), 150)}
                   className="w-full pl-4 pr-28 py-3 bg-transparent outline-none text-gray-700 placeholder-gray-400 rounded-md"
-                  placeholder="Search cities (e.g., Lisbon, Medellin)"
+                  placeholder={loading ? "Loading cities..." : "Search cities (e.g., Lisbon, Medellin)"}
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -78,12 +168,12 @@ export default function Comparison() {
                 {filtered.map((o) => (
                   <li
                     key={o.id}
-                    onMouseDown={() => addCity(o)}
+                    onMouseDown={() => addCityLocal(o)}
                     className="px-4 py-3 flex items-center justify-between gap-3 hover:bg-gray-50 cursor-pointer transition"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-semibold">
-                        {o.name.split(" ").map(n => n[0]).slice(0,2).join("")}
+                        {o.name.split(" ").map(n => n[0]).slice(0, 2).join("")}
                       </div>
                       <div>
                         <div className="text-sm font-medium text-gray-800">{o.name}</div>
@@ -93,7 +183,14 @@ export default function Comparison() {
                     <div className="text-xs text-gray-500">{o.cost}</div>
                   </li>
                 ))}
+                {filtered.length === 0 && (
+                  <li className="px-4 py-3 text-sm text-gray-400">No cities match</li>
+                )}
               </ul>
+            )}
+
+            {error && (
+              <div className="mt-2 text-sm text-red-600">Error loading cities: {error}</div>
             )}
           </div>
 
@@ -104,8 +201,8 @@ export default function Comparison() {
                   <thead className="bg-gradient-to-r from-slate-50 to-white">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">City</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Cost</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Wi-Fi</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Cost ($)</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Wi-Fi (Mbps)</th>
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Safety</th>
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Climate</th>
                       <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Coworking</th>
@@ -122,12 +219,12 @@ export default function Comparison() {
                       </tr>
                     )}
 
-                    {compare.map((row, idx) => (
+                    {compare.map((row) => (
                       <tr key={row.id} className="bg-white hover:shadow-sm transition">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-indigo-50 text-indigo-700 rounded-lg flex items-center justify-center font-semibold">
-                              {row.name.split(" ").map(n => n[0]).slice(0,2).join("")}
+                              {row.name.split(" ").map(n => n[0]).slice(0, 2).join("")}
                             </div>
                             <div>
                               <div className="text-sm font-medium text-gray-900">{row.name}</div>
@@ -148,9 +245,7 @@ export default function Comparison() {
                         </td>
 
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            row.safety === "High" ? "bg-green-50 text-green-700" : "bg-yellow-50 text-yellow-700"
-                          }`}>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${row.safety === "High" ? "bg-green-50 text-green-700" : "bg-yellow-50 text-yellow-700"}`}>
                             {row.safety}
                           </span>
                         </td>
@@ -159,7 +254,7 @@ export default function Comparison() {
 
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-sm bg-indigo-50 text-indigo-600">
-                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
                             {row.coworking}
                           </span>
                         </td>
@@ -169,7 +264,7 @@ export default function Comparison() {
                             onClick={() => removeCity(row.id)}
                             className="inline-flex items-center gap-2 text-red-600 hover:text-red-800 px-3 py-1 rounded-md border border-red-100 bg-red-50/40 hover:bg-red-50 transition"
                           >
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                             Remove
                           </button>
                         </td>
@@ -183,10 +278,78 @@ export default function Comparison() {
           </div>
 
           <div className="mt-6 text-sm text-gray-500">
-            Tip: Add or remove cities to see an updated side-by-side comparison.
+            Tip: Add your real experience in the Add City form — cost, connectivity, and safety are most helpful.
           </div>
         </div>
       </main>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setShowModal(false)} />
+          <form onSubmit={submitForm} className="relative bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 z-10">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Add city & share your experience</h3>
+              <button type="button" onClick={() => setShowModal(false)} className="text-gray-500 cursor-pointer">Close</button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <label className="block">
+                <div className="text-xs text-gray-600">City name *</div>
+                <input required name="name" value={form.name} onChange={onFormChange} className="w-full px-3 py-2 border rounded" />
+              </label>
+
+              <label className="block">
+                <div className="text-xs text-gray-600">Climate</div>
+                <select name="climate" value={form.climate} onChange={onFormChange} className="w-full px-3 py-2 border rounded">
+                  <option value="">Select climate</option>
+                  <option>Spring-like</option>
+                  <option>Tropical</option>
+                  <option>Mediterranean</option>
+                  <option>Arid</option>
+                  <option>Continental</option>
+                  <option>Polar</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <div className="text-xs text-gray-600">Cost ($)</div>
+                <input name="cost" value={form.cost} onChange={onFormChange} className="w-full px-3 py-2 border rounded" />
+              </label>
+
+              <label className="block">
+                <div className="text-xs text-gray-600">Wi-Fi (Mbps)</div>
+                <input name="wifi" value={form.wifi} onChange={onFormChange} className="w-full px-3 py-2 border rounded" />
+              </label>
+
+              <label className="block">
+                <div className="text-xs text-gray-600">Safety</div>
+                <select name="safety" value={form.safety} onChange={onFormChange} className="w-full px-3 py-2 border rounded">
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <div className="text-xs text-gray-600">Coworking</div>
+                <input name="coworking" value={form.coworking} onChange={onFormChange} className="w-full px-3 py-2 border rounded" />
+              </label>
+
+              <label className="col-span-1 md:col-span-2 block">
+
+              </label>
+            </div>
+
+            <div className="mt-4 flex items-center justify-end gap-3">
+              <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 rounded border cursor-pointer">Cancel</button>
+              <button type="submit" disabled={submitting} className="px-4 py-2 rounded bg-indigo-600 cursor-pointer text-white">
+                {submitting ? "Saving..." : "Save"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

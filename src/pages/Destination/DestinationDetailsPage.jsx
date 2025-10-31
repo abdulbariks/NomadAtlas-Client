@@ -83,7 +83,7 @@ const DestinationDetailsPage = () => {
 
   const destination = singleDestination;
 
-  // ✅ Handle Comment Submission
+  // Handle Comment Submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return toast.error("Please write a comment");
@@ -107,7 +107,7 @@ const DestinationDetailsPage = () => {
       if (data?.success) {
         toast.success("Comment added!");
         setNewComment("");
-        refetchReviews(); // 🔄 Refresh reviews from backend
+        refetchReviews(); // Refresh reviews from backend
       } else {
         toast.error("Failed to post comment");
       }

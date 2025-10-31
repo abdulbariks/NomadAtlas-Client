@@ -8,6 +8,7 @@ import { addFavorite, removeFavorite,fetchFavorites } from "../../redux/favorite
 
 
 import { toast } from "react-hot-toast"; 
+import Spinner from "../../components/Spinner/Spinner";
 
 
 const categories = ["All Categories", "Engineering", "Design", "Marketing", "Product", "Developer"];
@@ -68,7 +69,7 @@ const JobsPage = () => {
 
 
 
-  if (loading) return <p className="text-center mt-10">Loading jobs...</p>;
+  if (loading) return <Spinner></Spinner>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (

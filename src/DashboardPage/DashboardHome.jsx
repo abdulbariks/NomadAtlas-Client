@@ -793,7 +793,7 @@ const DashboardHome = () => {
             </div>
 
             {/* Content Sections */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
                 {/* Climate Overview */}
                 {dashboardData.charts.climate.length > 0 && (
                     <motion.div

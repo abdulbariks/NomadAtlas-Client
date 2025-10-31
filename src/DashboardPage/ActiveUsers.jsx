@@ -111,7 +111,7 @@ const ActiveUsers = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-[#0d8c8a] mb-2">User Management</h1>
-              <p className="text-[#0d8c8a]/80">Manage user roles and permissions across the platform</p>
+              <p className="text-gray-800">Manage user roles and permissions across the platform</p>
             </div>
             <div className="flex items-center space-x-6">
               <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-[#d1f5f4] px-6 py-4">
@@ -194,7 +194,7 @@ const ActiveUsers = () => {
                           <div className="text-sm font-semibold text-[#0d8c8a] group-hover:text-[#11c3c0]">
                             {user.name}
                           </div>
-                          <div className="text-xs text-[#0d8c8a]/70 mt-1">
+                          <div className="text-xs text-gray-800 mt-1">
                             Joined {new Date(user.createdAt).toLocaleDateString()}
                           </div>
                         </div>
@@ -204,7 +204,7 @@ const ActiveUsers = () => {
                     {/* Contact Column */}
                     <td className="px-6 py-6 whitespace-nowrap">
                       <div className="text-sm text-[#0d8c8a] font-medium">{user.email}</div>
-                      <div className="text-xs text-[#0d8c8a]/70 mt-1">Active now</div>
+                      <div className="text-xs text-gray-800 mt-1">Active now</div>
                     </td>
 
                     {/* Role Column */}
@@ -216,7 +216,7 @@ const ActiveUsers = () => {
                     <td className="px-6 py-6 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                        <span className="text-sm font-medium text-[#0d8c8a]">Active</span>
+                        <span className="text-sm font-medium text-gray-800">Active</span>
                       </div>
                     </td>
 
@@ -295,7 +295,7 @@ const ActiveUsers = () => {
             <div className="px-8 py-6 bg-[#f7fdfd] border-t border-[#d1f5f4]">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 {/* Showing results info */}
-                <div className="text-sm text-[#0d8c8a]/70">
+                <div className="text-sm text-gray-800">
                   Showing <span className="font-semibold text-[#0d8c8a]">{indexOfFirstUser + 1}-{Math.min(indexOfLastUser, users.length)}</span> of{" "}
                   <span className="font-semibold text-[#0d8c8a]">{users.length}</span> users
                 </div>
@@ -344,7 +344,7 @@ const ActiveUsers = () => {
                 </div>
 
                 {/* Page Info */}
-                <div className="text-sm text-[#0d8c8a]/70">
+                <div className="text-sm text-gray-800">
                   Page <span className="font-semibold text-[#0d8c8a]">{currentPage}</span> of{" "}
                   <span className="font-semibold text-[#0d8c8a]">{totalPages}</span>
                 </div>

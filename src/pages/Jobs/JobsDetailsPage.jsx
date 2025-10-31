@@ -25,6 +25,7 @@ import SimilarJobsCard from "./SimilarJobCard/SimilarJobsCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addFavorite, removeFavorite, fetchFavorites } from "../../redux/favoritejobSlice";
 import { toast } from "react-hot-toast";
+import Spinner from "../../components/Spinner/Spinner";
 
 const JobsDetailsPage = () => {
   const { user } = useSelector((state) => state.auth);
@@ -46,6 +47,7 @@ const JobsDetailsPage = () => {
     // Fetch job details from backend
     axios
       .get(`https://nomad-atlas-server-one.vercel.app/api/jobs/${id}`)
+
       .then((res) => setJob(res.data))
       .catch((err) => console.error(err));
   }, [id]);
@@ -117,7 +119,7 @@ const JobsDetailsPage = () => {
   };
 
   if (!job)
-    return <div className="text-center mt-20 text-gray-500">Loading...</div>;
+    return <Spinner></Spinner>;
 
   return (
     <motion.div

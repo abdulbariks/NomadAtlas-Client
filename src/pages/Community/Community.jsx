@@ -52,7 +52,7 @@ const Community = () => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyText, setReplyText] = useState("");
 
-  const filters = ["All", "Destination Guide", "City Spotlight", "Hidden Gem", "Trending"];
+  const filters = ["All", "Destination Guide", "City Spotlight", "Hidden Gem"];
 
   const authUser = useSelector((state) => state?.auth?.user);
   const currentUserName = authUser?.displayName || (authUser?.email ? authUser.email.split("@")[0] : null) || "Anonymous";
@@ -115,14 +115,18 @@ const Community = () => {
       if (Array.isArray(saved)) {
         setLikedPosts(new Set(saved));
       }
-    } catch { }
+    } catch (error) {
+      setToast(error.message || "Failed to Saved Likes");
+    }
   }, [currentUserId]);
 
   useEffect(() => {
     const key = `na_likes_${currentUserId}`;
     try {
       localStorage.setItem(key, JSON.stringify(Array.from(likedPosts)));
-    } catch { }
+    } catch (error) {
+      setToast(error.message || "Failed to add Likes");
+    }
   }, [likedPosts, currentUserId]);
 
   const filteredPosts = useMemo(() => {
@@ -479,7 +483,7 @@ const Community = () => {
                   <p className="text-gray-400 text-sm mb-6">Try adjusting your search or filters</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-96 gap-y-9">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-96 gap-y-9 ml-16">
                   <AnimatePresence mode="popLayout">
                     {filteredPosts.map((post, index) => (
                       <motion.article

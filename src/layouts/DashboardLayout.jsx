@@ -125,6 +125,59 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
+          {!loading && role === "service provider" && (
+
+            <>
+
+              <li className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/admin-booking"
+                >
+                  Booked Destinations
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <CalendarCheck className="w-5 h-5 text-gray-800" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/add-jobs"
+                >
+                  Add Jobs
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/addDestinations"
+                >
+                  Add Destinations
+                </NavLink>
+              </li>
+
+            </>
+
+          )}
+
           {!loading && role === "admin" && (
             <>
               <li className="flex items-center gap-2">
@@ -143,7 +196,7 @@ const DashboardLayout = () => {
               </li>
 
               <li className="flex items-center gap-2">
-                <UserCog className="w-5 h-5 text-black" />
+                <CalendarCheck className="w-5 h-5 text-gray-800" />
                 <NavLink
                   className={({ isActive }) =>
                     `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
@@ -151,9 +204,9 @@ const DashboardLayout = () => {
                       : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
                     }`
                   }
-                  to="/dashboard/activeUsers"
+                  to="/dashboard/add-jobs"
                 >
-                  Active Users
+                  Add Jobs
                 </NavLink>
               </li>
 
@@ -171,40 +224,26 @@ const DashboardLayout = () => {
                   Add Destinations
                 </NavLink>
               </li>
-               <li className="flex items-center gap-2">
-            <CalendarCheck className="w-5 h-5 text-gray-800" />
-            <NavLink
-              className={({ isActive }) =>
-                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${
-                  isActive
-                    ? "bg-[#11c3c0] text-white shadow-sm"
-                    : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
-                }`
-              }
-              to="/dashboard/add-jobs"
-            >
-              Add Jobs
-            </NavLink>
-          </li>
+
+              <li className="flex items-center gap-2">
+                <UserCog className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/activeUsers"
+                >
+                  Active Users
+                </NavLink>
+              </li>
+
             </>
           )}
 
-          {!loading && role === "provider" && (
-            <li className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-black" />
-              <NavLink
-                className={({ isActive }) =>
-                  `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
-                    ? "bg-[#11c3c0] text-white shadow-sm"
-                    : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
-                  }`
-                }
-                to="/dashboard/addDestinations"
-              >
-                Add Destinations
-              </NavLink>
-            </li>
-          )}
+
           <div className="mt-6 border-t border-gray-200 pt-4">
             <li className="flex items-center gap-2 cursor-pointer list-none">
               <LogOut className="w-5 h-5 text-black" />
@@ -222,7 +261,7 @@ const DashboardLayout = () => {
       {/* Overlay (mobile) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
+          className="fixed inset-0 backdrop-blur-lg bg-white/20 bg-opacity-40 z-30 lg:hidden"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
