@@ -85,7 +85,7 @@ const JobsDetailsPage = () => {
     if (image) formData.append("image", image);
 
     try {
-      await axios.post("http://localhost:5000/api/applications", formData, {
+      await axios.post("https://nomad-atlas-server-one.vercel.app/api/applications", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Application submitted successfully!");

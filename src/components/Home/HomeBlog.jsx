@@ -12,7 +12,7 @@ const HomeBlogs = () => {
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("http://localhost:5000/api/blogs", {
+      const { data } = await axios.get("https://nomad-atlas-server-one.vercel.app/api/blogs", {
         params: { page: 1, limit: 3 },
       });
 
