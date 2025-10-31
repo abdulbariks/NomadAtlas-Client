@@ -28,12 +28,15 @@ export default function Comparison() {
   });
   const [submitting, setSubmitting] = useState(false);
 
+  // Use the environment variable
+  const API_BASE = import.meta.env.VITE_API || 'https://nomad-atlas-server-delta.vercel.app/api';
+
   useEffect(() => {
     let mounted = true;
     async function load() {
       setLoading(true);
       try {
-        const res = await fetch("/api/cities");
+        const res = await fetch(`${API_BASE}/cities`);
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
         const data = await res.json();
         if (mounted) {
@@ -50,7 +53,7 @@ export default function Comparison() {
     }
     load();
     return () => { mounted = false; };
-  }, []);
+  }, [API_BASE]);
 
   const filtered = cities.filter(
     (o) => o.name.toLowerCase().includes(query.toLowerCase()) && !compare.find((c) => c.id === o.id)
@@ -79,7 +82,7 @@ export default function Comparison() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch("/api/cities", {
+      const res = await fetch(`${API_BASE}/cities`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
