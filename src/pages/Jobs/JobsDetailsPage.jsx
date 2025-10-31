@@ -46,7 +46,7 @@ const JobsDetailsPage = () => {
   useEffect(() => {
     // Fetch job details from backend
     axios
-      .get(`http://localhost:5000/api/jobs/${id}`)
+      .get(`https://nomad-atlas-server-delta.vercel.app/api/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch((err) => console.error(err));
   }, [id]);
@@ -86,7 +86,7 @@ const JobsDetailsPage = () => {
     if (image) formData.append("image", image);
 
     try {
-      await axios.post("http://localhost:5000/api/applications", formData, {
+      await axios.post("https://nomad-atlas-server-delta.vercel.app/api/applications", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Application submitted successfully!");

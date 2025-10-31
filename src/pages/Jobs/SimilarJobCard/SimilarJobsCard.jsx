@@ -9,7 +9,7 @@ const SimilarJobsCard = ({ category, jobId }) => {
   useEffect(() => {
     if (category && jobId) {
       axios
-        .get(`http://localhost:5000/api/jobs/similar/${category}/${jobId}`)
+        .get(`https://nomad-atlas-server-delta.vercel.app/api/jobs/similar/${category}/${jobId}`)
         .then((res) => setSimilarJobs(res.data))
         .catch((err) => console.error(err));
     }
