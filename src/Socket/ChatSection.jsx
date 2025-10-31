@@ -21,7 +21,7 @@ export default function ChatSection({ room = "general", onClose }) {
 
         let mounted = true;
         axiosSecure
-            .get(`/community/messages?room=${room}`)
+            .get(`/community/messages`)    //.get(`/community/messages?room=${room}`)
             .then((res) => {
                 if (!mounted) return;
                 setMessages(res.data || []);
