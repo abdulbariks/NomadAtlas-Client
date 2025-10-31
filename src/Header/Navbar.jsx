@@ -29,7 +29,7 @@ console.log(user)
   const navClasses =
     isHome && !scrolled
       ? "fixed top-0 z-50 left-0 w-full bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
-      : "fixed top-0 z-50 left-0 w-full backdrop-blur-lg bg-white/90 border-b border-cyan-200  text-gray-900";
+      : "fixed top-0 z-50 left-0 w-full backdrop-blur-lg bg-white/90 shadow-sm    text-gray-900";
 
   const handleLogout = () => {
     dispatch(logOutUser());
@@ -38,14 +38,14 @@ console.log(user)
   return (
     <>
       <nav
-        className={`px-5 lg:px-10 md:px-8 py-3 flex items-center justify-between z-50 transition-all duration-300 ${navClasses}`}
+        className={`px-5 lg:px-10 md:px-8 py-4 flex items-center justify-between z-50 transition-all duration-300 ${navClasses}`}
       >
         {/* Left - Logo */}
         <NomadAtlasLogo />
 
         {/* Desktop Menu */}
         
-          <div className="hidden md:flex gap-6 font-medium">
+          <div className="hidden md:flex gap-6 text-md font-medium">
             {/* Your existing desktop links */}
             <NavLink to="/destinations" className="hover:text-[#11c3c0] transition">
               Destinations
@@ -53,7 +53,7 @@ console.log(user)
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-1 hover:text-[#11c3c0] transition "
+                className="flex items-center gap-1 hover:text-[#bbf7f6] transition "
               >
                 Explore
                 {isDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
@@ -118,6 +118,7 @@ console.log(user)
             <NavLink to="/dashboard" className="hover:text-[#11c3c0] transition">
               Dashboard
             </NavLink>
+
           </div>
 
           {/* Desktop right side */}

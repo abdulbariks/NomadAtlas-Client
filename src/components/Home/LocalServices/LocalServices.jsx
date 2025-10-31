@@ -77,7 +77,7 @@ const LocalServices = () => {
         ))}
       </div>
 
-      {/* Button */}
+      {/* Button
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ const LocalServices = () => {
         <button className="inline-flex items-center gap-2 px-6 py-3 bg-[#11c3c0] text-white rounded-full font-medium shadow-sm hover:bg-[#08a09e] transition-all duration-300">
           Explore All Services →
         </button>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };

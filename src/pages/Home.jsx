@@ -1,6 +1,6 @@
 import React from "react";
-import Reviews from "../components/Home/Reviews";
-import Milestones from "../components/Home/Milestones";
+import Reviews from "../components/Home/SuccessStories";
+
 import Newsletter from "../components/Home/Newsletter";
 import CityDiscovery from "../components/Home/CityDiscovery";
 import ComminityPosts from "../components/Home/ComminityPosts";
@@ -18,6 +18,12 @@ import WeatherSeasonalInfo from "../components/Home/WeatherSeasonalInfo/WeatherS
 import ScrollToTopButton from "../components/Home/ScrollToTopButton/ScrollToTopButton";
 import FeaturedOpportunities from "../components/Home/FeaturedOpportunities/FeaturedOpportunities";
 import CommunityFeatures from "../components/Home/CommunityFeatures/CommunityFeatures";
+import MoreAboutUs from "../components/Home/MoreAboutUs";
+import Milestones from "../components/Home/Milestone"
+import SuccessStories from "../components/Home/SuccessStories";
+
+import FAQSection from "../components/Home/FAQSection";
+
 
 const Home = () => {
   return (
@@ -32,6 +38,7 @@ const Home = () => {
 
      </div>
       <NomadFavouriteDestination />
+      <MoreAboutUs/>
 
      {/* <DestinationFeatures/> */}
 
@@ -45,6 +52,7 @@ const Home = () => {
      
 
       <FeaturedOpportunities/>
+      <FAQSection/>
        <LocalServices/>
       
 
@@ -56,9 +64,15 @@ const Home = () => {
       <CommunityFeatures/>
 
       {/* <SmartCostPreview /> */}
-      <Reviews />
-      <Milestones />
-      <Newsletter /> 
+      
+
+      <SuccessStories/>
+       <Milestones/>
+       
+       
+      <Newsletter />
+
+      
       
       <ScrollToTopButton/>
       

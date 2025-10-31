@@ -7,6 +7,7 @@ import SimilarJobsCard from "./SimilarJobCard/SimilarJobsCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addFavorite, removeFavorite, fetchFavorites } from "../../redux/favoritejobSlice";
 import { toast } from "react-hot-toast";
+import Spinner from "../../components/Spinner/Spinner";
 
 
 const JobsDetailsPage = () => {
@@ -59,7 +60,7 @@ const handleFavoriteToggle = () => {
 
 
   if (!job)
-    return <div className="text-center mt-20 text-gray-500">Loading...</div>;
+    return <Spinner></Spinner>;
 
   return (
     <div className="mx-5 md:mx-8 lg:mx-10 py-6 grid md:grid-cols-3 gap-4 ">

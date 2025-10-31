@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 const CommunityFeatures = () => {
   return (
     <div className="flex justify-center items-center min-h-[60vh] bg-[#f7f9fa] mt-5 ">
-      <div className="w-[90%] md:w-[93%] lg:w-[93%] bg-gradient-to-r from-[#d7eff1] via-[#c2f0fc] to-[#c2f4f7] rounded-xl border border-[#69dbe1] shadow-sm py-10 px-6 text-center">
+      <div className="w-[90%] md:w-[93%] lg:w-[93%] bg-gradient-to-r from-[#a1f3f1] to-[#8fedea] rounded-xl border border-[#69dbe1] shadow-sm py-10 px-6 text-center">
         
         {/* Animated Icon */}
         <div className="flex justify-center mb-4">
@@ -36,7 +36,7 @@ const CommunityFeatures = () => {
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6, ease: "easeOut" }}
-  className="bg-gray-100 border-2 border-[#69dbdf] text-[#11dce3] font-semibold py-3 px-8 rounded-lg shadow-md hover:opacity-90 transition duration-300 flex items-center gap-2"
+  className="bg-[#11c3c0] border-2 border-[#69dbdf] text-white font-semibold py-2 px-8 rounded-lg hover:opacity-90 transition duration-300 flex items-center gap-2"
 >
   Get Started Free
   <span className="text-lg">→</span>

@@ -46,7 +46,7 @@ const CommunitySpotlight = () => {
     <div className="pt-15 px-5 md:px-20 ">
       {/* Header */}
       <div className="text-center mb-12 ">
-       <span className="inline-flex items-center gap-2 px-5 py-1 bg-[#3ea1f1] text-white text-sm md:text-base font-medium rounded-full">
+       <span className="inline-flex items-center gap-2 px-5 py-1 bg-[#11c3c0] text-white text-sm md:text-base font-medium rounded-full">
           <Star size={15} /> Communitys Post
         </span>
         <h2 className="text-2xl md:text-3xl font-bold mt-6 text-gray-700">
