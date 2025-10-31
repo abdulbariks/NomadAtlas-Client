@@ -11,7 +11,7 @@ export default function Comparison() {
   const [query, setQuery] = useState("");
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [compare, setCompare] = useState([]);
-  const [cities, setCities] = useState([]); 
+  const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -24,7 +24,7 @@ export default function Comparison() {
     safety: "Medium",
     climate: "",
     coworking: "Available",
-    
+
   });
   const [submitting, setSubmitting] = useState(false);
 
@@ -69,7 +69,7 @@ export default function Comparison() {
     setCompare((c) => c.filter((x) => x.id !== id));
   };
 
-  
+
   const onFormChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
