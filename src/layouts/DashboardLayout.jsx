@@ -260,7 +260,7 @@ const DashboardLayout = () => {
       {/* Overlay (mobile) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
+          className="fixed inset-0 backdrop-blur-lg bg-white/20 bg-opacity-40 z-30 lg:hidden"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
