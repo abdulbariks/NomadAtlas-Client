@@ -190,13 +190,13 @@ const JobsPage = () => {
                     </div>
                   </div>
              <button
-  onClick={() => handleFavoriteToggle(job)}
-  className={`p-2 rounded-full transition ${
-    isFavorite(job._id) ? "bg-[#11c3c0] text-white" : "bg-gray-100 text-gray-400"
-  }`}
->
-  <Heart fill={isFavorite(job._id) ? "#11c3c0" : "none"} strokeWidth={2} />
-</button>
+               onClick={() => handleFavoriteToggle(job)}
+               className={`p-2 rounded-full transition ${
+               isFavorite(job._id) ? "bg-[#11c3c0] text-white" : "bg-gray-100 text-gray-400"
+                }`}
+              >
+            <Heart fill={isFavorite(job._id) ? "#11c3c0" : "none"} strokeWidth={2} />
+            </button>
 
 
                 </div>
@@ -227,9 +227,17 @@ const JobsPage = () => {
                   <Link to={`/jobs/${job._id}`} className="block w-full"><button className="w-full md:px-10 bg-[#11c3c0] text-white py-2 rounded-lg hover:bg-[#23a3a1] transition">
                     View Details
                   </button></Link>
-                  <button className="flex items-center gap-1 ml-4 border px-4 py-2 rounded-lg hover:bg-gray-100">
-                    <ExternalLink size={16} /> Apply
-                  </button>
+
+                  
+                 <a
+  href={job.applicationUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-1 ml-4 border px-4 py-2 rounded-lg hover:bg-gray-100 transition"
+>
+  <ExternalLink size={16} /> Apply
+</a>
+
                 </div>
               </motion.div>
             ))
