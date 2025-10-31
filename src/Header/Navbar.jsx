@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
-import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronUp,LogOut,LogIn } from "lucide-react";
 import NomadAtlasLogo from "./NomadAtlasLogo";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../redux/authSlice";
@@ -28,7 +28,7 @@ console.log(user)
 
   const navClasses =
     isHome && !scrolled
-      ? "fixed top-0 z-50 left-0 w-full bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
+      ? "fixed top-0 z-50 left-0 w-full bg-gradient-to-b from-black/40 via-black/20 to-transparent text-white"
       : "fixed top-0 z-50 left-0 w-full backdrop-blur-lg bg-white/90 shadow-sm    text-gray-900";
 
   const handleLogout = () => {
@@ -53,7 +53,7 @@ console.log(user)
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-1 hover:text-[#bbf7f6] transition "
+                className="flex items-center gap-1 hover:text-[#11c3c0] transition "
               >
                 Explore
                 {isDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
@@ -143,9 +143,9 @@ console.log(user)
 
                 <button
                   onClick={handleLogout}
-                  className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#11a19e] transition"
+                  className="flex items-center gap-2 bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#11a19e] transition"
                 >
-                  Log Out
+                  <LogOut size={16} /> Log Out
                 </button>
               </>
             ) : (
@@ -153,9 +153,9 @@ console.log(user)
 
                 <Link
                   to="/login"
-                  className="bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#11a19e] transition"
+                  className="flex items-center gap-2 bg-[#11c3c0] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#11a19e] transition"
                 >
-                  Log In
+                 <LogIn size={16} /> Log In
                 </Link>
 
                   <Link
@@ -207,9 +207,9 @@ console.log(user)
             handleLogout();
             setIsOpen(false);
           }}
-          className="bg-[#11c3c0] text-white px-3 py-1 rounded-lg font-semibold hover:bg-[#059a97] transition text-sm"
+          className="flex items-center gap-2 bg-[#11c3c0] text-white px-3 py-1 rounded-lg font-semibold hover:bg-[#059a97] transition text-sm"
         >
-          Log Out
+         <LogOut size={16} />  Log Out
         </button>
       </div>
     ) : (
@@ -224,10 +224,10 @@ console.log(user)
           </Link>
           <Link
             to="/login"
-            className="bg-[#11c3c0] text-white px-3 py-1 rounded-lg text-sm font-semibold  transition"
+            className="flex items-center gap-2 bg-[#11c3c0] text-white px-3 py-1 rounded-lg text-sm font-semibold  transition"
             onClick={() => setIsOpen(false)}
           >
-            Log In
+           <LogIn size={16} /> Log In
           </Link>
         </div>
       )

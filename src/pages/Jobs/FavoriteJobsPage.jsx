@@ -113,12 +113,12 @@ const FavoriteJobsPage = () => {
                     View Details
                   </button>
                 </Link>
-                <a
+                {/* <a
                   href="#"
                   className="flex items-center gap-1 border px-3 py-2 rounded-lg hover:bg-gray-100"
                 >
                   <ExternalLink size={14} /> Apply
-                </a>
+                </a> */}
               </div>
             </motion.div>
           ))}

@@ -23,6 +23,7 @@ import Milestones from "../components/Home/Milestone"
 import SuccessStories from "../components/Home/SuccessStories";
 
 import FAQSection from "../components/Home/FAQSection";
+import HomeBlogs from "../components/Home/HomeBlog";
 
 
 const Home = () => {
@@ -60,7 +61,9 @@ const Home = () => {
       {/* <WeatherSeasonalInfo/> */}
      
       
-      <ComminityPosts />
+      {/* <ComminityPosts /> */}
+
+      <HomeBlogs/>
       <CommunityFeatures/>
 
       {/* <SmartCostPreview /> */}

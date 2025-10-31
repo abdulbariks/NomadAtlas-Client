@@ -1,10 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router";
 
 const CommunityFeatures = () => {
   return (
-    <div className="flex justify-center items-center min-h-[60vh] bg-[#f7f9fa] mt-5 ">
+    <div className="flex justify-center items-center min-h-[60vh]  mt-5 ">
       <div className="w-[90%] md:w-[93%] lg:w-[93%] bg-gradient-to-r from-[#a1f3f1] to-[#8fedea] rounded-xl border border-[#69dbe1] shadow-sm py-10 px-6 text-center">
         
         {/* Animated Icon */}
@@ -30,6 +31,8 @@ const CommunityFeatures = () => {
 
         {/* Button */}
         <div className="flex justify-center">
+
+          <Link to="/community">
         <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
@@ -40,7 +43,7 @@ const CommunityFeatures = () => {
 >
   Get Started Free
   <span className="text-lg">→</span>
-</motion.button>
+</motion.button></Link>
         </div>
       </div>
     </div>
