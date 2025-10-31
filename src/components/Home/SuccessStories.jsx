@@ -3,8 +3,11 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { PlusCircle, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+
 
 const SuccessStories = () => {
+  const { user } = useSelector((state) => state.auth);
   const [stories, setStories] = useState([]);
   const [current, setCurrent] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -17,6 +20,7 @@ const SuccessStories = () => {
     image: "",
     text: "",
   });
+
 
   // Fetch stories
   useEffect(() => {
@@ -85,12 +89,21 @@ const SuccessStories = () => {
 
       {/* Add Story Button */}
       <div className="flex justify-center mb-6">
-        <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-[#11c3c0] hover:bg-[#0fa7a4] text-white px-4 py-2 rounded-full shadow-md transition"
-        >
-          <PlusCircle size={18} /> Add Success Story
-        </button>
+       <button
+  onClick={() => {
+    if (user) {
+      setShowModal(true);
+    } else {
+      toast.error("You must be logged in to share your story!");
+      // Optionally, redirect to login page
+      // navigate("/login");
+    }
+  }}
+  className="flex items-center gap-2 bg-[#11c3c0] hover:bg-[#0fa7a4] text-white px-4 py-2 rounded-full shadow-md transition"
+>
+  <PlusCircle size={18} /> Add Success Story
+</button>
+
       </div>
 
       {/* Carousel Section */}

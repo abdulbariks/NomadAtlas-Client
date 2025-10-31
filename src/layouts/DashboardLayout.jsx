@@ -114,21 +114,7 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
-          <li className="flex items-center gap-2">
-            <CalendarCheck className="w-5 h-5 text-gray-800" />
-            <NavLink
-              className={({ isActive }) =>
-                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${
-                  isActive
-                    ? "bg-[#11c3c0] text-white shadow-sm"
-                    : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
-                }`
-              }
-              to="/dashboard/add-jobs"
-            >
-              Add Jobs
-            </NavLink>
-          </li>
+         
           <li className="flex items-center gap-2">
             <Heart className="w-5 h-5 text-gray-800" />
             <NavLink
@@ -136,7 +122,7 @@ const DashboardLayout = () => {
                 `transition font-semibold rounded-lg px-2 py-1 flex-1 ${
                   isActive
                     ? "bg-[#11c3c0] text-white shadow-sm"
-                    : "text-gray-800 hover:bg-gradient-to-r hover:from-purple-100 hover:to-teal-100 hover:text-[#11a19e]"
+                    : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
                 }`
               }
               to="/dashboard/favorite-job"
@@ -194,6 +180,21 @@ const DashboardLayout = () => {
                   Add Destinations
                 </NavLink>
               </li>
+               <li className="flex items-center gap-2">
+            <CalendarCheck className="w-5 h-5 text-gray-800" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${
+                  isActive
+                    ? "bg-[#11c3c0] text-white shadow-sm"
+                    : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/add-jobs"
+            >
+              Add Jobs
+            </NavLink>
+          </li>
             </>
           )}
 
