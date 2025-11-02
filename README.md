@@ -14,8 +14,7 @@ This branch highlights the features I (K M Marziul Karim) personally developed a
   - Post experiences, photos, and travel stories.
   - Like and comment on other users’ posts.
 - Added **interactive UI** using `Framer Motion` for smooth animations.
-- Integrated **backend API** for post creation, likes, and comments using Axios.
-- Created **secure routes** to ensure only logged-in users can create or interact with posts.
+- Integrated **backend API** for post creation, likes, and comments.
 
 ---
 
