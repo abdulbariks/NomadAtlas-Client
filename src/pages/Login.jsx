@@ -65,7 +65,7 @@ const Login = () => {
           Login to Your Account
         </h2>
         <p className="text-sm text-center text-gray-600 mb-6">
-          Don’t have an account?
+          Don't have an account?
           <Link
             to="/register"
             className="text-teal-600 font-medium hover:underline ml-1"
@@ -86,7 +86,7 @@ const Login = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium mb-1 text-gray-700">
               Name
             </label>
@@ -101,7 +101,7 @@ const Login = () => {
                 Please enter your name
               </p>
             )}
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-700">
