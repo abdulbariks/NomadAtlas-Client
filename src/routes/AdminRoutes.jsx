@@ -1,7 +1,6 @@
 import React from 'react';
 import useRole from '../customHook/useRole';
 import { Navigate, useLocation } from 'react-router';
-import NomadAtlasLoader from '../components/Home/NomadAtlasLoader';
 import Spinner from '../components/Spinner/Spinner';
 
 const AdminRoutes = ({ children }) => {

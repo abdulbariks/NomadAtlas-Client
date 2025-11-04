@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, updateUserRole } from "../redux/userSlice";
 import useAxiosSecure from "../customHook/useAxiosSecure";
-import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
 import Spinner from "../components/Spinner/Spinner";
 
 const ActiveUsers = () => {

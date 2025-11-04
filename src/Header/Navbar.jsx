@@ -4,7 +4,6 @@ import { Menu, X, ChevronDown, ChevronUp,LogOut,LogIn } from "lucide-react";
 import NomadAtlasLogo from "./NomadAtlasLogo";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../redux/authSlice";
-import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
 
 
 const Navbar = () => {
