@@ -1,218 +1,204 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  firebaseGoogleSignIn,
-  firebaseLogin,
-  firebaseLogout,
-  firebaseOnAuthStateChanged,
-  firebaseRegister,
-  firebaseSendPasswordReset,
-} from "../firebase/firebase.init";
-import { updateProfile } from "firebase/auth";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { auth } from '../firebase/firebase.init'
+import axios from "axios";
 
-// Thunks
+
+
+const provider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
+const url = `${import.meta.env.VITE_API}/users`
+
+
+
+
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async ({ email, password, name, photoURL }, { rejectWithValue }) => {
     try {
-      const userCredential = await firebaseRegister(email, password);
-      const user = userCredential.user;
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const user = result.user;
 
-      // Update profile with displayName + photoURL
-      await updateProfile(user, {
-        displayName: name,
-        photoURL: photoURL || null,
-      });
+      // update Firebase profile
+      await updateProfile(user, { displayName: name, photoURL });
 
-      return {
-        uid: user.uid,
-        email: user.email,
-        displayName: name,
-        photoURL: photoURL || null,
+      // save user in DB
+      const userInfo = {
+        name,
+        email,
+        photoURL: photoURL || "",
+        role: "user",
       };
+      await axios.post(url, userInfo);
+
+      return serializeUser(user);
     } catch (err) {
       return rejectWithValue(err.message);
     }
   }
-);
+)
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
+export const logInUser = createAsyncThunk(
+  "auth/logInUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const userCredential = await firebaseLogin(email, password);
-      return userCredential.user;
+      const res = await signInWithEmailAndPassword(auth, email, password)
+      return serializeUser(res.user)
+    } catch (err) {
+      return rejectWithValue(err.message)
+    }
+  }
+)
+
+export const googleLogIn = createAsyncThunk(
+  "auth/googleLogin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "user",
+      };
+      await axios.post(url, userInfo);
+
+
+      return serializeUser(user)
+    } catch (err) {
+      return rejectWithValue(err.message)
+    }
+  }
+);
+
+
+export const githubLogIn = createAsyncThunk(
+  "auth/githubLogin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "user",
+      };
+      await axios.post(url, userInfo);
+
+      return serializeUser(user);
     } catch (err) {
       return rejectWithValue(err.message);
     }
   }
 );
 
-export const googleSignIn = createAsyncThunk(
-  "auth/googleSignIn",
-  async (_, { rejectWithValue }) => {
-    try {
-      const result = await firebaseGoogleSignIn();
-      return result.user;
-    } catch (err) {
-      return rejectWithValue(err.message);
-    }
-  }
-);
+
+
+
+
+
+export const logOutUser = createAsyncThunk("auth/logOutUser", async () => {
+  await signOut(auth)
+  return null
+})
+
 
 export const sendResetEmail = createAsyncThunk(
   "auth/sendResetEmail",
-  async ({ email }, { rejectWithValue }) => {
+  async (email, { rejectWithValue }) => {
     try {
-      await firebaseSendPasswordReset(email);
-      return { email };
+      await sendPasswordResetEmail(auth, email);
+      return "Password reset email sent";
     } catch (err) {
       return rejectWithValue(err.message);
     }
   }
 );
 
-export const logoutUser = createAsyncThunk(
-  "auth/logoutUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      await firebaseLogout();
-      return true;
-    } catch (err) {
-      return rejectWithValue(err.message);
-    }
-  }
-);
+export const observeAuthState = () => (dispatch) => {
+  dispatch(setLoading(true));
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    dispatch(setUser(serializeUser(currentUser)))
+    dispatch(setLoading(false));
+  })
+  return unsubscribe
+}
 
-// Listen for auth changes (non-standard thunk — dispatch from App start)
-export const listenToAuthChanges = () => (dispatch) => {
-  firebaseOnAuthStateChanged((user) => {
-    if (user) {
-      dispatch(
-        setUser({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        })
-      );
-    } else {
-      dispatch(clearUser());
-    }
-  });
-};
 
-const initialState = {
-  user: null,
-  status: "idle",
-  error: null,
-  resetEmailSent: false,
+const serializeUser = (user) => {
+  if (!user) return null;
+  return {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+  };
 };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    user: null,
+    loading: true,
+    error: null,
+    successMessage: null,
+  },
   reducers: {
-    setUser(state, action) {
-      state.user = action.payload;
-      state.status = "succeeded";
-      state.error = null;
+    setUser: (state, action) => {
+      state.user = action.payload
     },
-    clearUser(state) {
-      state.user = null;
-      state.status = "idle";
-    },
-    clearError(state) {
-      state.error = null;
-    },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
-      // register
-      .addCase(registerUser.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.user = {
-          uid: action.payload.uid,
-          email: action.payload.email,
-          displayName: action.payload.displayName || null,
-        };
+        state.user = serializeUser(action.payload);
+        state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.error = action.payload;
       })
-
-      // login
-      .addCase(loginUser.pending, (state) => {
-        state.status = "loading";
+      .addCase(logInUser.fulfilled, (state, action) => {
+        state.user = action.payload;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.user = {
-          uid: action.payload.uid,
-          email: action.payload.email,
-          displayName: action.payload.displayName || null,
-        };
+      .addCase(logInUser.rejected, (state, action) => {
+        state.error = action.payload;
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+      .addCase(googleLogIn.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.error = null
       })
-
-      // google
-      .addCase(googleSignIn.pending, (state) => {
-        state.status = "loading";
+      .addCase(googleLogIn.rejected, (state, action) => {
+        state.error = action.payload
+      })
+      .addCase(githubLogIn.fulfilled, (state, action) => {
+        state.user = action.payload;
         state.error = null;
       })
-      .addCase(googleSignIn.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.user = {
-          uid: action.payload.uid,
-          email: action.payload.email,
-          displayName: action.payload.displayName || null,
-          photoURL: action.payload.photoURL || null,
-        };
+      .addCase(githubLogIn.rejected, (state, action) => {
+        state.error = action.payload;
       })
-      .addCase(googleSignIn.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
-      })
-
-      // reset email
-      .addCase(sendResetEmail.pending, (state) => {
-        state.status = "loading";
+      .addCase(logOutUser.fulfilled, (state) => {
+        state.user = null;
         state.error = null;
-        state.resetEmailSent = false;
       })
-      .addCase(sendResetEmail.fulfilled, (state) => {
-        state.status = "succeeded";
-        state.resetEmailSent = true;
+      .addCase(sendResetEmail.fulfilled, (state, action) => {
+        state.error = null;
+        state.successMessage = action.payload
       })
       .addCase(sendResetEmail.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.error = action.payload;
       })
+  }
+})
 
-      // logout
-      .addCase(logoutUser.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.status = "succeeded";
-        state.user = null;
-      })
-      .addCase(logoutUser.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
-      });
-  },
-});
-
-export const { setUser, clearUser, clearError } = authSlice.actions;
-export default authSlice.reducer;
+export const { setUser, setLoading } = authSlice.actions
+export default authSlice.reducer

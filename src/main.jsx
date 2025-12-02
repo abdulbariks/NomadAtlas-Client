@@ -4,8 +4,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/Router";
-import store from "./app/store";
-import { observeAuthState } from "./components/feature/authSlice";
+import store from "./redux/store";
+import { observeAuthState } from "./redux/authSlice";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 

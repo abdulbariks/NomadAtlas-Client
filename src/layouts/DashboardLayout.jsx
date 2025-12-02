@@ -1,76 +1,290 @@
-import React, { useState } from 'react';
-import NomadAtlasLogo from '../Header/NomadAtlasLogo';
-import { Link, NavLink, Outlet, useNavigate } from 'react-router';
+import React, { useState } from "react";
+import NomadAtlasLogo from "../Header/NomadAtlasLogo";
+import { Link, NavLink, Outlet, useNavigate, useLocation } from "react-router";
+import useRole from "../customHook/useRole";
+import { IoPersonCircleSharp } from "react-icons/io5";
+import { Menu, Home, Calculator, MapPin, CreditCard, FilePlus, Calendar, LogOut, UserCog, CalendarCheck, Heart } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../redux/authSlice";
 
 const DashboardLayout = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false);
+  const { role, loading } = useRole();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
 
-    const handleChange = (e) => {
-        const value = e.target.value;
-        if (value) {
-            navigate(value);
-        }
-    }
-    return (
-        <div className="flex h-screen">
-            {/* Sidebar */}
-            <div
-                className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-200 p-4 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+  // Check if we're on the base dashboard route or dashboard/home
+  const isHomeActive = location.pathname === '/dashboard' || location.pathname === '/dashboard/home';
+
+  const handleLogout = () => {
+    dispatch(logOutUser());
+    navigate("/login")
+  };
+
+  return (
+    <div className="flex h-screen bg-gradient-to-br from-[#f9fafb] to-[#eef6f7]">
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 z-40 w-64
+          bg-gradient-to-br from-[#ffffffcc] via-[#f0f9ffb3] to-[#e0f2f1cc]
+          backdrop-blur-xl shadow-lg border-r border-white/30
+          p-4 transform transition-transform duration-300 ease-in-out
+          ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+      >
+        <NomadAtlasLogo />
+        <ul className="mt-6 space-y-3">
+          <li className="flex items-center gap-2">
+            <Home className="w-5 h-5 text-black" />
+            <NavLink
+              className={() =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isHomeActive
+                  ? "bg-[#11c3c0] text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/home"
+              end
             >
-                <NomadAtlasLogo />
-                <ul className="mt-6 space-y-3">
-                    <li>
-                        <NavLink className="hover:text-yellow-500 transition font-bold text-gray-800" to='/dashboard/home'>Home</NavLink>
-                    </li>
-                    <select onChange={handleChange} className="hover:text-yellow-500 transition font-bold text-gray-800 space-y-3">
-                        <option className="hover:text-yellow-500 transition font-bold text-gray-800" value="">Role</option>
-                        <option className="hover:text-yellow-500 transition font-bold text-gray-800" value="/dashboard/admin">Admin</option>
-                        <option className="hover:text-yellow-500 transition font-bold text-gray-800" value="/dashboard/provider">Provider</option>
-                    </select>
-                </ul>
-            </div>
+              Home
+            </NavLink>
+          </li>
 
-            {/* Overlay (mobile) */}
-            {isOpen && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
-                    onClick={() => setIsOpen(false)}></div>
-            )}
+          <li className="flex items-center gap-2">
+            <IoPersonCircleSharp className="w-5 h-5 text-black" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-[#11c3c0] text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/profile"
+            >
+              Profile
+            </NavLink>
+          </li>
+          <li className="flex items-center gap-2">
+            <FilePlus className="w-5 h-5 text-black" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-[#11c3c0] text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/add-resource"
+            >
+              Add Resource
+            </NavLink>
+          </li>
 
-            {/* Content area */}
-            <div className="flex-1 flex flex-col lg:ml-64">
-                {/* Navbar */}
-                <div className="lg:hidden flex items-center justify-between bg-gray-700 p-3">
-                    <button
-                        className="p-2 rounded-md hover:bg-gray-400"
-                        onClick={() => setIsOpen(true)}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            className="h-6 w-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h16M4 18h16"
-                            />
-                        </svg>
-                    </button>
-                    <NomadAtlasLogo />
-                </div>
+          <li className="flex items-center gap-2">
+            <Calculator className="w-5 h-5 text-black" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-[#11c3c0] text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/data-of-calculator"
+            >
+              Cost Calculator CRUD
+            </NavLink>
+          </li>
 
-                {/* Page content */}
-                <div className="p-4 flex-1 overflow-auto bg-gray-50">
-                    <Outlet />
-                </div>
-            </div>
+          <li className="flex items-center gap-2">
+            <CreditCard className="w-5 h-5 text-black" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-[#11c3c0] text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/payment-history"
+            >
+              Payment History
+            </NavLink>
+          </li>
+
+          <li className="flex items-center gap-2">
+            <Heart className="w-5 h-5 text-gray-800" />
+            <NavLink
+              className={({ isActive }) =>
+                `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                  ? "bg-[#11c3c0] text-white shadow-sm"
+                  : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                }`
+              }
+              to="/dashboard/favorite-job"
+            >
+              Favorite Jobs
+            </NavLink>
+          </li>
+
+          {!loading && role === "service provider" && (
+
+            <>
+
+              <li className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/admin-booking"
+                >
+                  Booked Destinations
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <CalendarCheck className="w-5 h-5 text-gray-800" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/add-jobs"
+                >
+                  Add Jobs
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/addDestinations"
+                >
+                  Add Destinations
+                </NavLink>
+              </li>
+
+            </>
+
+          )}
+
+          {!loading && role === "admin" && (
+            <>
+              <li className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/admin-booking"
+                >
+                  Booked Destinations
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <CalendarCheck className="w-5 h-5 text-gray-800" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/add-jobs"
+                >
+                  Add Jobs
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/addDestinations"
+                >
+                  Add Destinations
+                </NavLink>
+              </li>
+
+              <li className="flex items-center gap-2">
+                <UserCog className="w-5 h-5 text-black" />
+                <NavLink
+                  className={({ isActive }) =>
+                    `transition font-semibold rounded-lg px-2 py-1 flex-1 ${isActive
+                      ? "bg-[#11c3c0] text-white shadow-sm"
+                      : "text-gray-800 hover:bg-teal-100 hover:text-[#11a19e]"
+                    }`
+                  }
+                  to="/dashboard/activeUsers"
+                >
+                  Active Users
+                </NavLink>
+              </li>
+
+            </>
+          )}
+
+
+          <div className="mt-6 border-t border-gray-200 pt-4">
+            <li className="flex items-center gap-2 cursor-pointer list-none">
+              <LogOut className="w-5 h-5 text-black" />
+              <Link
+                onClick={handleLogout}
+                className="transition font-semibold rounded-lg px-2 py-1 flex-1 text-left text-gray-800 hover:bg-red-100 hover:text-red-600"
+              >
+                Logout
+              </Link>
+            </li>
+          </div>
+        </ul>
+      </div>
+
+      {/* Overlay (mobile) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 backdrop-blur-lg bg-white/20 bg-opacity-40 z-30 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
+
+      {/* Content area */}
+      <div className="flex-1 flex flex-col lg:ml-64">
+        {/* Navbar */}
+        <div className="lg:hidden flex items-center justify-between bg-white/80 backdrop-blur-md shadow-sm p-3">
+          <button
+            className="p-2 rounded-md hover:bg-gray-100"
+            onClick={() => setIsOpen(true)}
+          >
+            <Menu className="w-6 h-6 text-gray-700" />
+          </button>
+          <NomadAtlasLogo />
         </div>
-    );
+
+        {/* Page content */}
+        <div className="p-6 flex-1 overflow-auto bg-gradient-to-br from-[#f9fafb] to-[#eef6f7]">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default DashboardLayout;
