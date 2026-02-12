@@ -1,6 +1,6 @@
 import React from "react";
-import Reviews from "../components/Home/Reviews";
-import Milestones from "../components/Home/Milestones";
+import Reviews from "../components/Home/SuccessStories";
+
 import Newsletter from "../components/Home/Newsletter";
 import CityDiscovery from "../components/Home/CityDiscovery";
 import ComminityPosts from "../components/Home/ComminityPosts";
@@ -16,6 +16,14 @@ import NomadPerks from "../components/Home/NomadPerks/NomadPerks";
 import LocalServices from "../components/Home/LocalServices/LocalServices";
 import WeatherSeasonalInfo from "../components/Home/WeatherSeasonalInfo/WeatherSeasonalInfo";
 import ScrollToTopButton from "../components/Home/ScrollToTopButton/ScrollToTopButton";
+import FeaturedOpportunities from "../components/Home/FeaturedOpportunities/FeaturedOpportunities";
+import CommunityFeatures from "../components/Home/CommunityFeatures/CommunityFeatures";
+import MoreAboutUs from "../components/Home/MoreAboutUs";
+import Milestones from "../components/Home/Milestone"
+import SuccessStories from "../components/Home/SuccessStories";
+
+import FAQSection from "../components/Home/FAQSection";
+
 
 const Home = () => {
   return (
@@ -25,33 +33,46 @@ const Home = () => {
       <Banner1/>
 
     <div className="mx-5 md:mx-8 lg:mx-10 ">
-      <PopularDestination /> 
+      {/* <PopularDestination />  */}
        {/* <HousingList/> */}
 
      </div>
       <NomadFavouriteDestination />
+      <MoreAboutUs/>
 
-     <DestinationFeatures/>
+     {/* <DestinationFeatures/> */}
 
     
       
       
-      <CityDiscovery />
+      {/* <CityDiscovery /> */}
   
       <NomadPerks/>
       
-      <LocalServices/>
+     
+
+      <FeaturedOpportunities/>
+      <FAQSection/>
+       <LocalServices/>
+      
 
 
       {/* <WeatherSeasonalInfo/> */}
      
       
       <ComminityPosts />
+      <CommunityFeatures/>
 
-      <SmartCostPreview />
-      <Reviews />
-      <Milestones />
-      <Newsletter /> 
+      {/* <SmartCostPreview /> */}
+      
+
+      <SuccessStories/>
+       <Milestones/>
+       
+       
+      <Newsletter />
+
+      
       
       <ScrollToTopButton/>
       

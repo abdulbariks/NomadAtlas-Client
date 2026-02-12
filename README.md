@@ -1,78 +1,67 @@
-# NomadAtlas
+# 🌍 NomadAtlas
+## 🧭 Overview
+**NomadAtlas** is a web platform designed for **digital nomads and remote workers** to discover, compare, and share experiences about cities around the world.  
+It provides key insights such as **cost of living**, **internet quality**, and **community feedback**, making relocation and travel decisions smarter and more reliable.
 
-# NomadAtlas – Smart Cost Calculator (rejaulkarim)
-
-## Overview
-
-The **Smart Cost Calculator** helps digital nomads estimate how long they can stay in a city with a given budget, which country would be better for them based on their expected expenses, or how much money or more things they need to manage if they want to visit any city.
-It also suggests **alternative cities** and **affordable luxury upgrades** to improve the user’s travel planning experience.
+This branch highlights the features I (K M Marziul Karim) personally developed and integrated into the project.
 
 ---
 
-## Features
+## 🚀 My Contributions
 
-### 1. Budget-Based Calculation
-
-- Users first **input their budget**.
-- Then they **select a country**.
-- On the right side, they can choose any city from that country.
-- Once a city is selected, the **results** are shown on the left side:
-  - How many days they can stay in that city with their budget.
-  - City details such as:
-  - WiFi speed
-  - City safety
-  - Monthly living cost
-  - Daily living cost
+### 🧩 1. Community Page
+- Implemented a fully functional **social community** where users can:
+  - Post experiences, photos, and travel stories.
+  - Like and comment on other users’ posts.
+- Added **interactive UI** using `Framer Motion` for smooth animations.
+- Integrated **backend API** for post creation, likes, and comments.
 
 ---
 
-### 2. Better City Suggestions
-
-To give users a better experience, the tool suggests **alternative cities**:
-
-- With the same budget, in which countries/cities the user can stay **more days** than in the selected city.
-- Example:
-  > “You can stay more than 83 days with your current budget ($5000) in 16 cities:”
-
----
-
-### 3. Affordable Luxury Upgrade
-
-For users interested in luxury, the tool provides smart suggestions:
-
-- If there are more **luxury cities** than the selected city where:
-  - The monthly living cost is **less** than the selected luxury city, and
-  - The user can stay **more or equal days** with the same budget.
-- Then those cities are shown in the **Affordable Luxury Upgrade** section.
-
-**Example:**
-
-- **Paris**(france) → 85 days
-  - Status: More luxurious than [Selected City]
-- **London**(UK) → 87 days
-- Status: Same luxury level as [Selected City]
+### 🏙️ 2. City Comparison
+- Developed the **City Comparison feature** allowing users to:
+  - Submit short city reviews (city name, weather, internet speed).
+  - Compare cities side-by-side based on real user-submitted data.
+- Added backend integration to store and fetch city reviews dynamically.
+- Designed an intuitive layout for easy visual comparison.
 
 ---
 
-## 🛠 How to Use
-
-1. Enter your **budget** (e.g., `$3000`).
-2. Select a **country** from the available options.
-3. Choose a **city** in that country.
-4. Instantly see:
-   - Number of days you can stay
-   - Living cost details
-   - Other city suggestions
-   - Luxury upgrade options
+### 🌐 3. Internet Speed Map
+- Built an **interactive map visualization** showing internet speed data contributed by users.
+- Implemented **color-coded visualization logic**:
+  - 🟩 **Teal:** ≥ 90 Mbps  
+  - 🟢 **Green:** 50–89 Mbps 
+  - 🟡 **Yellow:** 30–49 Mbps
+  - 🔴 **Red:** < 30 Mbps  
+- Enabled users to add their own city’s speed data via a submission form.
+- Integrated real-time map updates with API-based dynamic rendering.
 
 ---
 
-## Goal
+### ⏰ 4. Time Zone Converter
+- Added a **utility feature** to convert time zones between cities.
+- Built with lightweight logic using `JavaScript Date` and `Intl` APIs.
 
-This feature helps nomads:
+---
 
-- Explore **affordable options**
-- Compare **luxury destinations**
-- Make **smarter travel decisions**
+## 💡 Purpose & Impact
+These features enhance **user engagement** and **data authenticity** by making NomadAtlas:
+- More **community-driven**, with real user experiences.
+- More **data-reliable**, through user-contributed city insights.
+- More **interactive**, via comparison tools and visual maps.
 
-- Added Resources page.
+---
+
+## ⚙️ Tech Stack Used
+- **Frontend:** React, Tailwind CSS, Framer Motion, Lucide Icons  
+- **Backend Integration:** Node.js, MongoDB with Mongoose
+- **Map Integration:** Leaflet.js (for Internet Speed Map)
+
+---
+
+## 🧑‍💻 Developed by
+**K M Marziul Karim**  
+CSE Undergrad | Web Developer  
+📧 [Contact](mailto:km.marziul@gmail.com)  
+🌐 [Portfolio](https://km-marziulkarim.web.app/)
