@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { FaArrowRightLong } from "react-icons/fa6";
-import { Link } from "react-router";
+import React, { useState } from "react";
 
-const CostCalclator = ({ data }) => {
+const CostCalculator = ({ data }) => {
   const [selectedCountry, setSelectedCountry] = useState("Germany");
   const [selectedCity, setSelectedCity] = useState(null);
   const [budget, setBudget] = useState(0);
@@ -12,12 +10,10 @@ const CostCalclator = ({ data }) => {
   );
   const citiesOfCountry = selectedCountryData?.cities || [];
 
-  // Days in selected city
   const days = selectedCity
     ? Math.floor(budget / (selectedCity.livingCost / 30))
     : 0;
 
-  // Days in other cities
   let allCities = [];
   for (const country of data) {
     for (const city of country.cities) {
@@ -35,18 +31,15 @@ const CostCalclator = ({ data }) => {
     })
     .filter((city) => city.days > days);
 
-  // with same budget if there any luxury city.
   const betterLuxuryCities = data.flatMap((country) =>
     country.cities
       .map((city) => {
-        // how many days can stay with the same budget
         const cityDays = Math.floor(budget / (city.livingCost / 30));
         return { ...city, country: country.country, days: cityDays };
       })
       .filter(
         (city) =>
-          city.luxuryScore > selectedCity?.luxuryScore && // Luxury score higher
-          city.days >= days // Same or more days than selected city
+          city.luxuryScore > selectedCity?.luxuryScore && city.days >= days
       )
   );
 
@@ -54,35 +47,34 @@ const CostCalclator = ({ data }) => {
     <div className="max-w-7xl mx-auto px-4 pb-10 -mt-5">
       {/* Budget Input */}
       <div className="mb-8 max-w-md mx-auto">
-        <label className="block font-semibold text-xl text-gray-800 mb-2">
-          Enter your travel <span className="text-blue-500">budget ($)</span>
+        <label className="block font-bold text-2xl text-gray-800 mb-3">
+          Enter your travel <span className="text-cyan-600">budget ($)</span>
         </label>
         <input
           type="number"
           name="budgetInput"
           onChange={(e) => setBudget(Number(e.target.value))}
           placeholder="Example: 5000"
-          className="w-full border rounded-lg px-4 py-3 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full border-2 border-gray-300 rounded-xl px-5 py-4 text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all"
         />
       </div>
 
       {/* Country & City Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
         {/* Country Selection */}
-        <div className="bg-white border border-blue-300 rounded-2xl p-6 shadow-md">
-          <p className="text-xl font-semibold text-center mb-4 text-gray-800">
-            Select a Country
+        <div className="bg-white border-2 border-cyan-100 rounded-3xl p-8 transition duration-300 hover:scale-105 hover:border-cyan-300">
+          <p className="text-2xl font-bold text-center mb-6 text-gray-800">
+             Select a Country
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             {data.map((country) => (
               <button
                 key={country.country}
                 onClick={() => setSelectedCountry(country.country)}
-                className={`px-5 py-2.5 rounded-full border transition-all duration-200 font-medium shadow-sm hover:shadow-md cursor-pointer ${
-                  selectedCountry === country.country
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-gray-100 text-gray-700 hover:bg-blue-50"
-                }`}
+                className={`px-6 py-3 rounded-full border-2 transition duration-300 font-semibold cursor-pointer hover:scale-105 ${selectedCountry === country.country
+                    ? "bg-cyan-600 text-white border-cyan-600"
+                    : "bg-white text-gray-700 border-gray-300 hover:border-cyan-400"
+                  }`}
               >
                 {country.country}
               </button>
@@ -91,21 +83,20 @@ const CostCalclator = ({ data }) => {
         </div>
 
         {/* City Selection */}
-        <div className="bg-white border border-blue-300 rounded-2xl p-6 shadow-md">
-          <p className="text-xl font-semibold text-center mb-4 text-gray-800">
+        <div className="bg-white border-2 border-cyan-100 rounded-3xl p-8 transition duration-300 hover:scale-105 hover:border-cyan-300">
+          <p className="text-2xl font-bold text-center mb-6 text-gray-800">
             Select a City in{" "}
-            <span className="text-blue-600">{selectedCountry}</span>
+            <span className="text-cyan-600">{selectedCountry}</span>
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             {citiesOfCountry.map((city) => (
               <button
                 key={city.name}
                 onClick={() => setSelectedCity(city)}
-                className={`px-5 py-2.5 rounded-full border transition-all duration-200 font-medium shadow-sm hover:shadow-md cursor-pointer ${
-                  selectedCity?.name === city.name
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-gray-100 text-gray-700 hover:bg-blue-50"
-                }`}
+                className={`px-6 py-3 rounded-full border-2 transition duration-300 font-semibold cursor-pointer hover:scale-105 ${selectedCity?.name === city.name
+                    ? "bg-cyan-600 text-white border-cyan-600"
+                    : "bg-white text-gray-700 border-gray-300 hover:border-cyan-400"
+                  }`}
               >
                 {city.name}
               </button>
@@ -116,67 +107,83 @@ const CostCalclator = ({ data }) => {
 
       {/* Result & Suggestions */}
       {selectedCountry && selectedCity && budget ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Result Card */}
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-md">
-            <h3 className="text-2xl font-bold mb-3 text-center">
+          <div className="bg-gradient-to-br from-cyan-50 to-teal-50 border-2 border-cyan-200 p-8 rounded-3xl transition duration-300 hover:scale-105 hover:border-cyan-300">
+            <h3 className="text-3xl font-bold mb-4 text-center text-gray-800">
               Result for{" "}
-              <span className="text-green-600">{selectedCity?.name}</span>,{" "}
-              <span className="text-blue-600">{selectedCountry}</span>
+              <span className="text-cyan-600">{selectedCity?.name}</span>,{" "}
+              <span className="text-cyan-600">{selectedCountry}</span>
             </h3>
-            <p className="text-gray-700 text-center text-lg mb-4">
+            <p className="text-gray-700 text-center text-xl mb-6 leading-relaxed">
               With a budget of{" "}
-              <span className="font-semibold text-green-600">${budget}</span>,
-              you can stay about{" "}
-              <span className="font-semibold text-blue-600">{days} days</span>{" "}
+              <span className="font-bold text-cyan-600 text-2xl">${budget}</span>
+              , you can stay about{" "}
+              <span className="font-bold text-cyan-600 text-2xl">{days} days</span>{" "}
               in {selectedCity?.name}.
             </p>
 
             {/* Selected City Details */}
             {selectedCity && (
-              <div className="bg-white border border-blue-300 rounded-xl p-4 shadow-sm">
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                  City Details
+              <div className="bg-white border-2 border-cyan-200 rounded-2xl p-6 transition duration-300 hover:scale-105 hover:border-cyan-300">
+                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <span className="text-2xl"></span> City Details
                 </h4>
-                <p className="text-gray-600">Name: {selectedCity.name}</p>
-                <p className="text-gray-600">
-                  Living Cost: ${selectedCity.livingCost} / month
-                </p>
-                <p className="text-gray-600">
-                  Approx. Daily Cost: $
-                  {(selectedCity.livingCost / 30).toFixed(2)}
-                </p>
+                <div className="space-y-2">
+                  <p className="text-gray-700 font-medium">
+                    <span className="text-gray-500">Name:</span>{" "}
+                    <span className="text-gray-900">{selectedCity.name}</span>
+                  </p>
+                  <p className="text-gray-700 font-medium">
+                    <span className="text-gray-500">Living Cost:</span>{" "}
+                    <span className="text-cyan-600 font-bold">
+                      ${selectedCity.livingCost}
+                    </span>{" "}
+                    / month
+                  </p>
+                  <p className="text-gray-700 font-medium">
+                    <span className="text-gray-500">Approx. Daily Cost:</span>{" "}
+                    <span className="text-cyan-600 font-bold">
+                      ${(selectedCity.livingCost / 30).toFixed(2)}
+                    </span>
+                  </p>
+                </div>
               </div>
             )}
           </div>
 
           {/* Suggestions Card */}
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-md">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">
-              Suggestions for You
+          <div className="bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 p-8 rounded-3xl transition duration-300 hover:scale-105 hover:border-cyan-300">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+              <span className="text-3xl"></span> Suggestions for You
             </h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-lg mb-2 text-gray-700">
-                  You can stay more than{" "}
-                  <span className="text-green-600">{days}</span> days with your
-                  current budget{" "}
-                  <span className="text-blue-500">
-                    ($
-                    {budget})
-                  </span>{" "}
-                  in{" "}
-                  <span className="text-green-600">{lowCostCity.length}</span>{" "}
-                  cities:
+            <div className="space-y-6">
+              <div className="bg-white border-2 border-cyan-200 rounded-2xl p-6 transition duration-300 hover:scale-105 hover:border-cyan-300">
+                <h3 className="font-bold text-xl mb-3 text-gray-800">
+                  Stay Longer in{" "}
+                  <span className="text-cyan-600">{lowCostCity.length}</span>{" "}
+                  cities!
                 </h3>
-                <ul className="list-disc pl-5 text-gray-600 space-y-1">
+                <p className="text-gray-600 mb-4">
+                  You can stay more than{" "}
+                  <span className="text-cyan-600 font-bold">{days} days</span>{" "}
+                  with your current budget of{" "}
+                  <span className="text-cyan-600 font-bold">${budget}</span>:
+                </p>
+                <ul className="space-y-3">
                   {lowCostCity.map((city) => (
-                    <li key={city.name}>
-                      <span className="font-medium text-gray-800">
-                        {city.name}
-                      </span>{" "}
-                      ({city.country}) →{" "}
-                      <span className="text-blue-600 font-semibold">
+                    <li
+                      key={city.name}
+                      className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl border border-cyan-100 hover:border-cyan-300 transition duration-300 hover:scale-105"
+                    >
+                      <span className="text-xl"></span>
+                      <div className="flex-1">
+                        <span className="font-bold text-gray-800">
+                          {city.name}
+                        </span>{" "}
+                        <span className="text-gray-500">({city.country})</span>
+                      </div>
+                      <span className="text-cyan-600 font-bold text-lg">
                         {city.days} days
                       </span>
                     </li>
@@ -186,43 +193,51 @@ const CostCalclator = ({ data }) => {
 
               {/* Better Luxury Options */}
               {betterLuxuryCities.length > 0 && (
-                <div className="bg-gray-50 border border-blue-300 rounded-xl p-4 mt-4">
-                  <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                    Affordable Luxury Upgrade ✨
+                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl p-6 transition duration-300 hover:scale-105 hover:border-cyan-300">
+                  <h3 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                    <span className="text-2xl"></span> Affordable Luxury Upgrade
                   </h3>
-                  <p className="font-semibold text-lg mb-2 text-gray-700">
+                  <p className="font-semibold text-lg mb-4 text-gray-700 leading-relaxed">
                     With your current budget of{" "}
-                    <span className="font-semibold text-green-600">
-                      ${budget}
-                    </span>
-                    , you can stay in these{" "}
-                    <span className="text-blue-600 font-medium">
+                    <span className="font-bold text-cyan-600">${budget}</span>, you
+                    can stay in these{" "}
+                    <span className="text-cyan-700 font-bold">
                       more luxurious cities
                     </span>{" "}
-                    for the same <span className="text-blue-500">{days}</span>{" "}
-                    days or even longer than{" "}
-                    <span className="text-blue-500">{days}</span> days you could
-                    stay in{" "}
-                    <span className="text-green-600">{selectedCity?.name}</span>
+                    for the same{" "}
+                    <span className="text-cyan-600 font-bold">{days}</span> days or
+                    even longer than{" "}
+                    <span className="text-cyan-600 font-bold">{days}</span> days you
+                    could stay in{" "}
+                    <span className="text-cyan-600 font-bold">
+                      {selectedCity?.name}
+                    </span>
                     .
                   </p>
 
-                  <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                  <ul className="space-y-4">
                     {betterLuxuryCities.map((city) => (
-                      <li key={city.name}>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="font-medium text-gray-800">
-                            {city.name} ({city.country})
+                      <li
+                        key={city.name}
+                        className="bg-white border-2 border-cyan-200 rounded-xl p-4 transition duration-300 hover:scale-105 hover:border-cyan-300"
+                      >
+                        <div className="flex flex-wrap items-center gap-3 mb-2">
+                          <span className="text-xl"></span>
+                          <span className="font-bold text-gray-800 text-lg">
+                            {city.name}
+                          </span>
+                          <span className="text-gray-500">
+                            ({city.country})
                           </span>
                           <span className="text-gray-400">→</span>
-                          <span className="text-blue-600 font-semibold">
+                          <span className="text-cyan-600 font-bold text-lg">
                             {city.days} days
                           </span>
                         </div>
-                        <div className="mt-1 text-gray-700 ml-6">
-                          <span className="font-medium">Status:</span> more
+                        <div className="ml-8 text-gray-700">
+                          <span className="font-semibold">Status:</span> more
                           luxurious than{" "}
-                          <span className="text-green-600">
+                          <span className="text-cyan-600 font-bold">
                             {selectedCity?.name}
                           </span>
                         </div>
@@ -235,12 +250,15 @@ const CostCalclator = ({ data }) => {
           </div>
         </div>
       ) : (
-        <p className="text-2xl text-center font-bold text-red-500 mt-3">
-          Enter a budget, select a country, and select a city to see results
-        </p>
+        <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-2 border-cyan-300 rounded-3xl p-8 transition duration-300 hover:scale-105 hover:border-cyan-300">
+          <p className="text-2xl text-center font-bold text-cyan-600 flex items-center justify-center gap-3">
+            <span className="text-3xl"></span>
+            Enter a budget, select a country, and select a city to see results
+          </p>
+        </div>
       )}
     </div>
   );
 };
 
-export default CostCalclator;
+export default CostCalculator;

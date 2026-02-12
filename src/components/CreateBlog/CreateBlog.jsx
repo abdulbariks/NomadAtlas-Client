@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { Upload, Loader2 } from "lucide-react";
 import useImageUpload from "../../customHook/useImageUpload";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const categories = [
   "Destinations",
@@ -21,10 +21,11 @@ const CreateBlog = () => {
   const { picture, handleImageUpload } = useImageUpload();
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const axiosSecure = useAxiosSecure();
 
   const mutation = useMutation({
     mutationFn: async (newBlog) => {
-      const res = await axios.post(`${import.meta.env.VITE_API}/blogs`, newBlog);
+      const res = await axiosSecure.post(`/blogs`, newBlog);
       return res.data;
     },
     onSuccess: () => {
@@ -79,9 +80,14 @@ const CreateBlog = () => {
   };
 
   return (
+
+  <>
+  
+    
     <div className="max-w-4xl mx-auto px-6 py-10 my-10 bg-white shadow-xl rounded-2xl border border-gray-200">
+      
       <h1 className="text-3xl font-bold mb-8 text-gray-800 text-center">
-        ✍️ Create a New Blog
+         Create a New Blog
       </h1>
 
       <form className="space-y-6" onSubmit={handleSubmit((data) => handleSave(data, false))}>
@@ -186,6 +192,8 @@ const CreateBlog = () => {
         </div>
       </form>
     </div>
+    
+    </>
   );
 };
 

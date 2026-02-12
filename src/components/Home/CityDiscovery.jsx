@@ -307,8 +307,8 @@ const CityDiscovery = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
   return (
-  <div className="mx-5 md:mx-8 lg:mx-10">
-      <section className="">
+    <div className="mx-5 md:mx-10 lg:mx-14">
+      <section className="p-6">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-2">
           Discover Cities for Remote Work
         </h2>

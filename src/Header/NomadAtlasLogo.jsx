@@ -1,23 +1,22 @@
 import React from "react";
 import { Link } from "react-router";
-import logo from "../assets/Logo/NomadLogo.png";
+import logo from "../assets/Logo/NLogo2.png";
 
 const NomadAtlasLogo = () => {
   return (
     <Link to="/" className="group">
       <div className="flex gap-2 items-center">
         {/* Logo */}
-        <div className=" bg-gradient-to-tr from-blue-500 to-yellow-400  rounded-xl shadow-md group-hover:scale-110 transition-transform duration-300">
-          <img src={logo} alt="NomadAtlas Logo" className="w-5 h-5 md:w-7 md:h-7 " />
+        <div className="  group-hover:scale-110 transition-transform duration-300">
+          <img src={logo} alt="NomadAtlas Logo" className="w-7 h-7 md:w-10 md:h-10 " />
         </div>
-
+       
+        
+       
         {/* Text */}
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold bg-blue-500 bg-clip-text text-transparent  transition-colors duration-300">
-          Nomad<span className="bg-yellow-400 bg-clip-text text-transparent  transition-colors duration-300">Atlas</span>
-        </h2>
-      </div>
+        </div>
+   
     </Link>
   );
 };
-
 export default NomadAtlasLogo;
