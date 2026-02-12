@@ -5,6 +5,11 @@ export default function YoutubeVideos({ selectedCategory }) {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // console.log(
+  //   "testing the selected category if it passing or not",
+  //   selectedCategory
+  // );
+
   // connecting youtube api key from envfile
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
@@ -19,7 +24,7 @@ export default function YoutubeVideos({ selectedCategory }) {
             ? "digital nomad lifestyle"
             : `digital nomad ${selectedCategory}`;
 
-        // useing youtube search endpoind.
+        // using youtube search endpoint.
         const res = await fetch(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
             searchQuery
@@ -36,7 +41,7 @@ export default function YoutubeVideos({ selectedCategory }) {
     }
 
     fetchVideos();
-  }, [selectedCategory]);
+  }, [selectedCategory, API_KEY]);
 
   if (loading) {
     return (

@@ -3,7 +3,9 @@ import { Link, NavLink, useLocation } from "react-router";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import NomadAtlasLogo from "./NomadAtlasLogo";
 import { useSelector, useDispatch } from "react-redux";
-import { logOutUser } from "../components/feature/authSlice";
+import { logOutUser } from "../redux/authSlice";
+import NomadAtlasLoader from "../components/Home/NomadAtlasLoader";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +15,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.auth);
-
+  console.log(user)
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
@@ -45,25 +47,11 @@ const Navbar = () => {
         {isDropdownOpen && (
           <div className="absolute left-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md flex flex-col py-2 z-50">
             <NavLink
-              to="/dashboard"
-              className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
-              onClick={() => setIsDropdownOpen(false)}
-            >
-              Dashboard
-            </NavLink>
-            <NavLink
               to="/destinations"
               className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
               onClick={() => setIsDropdownOpen(false)}
             >
               Destinations
-            </NavLink>
-            <NavLink
-              to="/time-zone-converter"
-              className="px-4 py-2 hover:bg-blue-50 hover:text-blue-700"
-              onClick={() => setIsDropdownOpen(false)}
-            >
-              Time zone converter
             </NavLink>
             <NavLink
               to="/cost-calculator"
@@ -79,6 +67,22 @@ const Navbar = () => {
             >
               Comparison
             </NavLink>
+
+            <NavLink
+              to="/time-zone-converter"
+              className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Time Zone Converter
+            </NavLink>
+
+            <NavLink
+              to="/blogs"
+              className="px-4 py-2 hover:bg-yellow-50 hover:text-orange-500"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Blogs
+            </NavLink>
           </div>
         )}
       </div>
@@ -89,8 +93,8 @@ const Navbar = () => {
       <NavLink to="/resources" className="hover:text-yellow-500 transition">
         Resources
       </NavLink>
-      <NavLink to="/blogs" className="hover:text-yellow-500 transition">
-        Blogs
+      <NavLink to="/dashboard" className="hover:text-yellow-500 transition">
+        Dashboard
       </NavLink>
     </>
   );
@@ -112,7 +116,7 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-6">
           {loading ? (
-            <p>Loading...</p>
+            <NomadAtlasLoader />
           ) : user ? (
             <>
               <span>Hi, {user.displayName || "User"}</span>
@@ -175,10 +179,14 @@ const Navbar = () => {
           </NavLink>
 
           {loading ? (
-            <p>Loading...</p>
+            <NomadAtlasLoader />
           ) : user ? (
             <>
-              <span>Hi, {user.displayName || "User"}</span>
+              <span>
+                <NavLink to="/dashboard" onClick={() => setIsOpen(false)}>
+                  Dashboard
+                </NavLink>
+              </span>
               <button
                 onClick={() => {
                   handleLogout();

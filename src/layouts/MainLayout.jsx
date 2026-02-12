@@ -11,7 +11,9 @@ const MainLayout = () => {
       <div className="relative ">
         <ToastContainer position="top-right" autoClose={2500} />
         <Header/>
+      
         <Outlet />
+        
         <Footer />
       </div>
     </div>

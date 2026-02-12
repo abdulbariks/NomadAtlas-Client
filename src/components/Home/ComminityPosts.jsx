@@ -99,7 +99,7 @@ const ComminityPosts = () => {
   ];
 
   return (
-    <div className="mt-15 mb-10 mx-5 md:mx-10 lg:mx-20  ">
+    <div className="mt-15 mb-10 mx-5 md:mx-8 lg:mx-10  ">
      <div className="text-center">
        <h1 className="text-2xl md:text-3xl lg:text-4xl  font-bold text-center mb-6">
         Community Posts
@@ -111,7 +111,7 @@ const ComminityPosts = () => {
         {data.map((post) => (
           <article
             key={post.id}
-            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow  "
+            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow "
           >
             {post.image && (
               <div className="h-52 w-full overflow-hidden">

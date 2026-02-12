@@ -36,7 +36,7 @@ const getCityName = (zone) => {
 
 const formatTime = (zone) => {
     const now = new Date();
-
+    
     const timeOptions = {
         hour: '2-digit',
         minute: '2-digit',
@@ -44,7 +44,7 @@ const formatTime = (zone) => {
         hourCycle: 'h23',
         timeZone: zone,
     };
-
+    
     const dateOptions = {
         weekday: 'long',
         month: 'long',
@@ -54,7 +54,7 @@ const formatTime = (zone) => {
 
     const time = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
     const date = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
-
+    
     return { time, date };
 };
 
@@ -80,7 +80,7 @@ const calculateDifference = (zone1, zone2, city1Name, city2Name) => {
             diffMs += oneDayMs;
         }
     }
-
+    
     const totalMinutes = Math.round(diffMs / (1000 * 60));
     const hours = Math.floor(Math.abs(totalMinutes) / 60);
     const minutes = Math.abs(totalMinutes) % 60;
@@ -88,17 +88,17 @@ const calculateDifference = (zone1, zone2, city1Name, city2Name) => {
     const sign = diffMs > 0 ? "Ahead of" : diffMs < 0 ? "Behind" : "is the Same as";
 
     if (diffMs === 0) {
-        return `${city1Name} and ${city2Name} are in the same time zone.`;
+         return `${city1Name} and ${city2Name} are in the same time zone.`;
     } else {
-        return `${city2Name} is ${sign} ${city1Name} by ${hours} hours and ${minutes} minutes.`;
+         return `${city2Name} is ${sign} ${city1Name} by ${hours} hours and ${minutes} minutes.`;
     }
 };
 
 const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, cityName, accentColor, focusRingColor }) => {
-
+    
     const [searchQuery, setSearchQuery] = useState(cityName === "Select City" ? "" : cityName);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+   
     useEffect(() => {
         if (selectedZone) {
             const city = getCityName(selectedZone);
@@ -107,39 +107,39 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
             }
         }
     }, [selectedZone]);
-
+   
     const filteredCities = useMemo(() => {
-
+       
         if (searchQuery.length < 2) return [];
 
         const query = searchQuery.toLowerCase();
-        return TIME_ZONE_DATA.filter(tz =>
+        return TIME_ZONE_DATA.filter(tz => 
             tz.city.toLowerCase().includes(query) || tz.offset.toLowerCase().includes(query)
         ).slice(0, 10);
     }, [searchQuery]);
-
+    
     const handleSelectCity = (tz) => {
-
+       
         setZone(tz.zone);
         localStorage.setItem(storageKey, tz.zone);
-
+        
         setSearchQuery(tz.city);
         setIsDropdownOpen(false);
     };
-
+    
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);
         setIsDropdownOpen(true);
     };
-
+    
     const handleInputBlur = () => {
         setTimeout(() => setIsDropdownOpen(false), 150);
     };
 
     return (
-        <div
-            id={`card-${id}`}
-
+        <div 
+            id={`card-${id}`} 
+           
             className={`time-card bg-white rounded-[2rem] shadow-2xl p-6 sm:p-10 border-t-8 ${accentColor.replace('500', '600')} hover:shadow-3xl hover:scale-[1.01] transition-all duration-300 relative`}
         >
             <label htmlFor={`timezone-search-${id}`} className={`block text-sm font-semibold mb-2 ${accentColor.replace('border-t-4', 'text')}`}>
@@ -154,18 +154,18 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
                     onChange={handleInputChange}
                     onFocus={() => setIsDropdownOpen(true)}
                     onBlur={handleInputBlur}
-
+                   
                     className={`w-full p-4 text-base bg-gray-100 border border-gray-300 rounded-xl focus:ring-4 ${focusRingColor} focus:ring-opacity-50 focus:border-transparent transition-shadow pr-10`}
                     autoComplete="off"
                 />
-
+            
                 {isDropdownOpen && filteredCities.length > 0 && (
                     <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-xl shadow-2xl max-h-60 overflow-y-auto custom-scroll">
                         {filteredCities.map((tz) => (
-                            <li
-                                key={tz.zone}
-
-                                onMouseDown={() => handleSelectCity(tz)}
+                            <li 
+                                key={tz.zone} 
+                               
+                                onMouseDown={() => handleSelectCity(tz)} 
                                 className="cursor-pointer p-3 hover:bg-indigo-100 transition-colors border-b border-gray-200 last:border-b-0 flex justify-between items-center"
                             >
                                 <span className="font-medium">{tz.city}</span>
@@ -174,23 +174,23 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
                         ))}
                     </ul>
                 )}
-
+                
                 <Globe className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
             </div>
 
 
             <div className="mt-8 text-center">
-
+               
                 <p id={`city-name-${id}`} className="text-xl sm:text-2xl font-semibold mb-4 text-gray-700 tracking-wide">
                     {cityName}
                 </p>
-
-
+                
+                
                 <p id={`current-time-${id}`} className={`time-display font-extrabold text-5xl sm:text-7xl ${accentColor.replace('border-t-4', 'text').replace('600', '700')} tabular-nums leading-tight`}>
                     {time}
                 </p>
-
-
+                
+              
                 <p id={`current-date-${id}`} className="text-md text-black mt-4">
                     {date}
                 </p>
@@ -200,7 +200,7 @@ const TimeCard = ({ id, label, selectedZone, setZone, storageKey, time, date, ci
 };
 
 const TimeZoneConverter = () => {
-
+    
     const DEFAULT_ZONE_1 = "America/New_York";
     const DEFAULT_ZONE_2 = "Europe/London";
 
@@ -218,7 +218,7 @@ const TimeZoneConverter = () => {
 
     const [zone1, setZone1] = useState(getInitialZone(LOCAL_STORAGE_KEY_1, DEFAULT_ZONE_1));
     const [zone2, setZone2] = useState(getInitialZone(LOCAL_STORAGE_KEY_2, DEFAULT_ZONE_2));
-
+    
     const [time1, setTime1] = useState('--:--:--');
     const [date1, setDate1] = useState('Select a zone');
     const [time2, setTime2] = useState('--:--:--');
@@ -250,14 +250,14 @@ const TimeZoneConverter = () => {
         setDifferenceText(calculateDifference(zone1, zone2, city1Name, city2Name));
     };
 
-
+ 
     useEffect(() => {
-        updateAllDisplays();
+        updateAllDisplays(); 
         const intervalId = setInterval(updateAllDisplays, 1000);
 
-
+       
         return () => clearInterval(intervalId);
-    }, [zone1, zone2, city1Name, city2Name]);
+    }, [zone1, zone2, city1Name, city2Name]); 
 
     return (
         <div className="min-h-screen bg-white text-gray-800 p-4 sm:p-8"
@@ -267,16 +267,16 @@ const TimeZoneConverter = () => {
                 {/* Header */}
                 <header className="text-center mb-16">
                     <h1 className="text-4xl sm:text-5xl font-extrabold text-indigo-700 mb-3 flex items-center justify-center gap-3">
-                        <Globe className="w-8 h-8" /> Global Time Sync
+                        <Globe className="w-8 h-8"/> Global Time Sync
                     </h1>
                     <p className="text-xl text-gray-600">
                         Compare local time between two cities instantly for seamless remote work planning.
                     </p>
                 </header>
 
-
+            
                 <div id="converter-container" className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
+                    
                     <TimeCard
                         id={1}
                         label="City 1 (Your Location)"
@@ -304,13 +304,13 @@ const TimeZoneConverter = () => {
                     />
 
                 </div>
-
-                <div id="time-difference"
+               
+                <div id="time-difference" 
                     className="text-center mt-10 p-6 bg-gray-100 rounded-2xl shadow-xl border-l-8 border-r-8 border-indigo-500 text-lg sm:text-xl text-gray-700 font-bold transition-all">
                     <Clock className="w-6 h-6 inline mr-3 align-text-bottom text-indigo-500" /> {differenceText}
                 </div>
-
-
+                
+               
             </div>
         </div>
     );

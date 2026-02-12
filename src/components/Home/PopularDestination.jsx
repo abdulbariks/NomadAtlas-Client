@@ -56,7 +56,7 @@ const PopularDestination = () => {
   }, []);
 
   return (
-    <section className="px-5 md:px-10 lg:px-20 pt-10">
+    <section className=" pt-10">
       <div className="text-center">
         <h2 className="text-2xl md:text-4xl font-bold mb-4">
           Popular Destinations

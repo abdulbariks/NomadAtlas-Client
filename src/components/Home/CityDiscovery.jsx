@@ -292,8 +292,6 @@ const cityPosts = [
   },
 ];
 
-
-
 const CityDiscovery = () => {
   const [selectedCity, setSelectedCity] = useState("Bali");
 
@@ -309,8 +307,8 @@ const CityDiscovery = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
   return (
-  <div className="mx-5 md:mx-10 lg:mx-14">
-      <section className="p-6">
+  <div className="mx-5 md:mx-8 lg:mx-10">
+      <section className="">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-2">
           Discover Cities for Remote Work
         </h2>
@@ -342,7 +340,6 @@ const CityDiscovery = () => {
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-
           >
             <h1 className="text-2xl font-bold text-center mb-5 ">
               The City <span className="text-blue-500">{selectedCity}</span>
@@ -379,7 +376,9 @@ const CityDiscovery = () => {
                         {findSelectedCity.safety}
                       </div>
                       <div>
-                        <span className="font-semibold">Best Time to Visit:</span>{" "}
+                        <span className="font-semibold">
+                          Best Time to Visit:
+                        </span>{" "}
                         {findSelectedCity.bestTimeToVisit}
                       </div>
                     </div>
@@ -390,7 +389,7 @@ const CityDiscovery = () => {
           </motion.div>
 
           {/* Related Posts */}
-          <div >
+          <div>
             <h1 className="text-2xl font-bold text-center">
               Posts about <span className="text-blue-400">{selectedCity}</span>
             </h1>
@@ -477,8 +476,5 @@ const CityDiscovery = () => {
     </div>
   );
 };
-
-
-
 
 export default CityDiscovery;

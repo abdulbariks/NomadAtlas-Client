@@ -1,7 +1,7 @@
 import React from 'react';
-import AddNewDestination from '../pages/Destination/AddNewDestination';
+import AddNewDestination from '../pages/Destination/AddNewDestinatios';
 
-const Provider = () => {
+const AddDestinations = () => {
     return (
         <div className="p-6">
             <AddNewDestination></AddNewDestination>
@@ -9,4 +9,4 @@ const Provider = () => {
     );
 };
 
-export default Provider;
+export default AddDestinations;

@@ -85,13 +85,7 @@ export default function FilterBar({ filters, setFilters }) {
       />
 
       {/* ❌ Clear Button */}
-      <button
-        onClick={() => setFilters({})}
-        className="btn btn-ghost"
-        title="Clear filters"
-      >
-        Clear
-      </button>
+    
     </div>
   );
 }
