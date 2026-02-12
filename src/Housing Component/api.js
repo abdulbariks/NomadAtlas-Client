@@ -1,14 +1,14 @@
-const API_BASE = import.meta.env.VITE_API || 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API || 'https://nomad-atlas-server-delta.vercel.app/api';
 
 export async function fetchHousings(params = {}) {
   const qs = new URLSearchParams(params).toString();
-  const res = await fetch(`${API_BASE}/housings?${qs}`);
+  const res = await fetch(`${API}/housings?${qs}`);
   if (!res.ok) throw new Error('Failed to fetch housings');
   return res.json();
 }
 
 export async function createBooking(housingId, data) {
-  const res = await fetch(`${API_BASE}/housings/${housingId}/book`, {
+  const res = await fetch(`${API}/housings/${housingId}/book`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

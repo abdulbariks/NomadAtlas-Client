@@ -1,78 +1,49 @@
 import React, { useEffect, useState } from "react";
-
-const destinationsData = [
-  {
-    id: 1,
-    image: "https://i.postimg.cc/8zZxwg7j/elena-soroka-AOIRbye-iwk-unsplash.jpg",
-    title: "Urban Hubs",
-    description:
-      "Experience the vibrant energy of bustling cities with coworking spaces, cultural events, and thriving communities.",
-    rating: 7.8,
-    price: 960,
-    discountPrice: 780,
-    tag: "Last Minute",
-  },
-  {
-    id: 2,
-    image: "https://i.postimg.cc/ZnvgR4G9/dan-gold-qgv-FR8-Vk-Pss-unsplash.jpg",
-    title: "Tropical Escapes",
-    description:
-      "Relax on pristine beaches, enjoy water sports, and embrace a laid-back lifestyle surrounded by palm trees and sunshine.",
-    rating: 8.2,
-    price: 1100,
-    discountPrice: 935,
-    tag: "Save 15%",
-  },
-  {
-    id: 3,
-    image:
-      "https://i.postimg.cc/hPWHfqhx/igor-sporynin-QIGnn-LEUfu-U-unsplash.jpg",
-    title: "Cultural Gems",
-    description:
-      "Immerse yourself in rich history, explore ancient sites, and connect with local traditions and heritage.",
-    rating: 7.5,
-    price: 720,
-    discountPrice: 650,
-    tag: "Special Offer",
-  },
-  {
-    id: 4,
-    image: "https://i.postimg.cc/Wprm8dwD/youssef-Zfeb-Bvs-PA-unsplash.jpg",
-    title: "Nature Retreats",
-    description:
-      "Escape to the mountains, forests, or lakes for fresh air, scenic views, and a peaceful environment for deep work.",
-    rating: 8.0,
-    price: 850,
-    discountPrice: 720,
-    tag: "Last Minute",
-  },
-];
+import axios from "axios";
 
 const PopularDestination = () => {
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
-    setDestinations(destinationsData);
+    // Fetch destinations from backend
+    const fetchDestinations = async () => {
+      try {
+        const res = await axios.get(
+          "https://nomad-atlas-server-delta.vercel.app/api/destinations/"
+        );
+        if (res.data.success) {
+          // Wrap single object in array for mapping
+          setDestinations([res.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+      }
+    };
+
+    fetchDestinations();
   }, []);
 
+  if (destinations.length === 0) {
+    return <p className="text-center mt-10">Loading destinations...</p>;
+  }
+
   return (
-    <section className=" pt-10">
+    <section className="pt-10">
       <div className="text-center">
         <h2 className="text-2xl md:text-4xl font-bold mb-4">
           Popular Destinations
         </h2>
         <p className="text-sm w-10/12 mx-auto mb-8 text-gray-700">
-          Discover some of the world’s most loved cities for digital nomads. From
-          sunny beaches to vibrant urban hubs, explore destinations that offer
-          affordable living, reliable internet, and a welcoming community to
-          support your remote lifestyle.
+          Discover some of the world’s most loved cities for digital nomads.
+          Explore destinations that offer affordable living, reliable internet,
+          and a welcoming community to support your remote lifestyle.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {destinations.map((item) => (
+        {destinations.map((item, index) => (
           <div
-            key={item.id}
+            key={item._id || index}
             className="relative group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
           >
             {/* Image */}
@@ -83,8 +54,8 @@ const PopularDestination = () => {
             />
 
             {/* Tag */}
-            <span className="absolute top-3 right-3 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
-              {item.tag}
+            <span className="absolute top-3 right-3 bg-[#14b8a6] text-white text-xs font-semibold px-2 py-1 rounded">
+              Popular
             </span>
 
             {/* ---- Desktop Hover Details ---- */}
@@ -92,13 +63,13 @@ const PopularDestination = () => {
               <h3 className="text-lg font-semibold">{item.title}</h3>
               <p className="text-xs mb-2">{item.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm">⭐ {item.rating} Superb</span>
+                <span className="text-sm">⭐ {item.wifiSpeed ?? "N/A"} Mbps</span>
                 <div className="text-right">
-                  <p className="text-green-400 line-through text-xs">
-                    ${item.price}
+                  <p className="text-gray-400 line-through text-xs">
+                    ${item.avgLivingCost ?? "N/A"}
                   </p>
                   <p className="text-lg font-bold text-red-400">
-                    ${item.discountPrice}
+                    ${item.pricePerMonth ?? "N/A"}
                   </p>
                 </div>
               </div>
@@ -109,13 +80,13 @@ const PopularDestination = () => {
               <h3 className="text-lg font-semibold">{item.title}</h3>
               <p className="text-xs mb-2">{item.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm">⭐ {item.rating} Superb</span>
+                <span className="text-sm">⭐ {item.wifiSpeed ?? "N/A"} Mbps</span>
                 <div className="text-right">
                   <p className="text-gray-500 line-through text-xs">
-                    ${item.price}
+                    ${item.avgLivingCost ?? "N/A"}
                   </p>
                   <p className="text-lg font-bold text-red-500">
-                    ${item.discountPrice}
+                    ${item.pricePerMonth ?? "N/A"}
                   </p>
                 </div>
               </div>

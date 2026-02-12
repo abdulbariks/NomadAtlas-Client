@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { FaWifi, FaSnowflake, FaUtensils, FaLaptop, FaUser, FaClock, FaMapMarkerAlt, } from "react-icons/fa";
+import { FaWifi, FaSnowflake, FaUtensils, FaLaptop, FaUser, FaClock, FaMapMarkerAlt, FaTemperatureHigh, FaPassport } from "react-icons/fa";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
@@ -30,7 +30,7 @@ const DestinationDetailsPage = () => {
   } = useQuery({
     queryKey: ["destination", id],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/destinations/${id}`);
+      const { data } = await axiosSecure.get(`https://nomad-atlas-server-delta.vercel.app/api/destinations/${id}`);
       return data.data;
     },
   });
@@ -72,9 +72,7 @@ const DestinationDetailsPage = () => {
   // Loading and error states
   if (isLoading)
     return (
-      <div className="flex justify-center p-10">
-        <Loader className="animate-spin" />
-      </div>
+      <Spinner></Spinner>
     );
   if (isError || !singleDestination)
     return (
@@ -85,7 +83,7 @@ const DestinationDetailsPage = () => {
 
   const destination = singleDestination;
 
-  // ✅ Handle Comment Submission
+  // Handle Comment Submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return toast.error("Please write a comment");
@@ -109,7 +107,7 @@ const DestinationDetailsPage = () => {
       if (data?.success) {
         toast.success("Comment added!");
         setNewComment("");
-        refetchReviews(); // 🔄 Refresh reviews from backend
+        refetchReviews(); // Refresh reviews from backend
       } else {
         toast.error("Failed to post comment");
       }
@@ -120,33 +118,60 @@ const DestinationDetailsPage = () => {
   };
 
   return (
-    <section className="w-full mt-15">
-      {/* 🖼️ Top Hero Image */}
-      <div className="w-full h-96 relative">
+    <section className="w-full ">
+      {/* Top Hero Image */}
+      <div className="relative w-full h-[420px] md:h-[480px] lg:h-[520px] overflow-hidden">
         <img
           src={destination.images[0]}
           alt={destination.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute bottom-5 left-5 bg-black bg-opacity-50 px-4 py-2 rounded text-white">
-          {destination.name}, {destination.country}
+
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+
+        {/* Destination Info Text */}
+        <div className="absolute bottom-6 left-6 text-white">
+          {/* Continent */}
+          <div className="flex items-center gap-2 mb-2">
+
+            <span className="px-2 py-1 text-xs bg-none border border-cyan-300 text-cyan-500 font-medium rounded-full flex justify-between gap-1">
+              <FaMapMarkerAlt className="text-cyan-300" /> {destination.continent}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 text-white">
+            {/* Destination Name */}
+            <h1 className="text-lg leading-tight drop-shadow-lg flex items-center gap-2">
+              <FaUser className="text-cyan-300" />
+              {destination.name},
+            </h1>
+
+            {/* Country */}
+            <p className="text-lg flex items-center gap-2 text-gray-200 mt-[2px]">
+              {destination.country}
+            </p>
+          </div>
+
         </div>
       </div>
 
-      {/* 📄 Main Content */}
+
+
+      {/* Main Content */}
       <div className="px-6 md:px-12 lg:px-20 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* LEFT COLUMN */}
         <div className="lg:col-span-2">
           <h2 className="text-3xl font-bold mb-3">{destination.title}</h2>
 
-          {/* 🔹 Tabs */}
-          <div className="flex flex-wrap border-b mb-6 text-sm sm:text-base">
+          {/* Tabs */}
+          <div className="flex flex-wrap border-b border-gray-400 mb-6 text-sm sm:text-base">
             {["information", "location", "reviews"].map((tab) => (
               <button
                 key={tab}
                 className={`px-4 py-2 capitalize transition-colors ${activeTab === tab
-                  ? "border-b-2 border-blue-500 font-semibold text-blue-600"
-                  : "text-gray-600 hover:text-blue-500"
+                  ? "border-b-2 border-blue-400 font-semibold text-blue-400"
+                  : "text-gray-600 hover:text-blue-600"
                   }`}
                 onClick={() => setActiveTab(tab)}
               >
@@ -154,80 +179,124 @@ const DestinationDetailsPage = () => {
               </button>
             ))}
           </div>
-
-          {/* 🧾 Information Tab */}
+          {/* information part */}
           {activeTab === "information" && (
-            <div>
+            <div className="space-y-8">
               {/* Description */}
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                {destination.description}
-              </p>
+              <p className="text-gray-700 leading-relaxed">{destination.description}</p>
 
-              {/* Price */}
-              <div className="flex items-center gap-3 mb-6">
-                <span className="line-through text-red-500 font-semibold">
-                  ${destination.avgLivingCost}
-                </span>
-                <span className="text-teal-500 font-bold text-2xl">
-                  ${destination.pricePerMonth}
-                </span>
-                <span className="text-gray-500">/month</span>
+              {/* Price Section */}
+              <div className="border-t border-gray-200 pt-6">
+                <div className="flex items-end gap-3">
+                  <span className="line-through text-gray-400 text-lg">
+                    ${destination.avgLivingCost}
+                  </span>
+                  <span className="text-sky-600 font-bold text-3xl">
+                    ${destination.pricePerMonth}
+                  </span>
+                  <span className="text-gray-500 mb-[2px]">/month</span>
+                </div>
               </div>
 
-              {/* Quick Info */}
-              <div className="flex flex-wrap gap-4 mb-6 text-gray-700">
-                <div className="flex items-center gap-2">
-                  <FaClock /> <span>{destination.climate.seasonBest}</span>
+              {/* Info Cards (Best Season / Seats / Region) */}
+              <div className="flex flex-wrap gap-3 border-t border-gray-200 pt-6">
+                <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-lg flex-1 min-w-[150px]">
+                  <FaClock className="text-cyan-600 text-lg" />
+                  <div>
+                    <p className="text-gray-500 text-sm">Best Season</p>
+                    <p className="font-semibold">{destination.climate.seasonBest}</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaUser /> <span>{destination.totalSeat} Seats</span>
+
+                <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-lg flex-1 min-w-[150px]">
+                  <FaUser className="text-cyan-600 text-lg" />
+                  <div>
+                    <p className="text-gray-500 text-sm">Available</p>
+                    <p className="font-semibold">{destination.totalSeat} Seats</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaMapMarkerAlt /> <span>{destination.continent}</span>
+
+                <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-lg flex-1 min-w-[150px]">
+                  <FaMapMarkerAlt className="text-cyan-600 text-lg" />
+                  <div>
+                    <p className="text-gray-500 text-sm">Region</p>
+                    <p className="font-semibold">{destination.continent}</p>
+                  </div>
                 </div>
               </div>
 
               {/* Amenities */}
-              <h3 className="text-lg font-semibold mb-3">Amenities</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-gray-700 mb-6">
-                {destination.amenities.wifi && (
-                  <p className="flex items-center gap-2">
-                    <FaWifi /> Free WiFi
-                  </p>
-                )}
-                {destination.amenities.kitchen && (
-                  <p className="flex items-center gap-2">
-                    <FaUtensils /> Kitchen
-                  </p>
-                )}
-                {destination.amenities.ac && (
-                  <p className="flex items-center gap-2">
-                    <FaSnowflake /> Air Conditioning
-                  </p>
-                )}
-                {destination.amenities.workspace && (
-                  <p className="flex items-center gap-2">
-                    <FaLaptop /> Workspace
-                  </p>
-                )}
+              <div className="border-t border-gray-200 pt-6">
+                <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
+                  <span className="text-cyan-700">★</span> Amenities
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {destination.amenities.wifi && (
+                    <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-700 bg-white">
+                      <FaWifi className="text-cyan-600" /> Free WiFi
+                    </div>
+                  )}
+                  {destination.amenities.kitchen && (
+                    <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-700 bg-white">
+                      <FaUtensils className="text-cyan-600" /> Kitchen
+                    </div>
+                  )}
+                  {destination.amenities.ac && (
+                    <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-700 bg-white">
+                      <FaSnowflake className="text-cyan-600" /> AC
+                    </div>
+                  )}
+                  {destination.amenities.workspace && (
+                    <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-700 bg-white">
+                      <FaLaptop className="text-cyan-600" /> Workspace
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Climate & Visa Info */}
-              <h3 className="text-lg font-semibold mb-3">
-                Climate & Visa Information
-              </h3>
-              <ul className="list-disc list-inside text-gray-600 mb-6">
-                <li>Temperature: {destination.climate.temperature}°C</li>
-                <li>Humidity: {destination.climate.humidity}%</li>
-                <li>
-                  Visa: {destination.visaInfo.visaType} (
-                  {destination.visaInfo.visaDuration})
-                </li>
-              </ul>
+              <div className="border-t border-gray-200 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Climate */}
+                <div>
+                  <h3 className="text-lg font-semibold flex items-center gap-2 mb-3">
+                    <FaTemperatureHigh className="text-cyan-600 text-xl" />
+                    Climate
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-white rounded-lg px-4 py-3">
+                      <p className="text-gray-500 text-sm">Temperature</p>
+                      <p className="font-semibold">{destination.climate.temperature}°C</p>
+                    </div>
+                    <div className="bg-white rounded-lg px-4 py-3">
+                      <p className="text-gray-500 text-sm">Humidity</p>
+                      <p className="font-semibold">{destination.climate.humidity}%</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Visa Info */}
+                <div>
+                  <h3 className="text-lg font-semibold flex items-center gap-2 mb-3">
+                    <FaPassport className="text-cyan-600 text-xl" />
+                    Visa Information
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-white rounded-lg px-4 py-3">
+                      <p className="text-gray-500 text-sm">Type</p>
+                      <p className="font-semibold">{destination.visaInfo.visaType}</p>
+                    </div>
+                    <div className="bg-white rounded-lg px-4 py-3">
+                      <p className="text-gray-500 text-sm">Duration</p>
+                      <p className="font-semibold">{destination.visaInfo.visaDuration}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
-          {/* 🗺️ Location Tab */}
+
+          {/* Location Tab */}
           {activeTab === "location" && (
             <div className="mb-6 overflow-hidden">
               <DestinationMap
@@ -238,7 +307,7 @@ const DestinationDetailsPage = () => {
             </div>
           )}
 
-          {/* 💬 Reviews Tab */}
+          {/* Reviews Tab */}
           {activeTab === "reviews" && (
             <div>
               {/* Review List */}
@@ -252,7 +321,7 @@ const DestinationDetailsPage = () => {
                 {comments.map((c) => (
                   <div
                     key={c._id}
-                    className="flex gap-3 border-b pb-2 items-start"
+                    className="flex gap-3 border-b border-gray-400 pb-2 items-start"
                   >
                     <img
                       src={c.user.avatar}
@@ -273,13 +342,13 @@ const DestinationDetailsPage = () => {
               {/* Add New Review Form */}
               <form
                 onSubmit={handleCommentSubmit}
-                className="space-y-3 mt-6 border-t pt-4"
+                className="space-y-3 mt-6 border-t border-gray-400 pt-4"
               >
                 <textarea
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Add your comment..."
-                  className="w-full p-2 border rounded resize-none focus:ring focus:ring-blue-200"
+                  className="w-full p-2 border border-gray-400 rounded resize-none outline-none focus:ring-1 focus:ring-cyan-400"
                   rows={3}
                 />
                 <button
@@ -294,8 +363,10 @@ const DestinationDetailsPage = () => {
         </div>
 
         {/* RIGHT COLUMN - Booking Form */}
-        
-        <BookingForm singleDestination={singleDestination}></BookingForm>
+        <div className="flex justify-center md:justify-start lg:justify-center">
+          <BookingForm singleDestination={singleDestination} userInfo={userInfo}></BookingForm>
+        </div>
+
       </div>
     </section>
   );

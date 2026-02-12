@@ -10,21 +10,11 @@ import {
 } from "lucide-react";
 
 const resourceTypes = [
-  { value: "job", label: "Job Platform", icon: Briefcase, color: "green" },
-  { value: "visa", label: "Visa Resource", icon: Globe, color: "indigo" },
-  {
-    value: "productivity",
-    label: "Productivity Tool",
-    icon: Zap,
-    color: "purple",
-  },
-  { value: "community", label: "Community", icon: Users, color: "blue" },
-  {
-    value: "internalTool",
-    label: "Internal Tool",
-    icon: Wrench,
-    color: "orange",
-  },
+  { value: "job", label: "Job Platform", icon: Briefcase },
+  { value: "visa", label: "Visa Resource", icon: Globe },
+  { value: "productivity", label: "Productivity Tool", icon: Zap },
+  { value: "community", label: "Community", icon: Users },
+  { value: "internalTool", label: "Internal Tool", icon: Wrench },
 ];
 
 const AddResource = () => {
@@ -53,7 +43,7 @@ const AddResource = () => {
     setSuccess(false);
 
     try {
-      const res = await fetch("http://localhost:5000/resources", {
+      const res = await fetch(`${import.meta.env.VITE_API}/resources`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -78,11 +68,11 @@ const AddResource = () => {
   const selectedResource = resourceTypes.find((rt) => rt.value === type);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12 px-4">
+    <div className="min-h-screen rounded-lg bg-gradient-to-br from-[#11c3c0]/10 via-blue-50 to-[#11c3c0]/10 p-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#11c3c0] rounded-2xl mb-4 border-2 border-[#0fa6a4]">
             <Wrench className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
@@ -95,11 +85,11 @@ const AddResource = () => {
 
         {/* Success Message */}
         {success && (
-          <div className="mb-6 bg-green-50 border-l-4 border-green-500 rounded-xl p-4 flex items-center gap-3 animate-fade-in">
-            <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0" />
+          <div className="mb-6 bg-[#ecfdfd] border-l-4 hover:border-[#11c3c0] rounded-xl p-4 flex items-center gap-3 animate-fade-in border border-[#b1e6e5]">
+            <CheckCircle className="w-6 h-6 text-[#11c3c0] flex-shrink-0" />
             <div>
-              <p className="font-semibold text-green-800">Success!</p>
-              <p className="text-green-700 text-sm">
+              <p className="font-semibold text-[#0d8c8a]">Success!</p>
+              <p className="text-[#0d8c8a] text-sm">
                 Resource added successfully
               </p>
             </div>
@@ -108,7 +98,7 @@ const AddResource = () => {
 
         {/* Error Message */}
         {error && (
-          <div className="mb-6 bg-red-50 border-l-4 border-red-500 rounded-xl p-4 flex items-center gap-3">
+          <div className="mb-6 bg-red-50 border-l-4 hover:border-red-500 rounded-xl p-4 flex items-center gap-3 border border-red-200">
             <AlertCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
             <div>
               <p className="font-semibold text-red-800">Error</p>
@@ -118,9 +108,9 @@ const AddResource = () => {
         )}
 
         {/* Main Card */}
-        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden">
+        <div className="bg-white rounded-3xl overflow-hidden border-2 border-[#d1f5f4]">
           {/* Type Selection */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white">
+          <div className="bg-[#11c3c0] p-8 text-white">
             <h2 className="text-2xl font-bold mb-4">Select Resource Type</h2>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {resourceTypes.map((rt) => {
@@ -130,11 +120,10 @@ const AddResource = () => {
                   <button
                     key={rt.value}
                     onClick={() => handleTypeChange(rt.value)}
-                    className={`p-4 rounded-xl transition-all duration-200 flex flex-col items-center gap-2 cursor-pointer ${
-                      isSelected
-                        ? "bg-white text-blue-600 shadow-lg scale-105"
-                        : "bg-white/10 hover:bg-white/20 backdrop-blur"
-                    }`}
+                    className={`p-4 rounded-xl transition-all duration-200 flex flex-col items-center gap-2 cursor-pointer border-2 ${isSelected
+                        ? "bg-white text-[#11c3c0] border-[#0fa6a4] scale-105"
+                        : "bg-white/10 hover:bg-white/20 backdrop-blur border-transparent hover:border-white/30"
+                      }`}
                   >
                     <Icon className="w-6 h-6" />
                     <span className="text-sm font-medium text-center">
@@ -151,12 +140,10 @@ const AddResource = () => {
             <form onSubmit={handleSubmit} className="p-8 space-y-6">
               {/* Resource Type Header */}
               {selectedResource && (
-                <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-${selectedResource.color}-100 flex items-center justify-center`}
-                  >
+                <div className="flex items-center gap-3 pb-4 border-b border-[#e0f2f2]">
+                  <div className="w-12 h-12 rounded-xl bg-[#ecfdfd] flex items-center justify-center border border-[#d1f5f4]">
                     {React.createElement(selectedResource.icon, {
-                      className: `w-6 h-6 text-${selectedResource.color}-600`,
+                      className: "w-6 h-6 text-[#11c3c0]",
                     })}
                   </div>
                   <div>
@@ -201,8 +188,8 @@ const AddResource = () => {
 
               {/* Conditional Fields Based on Type */}
               {type === "job" && (
-                <div className="bg-green-50 rounded-2xl p-6 space-y-4 border border-green-200">
-                  <h4 className="font-semibold text-green-800 flex items-center gap-2">
+                <div className="bg-[#f7fdfd] rounded-2xl p-6 space-y-4 border-2 border-[#d1f5f4]">
+                  <h4 className="font-semibold text-[#0d8c8a] flex items-center gap-2">
                     <Briefcase className="w-5 h-5" />
                     Job Platform Details
                   </h4>
@@ -217,8 +204,8 @@ const AddResource = () => {
               )}
 
               {type === "visa" && (
-                <div className="bg-indigo-50 rounded-2xl p-6 space-y-4 border border-indigo-200">
-                  <h4 className="font-semibold text-indigo-800 flex items-center gap-2">
+                <div className="bg-[#f7fdfd] rounded-2xl p-6 space-y-4 border-2 border-[#d1f5f4]">
+                  <h4 className="font-semibold text-[#0d8c8a] flex items-center gap-2">
                     <Globe className="w-5 h-5" />
                     Visa Information
                   </h4>
@@ -263,8 +250,8 @@ const AddResource = () => {
               )}
 
               {type === "productivity" && (
-                <div className="bg-purple-50 rounded-2xl p-6 space-y-4 border border-purple-200">
-                  <h4 className="font-semibold text-purple-800 flex items-center gap-2">
+                <div className="bg-[#f7fdfd] rounded-2xl p-6 space-y-4 border-2 border-[#d1f5f4]">
+                  <h4 className="font-semibold text-[#0d8c8a] flex items-center gap-2">
                     <Zap className="w-5 h-5" />
                     Tool Details
                   </h4>
@@ -279,8 +266,8 @@ const AddResource = () => {
               )}
 
               {type === "community" && (
-                <div className="bg-blue-50 rounded-2xl p-6 space-y-4 border border-blue-200">
-                  <h4 className="font-semibold text-blue-800 flex items-center gap-2">
+                <div className="bg-[#f7fdfd] rounded-2xl p-6 space-y-4 border-2 border-[#d1f5f4]">
+                  <h4 className="font-semibold text-[#0d8c8a] flex items-center gap-2">
                     <Users className="w-5 h-5" />
                     Community Details
                   </h4>
@@ -304,8 +291,8 @@ const AddResource = () => {
               )}
 
               {type === "internalTool" && (
-                <div className="bg-orange-50 rounded-2xl p-6 space-y-4 border border-orange-200">
-                  <h4 className="font-semibold text-orange-800 flex items-center gap-2">
+                <div className="bg-[#f7fdfd] rounded-2xl p-6 space-y-4 border-2 border-[#d1f5f4]">
+                  <h4 className="font-semibold text-[#0d8c8a] flex items-center gap-2">
                     <Wrench className="w-5 h-5" />
                     Internal Tool Settings
                   </h4>
@@ -320,11 +307,11 @@ const AddResource = () => {
               )}
 
               {/* Submit Button */}
-              <div className="pt-6 border-t border-gray-200">
+              <div className="pt-6 border-t border-[#e0f2f2]">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full bg-[#11c3c0] text-white py-4 rounded-xl font-semibold text-lg border-2 border-[#0fa6a4] hover:bg-[#0fa6a4] hover:border-[#0d8c8a] transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {loading ? (
                     <>
@@ -345,8 +332,8 @@ const AddResource = () => {
           {/* Empty State */}
           {!type && (
             <div className="p-12 text-center">
-              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wrench className="w-10 h-10 text-gray-400" />
+              <div className="w-20 h-20 bg-[#ecfdfd] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#d1f5f4]">
+                <Wrench className="w-10 h-10 text-[#11c3c0]" />
               </div>
               <p className="text-gray-500 text-lg">
                 Select a resource type above to get started
@@ -376,7 +363,7 @@ const Input = ({ label, name, placeholder, formData, onChange, required }) => (
       onChange={onChange}
       placeholder={placeholder}
       required={required}
-      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all duration-200"
+      className="w-full px-4 py-3 border-2 border-[#d1f5f4] rounded-xl focus:border-[#11c3c0] focus:ring-4 focus:ring-[#ecfdfd] outline-none transition-all duration-200"
     />
   </div>
 );
@@ -401,7 +388,7 @@ const TextArea = ({
       placeholder={placeholder}
       required={required}
       rows="4"
-      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all duration-200 resize-none"
+      className="w-full px-4 py-3 border-2 border-[#d1f5f4] rounded-xl focus:border-[#11c3c0] focus:ring-4 focus:ring-[#ecfdfd] outline-none transition-all duration-200 resize-none"
     ></textarea>
   </div>
 );
